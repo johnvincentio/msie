@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE faces-config PUBLIC
+"-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+"http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+
+<faces-config>
+   <navigation-rule>
+      <from-view-id>/index.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>washington</from-outcome>
+         <to-view-id>/washington.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>jefferson</from-outcome>
+         <to-view-id>/jefferson.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>roosevelt</from-outcome>
+         <to-view-id>/roosevelt.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>lincoln</from-outcome>
+         <to-view-id>/lincoln.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+
+   <managed-bean> 
+      <managed-bean-name>rushmore</managed-bean-name>
+      <managed-bean-class>com.corejsf.Rushmore</managed-bean-class> 
+      <managed-bean-scope>session</managed-bean-scope> 
+   </managed-bean>
+
+</faces-config>

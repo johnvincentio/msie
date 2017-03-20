@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+<!--
+Automatically created by Tomcat JspC.
+-->
+<web-app>
+
+
+    <servlet>
+        <servlet-name>org.apache.jsp.polarBears_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.polarBears_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.blackBears_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.blackBears_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.teddyBears_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.teddyBears_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.index_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.index_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.grizzlyBears_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.grizzlyBears_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pandaBears_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pandaBears_jsp</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.polarBears_jsp</servlet-name>
+        <url-pattern>/polarBears.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.blackBears_jsp</servlet-name>
+        <url-pattern>/blackBears.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.teddyBears_jsp</servlet-name>
+        <url-pattern>/teddyBears.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.index_jsp</servlet-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.grizzlyBears_jsp</servlet-name>
+        <url-pattern>/grizzlyBears.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pandaBears_jsp</servlet-name>
+        <url-pattern>/pandaBears.jsp</url-pattern>
+    </servlet-mapping>
+
+</web-app>
+

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+
+<faces-config>
+   <render-kit>
+      <renderer>
+         <component-family>javax.faces.Input</component-family>
+         <renderer-type>com.corejsf.j2me.Text</renderer-type>
+         <renderer-class>com.corejsf.j2me.TextRenderer</renderer-class>
+      </renderer>
+      <renderer>
+         <component-family>javax.faces.Output</component-family>
+         <renderer-type>com.corejsf.j2me.Text</renderer-type>
+         <renderer-class>com.corejsf.j2me.TextRenderer</renderer-class>
+      </renderer>
+      <renderer>
+         <component-family>javax.faces.Form</component-family>
+         <renderer-type>com.corejsf.j2me.Form</renderer-type>
+         <renderer-class>com.corejsf.j2me.FormRenderer</renderer-class>
+      </renderer>
+      <renderer>
+         <component-family>javax.faces.SelectOne</component-family>
+         <renderer-type>com.corejsf.j2me.Choice</renderer-type>
+         <renderer-class>com.corejsf.j2me.ChoiceRenderer</renderer-class>
+      </renderer>
+      <renderer>
+         <component-family>javax.faces.Command</component-family>
+         <renderer-type>com.corejsf.j2me.Command</renderer-type>
+         <renderer-class>com.corejsf.j2me.CommandRenderer</renderer-class>
+      </renderer>
+   </render-kit>
+</faces-config>

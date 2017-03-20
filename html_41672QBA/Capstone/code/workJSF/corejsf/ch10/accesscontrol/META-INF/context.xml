@@ -1,0 +1,12 @@
+<Context path="/accesscontrol" docbase="webapps/accesscontrol.war">
+<Realm className="org.apache.catalina.realm.JNDIRealm"     
+   debug="99"
+   connectionURL="ldap://localhost:389"
+   connectionName="cn=Manager,dc=corejsf,dc=com"
+   connectionPassword="secret"
+   userPattern="uid={0},ou=people,dc=corejsf,dc=com"
+   userPassword="userPassword"
+   roleBase="ou=groups,dc=corejsf,dc=com"
+   roleName="cn"
+   roleSearch="(uniqueMember={0})"/>
+</Context>

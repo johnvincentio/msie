@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+<!--
+Automatically created by Tomcat JspC.
+-->
+<web-app>
+
+
+    <servlet>
+        <servlet-name>org.apache.jsp.index_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.index_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.templates.TabsBody_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.templates.TabsBody_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.templates.MainMenu_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.templates.MainMenu_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.templates.MainBody_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.templates.MainBody_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.templates.Main_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.templates.Main_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.Fatal_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.Fatal_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.Welcome_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.Welcome_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.Error_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.Error_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.ViewLogout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.ViewLogout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.Parameters_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.Parameters_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Barcodes_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Barcodes_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Shipments_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Shipments_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Contracts_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Contracts_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Picture_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Picture_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Products_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Products_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.News_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.News_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Alerts_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Alerts_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.ConstructionBody_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.ConstructionBody_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.SendCollection_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.SendCollection_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Features_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Features_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Footer_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Footer_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.LogonBody_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.LogonBody_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Comments_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Comments_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Header_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Header_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Characteristics_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Characteristics_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Welcome_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Welcome_jsp</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.index_jsp</servlet-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.templates.TabsBody_jsp</servlet-name>
+        <url-pattern>/templates/TabsBody.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.templates.MainMenu_jsp</servlet-name>
+        <url-pattern>/templates/MainMenu.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.templates.MainBody_jsp</servlet-name>
+        <url-pattern>/templates/MainBody.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.templates.Main_jsp</servlet-name>
+        <url-pattern>/templates/Main.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.Fatal_jsp</servlet-name>
+        <url-pattern>/pages/Fatal.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.Welcome_jsp</servlet-name>
+        <url-pattern>/pages/Welcome.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.Error_jsp</servlet-name>
+        <url-pattern>/pages/Error.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.ViewLogout_jsp</servlet-name>
+        <url-pattern>/pages/ViewLogout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.Parameters_jsp</servlet-name>
+        <url-pattern>/pages/Parameters.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Barcodes_jsp</servlet-name>
+        <url-pattern>/pages/includes/Barcodes.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Shipments_jsp</servlet-name>
+        <url-pattern>/pages/includes/Shipments.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Contracts_jsp</servlet-name>
+        <url-pattern>/pages/includes/Contracts.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Picture_jsp</servlet-name>
+        <url-pattern>/pages/includes/Picture.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Products_jsp</servlet-name>
+        <url-pattern>/pages/includes/Products.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.News_jsp</servlet-name>
+        <url-pattern>/pages/includes/News.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Alerts_jsp</servlet-name>
+        <url-pattern>/pages/includes/Alerts.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.ConstructionBody_jsp</servlet-name>
+        <url-pattern>/pages/includes/ConstructionBody.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.SendCollection_jsp</servlet-name>
+        <url-pattern>/pages/includes/SendCollection.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Features_jsp</servlet-name>
+        <url-pattern>/pages/includes/Features.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Footer_jsp</servlet-name>
+        <url-pattern>/pages/includes/Footer.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.LogonBody_jsp</servlet-name>
+        <url-pattern>/pages/includes/LogonBody.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Comments_jsp</servlet-name>
+        <url-pattern>/pages/includes/Comments.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Header_jsp</servlet-name>
+        <url-pattern>/pages/includes/Header.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Characteristics_jsp</servlet-name>
+        <url-pattern>/pages/includes/Characteristics.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Welcome_jsp</servlet-name>
+        <url-pattern>/pages/includes/Welcome.jsp</url-pattern>
+    </servlet-mapping>
+
+</web-app>
+

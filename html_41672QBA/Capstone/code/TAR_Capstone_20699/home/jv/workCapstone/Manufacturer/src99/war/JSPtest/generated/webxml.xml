@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+<!--
+Automatically created by Tomcat JspC.
+-->
+<web-app>
+
+
+    <servlet>
+        <servlet-name>org.apache.jsp.index_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.index_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.Main_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.Main_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.Catalogs_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.Catalogs_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.ViewCatalogs_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.ViewCatalogs_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.ViewHome_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.ViewHome_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.Cart_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.Cart_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.ViewCart_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.ViewCart_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.Construction_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.Construction_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.Fatal_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.Fatal_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.EJBTest1_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.EJBTest1_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.Register_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.Register_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.CatalogItems_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.CatalogItems_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.Parameters_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.Parameters_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.CartUpdate_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.CartUpdate_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.Logon_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.Logon_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.Tabs_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.Tabs_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.ViewLogout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.ViewLogout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.Checkout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.Checkout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.ViewCheckout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.ViewCheckout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.Error_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.Error_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.Welcome_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.Welcome_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.MainBody_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.MainBody_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Features_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Features_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Picture_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Picture_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.MainMenu_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.MainMenu_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Welcome_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Welcome_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Footer_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Footer_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Header_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Header_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.TabsBody_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.TabsBody_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.News_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.News_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.Comments_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.Comments_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.ConstructionBody_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.ConstructionBody_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.includes.ConstructionMenu_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.includes.ConstructionMenu_jsp</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.index_jsp</servlet-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.Main_jsp</servlet-name>
+        <url-pattern>/pages/Main.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.Catalogs_jsp</servlet-name>
+        <url-pattern>/pages/Catalogs.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.ViewCatalogs_jsp</servlet-name>
+        <url-pattern>/pages/ViewCatalogs.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.ViewHome_jsp</servlet-name>
+        <url-pattern>/pages/ViewHome.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.Cart_jsp</servlet-name>
+        <url-pattern>/pages/Cart.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.ViewCart_jsp</servlet-name>
+        <url-pattern>/pages/ViewCart.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.Construction_jsp</servlet-name>
+        <url-pattern>/pages/Construction.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.Fatal_jsp</servlet-name>
+        <url-pattern>/pages/Fatal.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.EJBTest1_jsp</servlet-name>
+        <url-pattern>/pages/EJBTest1.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.Register_jsp</servlet-name>
+        <url-pattern>/pages/Register.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.CatalogItems_jsp</servlet-name>
+        <url-pattern>/pages/CatalogItems.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.Parameters_jsp</servlet-name>
+        <url-pattern>/pages/Parameters.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.CartUpdate_jsp</servlet-name>
+        <url-pattern>/pages/CartUpdate.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.Logon_jsp</servlet-name>
+        <url-pattern>/pages/Logon.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.Tabs_jsp</servlet-name>
+        <url-pattern>/pages/Tabs.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.ViewLogout_jsp</servlet-name>
+        <url-pattern>/pages/ViewLogout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.Checkout_jsp</servlet-name>
+        <url-pattern>/pages/Checkout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.ViewCheckout_jsp</servlet-name>
+        <url-pattern>/pages/ViewCheckout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.Error_jsp</servlet-name>
+        <url-pattern>/pages/Error.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.Welcome_jsp</servlet-name>
+        <url-pattern>/pages/Welcome.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.MainBody_jsp</servlet-name>
+        <url-pattern>/pages/includes/MainBody.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Features_jsp</servlet-name>
+        <url-pattern>/pages/includes/Features.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Picture_jsp</servlet-name>
+        <url-pattern>/pages/includes/Picture.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.MainMenu_jsp</servlet-name>
+        <url-pattern>/pages/includes/MainMenu.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Welcome_jsp</servlet-name>
+        <url-pattern>/pages/includes/Welcome.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Footer_jsp</servlet-name>
+        <url-pattern>/pages/includes/Footer.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Header_jsp</servlet-name>
+        <url-pattern>/pages/includes/Header.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.TabsBody_jsp</servlet-name>
+        <url-pattern>/pages/includes/TabsBody.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.News_jsp</servlet-name>
+        <url-pattern>/pages/includes/News.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.Comments_jsp</servlet-name>
+        <url-pattern>/pages/includes/Comments.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.ConstructionBody_jsp</servlet-name>
+        <url-pattern>/pages/includes/ConstructionBody.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.includes.ConstructionMenu_jsp</servlet-name>
+        <url-pattern>/pages/includes/ConstructionMenu.jsp</url-pattern>
+    </servlet-mapping>
+
+</web-app>
+

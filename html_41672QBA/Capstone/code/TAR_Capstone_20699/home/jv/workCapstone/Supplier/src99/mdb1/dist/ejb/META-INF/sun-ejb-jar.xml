@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sun-ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Application Server 8.0 EJB 2.1//EN" "http://www.sun.com/software/appserver/dtds/sun-ejb-jar_2_1-0.dtd">
+
+<sun-ejb-jar>
+
+	<enterprise-beans>
+
+		<name>SupplierMDB1</name>
+		<unique-id>796583505</unique-id>
+
+		<ejb>
+			<ejb-name>SupplierMdb1Bean</ejb-name>
+			<jndi-name>jms/SupplierMdb1Queue</jndi-name>
+			<ejb-ref>
+				<ejb-ref-name>ejb/TheSupplierBean</ejb-ref-name>
+				<jndi-name>SupplierBean</jndi-name>
+			</ejb-ref>
+			<mdb-connection-factory>
+				<jndi-name>jms/SupplierMdb1QueueConnectionFactory</jndi-name>
+			</mdb-connection-factory>
+		</ejb>
+
+		<message-destination>
+			<message-destination-name>SupplierMdb1PhysicalQueue</message-destination-name>
+			<jndi-name>jms/SupplierMdb1Queue</jndi-name>
+		</message-destination>
+
+	</enterprise-beans>
+
+</sun-ejb-jar>
+
+<!--
+
+<sun-ejb-jar>
+
+	<enterprise-beans>
+
+		<name>SupplierMDB1</name>
+		<unique-id>796583505</unique-id>
+		<ejb>
+			<ejb-name>SupplierMdb1Bean</ejb-name>
+			<jndi-name>jms/SupplierMdb1Queue</jndi-name>
+			<mdb-connection-factory>
+				<jndi-name>jms/SupplierMdb1QueueConnectionFactory</jndi-name>
+			</mdb-connection-factory>
+		</ejb>
+
+		<message-destination>
+			<message-destination-name>SupplierMdb1PhysicalQueue</message-destination-name>
+			<jndi-name>jms/SupplierMdb1Queue</jndi-name>
+		</message-destination>
+
+	</enterprise-beans>
+
+</sun-ejb-jar>
+
+-->
+

@@ -1,0 +1,19 @@
+Manifest-Version: 1.1
+Class-Path: 
+
+Name: META-INF/ejb-jar.xml
+
+Name: META-INF/sun-ejb-jar.xml
+
+Name: helloservice/HelloIF.class
+
+Name: build/mapping.xml
+
+Name: META-INF/wsdl/MyHelloService.wsdl
+
+Name: META-INF/sun-j2ee-ri.project
+
+Name: helloservice/HelloServiceBean.class
+
+Name: META-INF/webservices.xml
+

@@ -1,0 +1,195 @@
+Manifest-Version: 1.1
+Class-Path: 
+
+Name: WEB-INF/classes/jvapp/JVDataAccess.class
+
+Name: pages/includes/ConstructionBody.jsp
+
+Name: pages/includes/Picture.jsp
+
+Name: WEB-INF/classes/jvapp/JVCart.class
+
+Name: pages/images/struts.gif
+
+Name: WEB-INF/lib/commons-validator.jar
+
+Name: WEB-INF/classes/jvapp/SendMail.class
+
+Name: WEB-INF/lib/commons-beanutils.jar
+
+Name: WEB-INF/classes/jvapp/JVAttributes.class
+
+Name: WEB-INF/lib/commons-collections.jar
+
+Name: WEB-INF/classes/jvapp/CatalogForm.class
+
+Name: WEB-INF/struts-html.tld
+
+Name: classes/resources/application.properties
+
+Name: sun-web.xml
+
+Name: WEB-INF/classes/jvapp/JVSetup.class
+
+Name: WEB-INF/lib/jakarta-oro.jar
+
+Name: WEB-INF/classes/jvapp/LogonForm.class
+
+Name: pages/Construction.jsp
+
+Name: pages/Register.jsp
+
+Name: WEB-INF/classes/jvapp/UserInfo.class
+
+Name: pages/Checkout.jsp
+
+Name: WEB-INF/struts-nested.tld
+
+Name: WEB-INF/classes/jvapp/RegisterAction.class
+
+Name: WEB-INF/sun-j2ee-ri.project
+
+Name: WEB-INF/classes/jvapp/LogoffAction.class
+
+Name: pages/Fatal.jsp
+
+Name: pages/images/construction.gif
+
+Name: WEB-INF/classes/jvapp/JVTabs.class
+
+Name: WEB-INF/lib/struts.jar
+
+Name: pages/includes/Welcome.jsp
+
+Name: pages/Catalogs.jsp
+
+Name: WEB-INF/classes/jvapp/TabAction.class
+
+Name: WEB-INF/classes/jvapp/SB1Action.class
+
+Name: WEB-INF/classes/jvapp/JVCatalogItem.class
+
+Name: WEB-INF/classes/jvapp/CartUpdateForm.class
+
+Name: WEB-INF/classes/jvapp/CatalogItemAction.class
+
+Name: pages/includes/News.jsp
+
+Name: pages/Main.jsp
+
+Name: pages/includes/MainBody.jsp
+
+Name: pages/CatalogItems.jsp
+
+Name: pages/Welcome.jsp
+
+Name: WEB-INF/lib/commons-digester.jar
+
+Name: pages/Logon.jsp
+
+Name: WEB-INF/lib/commons-lang.jar
+
+Name: pages/includes/Header.jsp
+
+Name: WEB-INF/classes/jvapp/CatalogAction.class
+
+Name: WEB-INF/struts-bean.tld
+
+Name: WEB-INF/classes/jvapp/JVCatalog.class
+
+Name: pages/Parameters.jsp
+
+Name: pages/Error.jsp
+
+Name: WEB-INF/classes/jvapp/Debug.class
+
+Name: pages/includes/TabsBody.jsp
+
+Name: WEB-INF/classes/jvapp/JVCatalogNames.class
+
+Name: WEB-INF/classes/jvapp/LogonAction.class
+
+Name: WEB-INF/struts-template.tld
+
+Name: pages/Tabs.jsp
+
+Name: WEB-INF/classes/jvapp/JVItem.class
+
+Name: WEB-INF/classes/jvapp/JVTabsItems.class
+
+Name: pages/images/jakarta-logo.gif
+
+Name: WEB-INF/classes/jvapp/JVParameters.class
+
+Name: WEB-INF/struts-logic.tld
+
+Name: pages/images/jv.jpg
+
+Name: WEB-INF/classes/jvapp/Constants.class
+
+Name: pages/images/crystals.jpg
+
+Name: pages/ViewHome.jsp
+
+Name: WEB-INF/classes/jvapp/CatalogItemForm.class
+
+Name: WEB-INF/classes/jvapp/CartUpdateAction.class
+
+Name: WEB-INF/classes/jvapp/SendMail$MyAuthenticator.class
+
+Name: WEB-INF/classes/jvapp/CartAction.class
+
+Name: pages/includes/Comments.jsp
+
+Name: WEB-INF/classes/jvapp/CatalogsAction.class
+
+Name: pages/includes/ConstructionMenu.jsp
+
+Name: pages/images/struts-power.gif
+
+Name: pages/ViewLogout.jsp
+
+Name: struts-config.xml
+
+Name: pages/includes/MainMenu.jsp
+
+Name: WEB-INF/classes/jvapp/CartForm.class
+
+Name: WEB-INF/struts-tiles.tld
+
+Name: pages/includes/Footer.jsp
+
+Name: index.jsp
+
+Name: WEB-INF/lib/commons-logging.jar
+
+Name: pages/Cart.jsp
+
+Name: pages/includes/Features.jsp
+
+Name: WEB-INF/classes/jvapp/JVCatalogName.class
+
+Name: pages/ViewCatalogs.jsp
+
+Name: WEB-INF/classes/jvapp/RegisterForm.class
+
+Name: WEB-INF/classes/jvapp/SB1Test.class
+
+Name: pages/ViewCart.jsp
+
+Name: pages/ViewCheckout.jsp
+
+Name: pages/CartUpdate.jsp
+
+Name: pages/images/saturn.jpg
+
+Name: WEB-INF/classes/jvapp/CatalogsForm.class
+
+Name: classes/resources/.application.properties.swp
+
+Name: WEB-INF/lib/commons-fileupload.jar
+
+Name: web.xml
+
+Name: WEB-INF/classes/jvapp/JVListener.class
+

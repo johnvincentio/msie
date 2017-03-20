@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application-client xmlns="http://java.sun.com/xml/ns/j2ee" version="1.4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application-client_1_4.xsd">
+<display-name>HelloClient</display-name>
+<service-ref>
+<service-ref-name>service/MyJAXRPCHello</service-ref-name>
+<service-interface>appclient.MyHelloService</service-interface>
+<wsdl-file>META-INF/wsdl/MyHelloService.wsdl</wsdl-file>
+<jaxrpc-mapping-file>build/mapping.xml</jaxrpc-mapping-file>
+<service-qname xmlns:service-qname_ns__="urn:Foo">service-qname_ns__:MyHelloService</service-qname>
+</service-ref>
+</application-client>

@@ -1,0 +1,36 @@
+#!/bin/sh
+#
+#  show file in my web browser
+#
+JVFILE=$1
+#
+# check the files
+#
+if [ -z "$JVFILE" ]; then
+	echo "Usage: jvweb file.html"
+	exit 1
+fi
+if [ ! -f "$JVFILE" ]; then
+	echo "Usage: jvweb file.html"
+	exit 1
+fi
+#
+#  build full pathname
+#
+TMPA=`echo $JVFILE | sed "s:/::"`	# look for a pathname
+if [ "${TMPA}" = "${JVFILE}" ]; then
+	FULLNAME="file://`pwd`/$JVFILE"		# filename; apply a pathname
+else
+	FULLNAME="file://$JVFILE"			# got a pathname
+fi
+#
+# run the browser
+#
+#/usr/bin/mozilla file:///opt/SUNWappserver/docs/api/index.html
+echo " "
+echo "	Pathname of Browser File is: $FULLNAME"
+echo " "
+/usr/bin/mozilla $FULLNAME
+#
+#  all done
+#

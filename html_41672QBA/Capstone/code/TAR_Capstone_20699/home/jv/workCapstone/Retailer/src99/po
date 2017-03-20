@@ -1,0 +1,3 @@
+ant dist > x.x 2>&1
+gvim x.x
+

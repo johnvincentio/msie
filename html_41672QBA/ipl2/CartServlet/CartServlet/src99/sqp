@@ -1,0 +1,22 @@
+#
+#  help the sqlplus scripts
+#
+ORACLE_BASE=/home/oracle
+ORACLE_HOME=$ORACLE_BASE/product/9.2.0.1
+ORACLE_TERM=xterm
+ORACLE_SID=sid1
+ORAENV_ASK=NO
+export ORACLE_BASE ORACLE_HOME ORACLE_TERM ORACLE_SID ORAENV_ASK
+ORACLE_DOC=$ORACLE_HOME/doc
+export ORACLE_DOC
+#
+PATH=$ORACLE_HOME/bin:$PATH
+export PATH
+#
+LD_LIBRARY_PATH=$ORACLE_HOME/lib:/usr/lib:$ORACLE_HOME/jdbc/lib
+export LD_LIBRARY_PATH
+#
+echo "Run sqlplus"
+FILE=$1
+sqlplus jvapp1/redsky @$FILE
+

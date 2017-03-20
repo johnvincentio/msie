@@ -1,0 +1,6 @@
+
+w1 was used for the capstone project - acts as a client, allowed me to get the server working in the capstone, and then to work on the client.
+
+Also, once the client is woprking here, it was very easy to put the client code into the capstone Supplier WAR.
+
+

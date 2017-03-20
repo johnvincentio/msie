@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.0//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_0.dtd">
+
+<struts-config>
+
+  <form-beans>
+    <form-bean name="registerForm" type="app.RegisterForm"/>
+  </form-beans>
+ 
+    <global-forwards>
+        <forward
+            name="welcome"
+            path="/Welcome.do"/>
+    </global-forwards>
+
+  <action-mappings>
+        <action 
+            path="/Welcome"
+            type="org.apache.struts.actions.ForwardAction"
+			name="welcome"
+            parameter="/register/register.jsp"/>
+
+    <action    path="/register"
+               type="app.RegisterAction"
+               name="registerForm"
+               input="/register.jsp">
+      <forward name="success" path="/success.html"/>
+      <forward name="failure" path="/failure.html"/>
+    </action>
+  </action-mappings>
+</struts-config>
+

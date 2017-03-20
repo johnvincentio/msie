@@ -1,0 +1,65 @@
+<project default="build.jar">
+
+   <property file="build.properties"/> 
+   <property name="lib" value="corejsf-validator"/>
+   <property name="libdir" value="${basedir}"/>
+   <property name="build" value="${libdir}/build"/>
+   <property name="jarfile" value="${build}/${lib}.jar"/>
+   
+   <path id="classpath">
+      <pathelement location="${servlet.api.jar}"/>
+      <pathelement location="${jsp.api.jar}"/>
+      <pathelement location="${jsf.api.jar}"/>
+      <pathelement location="${commons-validator.jar}"/>
+   </path>
+   
+   <target name="init">
+      <tstamp/>
+      <fail unless="lib" message="Run ant -Dlib=..."/>
+   </target>
+
+   <target name="prepare" depends="init"
+      description="Create build directory.">
+      <mkdir dir="${build}"/>
+   </target>
+
+   <target name="copy" depends="prepare"
+      description="Copy files to build directory.">
+      <copy todir="${build}">
+         <fileset dir="${libdir}">
+            <exclude name="**/*.java"/>
+            <exclude name="build/**"/>
+            <exclude name="build.*"/>
+            <!-- for Eclipse -->
+            <exclude name="bin/**"/>
+            <exclude name=".*"/>
+         </fileset>
+      </copy>
+      <copy file="${commons-validator.jar}" todir="${build}/WEB-INF/lib"/>
+   </target>
+   
+   <target name="compile" depends="copy" 
+      description="Compile source files.">
+      <javac 
+         srcdir="${libdir}" 
+         destdir="${build}"
+         deprecation="true">
+         <include name="**/*.java"/>
+         <classpath refid="classpath"/>
+      </javac>
+   </target>
+   
+   <target name="build.jar" depends="compile"
+      description="Build JAR file.">
+      <delete file="${jarfile}"/>
+      <jar jarfile="${jarfile}" basedir="${build}"/>
+   </target>
+
+   <target name="clean" depends="init"
+      description="Delete build directory.">
+      <delete dir="${build}"/>
+      <!-- for Eclipse -->
+      <delete dir="${bin}"/>
+   </target>
+
+</project>

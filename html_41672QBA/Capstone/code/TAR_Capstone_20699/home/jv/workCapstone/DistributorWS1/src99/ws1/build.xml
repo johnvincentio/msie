@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+  <!ENTITY appServerAntCommands SYSTEM "../../../../workBuild/app-server-ant.xml">
+  <!ENTITY jvXMLValidateCommands SYSTEM "../../../../workBuild/xmlvalidate.xml">
+  <!ENTITY jvWsdlCommands SYSTEM "../../../../workBuild/jvWsdl.xml">
+  <!ENTITY jvJavaDocCommands SYSTEM "../../../../workBuild/javadoc.xml">
+]>
+
+<project name="DistributorWS1EAR" default="all" basedir=".">	<!-- set project name -->
+
+	<property name="wsdl.service.name" value="MyHelloService" /> <!-- set -->
+
+	<property name="build.dir"    value="${basedir}/build" />
+	<property name="build.ear.dir"    value="${basedir}/build/ear" />
+	<property name="build.ejb.dir"    value="${basedir}/build/ejb" />
+	<property name="build.wsdl.dir"    value="${basedir}/build/wsdl" />
+	<property name="build.wsdl.stubs.dir" value="${basedir}/build/wsdl/stubs"/>
+
+	<property name="dist.dir"     value="${basedir}/dist" />
+	<property name="dist.ear.dir" value="${basedir}/dist/ear" />
+	<property name="dist.ejb.dir" value="${basedir}/dist/ejb" />
+	<property name="dist.wsdl.dir" value="${basedir}/dist/wsdl" />
+
+	<property name="javadocs.dir" value="${basedir}/docs/api"/>
+
+	<property name="xml.validate.options"    value="-warning" />
+
+	&appServerAntCommands;
+	&jvXMLValidateCommands;
+	&jvWsdlCommands;
+	&jvJavaDocCommands;
+
+	<property name="app.name"   value="${ant.project.name}"/>
+	<property name="app.module" value="${dist.dir}/${ant.project.name}.ear"/>
+	<property name="ejb.jar.name" value="${dist.ejb.dir}/ejb-jar-ic.jar"/>
+	<property name="wsdl.jar.name" value="${dist.dir}/client.jar"/>
+
+<!-- deploy -->
+
+	<property name="app.deploy.options" value=""/>
+
+<!-- external jars -->
+
+	<property name="app.common.jar.name"
+		value="../../../Common1/src99/common/dist/jar-common.jar"/>
+	<property name="ejb3.ejb.jar.name" value="../ejb3/dist/ejb/ejb-jar-ic.jar"/>
+
+<!--		Setup javac classpath		-->
+
+	<path id="javac.classpath">
+		<pathelement location="${build.ejb.dir}"/>
+		<pathelement location="${app.common.jar.name}"/>
+	</path>
+
+	<path id="javac.client.classpath">
+		<pathelement location="${build.wsdl.stubs.dir}"/>
+		<path refid="jaxrpc.classpath"/>
+	</path>
+
+	<target name="checkXML" 
+		depends="application_1_4, sun-application_1_4, 
+					ejb-jar_2_1, sun-ejb-jar_2_1, 
+					config-interface_1_0, config-wsdl_1_0, 
+					web_services_1_1"/>
+
+<!--	Begin making something	-->
+
+	<target name="all" depends="dist, checkXML"/>
+	<target name="docs" depends="javadocs"/>
+
+	<target name="clean">
+		<echo message="Remove build and distributables..."/>
+		<delete includeEmptyDirs="true" quiet="true">
+			<fileset dir="${build.dir}"/>
+			<fileset dir="${dist.dir}"/>
+			<fileset dir="${javadocs.dir}"/>
+		</delete>
+	</target>
+
+	<target name="mkdirs" depends="clean">
+		<echo message="Create directories..."/>
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${dist.ear.dir}" />
+		<mkdir dir="${dist.ejb.dir}" />
+
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.ear.dir}" />
+		<mkdir dir="${build.ear.dir}/META-INF" />
+		<mkdir dir="${build.ejb.dir}" />
+		<mkdir dir="${build.ejb.dir}/META-INF" />
+		<mkdir dir="${build.ejb.dir}/META-INF/wsdl" />
+		<mkdir dir="${build.wsdl.dir}" />
+		<mkdir dir="${build.wsdl.stubs.dir}" />
+	</target>
+
+	<target name="compile" depends="mkdirs">
+		<echo message="Compiling EJB java..."/>
+		<javac srcdir="${basedir}/java" 
+				destdir="${build.ejb.dir}">
+			<include name="**/*.java" />
+			<classpath refid="javac.classpath"/>
+		</javac>
+		<echo message="wscompile config-interface.xml"/>
+		<antcall target="generate-wsdl">
+			<param name="wsdl.classpath" value="${build.ejb.dir}"/>
+			<param name="wsdl.generated.dir" value="${build.wsdl.dir}"/>
+			<param name="wsdl.mapping.file" value="${build.wsdl.dir}/mapping.xml"/>
+			<param name="wsdl.config.if.file" value="config-interface.xml"/>
+		</antcall>
+
+		<echo message="wscompile wsdl to get stubs"/>
+		<antcall target="generate-stubs">
+			<param name="wsdl.classpath" value="${build.wsdl.stubs.dir}"/>
+			<param name="wsdl.generated.dir" value="${build.wsdl.stubs.dir}"/>
+			<param name="wsdl.config.wsdl.file" value="config-wsdl.xml"/>
+		</antcall>
+		<javac srcdir="${basedir}/javaclient" 
+				destdir="${build.wsdl.stubs.dir}">
+			<include name="**/*.java" />
+			<classpath refid="javac.client.classpath"/>
+		</javac>
+	</target>
+
+	<target name="build" depends="compile">
+
+		<echo message="Copying files from lib..."/>
+		<copy todir="${build.ejb.dir}">
+			<fileset dir="${basedir}/lib"/>
+		</copy>
+
+		<echo message="Copying common JAR from common..."/>
+		<copy todir="${build.ejb.dir}" file="${app.common.jar.name}"/>
+
+		<echo message="Copying MDB1 JAR files..."/>
+		<copy file="../mdb2/dist/appclient/app-client-ic.jar" 
+				tofile="${build.ear.dir}/mdb2_app-client-ic.jar"/>
+		<copy file="../mdb2/dist/ejb/ejb-jar-ic.jar" 
+				tofile="${build.ear.dir}/mdb2_ejb-jar-ic.jar"/>
+
+		<echo message="Copying EJB2 JAR files..."/>
+		<copy file="../ejb3/dist/appclient/app-client-ic.jar" 
+				tofile="${build.ear.dir}/ejb3_app-client-ic.jar"/>
+		<copy file="../ejb3/dist/ejb/ejb-jar-ic.jar" 
+				tofile="${build.ear.dir}/ejb3_ejb-jar-ic.jar"/>
+
+		<echo message="Copying EAR META-INF/*.xml files..."/>
+		<copy todir="${build.ear.dir}/META-INF">
+			<fileset dir="${basedir}/etc">
+				<include name="application.xml" />
+				<include name="sun-application.xml" />
+			</fileset>
+		</copy>
+
+		<copy todir="${build.ejb.dir}" file= "${build.wsdl.dir}/mapping.xml"/>
+		<copy todir="${build.ejb.dir}/META-INF/wsdl" 
+				file= "${build.wsdl.dir}/${wsdl.service.name}.wsdl"/>
+
+		<echo message="Copying EJB META-INF/*.xml files..."/>
+		<copy todir="${build.ejb.dir}/META-INF">
+			<fileset dir="${basedir}/etc">
+				<include name="ejb-jar.xml" />
+				<include name="sun-ejb-jar.xml" />
+				<include name="webservices.xml" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="dist" depends="build">
+
+		<echo message="Copying WSDL file..."/>
+		<copy todir="${dist.dir}" 
+				file= "${build.wsdl.dir}/${wsdl.service.name}.wsdl"/>
+
+		<echo message="Creating client JAR file...."/>
+    	<jar jarfile="${wsdl.jar.name}" basedir="${build.wsdl.stubs.dir}">
+			<manifest>
+				<attribute name="Built-By" value="jv"/>
+				<attribute name="Class-Path" value=""/>
+			</manifest>
+		</jar>
+		<unjar src="${wsdl.jar.name}" dest="${dist.wsdl.dir}"/>
+
+		<echo message="Creating EJB JAR file...."/>
+    	<jar jarfile="${ejb.jar.name}" basedir="${build.ejb.dir}">
+			<manifest>
+				<attribute name="Built-By" value="jv"/>
+				<attribute name="Class-Path" value=""/>
+			</manifest>
+		</jar>
+		<unjar src="${ejb.jar.name}" dest="${dist.ejb.dir}"/>
+
+		<echo message="Copying EJB JAR files..."/>
+		<copy file="${ejb.jar.name}" todir="${build.ear.dir}"/>
+
+		<echo message="Creating EJB JAR file...."/>
+    	<jar jarfile="${app.module}" basedir="${build.ear.dir}">
+			<manifest>
+				<attribute name="Built-By" value="jv"/>
+				<attribute name="Class-Path" value=""/>
+				<section name="META-INF/application.xml"/>
+				<section name="META-INF/sun-application.xml"/>
+				<section name="ejb-jar-ic.jar"/>
+			</manifest>
+		</jar>
+		<echo message="Expanding EAR file...."/>
+		<unjar src="${app.module}" dest="${dist.ear.dir}"/>
+	</target>
+
+	<target name="appclient">
+		<echo message="Executing appclient...."/>
+		<antcall target="run-client">
+			<param name="wsdl.client.jar.file" value="${wsdl.jar.name}"/>
+			<param name="wsdl.args" value="http://localhost:8080/hello-ejb/hello"/>
+			<param name="wsdl.client.class" value="webclient/HelloClient"/>
+		</antcall>
+	</target>
+
+</project>
+

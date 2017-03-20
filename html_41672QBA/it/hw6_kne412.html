@@ -1,0 +1,1403 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Internet Technology Homework</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="../css/topnav.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {
+	color: #0000FF;
+	font-size: 100%;	
+}
+.style2 {
+	color: #CC0000;
+	font-size: 100%;	
+}
+-->
+</style>
+</head>
+
+<body>
+<div id="masthead">
+  <h1 class="style1" id="siteName">Internet Technology</h1>
+  <div id="globalNav"> 
+  	<a href="../index.html">Home </a> | <a href="../ConceptualDesign.html">Conceptual Design </a> | <a href="../InternetTechnologies.html">Internet Technologies </a> | <a href="../InternetProgrammingLanguages.html">Internet Programming Languages</a> | <a href="../Assignments.html">Assignments</a> | <a href="../CurrentProjects.html">Projects</a> | <a href="../PersonalLog.html">Personal Log </a> | <a href="../About.html">About</a> 
+  </div>
+</div>
+<div id="content">
+  <h2 id="pageName">&nbsp;</h2>
+  <h2> <a name="TOP" id="TOP"></a>Security</h2>
+  <h4>&nbsp;</h4>
+  <div class="feature"><img src="../images/security.jpg" width="240" height="276" />    
+    <h3>Thought for the Day </h3>
+    <p>Although this is the last homework for this course, it is clear that this homework is never complete, and that security issues are also never completed. This must be a constant game of cat and mouse, incredibly expensive, staggeringly time consuming.</p>
+    <p>The worst of it to me is that, it is not just a matter of being very good at what you do, you also must not ever make a mistake, must never be late with a patch, must always recheck your system after a bout of systems administration, you must constantly check your system to see who is doing what, you must check traffic at the byte level to try to find out whether someone is trying to hack in, and while all of that is going on, you are also supposed to allow legitimate users to efficiently work their projects, constantly working system kernels and network configurations to allow for maximum efficiency, and still have some time left to do the things that you were supposed to be doing.</p>
+    <p>I think this could send the average perfectionist running and screaming to a shrink! </p>
+  </div>
+      <div class="story">
+        <h2>Problems</h2>
+        <p>Please do at least two of the following three security projects. 
+          As usual, report to us via email as to how things go. 
+        </p>
+        <ol>
+          <li>
+            <h4><a href="#H6_1"><strong>Iptables </strong></a><br />
+              Set up a firewall using iptables on your linux box. Choose a service (ftp, telnet, etc) that is running on your box that you'd like to "block" with iptables, write the rules to block it and log offending packets, and then check to see if it worked by trying to get to that service from another host. Try using both the DROP and REJECT targets to observe the difference. </h4>
+          </li>
+          <li>
+            <h4><a href="#H6_2"><strong>System hardening </strong></a><br />
+            Run the <a href="www.cisecurity.og/bench_linux.html">CIS script on your linux system - record your score. (We've put a local copy of that software and its documentation </a><a href="cis/">here </a>, though you may still want to get it from CIS). Run <a href="http://www.bastille-linux.org/#get">Bastille Linux </a> to harden your system and explain what it does. </h4>
+          </li>
+          <li>
+            <h4><a href="#H6_3"><strong>Internet security evaluation </strong></a><br />
+            Download, install, and read the documentation for either <a href="http://www-arc.com/sara">SARA </a> or <a href="http://www.nessus.org/">Nessus </a>. Use one of them to see what vulnerabilities exist on at least two internet hosts - your choice as to which ones. Read up on some of the vulnerabilities you find at a place like <a href="http://www.cert.org/">CERT</a></h4>
+          </li>
+        </ol>
+        <h4> Currently, my web pages are served by apache on bob. Very soon, my web site will need database access and an application server. I thus am forced to construct a suitable environment elsewhere.</h4>
+        <h4>&nbsp;</h4>
+        <h4>The web server will have to be located on my firewall. Not what I want but due to hardware constraints, that is the way it is going to have to be.</h4>
+        <h4>I will thus have to loosen my firewall rules, to allow the http traffic into my network.</h4>
+        <h4>&nbsp;</h4>
+        <h4>This is an opportunity to handle security in a real situation . </h4>
+        <h4>&nbsp;</h4>
+        <h2>Systems Administration </h2>
+        <h4>&nbsp;</h4>
+        <h4>Downloaded  JDK1.4.2 to /home/downloads/sun</h4>
+        <h4 class="style1">cd /home/downloads/sun</h4>
+        <h4 class="style1">chmod 755 *.bin</h4>
+        <h4 class="style1">./ j2sdk-1_4_2_02-linux-i586-rpm.bin</h4>
+        <h4 class="style1">rpm -i j2sdk-1_4_2_02-linux-i586-rpm.bin</h4>
+        <h4>&nbsp;</h4>
+        <h4>Installed J2EE 1.4 Beta as 
+        1.3 is not available for Linux. I am not worried about this as I have run 1.4 Beta just fine on other systems. I now have a web server, plus servlet, EJB etc support. I will give it access to an Oracle database when I get around to it. I have put the web server onto a non-standard port number.</h4>
+        <h4>&nbsp;</h4>
+        <p>I now need to loosen my firewall to allow access. I will document my current firewall as I am not sure I will modify my firewall before this assignment is complete. <br />
+        </p>
+        <h2>John the Ripper </h2>
+        <h4>&nbsp; </h4>
+        <p>I downloaded john the ripper source from <a href="http://www.openwall.com/john/">http://www.openwall.com/john/</a> to /home/downloads/ripper. Also the public key and the signature file. </p>
+        <h4>The following is from history:</h4>
+        <pre class="style1">
+gpg --import
+gpg --edit-key openwall
+lf
+gpg --verify john-1.6.tar.gz.sign
+gpg --verify john-1.6.tar.gz.sign john-1.6.tar.gz
+gpg --verify john-1.6.tar.gz
+gunzip john-1.6.tar.gz
+tar tvf *.tar
+tar xf john-1.6.tar
+cd john*
+cd src
+make linux
+make linux-x86-any-elf
+cp -r run /home/jv/ripper
+</pre>
+<h4>I then started the program and forgot about it. </h4>
+<pre class="style1">
+cd /home/jv/ripper/run
+# ./po
+++ date
+Mon Nov 24 20:13:27 EST 2003
+++ ./unshadow /etc/passwd /etc/shadow
+++ ./john passwd.1
+Loaded 3 passwords with 3 different salts (FreeBSD MD5 [32/32])
+guesses: 0  time: 0:22:22:00 (3)  c/s: 1746  trying: gfcded
+Session aborted
+++ date
+Tue Nov 25 18:35:27 EST 2003
+[root@mule run]# 
+</pre>
+        <h4>No passwords were found in almost 1 day. There is no obvious hole here. However, this system is only is good as the wordlist file which could be made as sophisticated as one likes. For example, you could start with the Webster Dictionary and keep going. The only password that is reasonably safe from this approach is a nonsensical mix of letters and numbers, which nobody would ever remember. Thus, root passwords could go missing or, just get written down somewhere, like on the monitor!</h4>
+        <h4>&nbsp;</h4>
+        <h2><a name="H6_1" id="H6_1"></a>Iptables</h2>
+        <h4>&nbsp;</h4>
+        <h4>I went through the firewall learning pain before school started. I was assigned a PC before school began and needed it to be my firewall and my dhcp server, and running NAT. I have a private network behind the firewall which I simply have to protect. I thus installed Linux from scratch, using the high security option of the installer to at least protect myself while I was getting set up.</h4>
+        <h4>&nbsp;</h4>
+        <h4>I spent a lot of time studying iptables, plenty enough to know just how tough it is to construct a meaningful firewall. However, I needed to get it done as class was about to start and so I resorted to my usual tactics; I did a bit of RND, or Rob and Duplicate. I found a terrific resource on the net, including terrific iptables discussions and, mercifully, some firewall scripts. I downloaded those scripts and tuned them for my own needs. They have served me well.</h4>
+        <h4>&nbsp;</h4>
+        <h4><a href="firewall.html">I provide those scripts here for your perusal.</a> Also included is the script that runs the firewall and output from  iptables --list </h4>
+        <pre class="style1">
+[root@mule firewall]# pwd
+/etc/firewall
+[root@mule firewall]# lf
+./   firewall.banned         .firewall.conf.iptables.swp  keep/
+../  firewall.conf.iptables  firewall.iana-reserved       orig/
+</pre>
+        <h4>My firewall has proved to be very strong. I take the approach that I should provide as little of interest as possible in the hope that an attacker gets bored and goes looking for easier pickings.</h4>
+        <h4>&nbsp;</h4>
+        <h4>I check the system logs very frequently. Most dropped packets are pings. The vast majority of the dropped packets originated from within Marlboro College.</h4>
+        <h4>&nbsp;</h4>
+        <h4>There have been occasions when somebody was rather more than curious about my system, most notably the night of the attack on bob. My system log was continuously scrolling. I watched the hacker for a while before deciding to play it safe by disconnecting from the external network. </h4>
+        <h2>&nbsp;</h2>
+        <h2><a href="#TOP">Top</a></h2>
+        <h4>&nbsp;</h4>
+        <h2><a name="H6_2" id="H6_2"></a>System Hardening </h2>
+        <h4>&nbsp;</h4>
+        <h4><a href="#F9_1">Click here for the Bastille Linux section.</a> </h4>
+        <h4><a href="#F9_2">After bastille, I return to CIS. </a></h4>
+        <h4>&nbsp;</h4>
+        <h4>Downloaded the software from <a href="http://www.cisecurity.org">http://www.cisecurity.org</a>.</h4>
+        <h4>Selected Linux - Level 1</h4>
+        <h4>Verified the gpg keys and then installed the software:</h4>
+        <h4>&nbsp;</h4>
+        <h4>gunzip cis-linux.tar.gz<br />
+          tar xf cis-linux.tar<br />
+ rpm -U CISscan-1.4.2-1.0.i386.rpm</h4>
+        <h4>&nbsp;</h4>
+        <h4>Now to run the software:         </h4>
+<pre class="style1">
+# cd /usr/local/CIS
+# ./cis-scan
+
+*****************************************************************************
+******************* CIS Security Benchmark Checker v1.4.2 *******************
+*                                                                           *
+* Lead Developer                                        : Jay Beale         *
+* Benchmark Coordinator and Gadfly                      : Hal Pomeranz      *
+*                                                                           *
+* Copright 2001 - 2003 The Center for Internet Security  www.cisecurity.org *
+*                                                                           *
+* Please send feedback to linux-scan@cisecurity.org.                        *
+*****************************************************************************
+
+         Investigating system...this will take a few minutes...
+
+                                   ******
+
+Now a final check for non-standard world-writable files, Set-UID and Set-GID
+programs -- this can take a whole lot of time if you have a large filesystem.
+Your score if there are no extra world-writable files or SUID/SGID programs
+found will be 5.85 / 10.00 .  If there are extra SUID/SGID programs or
+world-writable files, your score could be as low as 5.54 / 10.00 .
+
+        You can hit CTRL-C at any time to stop at this remaining step.  
+
+The preliminary log can be found at: ./cis-most-recent-log
+
+                                   ******
+
+            Rating = 5.54 / 10.00
+*****************************************************************************
+To learn more about the results, do the following:
+
+   All results/diagnostics:
+        more ./cis-ruler-log.20031124-19:37:39.15098
+   Positive Results Only:
+        egrep "^Positive" ./cis-ruler-log.20031124-19:37:39.15098
+   Negative Results Only:
+        egrep "^Negative" ./cis-ruler-log.20031124-19:37:39.15098
+
+For each item that you score or fail to score on, please reference the 
+corresponding item in the CIS Benchmark Document.
+
+
+   For additional instructions/support, please reference the CIS web page:
+
+                        http://www.cisecurity.org
+</pre>
+        <h4>Checking the results file</h4>
+<pre class="style1">
+*** CIS Ruler Run ***
+Starting at time 20031124-19:37:39
+
+Positive: 1.1 System appears to have been patched within the last month.
+Negative: 1.2 sshd_config parameter Protocol is not set.
+Negative: 1.2 sshd_config parameter PermitRootLogin is not set.
+Negative: 1.2 sshd_config parameter PermitEmptyPasswords is not set.
+Negative: 1.2 ssh_config must have 'Protocol 2' underneath Host *.
+Negative: 2.1 xinetd service sgi_fam requires full deactivation -- you should set 'disable=yes' in sgi_fam.
+Positive: 2.2 telnet is deactivated.
+Positive: 2.3 ftp is deactivated.
+Positive: 2.4 rsh, rcp and rlogin are deactivated.
+Positive: 2.5 tftp is deactivated.
+Positive: 2.6 imap is deactivated.
+Positive: 2.7 POP server is deactivated.
+Positive: 3.1 Found a good daemon umask of 022 in /etc/rc.d/init.d/functions.
+Negative: 3.2 xinetd is still active.
+Positive: 3.3 Mail daemon is not listening on TCP 25.
+Negative: 3.4 Graphical login not deactivated.
+Negative: 3.5 X Font Server (xfs) script has not been deactivated
+Negative: 3.6 apmd not deactivated.
+Negative: 3.6 gpm not deactivated.
+Negative: 3.6 isdn not deactivated.
+Positive: 3.7 Windows compatibility servers (samba) have been deactivated.
+Positive: 3.8 NFS Server script nfs is deactivated.
+Negative: 3.9 NFS script nfslock not deactivated.
+Negative: 3.9 NFS script autofs not deactivated.
+Positive: 3.10 NIS Client processes are deactivated.
+Positive: 3.11 NIS Server processes are deactivated.
+Negative: 3.12 RPC rc-script (portmap) has not been deactivated.
+Negative: 3.13 netfs rc script not deactivated.
+Positive: 3.14 printing daemon is deactivated.
+Negative: 3.15 Web server not deactivated.
+Positive: 3.16 SNMP daemon is deactivated.
+Positive: 3.17 DNS server is deactivated.
+Positive: 3.18 SQL database server is deactivated.
+Positive: 3.19 Webmin GUI-based system administration daemon deactivated.
+Positive: 3.20 Squid web cache daemon deactivated.
+Negative: 3.21 Kudzu hardware detection program has not been deactivated.
+Negative: 4.1 /proc/sys/net/ipv4/conf/eth1/secure_redirects should be set to 0.
+Negative: 4.1 /proc/sys/net/ipv4/conf/eth0/secure_redirects should be set to 0.
+Negative: 4.1 /proc/sys/net/ipv4/conf/lo/secure_redirects should be set to 0.
+Negative: 4.1 /proc/sys/net/ipv4/tcp_max_syn_backlog should be at least 4096 to handle SYN floods.
+Negative: 4.2 IP forwarding is activated.
+Positive: 5.1 syslog captures authpriv messages.
+Positive: 5.2 FTP server is configured to do full logging.
+Positive: 5.3 All logfile permissions and owners match benchmark recommendations.
+Positive: 6.1 All appropriate partitions are mounted nodev.
+Negative: 6.2 Removable filesystem /mnt/cdrom is not mounted nosuid.
+Negative: 6.2 Removable filesystem /mnt/cdrom is not mounted nodev.
+Negative: 6.2 Removable filesystem /mnt/floppy is not mounted nosuid.
+Negative: 6.2 Removable filesystem /mnt/floppy is not mounted nodev.
+Negative: 6.3 PAM allows users to mount removable media: <floppy>.  (/etc/security/console.perms)
+Negative: 6.3 PAM allows users to mount removable media: <cdrom>.  (/etc/security/console.perms)
+Negative: 6.3 PAM allows users to mount removable media: <pilot>.  (/etc/security/console.perms)
+Negative: 6.3 PAM allows users to mount removable media: <jaz>.  (/etc/security/console.perms)
+Negative: 6.3 PAM allows users to mount removable media: <zip>.  (/etc/security/console.perms) 
+Negative: 6.3 PAM allows users to mount removable media: <ls120>.  (/etc/security/console.perms) 
+Negative: 6.3 PAM allows users to mount removable media: <camera>.  (/etc/security/console.perms) 
+Negative: 6.3 PAM allows users to mount removable media: <memstick>.  (/etc/security/console.perms)
+Negative: 6.3 PAM allows users to mount removable media: <flash>.  (/etc/security/console.perms) 
+Negative: 6.3 PAM allows users to mount removable media: <diskonkey>.  (/etc/security/console.perms)
+Negative: 6.3 PAM allows users to mount removable media: <rem_ide>.  (/etc/security/console.perms)
+Negative: 6.3 PAM allows users to mount removable media: <rio500>.  (/etc/security/console.perms)
+Positive: 6.4 password and group files have right permissions and owners.
+Positive: 6.5 all temporary directories have sticky bits set.
+Positive: 7.1 rhosts authentication totally deactivated in PAM. Positive: 7.2 /etc/hosts.equiv and root's .rhosts/.shosts files either don't exist, are zero size or are links t
+o /dev/null.
+Positive: 7.3 FTP daemons do not permit system users to use FTP.
+Negative: 7.4 X is listening on TCP port 6000.
+Negative: 7.5 Couldn't open cron.allow
+Negative: 7.5 Couldn't open at.allow
+Negative: 7.6 The permissions on /etc/crontab are not sufficiently restrictive.
+Negative: 7.7 No Authorized Only message in /etc/motd.
+Negative: 7.7 No Authorized Only message in Gnome's /etc/X11/gdm/gdm.conf.
+Negative: 7.8 xinetd either requires global 'only-from' statement or one for each service.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: vc/7.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: vc/8.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: vc/9.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: vc/10.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: vc/11.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: tty7.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: tty8.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: tty9.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: tty10.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: tty11.
+Negative: 7.10 GRUB isn't password-protected.
+Negative: 7.11 /etc/inittab needs a /sbin/sulogin line for single user mode. 
+Positive: 7.12 /etc/exports is empty or doesn't exist, so it doesn't need to be tuned for privports. 
+Negative: 8.1 bin has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/she
+lls, leaves a user potentially able to use FTP.
+Negative: 8.1 daemon has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/
+shells, leaves a user potentially able to use FTP.
+Negative: 8.1 adm has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/she
+lls, leaves a user potentially able to use FTP.
+Negative: 8.1 lp has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 mail has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 news has a valid shell of /bin/sh.  Remember, an empty shell field in /etc/passwd signifies /bin/sh.
+Negative: 8.1 uucp has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 operator has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 games has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 gopher has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 ftp has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 nobody has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 rpm has a valid shell of /bin/bash.
+Negative: 8.1 vcsa has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 nscd has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 sshd has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 rpc has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 rpcuser has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 mailnull has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 smmsp has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 pcap has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 xfs has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 named has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 ntp has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 gdm has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Positive: 8.2 All users have passwords
+Negative: 8.3 User jv should have a minimum password life of at least 7 days.
+Negative: 8.3 User jv should have a maximum password life of between 1 and 90 days.
+Negative: 8.3 User jvhtml should have a minimum password life of at least 7 days.
+Negative: 8.3 User jvhtml should have a maximum password life of between 1 and 90 days.
+Negative: 8.3 User jvhtml should have a password expiration warning of at least 7 days.
+Negative: 8.3 /etc/login.defs value PASS_MAX_DAYS = 99999, but should not exceed 90.
+Negative: 8.3 /etc/login.defs value PASS_MIN_DAYS = 0, but should not be less than 7.
+Negative: 8.3 /etc/login.defs value PASS_MIN_LEN = 5, but should be at least 6.
+Positive: 8.4 There were no +: entries in passwd, shadow or group maps.
+Positive: 8.5 Only one UID 0 account AND it is named root.
+Positive: 8.6 root's PATH is clean of group/world writable directories or the current-directory link.
+Positive: 8.7 No user's home directory is world or group writable.
+Positive: 8.8 No group or world-writable dotfiles in user home directories!
+Positive: 8.9 No user has a .netrc file.
+Negative: 8.10 Current umask setting in file /etc/profile is 000 -- it should be stronger to block world-read/write/execute.
+Negative: 8.10 Current umask setting in file /etc/profile is 000 -- it should be stronger to block group-read/write/execute.
+Negative: 8.10 Current umask setting in file /etc/csh.login is 000 -- it should be stronger to block world-read/write/execute.
+Negative: 8.10 Current umask setting in file /etc/csh.login is 000 -- it should be stronger to block group-read/write/execute.
+Negative: 8.10 Current umask setting in file /etc/bashrc is 022 -- it should be stronger to block world-read/write/execute.
+Negative: 8.10 Current umask setting in file /etc/bashrc is 022 -- it should be stronger to block group-read/write/execute.
+Negative: 8.10 Current umask setting in file /etc/csh.cshrc is 002 -- it should be stronger to block world-read/write/execute.
+Negative: 8.10 Current umask setting in file /etc/csh.cshrc is 002 -- it should be stronger to block group-read/write/execute.
+Negative: 8.10 Current umask setting in file /root/.bash_profile is 000 -- it should be stronger to block world-read/write/execute.
+Negative: 8.10 Current umask setting in file /root/.bash_profile is 000 -- it should be stronger to block group-read/write/execute.
+Negative: 8.10 Current umask setting in file /root/.bashrc is 000 -- it should be stronger to block world-read/write/execute.
+Negative: 8.10 Current umask setting in file /root/.bashrc is 000 -- it should be stronger to block group-read/write/execute.
+Negative: 8.10 Current umask setting in file /root/.cshrc is 000 -- it should be stronger to block world-read/write/execute.
+Negative: 8.10 Current umask setting in file /root/.cshrc is 000 -- it should be stronger to block group-read/write/execute.
+Negative: 8.10 Current umask setting in file /root/.tcshrc is 000 -- it should be stronger to block world-read/write/execute.
+Negative: 8.10 Current umask setting in file /root/.tcshrc is 000 -- it should be stronger to block group-read/write/execute.
+Negative: 8.11 Coredumps aren't deactivated.
+
+Preliminary rating given at time: Mon Nov 24 19:37:49 2003
+Preliminary rating = 5.54 / 10.00
+
+Negative: 6.6 Non-standard world-writable file: /home/jv/gnu/po4
+Negative: 6.6 Non-standard world-writable file: /home/jv/network/jv/aa
+Negative: 6.6 Non-standard world-writable file: /home/jv/gnu/po7
+Negative: 6.6 Non-standard world-writable file: /home/jv/gnu/po2
+Negative: 6.6 Non-standard world-writable file: /home/jv/tmp/out2
+Negative: 6.6 Non-standard world-writable file: /home/jv/tmp/saved1
+Negative: 6.6 Non-standard world-writable file: /root/.Trash/tmp/gawk-3.1.1/po/POTFILES.in
+Negative: 6.6 Non-standard world-writable file: /root/.Trash/tmp/gawk-3.1.1/doc/texinfo.tex
+Negative: 6.6 Non-standard world-writable file: /home/jv/gnu/po5
+Negative: 6.6 Non-standard world-writable file: /root/.Trash/tmp/test/gawk-3.1.1/po/POTFILES.in
+Negative: 6.6 Non-standard world-writable file: /home/jv/tmp/y.txt
+Negative: 6.6 Non-standard world-writable file: /home/jv/gnu/gnupg/po1
+Negative: 6.6 Non-standard world-writable file: /home/jv/gnu/po
+Negative: 6.6 Non-standard world-writable file: /home/jv/gnu/po3
+Negative: 6.6 Non-standard world-writable file: /home/jv/gnu/po6
+Negative: 6.6 Non-standard world-writable file: /root/.Trash/tmp/test/gawk-3.1.1/doc/texinfo.tex
+Negative: 6.6 Non-standard world-writable file: /home/jv/tmp/jvabc
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/homework1.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/About.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/vcrtfgedw.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/ipl/classes/Calculator.class
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/images/dhcp2.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/alprose.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/count.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/images/supplier.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/images/dhcp3.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/gpg.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/images/BUS_6.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/Carmel.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/Interview3.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/index.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/ConceptualDesign.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/images/PGstudent.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/LochArklet.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/fallstorm.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/Js Bach - Jesu, Joy Of Man's Desiring.mp3
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/InternetTechnologyNotes.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/images/telnet2.GIF
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/ipl/CalculatorApplet.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/c3_2.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/images/parents.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/images/marketing.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/security.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/_notes/2col_leftNav.css.mno
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/GreenMtn.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/20q_1.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/Loch-Lomond.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cgi-bin/ab.cgi
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/Documentation/Cygwin.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/dgunaw4e3w.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/2col_leftNav.css
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/images/telnet1.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/homework2.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/John_Vincent.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/ipl/classes/CalculatorApplet.class
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/Documentation/Documentation.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/LessonsLearned.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/Assignments.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cgi-bin/count.cgi
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/images/bach-hau.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/essex.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/earthfrommoon.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/images/BUS_2.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/Tutorials.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/CurrentProjects.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/users.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/InternetProgrammingLanguages.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/inspiration.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/ipl/IPLNotes.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/Project/Book.xls
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/Final ProjectNotes.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/quiet.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/lapland.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cgi-bin/test.cgi
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/images/dhcp1_2.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/hw4.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/images/alumni.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/JapaneseAlps.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/images/hsstudent.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/images/dhcp1_1.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/hw4_1.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/docs/Review.doc
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/hw4_3.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/PeerJournal.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/hw4_2.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/c3_1.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/c3_3.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/alet001s.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/topnav.css
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/Interview1.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/images/inventorymanager.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/Interview2.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/c3_0.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/images/sales.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/ipl/src/CalculatorApplet.java
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/ipl/src/Calculator.java
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/InternetTechnologies.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/Olympic.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/16.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/ipl/Cart.jsp
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/x1wta6a.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/alpseee.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/Yellowstone.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/Test/HelloWorld.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/afterstorm.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/images/BUS_5.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/images/BUS_8.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/images/BUS_3.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/ipl/Cart.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/Lomond2.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/c4_1.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/hw3.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/Specifications/Specifications.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/images/HR.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/ConceptualDesignNotes.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/images/warehousemanager.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/niagarafalls.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/images/dhcp1.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/Js Bach - Air On The G String.mp3
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/images/spiral.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/cd/images/BUS_4.jpg
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/PersonalLog.html
+Negative: 6.7 Non-standard SGID program /home/jv/public_html/it/images/dhcp4.jpg
+Ending run at time: Mon Nov 24 19:39:43 2003
+
+        Final rating = 5.54 / 10.00
+
+</pre>
+        <h4>The results are rather revealing in one way, that after fiddling with the machine, you really do need to clean up! I was playing with an apache server, setting up a user in the apache group so that a Dreamweaver user could write to an apache server's html directory. It was literally an hour before I ran this utility. </h4>
+        <h4>Cleaning up:</h4>
+        <ul>
+          <li>
+            <h4>rm -rf /home/jv/public_html</h4>
+          </li>
+          <li>
+            <h4>set to 755 some scripts I had written, they were 777 (lazy) </h4>
+          </li>
+          <li>
+            <h4>emptied the trash</h4>
+          </li>
+          <li>
+            <h4>.bash_profile, set umask 022</h4>
+          </li>
+        </ul>
+        <h4>That improved the score to 5.69.</h4>
+        <h4>&nbsp;</h4>
+        <h4>However:</h4>
+        <ul>
+          <li>
+            <h4>I prefer a GUI interface as systems admin is so much easier.</h4>
+          </li>
+          <li>
+            <h4>I probably need to strap down ssh.</h4>
+          </li>
+          <li>
+            <h4>I don't need NFS on this box, but what is nfslock, autofs. </h4>
+          </li>
+          <li>
+            <h4>What is isdn? Is it the obvious?</h4>
+          </li>
+          <li>
+            <h4>What is kudzu? </h4>
+          </li>
+          <li>
+            <h4>I need a web server.</h4>
+          </li>
+          <li>
+            <h4>Need to study the /proc/sys..... negatives</h4>
+          </li>
+          <li>
+            <h4>I need NAT</h4>
+          </li>
+          <li>
+            <h4>The removable devices are not going anywhere.</h4>
+          </li>
+          <li>
+            <h4>The cron negatives I will need to study.</h4>
+          </li>
+          <li>
+            <h4>I need ttys.</h4>
+          </li>
+          <li>
+            <h4>GRUB is not going anywhere, well, it stays with the machine and hopefully, it stays.</h4>
+          </li>
+          <li>
+            <h4>/etc/inittab negative needs studying.</h4>
+          </li>
+          <li>
+            <h4>The nologin negative is not a problem as the ftp server is disabled.</h4>
+          </li>
+          <li>
+            <h4>I should age the passwords, but none of them are easy anyway.</h4>
+          </li>
+        </ul>
+        <h4>There are issues to address, most will require some studying. All in all, the system looks to me to be quite tight.</h4>
+        <p>The real threats to the system mostly involve me. The most likely damage scenario has me, doing a systems admin task, for example installing some software, reconfiguring the OS etc, breaking something, or installing some software that actually is not designed for the OS, or incorrectly configuring something. This could result in anything, from  breaking the OS so it needs to be reinstalled, all the way through to opening up the system to attack.</p>
+        <h4>The real value of the utility is that, provided I remember, it could check the system after a stint of systems admin to verify I have not opened a back door. </h4>
+        <h4>&nbsp;</h4>
+        <h4>Many of the security threats listed do not apply to me because my systems are private, only used by me, and are behind permanently locked doors. My intranet is private and my hub is secured. I have no wireless.</h4>
+        <h4>&nbsp;</h4>
+        <h4>It seems to me that, although hackers are a very real threat, the biggest danger comes in the form of a burglar. </h4>
+        <h2>&nbsp;</h2>
+        <h2><a name="F9_1" id="F9_1"></a>Bastille Linux </h2>
+        <h4>&nbsp;</h4>
+        <h4>I downloaded the software from <a href="http://www.bastille-linux.org/">http://www.bastille-linux.org/</a> and installed. </h4>
+        <h4>This system is only ever used by me. I can log in as root if I need to. Other users should not be able to do admin tasks anyway. </h4>
+        <h4>&nbsp;</h4>
+        <h4>bastille -c</h4>
+        <h4>Starts in text mode.</h4>
+        <h4>A bunch of the usual warnings.....not culpable etc... </h4>
+        <pre class="style1">
+xQ: Would you like to set more restrictive permissions on the administration utilities x
+x? [N]                                                                                 x
+xIn general, the default file permissions set by most vendors are fairly secure.  To   x
+xmake them more secure, though, you can remove non-root user access to some            x
+xadministrator functions.                                                              x
+x                                                                                      x
+xIf you choose this option, you'll be changing the permissions on some common system   x
+xadministration utilities so that they're not readable or executable by users other    x
+xthan root.  These utilities (which include linuxconf, fsck, ifconfig, runlevel and    x
+xportmap) are ones that most users should never have a need to access.  This option    x
+xwill increase your system security, but there's a chance it will inconvenience your   x
+xusers.                                                                                x
+x                                                                                      x
+xWould you like to set more restrictive permissions on the administration utilities? [Nx
+x]      		
+        </pre>
+<h4 class="style2">Yes</h4>
+<pre class="style1">
+Q: Would you like to disable SUID status for mount/umount?                            x
+xMount and umount are used for mounting (activating) and unmounting (deactivating)     x
+xdrives that were not automatically mounted at boot time.  This can include floppy and x
+xCD-ROM drives.  Disabling SUID would still allow anyone with the root password to     x
+xmount and unmount drives.                                                             x
+x                                                                                      x
+xWould you like to disable SUID status for mount/umount?   
+</pre>		
+<h4 class="style2">Yes</h4>		
+<pre class="style1">
+xQ: Would you like to disable SUID status for ping? [Y]                                x
+xPing is used for testing network connectivity.  Specifically it's for testing the     x
+xability of the network to get a packet from this machine to another and back.  The    x
+xping program is SUID since only the root user can open a raw socket. Since, however,  x
+xit is often used only by the person responsible for networking the host, who normally x
+xhas root access, we recommend disabling SUID status for it.                           x
+x                                                                                      x
+xWould you like to disable SUID status for ping? [Y] 
+</pre>		
+<h4 class="style2">Yes</h4>	
+<pre class="style1">
+xQ: Would you like to disable SUID status for at? [Y]                                  x
+x"at" is used for scheduling an individual task to run at a single later time. There   x
+xhave historically been many exploits that take advantage of weaknesses in "at".       x
+xVirtually all of the necessary functionality of "at" can be found in cron (and        x
+xremoving cron is not practical) so there is no need to retain privileged access for " x
+xat".                                                                                  x
+x                                                                                      x
+xWould you like to disable SUID status for at? [Y]  
+</pre>		
+<h4 class="style2">Yes</h4>
+<pre class="style1">
+xQ: Would you like to disable the r-tools? [Y]                                         x
+xThe BSD r-tools (rsh/remsh, rcp, rlogin, rdist, etc.) have traditionally been used to x
+xmake remote connections to other machines.  They rely on IP-based authentication,     x
+xwhich means that you can allow anyone with (for instance) root access on 192.168.1.1  x
+xto have root access on 192.168.1.2.  Administrators and other users have traditionallyx
+xfound this useful, as it lets them connect from one host to another without having to x
+xretype a password.                                                                    x
+x                                                                                      x
+xThe problem with IP-based authentication, however, is that an intruder can craft "    x
+xspoofed" or faked packets which claim to be from a trusted machine.  Since the r-toolsx
+xrely entirely on IP addresses for authentication, a spoofed packet will be accepted asx
+xreal, and any hacker who claims to be from a trusted host will be trusted and given   x
+xaccess to your machine.                                                               x
+x                                                                                      x
+xThese tools also transmit all of your data in clear-text, including passwords.        x
+x                                                                                      x
+xTools are now available which allow you to spoof (fake) IP addresses as well as to    x
+xmonitor and/or hijack protocols which use clear-text.  All of the same functionality  x
+xcan be found with the more secure replacement commands ssh and scp.  Because of these x
+xinsecurities, ordinary users should not be allowed to use the r-tools, and admins     x
+xshould use them only in cases where there are no other connection methods available.  x
+x                                                                                      x
+mqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqvqj
+</pre>		
+<h4 class="style2">Yes</h4>
+<pre class="style1">
+xQ: Would you like to disable SUID status for usernetctl? [Y]                          x
+xusernetctl is a utility that allows ordinary users to control the network interfaces  x
+x.  In general, there's no reason for anyone other than the system administrator to    x
+xcontrol network interfaces.                                                           x
+x                                                                                      x
+xWould you like to disable SUID status for usernetctl? [Y] 
+</pre>		
+<h4 class="style2">Yes</h4>
+<pre class="style1">
+xQ: Would you like to disable SUID status for traceroute? [Y]                          x
+xThe traceroute utility is used to test network connectivity. It is useful for         x
+xdebugging network problems, but it is generally not necessary, especially for non-    x
+xprivileged users.  If non-root users will be needing to debug network connections, youx
+xcan leave the SUID bit on traceroute.  Otherwise, you should disable it.              x
+x                                                                                      x
+xWould you like to disable SUID status for traceroute? [Y]
+</pre>		
+<h4 class="style2">Yes</h4>	
+<pre class="style1">
+xQ: Would you like to disable SUID status for XFree86? [N]                             x
+xThe XFree86 program is the X server binary in XFree86 4.  For ordinary users to run X x
+x, this binary (or a world-executable wrapper) must be Set-UID root.  In this system's x
+xcase, the XFree86 binary is Set-UID.                                                  x
+x                                                                                      x
+xThis program does not need to be Set-UID if you won't be using this machine as a      x
+xgraphical workstation at all.  One specific case where you can very safely answer yes x
+xis when this system will be running without a monitor of any kind.                    x
+x                                                                                      x
+xWould you like to disable SUID status for XFree86? [N]        
+</pre>		
+<h4 class="style2">No</h4>	
+<pre class="style1">
+xQ: Should Bastille disable clear-text r-protocols that use IP-based authentication? [Yx
+x]                                                                                     x
+xThe BSD r-tools rely on IP-based authentication, which means that you can allow anyonex
+xwith (for instance) root access on 192.168.1.1 have root access on 192.168.1.2.       x
+xAdministrators and other users have traditionally found this useful, as it lets them  x
+xconnect from one host to another without having to retype a password.  The .rhosts    x
+xfile contains the names of the accounts and machines that are considered to be trustedx
+x.                                                                                     x
+x                                                                                      x
+xThe problem with IP-based authentication, however, is that an intruder can craft "    x
+xspoofed" or faked packets which claim to be from a trusted user on a trusted machine  x
+x.  Since the r-tools rely entirely on IP addresses (and remote username) for          x
+xauthentication, a spoofed packet will be accepted as real.                            x
+x                                                                                      x
+xSome of your users, or even possibly other administrators for this machine, might not x
+xbe aware of the security problems with the BSD r-tools.  If this is the case, they    x
+xmight create .rhosts files that would potentially allow crackers access to the machinex
+x.  This option will disable the use of those r-tools both from your machine and as a  x
+xmeans of logging into your machine.                                                   x
+x                                                                                      x
+xShould Bastille disable clear-text r-protocols that use IP-based authentication? [Y]  x
+x                                                                                      x
+mqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqj
+</pre>		
+<h4 class="style2">Yes</h4>	
+<pre class="style1">
+xQ: Would you like to enforce password aging? [Y]                                      x
+xYour operating system's default behavior, which we would change here, is to disable anx
+xaccount when the password hasn't changed in 99,999 days.  This interval is too long tox
+xbe useful.  We can set the default to 180 days.  At some point before the 180 days    x
+xhave passed, the system will ask the user to change his or her password.  At the end  x
+xof the 180 days, if the password has not been changed, the account will be temporarilyx
+xdisabled.  We would make this change in /etc/login.defs.                              x
+x                                                                                      x
+xWould you like to enforce password aging? [Y]                                         x
+x                                              
+</pre>		
+<h4 class="style2">Yes</h4>	
+<pre class="style1">
+xQ: Would you like to restrict the use of cron to administrative accounts? [Y]         x
+xCron can be particularly useful for admins, giving them the ability to have the systemx
+xcheck logs every night at midnight or confirm file integrity every hour.  On the otherx
+xhand, being able to execute jobs later or automatically represents an abusable        x
+xprivilege for users and also makes their actions slightly harder to track.            x
+x                                                                                      x
+xMany sites choose to restrict cron to administrative accounts.  We suggest this actionx
+xto new admins especially, until they understand more about how cron can be abused and x
+xknow more about which users need access to cron. We would like to create the /etc/cronx
+x.allow file of users who may use cron. You can add to that later.  If we don't create x
+xthis file, all users will be allowed to use cron.                                     x
+x                                                                                      x
+xWould you like to restrict the use of cron to administrative accounts? [Y]
+</pre>		
+<h4 class="style2">Yes</h4>	
+<pre class="style1">
+xQ: Do you want to set the default umask? [Y]                                          x
+xThe umask sets the default permission for files that you create. Bastille can set one x
+xof several umasks in the default login configuration files.  These cover standard     x
+xshells like csh and most bourne shell variants like bash, sh, and ksh.  If you are    x
+xgoing to install other shells, you may have to configure them yourself.  The only     x
+xreason not to set at least a minimal default umask is if you are sure that you have   x
+xalready set one.                                                                      x
+x                                                                                      x
+xDo you want to set the default umask? [Y]       
+</pre>		
+<h4 class="style2">Yes</h4>	
+<pre class="style1">
+xQ: What umask would you like to set for users on the system? [077]                    x
+xThe umask sets a default permission for files that you create. Bastille can set one ofx
+xseveral umasks.  Please select one of the following or create your own:               x
+x                                                                                      x
+x002  - Everyone can read your files & people in your group can alter them.            x
+x                                                                                      x
+x022  - Everyone can read your files, but no one can write to them.                    x
+x                                                                                      x
+x027  - Only people in your group can read your files, no one can write to them.       x
+x                                                                                      x
+x077  - No one on the system can read or write your files.                             x
+x                                                                                      x
+xIn addition to configuring a umask for all of the user shells, HP-UX 11.22 and later  x
+xhas an option in the /etc/default/security file to set the default system umask.  Thisx
+xparameter controls umask(2) of all sessions initiated via pam_unix(5).                x
+x                                                                                      x
+xNOTE: If your system is converted to trusted mode, this parameter will be overridden  x
+xby the trusted system default umask, which is 077.                                    x
+x                                                                                      x
+xWhat umask would you like to set for users on the system? [077]        
+</pre>		
+<h4 class="style2">022</h4>	
+<pre class="style1">
+xQ: Should we disallow root login on tty's 1-6? [N]                                    x
+xYou can restrict which tty's root can login on.  Some sites choose to restrict root   x
+xlogins, so that an admin must login with an ordinary user account and then use su to  x
+xbecome root.                                                                          x
+x                                                                                      x
+xThis can stop an attacker who has only been able to steal the root password from      x
+xlogging in directly.  He has to steal a second account's password to make use of the  x
+xroot password via the ttys.                                                           x
+x                                                                                      x
+xShould we disallow root login on tty's 1-6? [N] 
+</pre>		
+<h4 class="style2">No</h4>	
+<pre class="style1">
+xQ: Would you like to password-protect the GRUB prompt? [N]                            x
+xIf an attacker has physical access to this machine, and particularly to the keyboard, x
+xs/he could get super-user access through the Grand Unified Bootloader (GRUB) command  x
+xline.  We will look at other ways to prevent this later, but one easy way is to       x
+xpassword-protect the GRUB prompt.  If GRUB is password-protected, any user can reboot x
+xthe machine normally, but only users with the password can pass arguments to the GRUB x
+xprompt.                                                                               x
+x                                                                                      x
+xNote that this option can interfere dual-booting with a second operating system, sincex
+xdual booting often requires that type an O/S name to boot one of the two operating    x
+xsystems.  If this machine sits in a general purpose lab and dual boots, you probably  x
+xshouldn't choose this option.                                                         x
+x                                                                                      x
+xOtherwise, this is strongly recommended for general use workstations and servers whichx
+xare not locked away in their own room.                                                x
+x                                                                                      x
+xWould you like to password-protect the GRUB prompt? [N]       
+</pre>		
+<h4 class="style2">No</h4>	
+<pre class="style1">
+xQ: Would you like to disable CTRL-ALT-DELETE rebooting? [N]                           x
+xDisabling CTRL-ALT-DELETE rebooting is designed to prevent an attacker with access to x
+xthe machine's keyboard from being able to reboot the machine.  A reboot done in this  x
+xmanner should not damage the file system, as it shuts the machine down cleanly,       x
+xwriting out all pending data in the disk cache to disk first.  Even with this         x
+xfunctionality disabled, however, an attacker could just power cycle machine or pull   x
+xthe power cord.                                                                       x
+x                                                                                      x
+xUnless the power line, switch and case of the machine can be physically protected,    x
+xthis precaution is wholly unnecessary.  Given the fact that the attacker _can_ reboot x
+xthe machine, would you prefer that s/he do it in a way potentially damages the file   x
+xsystem? Think carefully here, as maintaining the integrity of the machine's file      x
+xsystem may be secondary to the goal of keeping an attacker off, in which case it is   x
+xbetter to answer yes here, since having to repair/ignore the damage and wait for file x
+xsystem checks may slow the attacker down.                                             x
+x                                                                                      x
+xWould you like to disable CTRL-ALT-DELETE rebooting? [N]  
+</pre>		
+<h4 class="style2">No</h4>	
+<pre class="style1">
+lBootSecurity.pm Module 4 of 0qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqk
+xQ: Would you like to password protect single-user mode? [Y]                           x
+xAnyone who can physically interact with your system can tell the bootloader to bring  x
+xyour machine up in "single user mode", where s/he is  given root privileges and       x
+xeveryone else is locked out of the system.  This doesn't require a password on most   x
+xUnix systems.  The method differs with the bootloader being used, thus on each        x
+xoperating system revision and  architecture.  You can test this attack on a Linux     x
+xsystem that uses LILO by typing "linux single" at the LILO: prompt.                   x
+x                                                                                      x
+xBastille can password-protect the bootprompt for you.  You won't have to  remember    x
+xanother password--single user mode, or "root" mode, will require  the root password.  x
+x                                                                                      x
+xWe HIGHLY recommend that you password protect single user mode.                       x
+x                                                                                      x
+xWould you like to password protect single-user mode? [Y]     
+</pre>		
+<h4 class="style2">No</h4>	
+<pre class="style1">
+lSecureInetd.pm Module 5 of 0qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqk
+xQ: Would you like to set a default-deny on TCP Wrappers and xinetd? [N]               x
+xNot recommended for most users:                                                       x
+x                                                                                      x
+xMany network services can be configured to restrict access to certain network         x
+xaddresses (and in the case of 'xinetd' services in Linux-Mandrake 8.0 and Red Hat 7.x x
+x, other criteria as well). For services running under the older 'inetd' super-server (x
+xfound in older versions of Linux-Mandrake and Red Hat, and current versions of some   x
+xother distributions), some standalone services like OpenSSH, and --unless otherwise   x
+xconfigured-- services running under Red Hat's xinetd super-server, you can configure  x
+xrestrictions based on network address in /etc/hosts.allow. The services using inetd orx
+xxinetd typically include telnet, ftp, pop, imap, finger, and a number of other        x
+xservices.                                                                             x
+x                                                                                      x
+xIf you would like, Bastille can configure a default policy for all inetd, xinetd, and x
+xTCP Wrappers-aware services to deny all connection attempts. While you might have     x
+xalready chosen to install Bastille's firewall, setting a default deny policy for thesex
+xservices gives more defense in depth.                                                 x
+x                                                                                      x
+xThis will also configure xinetd so that the currently-installed xinetd services will  x
+xuse xinetd's more flexible access control and *not* /etc/hosts.allow.  All other      x
+xwrappers-based programs, like sshd, will obey the default-deny.     
+</pre>		
+<h4 class="style2">No</h4>	
+<pre class="style1">
+xQ: Should Bastille ensure the telnet service does not run on this system? [y]         x
+xTelnet is not secure.                                                                 x
+x                                                                                      x
+xTelnet is shipped on most operating systems for backward compatibility, and it should x
+xnot be used in an untrusted network.                                                  x
+x                                                                                      x
+xTelnet is a clear-text protocol, meaning that any data transferred, including         x
+xpasswords, can be monitored by anyone else on your network (even if you use a         x
+xswitching router, as switches were designed for performance, not security and can be  x
+xmade to broadcast).  Other networks can monitor this information too if the telnet    x
+xsession crosses multiple LANs.                                                        x
+x                                                                                      x
+xThere are also other more active attacks.  For example, anyone who can eavesdrop can  x
+xusually take over your telnet session, using a tool like Hunt or Ettercap.            x
+x                                                                                      x
+xThe standard practice among security-conscious sites is to migrate as rapidly as      x
+xpractical from telnet to Secure Shell (command: ssh).  We'd advise you to make this   x
+xmove as soon as possible.  Secure shell implementations are available from openssh.orgx
+xand ssh.com.  Most Operating System vendors also distribute a version of secure shell x
+x, so check with your vendor first to see if there is a version that has been tested   x
+xwith your OS.
+</pre>		
+<h4 class="style2">Yes</h4>	
+<pre class="style1">
+lSecureInetd.pm Module 5 of 0qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqk
+xQ: Should Bastille ensure inetd's FTP service does not run on this system? [y]        x
+xFtp is another problematic protocol.  First, it is a clear-text protocol, like telnet x
+x-- this allows an attacker to eavesdrop on sessions and steal passwords. This also    x
+xallows an attacker to take over an FTP session, using a clear-text-takeover tool like x
+xHunt or Ettercap.  Second, it can make effective firewalling difficult due to the way x
+xFTP requires many ports to stay open.  Third, every major FTP daemon has had a long   x
+xhistory of security vulnerability -- they represent one of the major successful attackx
+xvectors for remote root attacks.                                                      x
+x                                                                                      x
+xFTP can be replaced by Secure Shell's scp and sftp programs.                          x
+x                                                                                      x
+xNOTE: Answering "yes" to this question will also prevent the use of this machine as anx
+xanonymous ftp server.                                                                 x
+x                                                                                      x
+xShould Bastille ensure inetd's FTP service does not run on this system? [y]    
+</pre>		
+<h4 class="style2">Yes</h4>	
+<pre class="style1">
+xQ: Would you like to display "Authorized Use" messages at log-in time? [Y]            x
+xAt this point you can create "Authorized Use Only" messages for your site. These may  x
+xbe very helpful in prosecuting system crackers you may catch trying to break into yourx
+xsystem.  Bastille can make default messages which you may then later edit.  This is   x
+xsort of like an "anti-welcome mat" for your computer.                                 x
+x                                                                                      x
+xWould you like to display "Authorized Use" messages at log-in time? [Y]  
+</pre>		
+<h4 class="style2">Yes</h4>
+<pre class="style1">
+xA default login/telnet/ftp "Authorized Use Only" banner will be created, and will be  x
+xfound in /etc/issue.  You should modify this banner to apply more specifically to yourx
+xorganization (for instance, adding any site-specific information to the default       x
+xwarnings).  If this is a corporate site, check with your corporate counsel to         x
+xdetermine the most appropriate warning for the banner.  These banners, according to   x
+xCIAC's bulletin                                                                       x
+x                                                                                      x
+x   (http://ciac.llnl.gov/ciac/bulletins/j-043.shtml)                                  x
+x                                                                                      x
+xmay make it much easier to prosecute intruders.  By including this default banner,    x
+xneither the Bastille development team nor Hewlett-Packard Company take any            x
+xresponsibility for your ability to prosecute system crackers. Please, especially if   x
+xyou run a corporate site, review/replace this with more specific language.
+
+xQ: Who is responsible for granting authorization to use this machine?                 x
+xBastille will start to make the banner more specific by telling the user who is       x
+xresponsible for this machine.  This will state explicitly from whom the user needs to x
+xobtain authorization to use this machine.  Please type in the name of the company,    x
+xperson, or other organization who owns or is responsible for this machine.            x
+x                                                                                      x
+xWho is responsible for granting authorization to use this machine? 
+</pre>		
+<h4 class="style2">system</h4>
+<pre class="style1">
+xQ: Would you like to disable the gcc compiler? [N]                                    x
+xThe most common technique for the bulk of the system crackers out there is to gain    x
+xaccess to your system, often through a regular user account, and then use that access x
+xto compile exploits against your system or other systems.  Disabling the gcc compiler x
+xon your system will slow these crackers down, and may even prevent some attacks       x
+xentirely.                                                                             x
+x                                                                                      x
+xIf this machine is a dedicated server/firewall, which does not have users who need to x
+xcompile programs, this action is strongly recommended.  Otherwise, you should very    x
+xcarefully consider whether you will be inconveniencing your users by disabling the    x
+xcompiler.  If you do chose to disable it, we'll do so by only allowing root access to x
+xthe compiler.                                                                         x
+x                                                                                      x
+xWould you like to disable the gcc compiler? [N]   
+</pre>		
+<h4 class="style2">No</h4>
+<pre class="style1">
+xQ: Would you like to put limits on system resource usage? [N]                         x
+xDenial of Service attacks are often very difficult to defend against, since they don'tx
+xrequire access of any kind to the target machine. Since several major daemons,        x
+xincluding the web, name, and FTP servers, may run as a particular user, you can limit x
+xthe effectiveness of many Denial of Service attacks by modifying /etc/security/limits.x
+xconf.  If you restrict the resources available in this manner, you can effectively    x
+xcripple most Denial of Service attacks.                                               x
+x                                                                                      x
+xIf you choose this option, you'll be setting the following initial limits on resource x
+xusage:                                                                                x
+x                                                                                      x
+x   - The number of allowed core files will be set to zero.  Core files      can be    x
+xuseful for diagnosing system problems, but they are very      large files and can be  x
+xexploited by an attacker to fill up your      file system.  They can also be used to  x
+xtune vulnerability exploitation       tools.  Finally, an attacker might use the core x
+xfile from a crashed       program to obtain privileged data that was dumped by the    x
+xprogram.                                                                              x
+x                                                                                      x
+x   - Individual users are limited to 150 processes each.  This should      be more    x
+xthan enough for normal system usage, and is not enough      to bring down your machinex
+x.  (Linux only)                       
+</pre>		
+<h4 class="style2">No</h4>
+<pre class="style1">
+xQ: Should we restrict console access to a small group of user accounts? [N]           x
+xUnder some distributions, users logged in at the console have some special access     x
+xrights (like the ability to mount the CD-ROM drive).  You can disable this special    x
+xaccess entirely, but a more flexible option is to restrict console access to a small  x
+xgroup of trusted user accounts.                                                       x
+x                                                                                      x
+xShould we restrict console access to a small group of user accounts? [N]  
+</pre>		
+<h4 class="style2">No</h4>
+<pre class="style1">
+xQ: Would you like to add additional logging? [Y]                                      x
+xWe would like to configure additional logging for your system. We will give you the   x
+xoption to log to a remote host, if your site already has one.  We will add two        x
+xadditional logging files to the default setup and will also log some status messages  x
+xto the 7th and 8th virtual terminals (the ones you'll see when you hit ALT-F7 and ALT-x
+xF8).  This additional logging will not change the existing log files at all, so this  x
+xis by no means a "risky" move.                                                        x
+x                                                                                      x
+xWould you like to add additional logging? [Y]   
+</pre>		
+<h4 class="style2">No</h4>
+<pre class="style1">
+lMiscellaneousDaemons.pm Module 9 of 0qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqk
+xTo make the operating system more secure, we try to deactivate all system daemons,    x
+xespecially those running at a high/unlimited level of privilege.  Each active system  x
+xdaemon serves as a potential point of break-in, which might allow an attacker         x
+xillegitimate access to your system.  An attacker can use these system daemons to gain x
+xaccess if they are later found to have a bug or security vulnerability.               x
+x                                                                                      x
+xWe practice a minimalist principle here: minimize the number of privileged system     x
+xdaemons and you can decrease your chances of being a victim should one of the standardx
+xdaemons be found later to have a vulnerability.  This section will require careful    x
+xattention, but if you have doubts, you should be able to safely select the default    x
+xvalue in most cases.  
+
+xQ: Would you like to disable apmd? [Y]                                                x
+xapmd is used to monitor battery power and is used almost exclusively by notebook/     x
+xlaptop computers.                                                                     x
+x                                                                                      x
+xWould you like to disable apmd? [Y]   
+</pre>		
+<h4 class="style2">Yes</h4>
+<pre class="style1">
+xQ: Would you like to disable GPM? [Y]                                                 x
+xGPM is used in console (text) mode to add mouse support to text mode. If you will be  x
+xusing this machine in console mode and will want mouse support, leave GPM on.         x
+x                                                                                      x
+xWould you like to disable GPM? [Y]
+</pre>		
+<h4 class="style2">No</h4>
+<pre class="style1">
+lSendmail.pm Module 10 of 0qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqk
+xQ: Do you want to stop sendmail from running in daemon mode? [Y]                      x
+xYou do not need to have sendmail running in daemon mode to send and receive email, andx
+xunless you have a constant network connection, you probably cannot run sendmail in    x
+xdaemon mode.  Daemon mode means that sendmail is constantly listening on a network    x
+xconnection waiting to receive mail.                                                   x
+x                                                                                      x
+xIf you disable daemon mode, Bastille will ask you if you would like to run sendmail   x
+xevery few minutes to process the queue of outgoing mail.  Most programs which send    x
+xmail will still do so immediately, and processing the queue will take care of         x
+xtransient errors.                                                                     x
+x                                                                                      x
+xIf you receive all of your email via a POP/IMAP  mailbox provided by your ISP, you mayx
+xhave no need of daemon-mode sendmail, unless you're running a special fetchmail-style x
+xPOP/IMAP based retrieval program.  For instance, you can turn daemon mode  off if you x
+xread your mail via Netscape's common POP/IMAP read  functionality.  The only reason tox
+xrun sendmail in daemon mode is if you are running a mail server.                      x
+x                                                                                      x
+xDo you want to stop sendmail from running in daemon mode? [Y]  
+</pre>		
+<h4 class="style2">Yes</h4>
+<pre class="style1">
+lSendmail.pm Module 10 of 0qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqk
+xQ: Would you like to run sendmail via cron to process the queue? [N]                  x
+xShould sendmail run every 15 minutes to process the mail queue, processing and sendingx
+xout e-mail?  If this machine does not run sendmail in daemon mode, you may want to do x
+xthis to make your outbound mail more reliable.                                        x
+x                                                                                      x
+xIn most cases, mail queue processing is not required since most mailer programs       x
+xactivate sendmail to process their particular message.  A message usually only gets   x
+xwritten to the queue (and thus needs a cron entry) if sendmail has trouble delivering x
+xit.  Example: the receiving mail server is down.                                      x
+x                                                                                      x
+xNOTE: Sendmail will not accept inbound connections while processing the mail queue.   x
+x                                                                                      x
+xNOTE: The 15 minute interval can be easily changed later, see crontab(1).             x
+x                                                                                      x
+xWould you like to run sendmail via cron to process the queue? [N]       
+</pre>		
+<h4 class="style2">No</h4>
+<pre class="style1">
+lTMPDIR.pm Module 17 of 0qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqk
+xQ: Would you like to install TMPDIR/TMP scripts? [N]                                  x
+xMany programs use the /tmp directory in ways that are dangerous on multi-user systems x
+x. Many of those programs will use an alternate directory if one is specified with the x
+xTMPDIR or TMP environment variables. We can install scripts that will be run when     x
+xusers log in that safely create suitable temporary directories and set the TMPDIR and x
+xTMP environment variables. This depends on your system supporting /etc/profile.d      x
+xscripts.                                                                              x
+x                                                                                      x
+xWould you like to install TMPDIR/TMP scripts? [N]       
+</pre>		
+<h4 class="style2">No</h4>
+<pre class="style1">
+lFirewall.pm Module 18 of 0qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqk
+xQ: Would you like to run the packet filtering script? [N]                             x
+xUsing the packet filtering script, you will be able to do packet filtering/           x
+xmodification via the Linux kernel.  You can use this to block certain types of        x
+xconnections to or from your machine, to turn your machine into a small firewall, and  x
+xto do Network Address Translation (also known as "IP masquerading"), which lets       x
+xseveral machines share a single IP address.                                           x
+x                                                                                      x
+xIf you install the packet filtering script, it will create firewalling instructions   x
+xfor you. You will be prompted to make various choices (with suggested defaults), but  x
+xyou may need to edit it for your particular site and WILL need to individually        x
+xactivate it.                                                                          x
+x                                                                                      x
+xThis script supports both kernel 2.2 (ipchains) and 2.4 (iptables if available,       x
+xotherwise ipchains).                                                                  x
+x                                                                                      x
+xWould you like to run the packet filtering script? [N]    
+</pre>		
+<h4 class="style2">No</h4>
+<h4>&nbsp;</h4>
+<h4>Bastille took a few moments, the screen scrolled a few times, and hey presto, done. What did it do?</h4>
+<h4>&nbsp;</h4>
+<h4>The log files are  in /var/log/Bastille. <a href="bastille_logs.html">Click here to see them. </a></h4>
+<h4>&nbsp;</h4>
+<h4>Interesting exercise this. For a fairly secure system, Bastille found a lot to complain about! Maybe not so secure!</h4>
+<p>Most of the questions I thought were fairly obvious. As this machine is in a secure place, on a private network and has only me as a valid user, I can let Bastille tighten some security. However, I do not need to tighten security for physical access to the machine.</p>
+<h4>Some of the services bastille mentioned were already turned off. For example, sendmail, telnet, ftp. </h4>
+<h4>Many files permissions changed to 750, some to 755, some to 0 </h4>
+<h4>Turns on password aging.</h4>
+<h4>Applies umask 022</h4>
+<p>Reboot the machine, everything seems to be OK. </p>
+<p><a href="#TOP">Top</a></p>
+<h2><a name="F9_2" id="F9_2"></a>CIS  </h2>
+<h4>&nbsp;</h4>
+<pre class="style2">
+cd /usr/local/CIS 
+./cis-scan
+</pre>
+<pre class="style1">
+*****************************************************************************
+******************* CIS Security Benchmark Checker v1.4.2 *******************
+*                                                                           *
+* Lead Developer                                        : Jay Beale         *
+* Benchmark Coordinator and Gadfly                      : Hal Pomeranz      *
+*                                                                           *
+* Copright 2001 - 2003 The Center for Internet Security  www.cisecurity.org *
+*                                                                           *
+* Please send feedback to linux-scan@cisecurity.org.                        *
+*****************************************************************************
+
+         Investigating system...this will take a few minutes...
+
+                                   ******
+
+Now a final check for non-standard world-writable files, Set-UID and Set-GID
+programs -- this can take a whole lot of time if you have a large filesystem.
+Your score if there are no extra world-writable files or SUID/SGID programs
+found will be 5.85 / 10.00 .  If there are extra SUID/SGID programs or
+world-writable files, your score could be as low as 5.54 / 10.00 .
+
+        You can hit CTRL-C at any time to stop at this remaining step.  
+
+The preliminary log can be found at: ./cis-most-recent-log
+
+                                   ******
+
+            Rating = 5.54 / 10.00
+
+*****************************************************************************
+To learn more about the results, do the following:
+
+   All results/diagnostics:
+        more ./cis-ruler-log.20031126-17:20:07.3000
+   Positive Results Only:
+        egrep "^Positive" ./cis-ruler-log.20031126-17:20:07.3000
+   Negative Results Only:
+        egrep "^Negative" ./cis-ruler-log.20031126-17:20:07.3000
+
+For each item that you score or fail to score on, please reference the 
+corresponding item in the CIS Benchmark Document.
+
+
+   For additional instructions/support, please reference the CIS web page:
+
+                        http://www.cisecurity.org
+</pre>
+<h4>Amazing. After all that effort, the score is the same! It is actually less than the original score after a clean up! Checking the log, as I thought that maybe the system had not actually changed, I find that the OS had been changed. </h4>
+<pre class="style1">
+*** CIS Ruler Run ***
+Starting at time 20031126-17:20:07
+
+Positive: 1.1 System appears to have been patched within the last month.
+Negative: 1.2 sshd_config parameter Protocol is not set.
+Negative: 1.2 sshd_config parameter PermitRootLogin is not set.
+Negative: 1.2 sshd_config parameter PermitEmptyPasswords is not set.
+Negative: 1.2 ssh_config must have 'Protocol 2' underneath Host *.
+Negative: 2.1 xinetd service sgi_fam requires full deactivation -- you should set 'disable=yes' in sgi_fam.
+Positive: 2.2 telnet is deactivated.
+Positive: 2.3 ftp is deactivated.
+Positive: 2.4 rsh, rcp and rlogin are deactivated.
+Positive: 2.5 tftp is deactivated.
+Positive: 2.6 imap is deactivated.
+Positive: 2.7 POP server is deactivated.
+Positive: 3.1 Found a good daemon umask of 022 in /etc/rc.d/init.d/functions.
+Negative: 3.2 xinetd is still active.
+Positive: 3.3 Mail daemon is not listening on TCP 25.
+Negative: 3.4 Graphical login not deactivated.
+Negative: 3.5 X Font Server (xfs) script has not been deactivated
+Negative: 3.6 gpm not deactivated.
+Negative: 3.6 isdn not deactivated.
+Positive: 3.7 Windows compatibility servers (samba) have been deactivated.
+Positive: 3.8 NFS Server script nfs is deactivated.
+Negative: 3.9 NFS script nfslock not deactivated.
+Negative: 3.9 NFS script autofs not deactivated.
+Positive: 3.10 NIS Client processes are deactivated.
+Positive: 3.11 NIS Server processes are deactivated.
+Negative: 3.12 RPC rc-script (portmap) has not been deactivated.
+Negative: 3.13 netfs rc script not deactivated.
+Positive: 3.14 printing daemon is deactivated.
+Positive: 3.15 Web server is deactivated.
+Positive: 3.16 SNMP daemon is deactivated.
+Positive: 3.17 DNS server is deactivated.
+Positive: 3.18 SQL database server is deactivated.
+Positive: 3.19 Webmin GUI-based system administration daemon deactivated.
+Positive: 3.20 Squid web cache daemon deactivated.
+Negative: 3.21 Kudzu hardware detection program has not been deactivated.
+Negative: 4.1 /proc/sys/net/ipv4/conf/eth1/secure_redirects should be set to 0.
+Negative: 4.1 /proc/sys/net/ipv4/conf/eth0/secure_redirects should be set to 0.
+Negative: 4.1 /proc/sys/net/ipv4/conf/lo/secure_redirects should be set to 0.
+Negative: 4.1 /proc/sys/net/ipv4/tcp_max_syn_backlog should be at least 4096 to handle SYN floods.
+Negative: 4.2 IP forwarding is activated.
+Positive: 5.1 syslog captures authpriv messages.
+Positive: 5.2 FTP server is configured to do full logging.
+Positive: 5.3 All logfile permissions and owners match benchmark recommendations.
+Positive: 6.1 All appropriate partitions are mounted nodev.
+Negative: 6.2 Removable filesystem /mnt/cdrom is not mounted nosuid.
+Negative: 6.2 Removable filesystem /mnt/cdrom is not mounted nodev.
+Negative: 6.2 Removable filesystem /mnt/floppy is not mounted nosuid.
+Negative: 6.2 Removable filesystem /mnt/floppy is not mounted nodev.
+Negative: 6.3 PAM allows users to mount removable media: <floppy>.  (/etc/security/console.perms) 
+Negative: 6.3 PAM allows users to mount removable media: <cdrom>.  (/etc/security/console.perms) 
+Negative: 6.3 PAM allows users to mount removable media: <pilot>.  (/etc/security/console.perms) 
+Negative: 6.3 PAM allows users to mount removable media: <jaz>.  (/etc/security/console.perms) 
+Negative: 6.3 PAM allows users to mount removable media: <zip>.  (/etc/security/console.perms) 
+Negative: 6.3 PAM allows users to mount removable media: <ls120>.  (/etc/security/console.perms) 
+Negative: 6.3 PAM allows users to mount removable media: <camera>.  (/etc/security/console.perms) 
+Negative: 6.3 PAM allows users to mount removable media: <memstick>.  (/etc/security/console.perms) 
+Negative: 6.3 PAM allows users to mount removable media: <flash>.  (/etc/security/console.perms) 
+Negative: 6.3 PAM allows users to mount removable media: <diskonkey>.  (/etc/security/console.perms) 
+Negative: 6.3 PAM allows users to mount removable media: <rem_ide>.  (/etc/security/console.perms) 
+Negative: 6.3 PAM allows users to mount removable media: <rio500>.  (/etc/security/console.perms) 
+Positive: 6.4 password and group files have right permissions and owners.
+Positive: 6.5 all temporary directories have sticky bits set.
+Positive: 7.1 rhosts authentication totally deactivated in PAM.
+Positive: 7.2 /etc/hosts.equiv and root's .rhosts/.shosts files either don't exist, are zero size or are links to /dev/null.
+Positive: 7.3 FTP daemons do not permit system users to use FTP.
+Negative: 7.4 X is listening on TCP port 6000.
+Negative: 7.5 Couldn't open at.allow
+Negative: 7.6 The permissions on /etc/crontab are not sufficiently restrictive.
+Negative: 7.7 No Authorized Only message in /etc/motd.
+Negative: 7.7 No Authorized Only message in Gnome's /etc/X11/gdm/gdm.conf.
+Negative: 7.8 xinetd either requires global 'only-from' statement or one for each service.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: vc/7.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: vc/8.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: vc/9.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: vc/10.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: vc/11.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: tty7.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: tty8.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: tty9.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: tty10.
+Negative: 7.9 /etc/securetty has a non console or tty 1-6 line: tty11.
+Negative: 7.10 GRUB isn't password-protected.
+Negative: 7.11 /etc/inittab needs a /sbin/sulogin line for single user mode.
+Positive: 7.12 /etc/exports is empty or doesn't exist, so it doesn't need to be tuned for privports.
+Negative: 8.1 bin has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 daemon has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 adm has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 lp has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 mail has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 news has a valid shell of /bin/sh.  Remember, an empty shell field in /etc/passwd signifies /bin/sh.
+Negative: 8.1 uucp has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 operator has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 games has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 gopher has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 ftp has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 nobody has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 rpm has a valid shell of /bin/bash.
+Negative: 8.1 vcsa has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 nscd has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 sshd has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 rpc has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 rpcuser has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 mailnull has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 smmsp has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 pcap has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 xfs has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 named has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 ntp has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Negative: 8.1 gdm has a valid shell of /sbin/nologin.  Remember, the /sbin/nologin shell, when found in /etc/shells, leaves a user potentially able to use FTP.
+Positive: 8.2 All users have passwords
+Negative: 8.3 User jv should have a minimum password life of at least 7 days.
+Negative: 8.3 User jv should have a maximum password life of between 1 and 90 days.
+Negative: 8.3 User msie should have a minimum password life of at least 7 days.
+Negative: 8.3 User msie should have a maximum password life of between 1 and 90 days.
+Negative: 8.3 User msie should have a password expiration warning of at least 7 days.
+Negative: 8.3 /etc/login.defs value PASS_MAX_DAYS = 180, but should not exceed 90.
+Negative: 8.3 /etc/login.defs value PASS_MIN_DAYS = 0, but should not be less than 7.
+Negative: 8.3 /etc/login.defs value PASS_MIN_LEN = 5, but should be at least 6.
+Positive: 8.4 There were no +: entries in passwd, shadow or group maps.
+Positive: 8.5 Only one UID 0 account AND it is named root.
+Positive: 8.6 root's PATH is clean of group/world writable directories or the current-directory link.
+Negative: 8.7 User msie has a world-executable homedir!
+Negative: 8.7 User msie has a world-readable homedir!
+Positive: 8.8 No group or world-writable dotfiles in user home directories!
+Positive: 8.9 No user has a .netrc file.
+Negative: 8.10 Current umask setting in file /etc/profile is 022 -- it should be stronger to block world-read/write/execute.
+Negative: 8.10 Current umask setting in file /etc/profile is 022 -- it should be stronger to block group-read/write/execute.
+Negative: 8.10 Current umask setting in file /etc/csh.login is 022 -- it should be stronger to block world-read/write/execute.
+Negative: 8.10 Current umask setting in file /etc/csh.login is 022 -- it should be stronger to block group-read/write/execute.
+Negative: 8.10 Current umask setting in file /etc/bashrc is 022 -- it should be stronger to block world-read/write/execute.
+Negative: 8.10 Current umask setting in file /etc/bashrc is 022 -- it should be stronger to block group-read/write/execute.
+Negative: 8.10 Current umask setting in file /etc/csh.cshrc is 002 -- it should be stronger to block world-read/write/execute.
+Negative: 8.10 Current umask setting in file /etc/csh.cshrc is 002 -- it should be stronger to block group-read/write/execute.
+Negative: 8.10 Current umask setting in file /root/.bash_profile is 022 -- it should be stronger to block world-read/write/execute.
+Negative: 8.10 Current umask setting in file /root/.bash_profile is 022 -- it should be stronger to block group-read/write/execute.
+Negative: 8.10 Current umask setting in file /root/.bashrc is 000 -- it should be stronger to block world-read/write/execute.
+Negative: 8.10 Current umask setting in file /root/.bashrc is 000 -- it should be stronger to block group-read/write/execute.
+Negative: 8.10 Current umask setting in file /root/.cshrc is 000 -- it should be stronger to block world-read/write/execute.
+Negative: 8.10 Current umask setting in file /root/.cshrc is 000 -- it should be stronger to block group-read/write/execute.
+Negative: 8.10 Current umask setting in file /root/.tcshrc is 000 -- it should be stronger to block world-read/write/execute.
+Negative: 8.10 Current umask setting in file /root/.tcshrc is 000 -- it should be stronger to block group-read/write/execute.
+Negative: 8.11 Coredumps aren't deactivated.
+Preliminary rating given at time: Wed Nov 26 17:20:18 2003
+
+	Preliminary rating = 5.54 / 10.00
+
+Negative: 6.6 Non-standard world-writable file: /usr/j2eesdk1.4_beta2/imq/etc/lic/imqbrokertry.lic
+Negative: 6.7 Non-standard SUID program /usr/bin/lpr.cups
+Negative: 6.7 Non-standard SUID program /sbin/dump
+Negative: 6.7 Non-standard SUID program /sbin/restore
+Negative: 6.7 Non-standard SGID program /sbin/dump
+Negative: 6.7 Non-standard SGID program /sbin/restore
+Negative: 6.7 Non-standard SGID program /usr/sbin/lpc.cups
+Ending run at time: Wed Nov 26 17:21:40 2003
+
+	Final rating = 5.54 / 10.00
+</pre>
+<h4>The negatives are much the same, just slightly different. For example:</h4>
+<ul>
+  <li>
+    <h4>Password aging is now in effect, but CIS wants 90 day aging, not 180.</h4>
+  </li>
+  <li>gpm, isdn are still active, although Bastille was supposed to deactivate them.</li>
+  <li>the shells are safe as FTP is not active.</li>
+  <li>umask is not enough to change the score, but it is enough to sufficiently secure the system. </li>
+  </ul>
+<p>I think the scoring system is rather deceptive. In any case, the score is not the key. The important point is to find vulnerabilities and to close them down. These tools seem to be valuable in that regard. </p>
+<h4><a href="#TOP">Top</a></h4>
+        <h4>&nbsp;</h4>
+        <h2><a name="H6_3" id="H6_3"></a>Internet Security Evaluation <br />
+        </h2>
+        <h4>&nbsp;</h4>
+        <h4>Downloaded the software from <a href="http://www-arc.com/sara/">http://www-arc.com/sara/</a></h4>
+        <pre class="style2">
+cd /home/downloads/sara
+md5sum --check *.md5
+gunzip sara-4.2.7.tgz
+tar xf sara-4.2.7.tar
+
+cd sara*
+./configure
+make
+</pre>
+<h4>Lots of messages, some of them quite worrying! No blatant error messages, and so carry on</h4>
+<h4>&nbsp;</h4>
+<h4><a href="http://www-arc.com/sara/sara8.html">This is a link to the online documentation for sara</a></h4>
+<pre class="style2">
+./sara -V
+./sara -a2 www.har.com
+/bin/tcp_scan; socket; Too many open files.
+</pre>
+<h4>This message scrolled off the screen. I aborted the job (kill -9). From now on, I just used -a0</h4>
+<pre class="style1">
+./sara -a0 www.sun.com
+rpcinfo: can't contact portmapper: RPC: Remote system error - Connection refused
+</pre>
+<h4>Most IPs would give the above message. </h4>
+<h4>&nbsp;</h4>
+<h4>Eventually got rather bored and did the obvious.</h4>
+<pre class="style1">./sara -a0 216.114.150.0/24
+    rpcinfo: can't contact portmapper: RPC: Remote system error - Connection refused
+</pre>
+<h4>sara seems  to rely on a portmapper process running on the remote system. I suppose either the process is not running or a firewall is intercepting the packets. I would imagine an ISP would try to block a port map attempt. To test my theory, I tried to nmap to a few of the IPs and got the Operation not permitted error.</h4>
+<h4>&nbsp;</h4>
+<h4>I tried whole ranges of IPs based on some www addresses, almost a random approach. Same result. </h4>
+<pre class="style1">cd results/sara-data 
+lf
+./  ../  all-hosts  csv  facts  history  htm  todo  xml
+</pre><h4>htm can be opened in a browser. It produces a very detailed report of its findings. Despite scanning large numbers of IPs, I found nothing of interest. </h4>
+<h4>&nbsp;</h4>
+<h4>However, I suppose I could just start a script, running sara over a very large IP address space and just let it rip. It may take ages to run, but it sure would be faster than the alternatives. </h4>
+<h4>&nbsp;</h4>
+<h4>Fiddling around,</h4>
+<h4 class="style1">./sara -n </h4>
+<h4>edited config/sara.cf</h4>
+<h4>set $concurrent processes to 1 <span class="style2">no difference </span></h4>
+<h4><span class="style1">./sara -f </span><span class="style2">makes no difference.   </span></h4>
+<h4>&nbsp; </h4>
+<h4>I don't seem to be making a lot of headway. I don't see what else I can try. The tool does find a number of valid IPs, it just fails to portmap most of them. I rather think that the good guys have made a considerable effort to protect themselves against port scans. </h4>
+<p>&nbsp; </p>
+<h2><a href="#TOP">Top</a></h2>
+<h4>&nbsp;</h4>
+  </div>
+      <div class="story">
+        <blockquote>&nbsp;</blockquote>
+  </div>
+</div>
+<!-- end masthead -->
+</body>
+</html>

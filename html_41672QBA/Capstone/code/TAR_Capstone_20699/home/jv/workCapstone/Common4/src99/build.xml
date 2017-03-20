@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+  <!ENTITY appServerAntCommands SYSTEM "../../../workBuild/app-server-ant.xml">
+]>
+
+<project name="general" default="dist" basedir=".">
+
+	&appServerAntCommands;
+
+	<target name="dist">
+		<ant dir="common" target="all" inheritAll="false"/>
+	</target>
+
+	<target name="docs">
+		<ant dir="common" target="docs" inheritAll="false"/>
+	</target>
+
+	<target name="cleanall">
+		<ant dir="common" target="clean" inheritAll="false"/>
+	</target>
+
+</project> 
+

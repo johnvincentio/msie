@@ -1,0 +1,153 @@
+
+<!--
+	xmlvalidate.xml; script to validate an XML file
+		First parameter could be a schema (.xsd) file.
+		Second parameter is the xml file to be validated.
+
+	Validate various versions of various xml files
+-->
+
+	<target name="XMLValidate" depends="XMLinit, XMLExist, XMLNoExist"/>
+
+	<target name="XMLinit">
+		<available file="${xml.file}" property="xml.file.exists"/>
+	</target>
+
+	<target name="XMLExist" if="xml.file.exists">
+		<property name="xmlvalidate.dir"    value="/opt/sun_xmlvalid" />
+		<property name="xmlvalidate.cmd"    value="${xmlvalidate.dir}/msv.jar" />
+		<property name="xmlvalidate.lib"    value="${xmlvalidate.dir}" />
+		<path id="xmlvalidate.classpath">
+			<pathelement location="${xmlvalidate.lib}/isorelax.jar"/>
+			<pathelement location="${xmlvalidate.lib}/relaxngDatatype.jar"/>
+			<pathelement location="${xmlvalidate.lib}/xercesImpl.jar"/>
+			<pathelement location="${xmlvalidate.lib}/xmlParserAPIs.jar"/>
+			<pathelement location="${xmlvalidate.lib}/xsdlib.jar"/>
+		</path>
+		<echo message="Checking ${xml.file}"/>
+		<java jar="${xmlvalidate.cmd}" fork="yes" failonerror="true">
+			<classpath refid="xmlvalidate.classpath"/>
+			<arg line="${xml.validate.options} ${dtd.file} ${xml.file}"/>
+		</java>
+	</target>
+
+	<target name="XMLNoExist" unless="xml.file.exists">
+		<echo message="WARNING: ${xml.file} does not exist."/>
+	</target>
+
+<!--
+	Validate various xml files
+-->
+
+	<target name="webXML-2-2">
+		<echo message="Checking web.xml for version 2.2"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${j2ee.dtd.home}/web-app_2_2.dtd"/>
+			<param name="xml.file" value="${basedir}/etc/web.xml"/>
+		</antcall>
+	</target>
+
+	<target name="webXML-2-3">
+		<echo message="Checking web.xml for version 2.3"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${j2ee.dtd.home}/web-app_2_3.dtd"/>
+			<param name="xml.file" value="${basedir}/etc/web.xml"/>
+		</antcall>
+	</target>
+
+	<target name="webXML-2-4">
+		<echo message="Checking web.xml for version 2.4"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${j2ee.schema.home}/web-app_2_4.xsd"/>
+			<param name="xml.file" value="${basedir}/etc/web.xml"/>
+		</antcall>
+	</target>
+
+	<target name="sun-webXML-2-4">
+		<echo message="Checking sun-web.xml for version 2.4"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${j2ee.dtd.home}/sun-web-app_2_4-0.dtd"/>
+			<param name="xml.file" value="${basedir}/etc/sun-web.xml"/>
+		</antcall>
+	</target>
+
+	<target name="ejb-jar_2_1">
+		<echo message="Checking ejb-jar.xml for version 2.1"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${j2ee.schema.home}/ejb-jar_2_1.xsd"/>
+			<param name="xml.file" value="${basedir}/etc/ejb-jar.xml"/>
+		</antcall>
+	</target>
+
+	<target name="sun-ejb-jar_2_1">
+		<echo message="Checking sun-ejb-jar.xml for version 2.1"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${j2ee.dtd.home}/sun-ejb-jar_2_1-0.dtd"/>
+			<param name="xml.file" value="${basedir}/etc/sun-ejb-jar.xml"/>
+		</antcall>
+	</target>
+
+	<target name="application_1_4">
+		<echo message="Checking application.xml for version 1.4"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${j2ee.schema.home}/application_1_4.xsd"/>
+			<param name="xml.file" value="${basedir}/etc/application.xml"/>
+		</antcall>
+	</target>
+
+	<target name="sun-application_1_4">
+		<echo message="Checking sun-application.xml for version 1.4"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${j2ee.dtd.home}/sun-application_1_4-0.dtd"/>
+			<param name="xml.file" value="${basedir}/etc/sun-application.xml"/>
+		</antcall>
+	</target>
+
+	<target name="application-client_1_4">
+		<echo message="Checking application-client.xml for version 1.4"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${j2ee.schema.home}/application-client_1_4.xsd"/>
+			<param name="xml.file" value="${basedir}/etc/application-client.xml"/>
+		</antcall>
+	</target>
+
+	<target name="sun-application-client_1_4">
+		<echo message="Checking sun-application.xml for version 1.4"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${j2ee.dtd.home}/sun-application-client_1_4-0.dtd"/>
+			<param name="xml.file" value="${basedir}/etc/sun-application-client.xml"/>
+		</antcall>
+	</target>
+
+	<target name="web_services_1_1">
+		<echo message="Checking webservices.xml for version 1.1"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${j2ee.schema.home}/j2ee_web_services_1_1.xsd"/>
+			<param name="xml.file" value="${basedir}/etc/webservices.xml"/>
+		</antcall>
+	</target>
+
+	<target name="config-interface_1_0">
+		<echo message="Checking config-interface.xml for version 1.0"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${j2ee.schema.home}/jax-rpc-ri-config.xsd"/>
+			<param name="xml.file" value="${basedir}/config-interface.xml"/>
+		</antcall>
+	</target>
+
+	<target name="config-wsdl_1_0">
+		<echo message="Checking config-wsdl.xml for version 1.0"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${j2ee.schema.home}/jax-rpc-ri-config.xsd"/>
+			<param name="xml.file" value="${basedir}/config-wsdl.xml"/>
+		</antcall>
+	</target>
+
+	<target name="jsptaglib_2_0">
+		<echo message="Checking custom tag library for version 2.0"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${j2ee.schema.home}/web-jsptaglibrary_2_0.xsd"/>
+			<param name="xml.file" value="${app.custom.tag.lib}"/>
+		</antcall>
+	</target>
+

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Project>
+
+	<Projectid>142910933</Projectid>
+	<Description>Find Water on Mars</Description>
+
+	<Activity>
+		<Activityid>_10</Activityid>
+		<Description>Send Old Russian probe, leak water on Mars</Description>
+		<Duration>545</Duration>
+		<Priority>Medium</Priority>
+		<Status>Complete</Status>
+	</Activity>
+
+	<Activity>
+		<Activityid>_20</Activityid>
+		<Description>Secure one more vote in Parliament</Description>
+		<Duration>100</Duration>
+		<Priority>Meltdown</Priority>
+		<Status>Complete</Status>
+	</Activity>
+
+	<Activity>
+		<Activityid>_30</Activityid>
+		<Description>Use spacecraft design from the district of the honourable gentleman</Description>
+		<Duration>10</Duration>
+		<Priority>Critical</Priority>
+		<Status>Complete</Status>
+	</Activity>
+
+	<Activity>
+		<Activityid>_35</Activityid>
+		<Description>Take best spacecraft design and throw it away</Description>
+		<Duration>1</Duration>
+		<Priority>Low</Priority>
+		<Status>Complete</Status>
+	</Activity>
+
+	<Activity>
+		<Activityid>_40</Activityid>
+		<Description>Launch spacecraft on old Russian rocket</Description>
+		<Duration>35</Duration>
+		<Priority>Low</Priority>
+		<Status>Complete</Status>
+	</Activity>
+
+	<Activity>
+		<Activityid>_50</Activityid>
+		<Description>Travel to Mars</Description>
+		<Duration>480</Duration>
+		<Priority>Medium</Priority>
+		<Status>Complete</Status>
+	</Activity>
+
+	<Activity>
+		<Activityid>_60</Activityid>
+		<Description>Separate lander</Description>
+		<Duration>1</Duration>
+		<Priority>Low</Priority>
+		<Status>Complete</Status>
+	</Activity>
+
+	<Activity>
+		<Activityid>_70</Activityid>
+		<Description>Send lander through atmosphere</Description>
+		<Duration>2</Duration>
+		<Priority>Low</Priority>
+		<Status>Complete</Status>
+	</Activity>
+
+	<Activity>
+		<Activityid>_75</Activityid>
+		<Description>Smash lander into planet surface</Description>
+		<Duration>2</Duration>
+		<Priority>Low</Priority>
+		<Status>Complete</Status>
+	</Activity>
+
+	<Activity>
+		<Activityid>_80</Activityid>
+		<Description>Fail to contact the lander</Description>
+		<Duration>210</Duration>
+		<Priority>Low</Priority>
+		<Status>Complete</Status>
+	</Activity>
+
+	<Activity>
+		<Activityid>_90</Activityid>
+		<Description>Find someone else to blame</Description>
+		<Duration>365</Duration>
+		<Priority>Meltdown</Priority>
+		<Status>Started</Status>
+	</Activity>
+
+	<Activity>
+		<Activityid>_100</Activityid>
+		<Description>Setup investigation committee</Description>
+		<Duration>5</Duration>
+		<Priority>High</Priority>
+		<Status>Complete</Status>
+	</Activity>
+
+	<Activity>
+		<Activityid>_110</Activityid>
+		<Description>Committee reports that insufficient money was spent on the project</Description>
+		<Duration>365</Duration>
+		<Priority>Meltdown</Priority>
+		<Status>Started</Status>
+	</Activity>
+
+	<Activity>
+		<Activityid>_120</Activityid>
+		<Description>Send probe to measure atmospheric density of Mars</Description>
+		<Duration>545</Duration>
+		<Priority>Miniscule</Priority>
+		<Status>Pending</Status>
+	</Activity>
+
+</Project>
+

@@ -1,0 +1,66 @@
+<project default="install">
+
+   <property file="build.properties"/> 
+   <property name="appdir" value="${basedir}"/>
+   <property name="builddir" value="${appdir}/build"/>
+   <property name="appname" value="amazon"/>
+   <property name="warfile" value="${builddir}/${appname}.war"/>
+   
+   <path id="classpath">
+      <pathelement location="${servlet.api.jar}"/>
+      <pathelement location="${jsp.api.jar}"/>
+      <fileset dir="${builddir}/WEB-INF/lib">
+         <include name="*.jar"/>
+      </fileset>   
+   </path>
+   
+   <target name="init">
+      <tstamp/>
+   </target>
+
+   <target name="copy" depends="init"
+      description="Copy files to build directory.">
+      <mkdir dir="${builddir}"/>
+      <copy todir="${builddir}">
+         <fileset dir="${appdir}">
+            <exclude name="**/*.java"/>
+            <exclude name="build/**"/>
+            <!-- for Eclipse -->
+            <exclude name="bin/**"/>
+            <exclude name=".*"/>
+         </fileset>
+      </copy>
+      <copy todir="${builddir}/WEB-INF/lib">
+         <fileset dir="${jsf.lib.dir}" includes="${jsf.libs}"/>
+         <fileset dir="${jstl.lib.dir}" includes="${jstl.libs}"/>
+         <fileset dir="${commons.lib.dir}" includes="${commons.libs}"/>
+         <fileset dir="${jaxrpc.lib.dir}" includes="*.jar"/>
+         <fileset dir="${saaj.lib.dir}" includes="*.jar"/>
+         <fileset dir="${jwsdp-shared.lib.dir}" includes="${jwsdp-shared.libs}"/>
+      </copy>
+   </target>
+   
+   <target name="compile" depends="copy" 
+      description="Compile source files.">
+      <javac 
+         srcdir="${appdir}/WEB-INF/classes" 
+         destdir="${builddir}/WEB-INF/classes"
+         debug="true"
+         deprecation="true">
+         <include name="**/*.java"/>
+         <classpath refid="classpath"/>
+      </javac>
+   </target>
+   
+   <target name="war" depends="compile"
+      description="Build WAR file.">
+      <delete file="${warfile}"/>
+      <jar jarfile="${warfile}" basedir="${builddir}"/>
+   </target>
+
+   <target name="install" depends="war"
+      description="Deploy web application.">
+      <copy file="${warfile}" todir="${tomcat.dir}/webapps"/>
+   </target>
+
+</project>

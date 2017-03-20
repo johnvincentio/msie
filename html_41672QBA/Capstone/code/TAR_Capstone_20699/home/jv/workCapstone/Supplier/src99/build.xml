@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+  <!ENTITY appServerAntCommands SYSTEM "../../../workBuild/app-server-ant.xml">
+]>
+
+<project name="general" default="dist" basedir=".">
+
+	&appServerAntCommands;
+
+	<target name="dist">
+		<ant dir="ejb2" target="all" inheritAll="false"/>
+		<ant dir="mdb1" target="all" inheritAll="false"/>
+		<ant dir="war" target="all" inheritAll="false"/>
+		<ant dir="ear" target="all" inheritAll="false"/>
+		<ant dir="ear" target="deploy" inheritAll="false"/>
+	</target>
+
+	<target name="ear">
+		<ant dir="ear" target="all" inheritAll="false"/>
+		<ant dir="ear" target="deploy" inheritAll="false"/>
+	</target>
+
+	<target name="deploy-app">
+		<ant dir="ear" target="deploy" inheritAll="false"/>
+	</target>
+	<target name="verify">
+		<ant dir="war" target="verify" inheritAll="false"/>
+	</target>
+	<target name="undeploy-app">
+		<ant dir="ear" target="undeploy" inheritAll="false"/>
+	</target>
+
+	<target name="docs">
+		<ant dir="ejb2" target="docs" inheritAll="false"/>
+		<ant dir="mdb1" target="docs" inheritAll="false"/>
+		<ant dir="war" target="docs" inheritAll="false"/>
+	</target>
+
+	<target name="cleanall">
+		<ant dir="ejb2" target="clean" inheritAll="false"/>
+		<ant dir="mdb1" target="clean" inheritAll="false"/>
+		<ant dir="war" target="clean" inheritAll="false"/>
+		<ant dir="ear" target="clean" inheritAll="false"/>
+	</target>
+
+<!-- application clients -->
+
+	<target name="appClient_1">
+		<ant dir="ear" target="appClientEJB2" inheritAll="false"/>
+	</target>
+	<target name="appClient_2">
+		<ant dir="ear" target="appClientMDB1" inheritAll="false"/>
+	</target>
+
+</project> 
+

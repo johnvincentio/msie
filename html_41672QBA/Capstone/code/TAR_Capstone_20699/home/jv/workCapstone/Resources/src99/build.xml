@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+  <!ENTITY appServerAntCommands SYSTEM "../../../workBuild/app-server-ant.xml">
+]>
+
+<project name="general" default="all" basedir=".">
+
+	&appServerAntCommands;
+
+	<property name="my.aaa.jmsfactory.restype"			value="javax.jms.QueueConnectionFactory"/>
+	<property name="my.aaa.jmsfactory.resource.name"	value="jms/SupplierMdb1QueueConnectionFactory"/>
+	<property name="my.aaa.jmsdest.desttype"			value="queue"/>
+	<property name="my.aaa.jmsdest.property"			value=""/>
+	<property name="my.aaa.jmsdest.name"				value="SupplierMdb1PhysicalQueue"/>
+	<property name="my.aaa.jmsresource.restype"			value="javax.jms.Queue"/>
+	<property name="my.aaa.jmsresource.property"		value="--property Name=SupplierMdb1PhysicalQueue"/>
+	<property name="my.aaa.jmsresource.resource.name"	value="jms/SupplierMdb1Queue"/>
+
+	<property name="my.bbb.jmsfactory.restype"			value="javax.jms.QueueConnectionFactory"/>
+	<property name="my.bbb.jmsfactory.resource.name"	value="jms/DistributorMdb1QueueConnectionFactory"/>
+	<property name="my.bbb.jmsdest.desttype"			value="queue"/>
+	<property name="my.bbb.jmsdest.property"			value=""/>
+	<property name="my.bbb.jmsdest.name"				value="DistributorMdb1PhysicalQueue"/>
+	<property name="my.bbb.jmsresource.restype"			value="javax.jms.Queue"/>
+	<property name="my.bbb.jmsresource.property"		value="--property Name=DistributorMdb1PhysicalQueue"/>
+	<property name="my.bbb.jmsresource.resource.name"	value="jms/DistributorMdb1Queue"/>
+
+	<property name="my.ccc.jmsfactory.restype"			value="javax.jms.QueueConnectionFactory"/>
+	<property name="my.ccc.jmsfactory.resource.name"	value="jms/DistributorMdb2QueueConnectionFactory"/>
+	<property name="my.ccc.jmsdest.desttype"			value="queue"/>
+	<property name="my.ccc.jmsdest.property"			value=""/>
+	<property name="my.ccc.jmsdest.name"				value="DistributorMdb2PhysicalQueue"/>
+	<property name="my.ccc.jmsresource.restype"			value="javax.jms.Queue"/>
+	<property name="my.ccc.jmsresource.property"		value="--property Name=DistributorMdb2PhysicalQueue"/>
+	<property name="my.ccc.jmsresource.resource.name"	value="jms/DistributorMdb2Queue"/>
+
+	<target name="all" depends="jmscreate-aaa, jmscreate-bbb, jmscreate-ccc"/>
+	<target name="cleanall" depends="jmsdelete-aaa, jmsdelete-bbb, jmsdelete-ccc"/>
+
+	<target name="jmscreate-aaa">
+		<echo message="creating JMS aaa resources"/>
+		<antcall target="create-my-jms-resources">
+			<param name="app.jmsfactory.restype"		value="${my.aaa.jmsfactory.restype}"/>
+			<param name="app.jmsfactory.resource.name"	value="${my.aaa.jmsfactory.resource.name}"/>
+			<param name="app.jmsdest.desttype"			value="${my.aaa.jmsdest.desttype}"/>
+			<param name="app.jmsdest.property"			value="${my.aaa.jmsdest.property}"/>
+			<param name="app.jmsdest.name"				value="${my.aaa.jmsdest.name}"/>
+			<param name="app.jmsresource.restype"		value="${my.aaa.jmsresource.restype}"/>
+			<param name="app.jmsresource.property"		value="${my.aaa.jmsresource.property}"/>
+			<param name="app.jmsresource.resource.name" value="${my.aaa.jmsresource.resource.name}"/>
+		</antcall>
+	</target>
+	<target name="jmsdelete-aaa">
+		<echo message="deleting JMS aaa resources"/>
+		<antcall target="delete-my-jms-resources">
+			<param name="app.jmsfactory.resource.name"	value="${my.aaa.jmsfactory.resource.name}"/>
+			<param name="app.jmsdest.desttype"			value="${my.aaa.jmsdest.desttype}"/>
+			<param name="app.jmsdest.name"				value="${my.aaa.jmsdest.name}"/>
+			<param name="app.jmsresource.resource.name"	value="${my.aaa.jmsresource.resource.name}"/>
+		</antcall>
+	</target>
+
+	<target name="jmscreate-bbb">
+		<echo message="creating JMS bbb resources"/>
+		<antcall target="create-my-jms-resources">
+			<param name="app.jmsfactory.restype"		value="${my.bbb.jmsfactory.restype}"/>
+			<param name="app.jmsfactory.resource.name"	value="${my.bbb.jmsfactory.resource.name}"/>
+			<param name="app.jmsdest.desttype"			value="${my.bbb.jmsdest.desttype}"/>
+			<param name="app.jmsdest.property"			value="${my.bbb.jmsdest.property}"/>
+			<param name="app.jmsdest.name"				value="${my.bbb.jmsdest.name}"/>
+			<param name="app.jmsresource.restype"		value="${my.bbb.jmsresource.restype}"/>
+			<param name="app.jmsresource.property"		value="${my.bbb.jmsresource.property}"/>
+			<param name="app.jmsresource.resource.name" value="${my.bbb.jmsresource.resource.name}"/>
+		</antcall>
+	</target>
+	<target name="jmsdelete-bbb">
+		<echo message="deleting JMS bbb resources"/>
+		<antcall target="delete-my-jms-resources">
+			<param name="app.jmsfactory.resource.name"	value="${my.bbb.jmsfactory.resource.name}"/>
+			<param name="app.jmsdest.desttype"			value="${my.bbb.jmsdest.desttype}"/>
+			<param name="app.jmsdest.name"				value="${my.bbb.jmsdest.name}"/>
+			<param name="app.jmsresource.resource.name"	value="${my.bbb.jmsresource.resource.name}"/>
+		</antcall>
+	</target>
+
+	<target name="jmscreate-ccc">
+		<echo message="creating JMS ccc resources"/>
+		<antcall target="create-my-jms-resources">
+			<param name="app.jmsfactory.restype"		value="${my.ccc.jmsfactory.restype}"/>
+			<param name="app.jmsfactory.resource.name"	value="${my.ccc.jmsfactory.resource.name}"/>
+			<param name="app.jmsdest.desttype"			value="${my.ccc.jmsdest.desttype}"/>
+			<param name="app.jmsdest.property"			value="${my.ccc.jmsdest.property}"/>
+			<param name="app.jmsdest.name"				value="${my.ccc.jmsdest.name}"/>
+			<param name="app.jmsresource.restype"		value="${my.ccc.jmsresource.restype}"/>
+			<param name="app.jmsresource.property"		value="${my.ccc.jmsresource.property}"/>
+			<param name="app.jmsresource.resource.name" value="${my.ccc.jmsresource.resource.name}"/>
+		</antcall>
+	</target>
+	<target name="jmsdelete-ccc">
+		<echo message="deleting JMS ccc resources"/>
+		<antcall target="delete-my-jms-resources">
+			<param name="app.jmsfactory.resource.name"	value="${my.ccc.jmsfactory.resource.name}"/>
+			<param name="app.jmsdest.desttype"			value="${my.ccc.jmsdest.desttype}"/>
+			<param name="app.jmsdest.name"				value="${my.ccc.jmsdest.name}"/>
+			<param name="app.jmsresource.resource.name"	value="${my.ccc.jmsresource.resource.name}"/>
+		</antcall>
+	</target>
+
+</project> 
+

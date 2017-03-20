@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="WEB-INF/classes"/>
+	<classpathentry kind="lib" path="build/WEB-INF/lib/commons-digester.jar"/>
+	<classpathentry kind="lib" path="build/WEB-INF/lib/jsf-impl.jar"/>
+	<classpathentry kind="lib" path="build/WEB-INF/lib/jstl.jar"/>
+	<classpathentry kind="lib" path="build/WEB-INF/lib/standard.jar"/>
+	<classpathentry kind="lib" path="build/WEB-INF/lib/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="build/WEB-INF/lib/jsf-api.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="/jsflibs"/>
+	<classpathentry kind="output" path="build/WEB-INF/classes"/>
+</classpath>

@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Internet Technology Homework</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="../css/topnav.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {color: #0000FF}
+.style2 {color: #FF0000}
+.style4 {color: #00FF00}
+.style5 {color: #FF00FF}
+.style6 {color: #ECE9D8}
+-->
+</style>
+</head>
+
+<body>
+<div id="masthead">
+  <h1 class="style1" id="siteName">Internet Technology</h1>
+  <div id="globalNav"> 
+  	<a href="../index.html">Home </a> | <a href="../ConceptualDesign.html">Conceptual Design </a> | <a href="../InternetTechnologies.html">Internet Technologies </a> | <a href="../InternetProgrammingLanguages.html">Internet Programming Languages</a> | <a href="../Assignments.html">Assignments</a> | <a href="../CurrentProjects.html">Projects</a> | <a href="../PersonalLog.html">Personal Log </a> | <a href="../About.html">About</a> 
+  </div>
+</div>
+<div id="content">
+  <h2 id="pageName">&nbsp;</h2>
+  <h2> Ethereal and tcp/ip packets </h2>
+  <div class="feature"> 
+    <img src="../images/LochArklet.jpg" width="369" height="255" />
+    <h3>Just a thought!</h3> 
+    <p align="center">If I have a server in Houston serving up tcp/ip packets, does my client side respond:</p>
+    <p align="center">	&quot;Acknowledge that Houston&quot;</p>
+    <p align="center"> Sorry, I've got that Apollo movie on the brain, the Tom Hanks one. </p>
+  </div>
+      <div class="story">
+        <h2><a name="TOP" id="TOP"></a>General</h2>
+        <ul>
+          <li><a href="#H3_1">Download, install and play around with ethereal or another packet sniffer.</a></li>
+          <li><a href="#H3_2">Capture a group of packets that illustrate the life of a TCP connection</a>. Understand the values for the sequence, ACK and length fields. </li>
+          <li><a href="#H3_3">Get it all working on Solaris 9; it will help later as this will be a Weblogic Application Server. </a></li>
+        </ul>
+        <h2><a name="H3_1" id="H3_1"></a>Ethereal</h2>
+        <h4>&nbsp;</h4>
+        <h4>I had to install ethereal onto my XP box.</h4>
+        <h4>First, got libPcap from<a href="http://winpcap.polito.it/"> http://winpcap.polito.it/</a> and executed the downloaded file WinPcap_3_0.exe. Installed easy and as per doc. </h4>
+        <h4>Then ethereal at <a href="http://www.ethereal.com">http://www.ethereal.com</a></h4>
+        <ul>
+          <li>
+            <h4>I took the downloads/binary packages option </h4>
+          </li>
+          <li>
+            <h4>Microsoft Windows local archive option </h4>
+          </li>
+          <li>
+            <h4>selected ethereal-setup-0.9.15.exe which I downloaded to my downloads area and then executed. The install was easy and as per doc.</h4>
+          </li>
+        </ul>
+        <h4>Ethereal was already installed on Red Hat Linux.</h4>
+        <h4>&nbsp;</h4>
+        <h2><a href="#TOP">Top</a></h2>
+        <h4>&nbsp;</h4>
+        <h2><a name="H3_2" id="H3_2"></a>Group of Packets </h2>
+        <h4>&nbsp;</h4>
+        <h4>I started with a bit of fun. I started ethereal on a Linux box, listening to the intranet eth1. I set the filter to telnet and started the capture.</h4>
+        <p>Elsewhere on the intranet, I telnet'd from XP into a Solaris 9 box, entered the username and password, followed by a pwd.</p>
+        <p><img src="images/telnet1.jpg" width="1314" height="1022" /> </p>
+        <p>I only display the contents of the last packet to show the successful login. The earlier packets gave the username and password.</p>
+        <p>For the following test of ethereal, I started ethereal from a Linux box and, from the same box, executed a script to run wget.</p>
+        <blockquote>
+          <h4><span class="style1">[jv@mule tmp]$ ./po</span><br />
+            <span class="style1">++ wget -p http://195.114.150.150:1024/HelloWorld.html</span><br />
+            --10:00:14-- http://195.114.150.150:1024/HelloWorld.html<br />
+  =&gt; `195.114.150.150:1024/HelloWorld.html'<br />
+  Connecting to 195.114.150.150:1024... connected.<br />
+  HTTP request sent, awaiting response... 200 OK<br />
+  Length: 278 [text/html]<br />
+  <br />
+  100%[====================================&gt;] 278 271.48K/s ETA 00:00<br />
+  <br />
+  10:00:14 (271.48 KB/s) - `195.114.150.150:1024/HelloWorld.html' saved [278/278]<br />
+  <br />
+  <br />
+  FINISHED --10:00:14--<br />
+  Downloaded: 278 bytes in 1 files<br />
+  [jv@mule tmp]$ </h4>
+        </blockquote>
+        <h4>HelloWorld.html is the following:</h4>
+        <blockquote>
+            <p>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;<br />
+&quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;<br />
+&lt;html&gt;<br />
+&lt;head&gt;<br />
+&lt;title&gt;Untitled Document&lt;/title&gt;<br />
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=iso-8859-1&quot;&gt;<br />
+&lt;/head&gt;</p>
+          <h4>&lt;body&gt;<br />
+      HelloWorld<br />
+&lt;/body&gt;<br />
+&lt;/html&gt;</h4>
+        </blockquote>
+        <h4>Note  the target box is running SunOneApplicationServer which has an embedded Apache Web Server listening on port 1024. </h4>
+        <h4>&nbsp;</h4>
+        <h4>The following is a record of that transaction, recorded by ethereal and saved to text file by using print, print summary to file. I have included data sections where I thought it appropriate. </h4>
+        <h4>&nbsp; </h4>
+        <h4>No. Time Source Destination Protocol Info<br />
+          1 0.000000 <span class="style4">195.114.150.1</span> 195.114.150.150 TCP 49103 &gt; 1024 [SYN] Seq=4011646235 Ack=0 Win=5840 Len=0 <span class="style2">connection request, port 49103, client_seq=4011646235</span><br />
+          2 0.000472 <span class="style5">195.114.150.150</span> 195.114.150.1 TCP 1024 &gt; 49103 [SYN, ACK] Seq=1965471984 Ack=4011646236 Win=17520 Len=0 <span class="style2">OK, acknowledge client_seq+1, server_seq=1965471984</span><br />
+        3 0.000538 <span class="style4">195.114.150.1</span> 195.114.150.150 TCP 49103 &gt; 1024 [ACK] Seq=4011646236 Ack=1965471985 Win=5840 Len=0 <span class="style2">agreed, client_seq+1, ack server_seq+1</span></h4>
+        <h4> <br />
+        4 0.000832 1<span class="style4">95.114.150.1</span> 195.114.150.150 TCP 49103 &gt; 1024 [PSH, ACK] Seq=4011646236 Ack=1965471985 Win=5840 Len=122 <span class="style2">packet length of 122 suggests a data packet </span></h4>
+        <h4>&nbsp;</h4>
+        <blockquote>
+          <h4>0000 47 45 54 20 2f 48 65 6c 6c 6f 57 6f 72 6c 64 2e GET /HelloWorld. <span class="style2">requests the HelloWorld.html file </span><br />
+            0010 68 74 6d 6c 20 48 54 54 50 2f 31 2e 30 0d 0a 55 html HTTP/1.0..U<br />
+            0020 73 65 72 2d 41 67 65 6e 74 3a 20 57 67 65 74 2f ser-Agent: Wget/<br />
+            0030 31 2e 38 2e 32 0d 0a 48 6f 73 74 3a 20 31 39 35 1.8.2..Host: 195<br />
+            0040 2e 31 31 34 2e 31 35 30 2e 31 35 30 3a 31 30 32 .114.150.150:102<br />
+            0050 34 0d 0a 41 63 63 65 70 74 3a 20 2a 2f 2a 0d 0a 4..Accept: */*..<br />
+            0060 43 6f 6e 6e 65 63 74 69 6f 6e 3a 20 4b 65 65 70 Connection: Keep<br />
+          0070 2d 41 6c 69 76 65 0d 0a 0d 0a -Alive....</h4>
+        </blockquote>
+        <h4>5 0.006214 <span class="style5">195.114.150.150</span> 195.114.150.1 TCP 1024 &gt; 49103 [PSH, ACK] Seq=1965471985 Ack=<span class="style1">4011646358</span> Win=17398 Len=228 <span class="style2">ack received packet (4011646236+122)=4011646358</span></h4>
+        <h4>&nbsp;</h4>
+        <blockquote>
+          <h4>0000 48 54 54 50 2f 31 2e 31 20 32 30 30 20 4f 4b 0d HTTP/1.1 200 OK. <span class="style2">returns some server and file information </span><br />
+            0010 0a 45 54 61 67 3a 20 57 2f 22 32 37 38 2d 31 30 .ETag: W/&quot;278-10<br />
+            0020 36 36 37 34 34 39 37 37 30 30 30 22 0d 0a 4c 61 66744977000&quot;..La<br />
+            0030 73 74 2d 4d 6f 64 69 66 69 65 64 3a 20 54 75 65 st-Modified: Tue<br />
+            0040 2c 20 32 31 20 4f 63 74 20 32 30 30 33 20 31 34 , 21 Oct 2003 14<br />
+            0050 3a 30 32 3a 35 37 20 47 4d 54 0d 0a 43 6f 6e 74 :02:57 GMT..Cont<br />
+            0060 65 6e 74 2d 54 79 70 65 3a 20 74 65 78 74 2f 68 ent-Type: text/h<br />
+            0070 74 6d 6c 0d 0a 43 6f 6e 74 65 6e 74 2d 4c 65 6e tml..Content-Len<br />
+            0080 67 74 68 3a 20 32 37 38 0d 0a 44 61 74 65 3a 20 gth: 278..Date: <br />
+            0090 54 75 65 2c 20 32 31 20 4f 63 74 20 32 30 30 33 Tue, 21 Oct 2003<br />
+            00a0 20 31 34 3a 30 34 3a 34 31 20 47 4d 54 0d 0a 53 14:04:41 GMT..S<br />
+            00b0 65 72 76 65 72 3a 20 41 70 61 63 68 65 20 43 6f erver: Apache Co<br />
+            00c0 79 6f 74 65 2f 31 2e 30 0d 0a 43 6f 6e 6e 65 63 yote/1.0..Connec<br />
+            00d0 74 69 6f 6e 3a 20 4b 65 65 70 2d 41 6c 69 76 65 tion: Keep-Alive<br />
+          00e0 0d 0a 0d 0a</h4>
+          <h4>&nbsp;</h4>
+        </blockquote>
+        <h4>6 0.006319 <span class="style4">195.114.150.1 </span>195.114.150.150 TCP 49103 &gt; 1024 [ACK] Seq=4011646358 Ack=<span class="style1">1965472213</span> Win=6432 Len=0 <span class="style2">OK, I received packet (1965471985+228)=1965472213</span><br />
+  7 0.006509 <span class="style5">195.114.150.150</span> 195.114.150.1 TCP 1024 &gt; 49103 [PSH, ACK] Seq=1965472213 Ack=4011646358 Win=17398 Len=278 <span class="style2">Ack that, here's the file as packet data </span></h4>
+        <h4>&nbsp;</h4>
+        <blockquote>
+          <h4>0000 3c 21 44 4f 43 54 59 50 45 20 48 54 4d 4c 20 50 &lt;!DOCTYPE HTML P<br />
+            0010 55 42 4c 49 43 20 22 2d 2f 2f 57 33 43 2f 2f 44 UBLIC &quot;-//W3C//D<br />
+            0020 54 44 20 48 54 4d 4c 20 34 2e 30 31 20 54 72 61 TD HTML 4.01 Tra<br />
+            0030 6e 73 69 74 69 6f 6e 61 6c 2f 2f 45 4e 22 0d 0a nsitional//EN&quot;..<br />
+            0040 22 68 74 74 70 3a 2f 2f 77 77 77 2e 77 33 2e 6f &quot;http://www.w3.o<br />
+            0050 72 67 2f 54 52 2f 68 74 6d 6c 34 2f 6c 6f 6f 73 rg/TR/html4/loos<br />
+            0060 65 2e 64 74 64 22 3e 0d 0a 3c 68 74 6d 6c 3e 0d e.dtd&quot;&gt;..&lt;html&gt;.<br />
+            0070 0a 3c 68 65 61 64 3e 0d 0a 3c 74 69 74 6c 65 3e .&lt;head&gt;..&lt;title&gt;<br />
+            0080 55 6e 74 69 74 6c 65 64 20 44 6f 63 75 6d 65 6e Untitled Documen<br />
+            0090 74 3c 2f 74 69 74 6c 65 3e 0d 0a 3c 6d 65 74 61 t&lt;/title&gt;..&lt;meta<br />
+            00a0 20 68 74 74 70 2d 65 71 75 69 76 3d 22 43 6f 6e http-equiv=&quot;Con<br />
+            00b0 74 65 6e 74 2d 54 79 70 65 22 20 63 6f 6e 74 65 tent-Type&quot; conte<br />
+            00c0 6e 74 3d 22 74 65 78 74 2f 68 74 6d 6c 3b 20 63 nt=&quot;text/html; c<br />
+            00d0 68 61 72 73 65 74 3d 69 73 6f 2d 38 38 35 39 2d harset=iso-8859-<br />
+            00e0 31 22 3e 0d 0a 3c 2f 68 65 61 64 3e 0d 0a 0d 0a 1&quot;&gt;..&lt;/head&gt;....<br />
+            00f0 3c 62 6f 64 79 3e 0d 0a 48 65 6c 6c 6f 57 6f 72 &lt;body&gt;..HelloWor<br />
+            0100 6c 64 0d 0a 3c 2f 62 6f 64 79 3e 0d 0a 3c 2f 68 ld..&lt;/body&gt;..&lt;/h<br />
+            0110 74 6d 6c 3e 0d 0a tml&gt;..<br />
+          </h4>
+        </blockquote>
+        <h4>8 0.006546 <span class="style4">195.114.150.1</span> 195.114.150.150 TCP 49103 &gt; 1024 [ACK] Seq=4011646358 Ack=<span class="style1">1965472491</span> Win=7504 Len=0 <span class="style2">Ack received 1965472491=(1965472213+278)</span></h4>
+        <h4>9 0.074636<span class="style4"> 195.114.150.1</span> 195.114.150.150 TCP 49103 &gt; 1024 [FIN, ACK] Seq=4011646358 Ack=1965472491 Win=7504 Len=0 <span class="style2">Ack again, I'm done, l want to disconnect (FIN) </span><br />
+  10 0.075084 <span class="style5">195.114.150.150</span> 195.114.150.1 TCP 1024 &gt; 49103 [ACK] Seq=1965472491 Ack=4011646359 Win=17398 Len=0 <span class="style2">Ack that you received the file 1965472491</span><br />
+  11 0.075397 <span class="style5">195.114.150.150</span> 195.114.150.1 TCP 1024 &gt; 49103 [FIN, ACK] Seq=1965472491 Ack=4011646359 Win=17398 Len=0 <span class="style2">Ack disconnect request</span><br />
+  12 0.075446 <span class="style4">195.114.150.1</span> 195.114.150.150 TCP 49103 &gt; 1024 [ACK] Seq=4011646359 Ack=1965472492 Win=7504 Len=0 <span class="style2">Ack your ack for disconnect</span></h4>
+        <h4><br />
+        </h4>
+        <h2><a href="#TOP">Top</a></h2>
+        <h4>&nbsp;        </h4>
+        <h2><a name="H3_3" id="H3_3"></a>Solaris 9 </h2>
+        <h4>&nbsp;</h4>
+        <h4>This is a different environment, partly because I only installed a minimal Solaris system, as 10Gb of disk doesn't go far when you are going to install an Application Server and  Oracle 9i! Thus, I get to install some basics.</h4>
+        <h4>&nbsp;</h4>
+        <h4>First, I need md5sum, which I will  from the GNU Project<a href="http://www.gnu.org%20"> www.gnu.org</a></h4>
+        <ul>
+          <li>
+            <h4>Logged into Solaris 9 box as root.</h4>
+          </li>
+          <li>
+            <h4>cd /export/home/downloads</h4>
+          </li>
+          <li>
+            <h4>mkdir gnu</h4>
+          </li>
+          <li>
+            <h4>cd gnu</h4>
+          </li>
+          <li>
+            <h4>/usr/sfw/bin/wget -p http://ftp.gnu.org/pub/gnu/textutils/textutils-2.1.tar.gz</h4>
+          </li>
+          <li>
+            <h4>gunzip *.gz</h4>
+          </li>
+          <li>
+            <h4> tar xvf textutils-2.1.tar</h4>
+          </li>
+          <li>
+            <h4>cd /export/home/downloads/gnu/ftp.gnu.org/pub/gnu/textutils/textutils-2.1</h4>
+          </li>
+          <li>
+            <h4>./configure</h4>
+          </li>
+          <li>
+            <h4>make</h4>
+          </li>
+          <li>
+            <h4>make install -<span class="style2"> puts a bunch of stuff into /usr/local/bin, including md5sum.</span></h4>
+          </li>
+          <li>
+            <h4>add /usr/local/bin to PATH if not already there.</h4>
+          </li>
+          <li>
+            <h4>deleted the gnu downloaded files. </h4>
+          </li>
+        </ul>
+        <h4>Now I can get the goodies from Sun freeware at  <a href="http://wwws.sun.com/software/solaris/freeware/">http://wwws.sun.com/software/solaris/freeware/</a></h4>
+        <ul>
+          <li>
+            <h4>Chose Solaris 9 Companion Software individual packages download.</h4>
+          </li>
+          <li>
+            <h4>Solaris 9 Companion Software SPARC Platfolrm Edition</h4>
+          </li>
+          <li>
+            <h4>login...</h4>
+          </li>
+          <li>
+            <h4>downloaded the following:</h4>
+            <ul>
+              <li>
+                <h4> <a href="http://jsecom15d.sun.com/ECom/EComTicketServlet/BEGINjsecom15d.sun.com-45be%3A3f955135%3Afce4d91894acade7/64440615/218480019/1/331034/329474/218480019/2ts+/westCoastFSEND/S9U4_Comp-SP-G-F/S9U4_Comp-SP-G-F:2/Depend-sparc-pkgs.tar.bz2"><strong>Depend Sparc packages, English </strong> (Depend-sparc-pkgs.tar.bz2)</a></h4>
+              </li>
+              <li>
+                <h4> <a href="http://jsecom15d.sun.com/ECom/EComTicketServlet/BEGINjsecom15d.sun.com-45be%3A3f955135%3Afce4d91894acade7/64440615/218480019/1/331034/329786/218480019/2ts+/westCoastFSEND/S9U4_Comp-SP-G-F/S9U4_Comp-SP-G-F:28/SFWethrl.bz2"><strong>ethereal 0.9.11 A Network Protocol Analyzer, English </strong> (SFWethrl.bz2)</a></h4>
+              </li>
+              <li>
+                <h4> <a href="http://jsecom15d.sun.com/ECom/EComTicketServlet/BEGINjsecom15d.sun.com-45be%3A3f955135%3Afce4d91894acade7/64440615/218480019/1/331034/330230/218480019/2ts+/westCoastFSEND/S9U4_Comp-SP-G-F/S9U4_Comp-SP-G-F:65/SFWlpcap.bz2"><strong>libpcap 0.7.2 A Packet Capture Library, English </strong> (SFWlpcap.bz2)</a></h4>
+              </li>
+              <li>
+                <h4> <a href="http://jsecom15d.sun.com/ECom/EComTicketServlet/BEGINjsecom15d.sun.com-45be%3A3f955135%3Afce4d91894acade7/64440615/218480019/1/331034/330734/218480019/2ts+/westCoastFSEND/S9U4_Comp-SP-G-F/S9U4_Comp-SP-G-F:107/SFWtdmp.bz2"><strong>tcpdump 3.7.2 dump traffic on a network, English </strong> (SFWtdmp.bz2)</a></h4>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <h4>I checked for package dependencies, none were stated, although I suspect that the depend sparc package is not stated as it is supposed to be obvious! I will assume the depend sparc package is required.</h4>
+        <blockquote>
+          <h4># <span class="style1">lf *.bz2</span><br />
+    Depend-sparc-pkgs.tar.bz2 SFWlpcap.bz2<br />
+    SFWethrl.bz2 SFWtdmp.bz2</h4>
+        </blockquote>
+        <h4>Make a md5sum file for each of the downloaded files. Copied the md5sum for each package from the web page into each file.</h4>
+        <blockquote>
+          <h4># <span class="style1">lf *sum5</span><br />
+            depend_sum5 ethr_sum5 pcap_sum5 tdmp_sum5</h4>
+        </blockquote>
+        <h4>I made a script to run the md5sum checks  </h4>
+        <blockquote>
+          <h4># <span class="style1">./po</span><br />
+            + md5sum --check depend_sum5 <br />
+            Depend-sparc-pkgs.tar.bz2: OK<br />
+            + md5sum --check ethr_sum5 <br />
+            SFWethrl.bz2: OK<br />
+            + md5sum --check pcap_sum5 <br />
+            SFWlpcap.bz2: OK<br />
+            + md5sum --check tdmp_sum5 <br />
+          SFWlpcap.bz2: OK</h4>
+        </blockquote>
+        <h4>Now I can go to work. I feel brave. Just go for it, the installer should list any missing packages: </h4>
+        <ul>
+          <li>
+            <h4>bunzip2 SFWethrl.bz2</h4>
+          </li>
+          <li>
+            <h4>pkgadd -d ./SFWethrl<br />
+              Installed no problem, ethereal &amp; tethereal and other utilities in /opt/sfw/bin</h4>
+          </li>
+          <li>
+            <h4>cd /opt/sfw/bin</h4>
+          </li>
+          <li>
+            <h4>./ethereal &amp;</h4>
+          </li>
+        </ul>
+        <h4>I opened a browser and browsed www.sun.com, packets were captured.</h4>
+        <h4>&nbsp;</h4>
+        <h4>I might as well install tcpdump:</h4>
+        <ul>
+          <li>
+            <h4>  bunzip2 SFWtdmp.bz2</h4>
+          </li>
+          <li>
+            <h4>pkgadd -d ./SFWtdmp</h4>
+          </li>
+          <h4>which installed tmpdump into /opt/sfw/sbin.
+          </h4>
+        </ul>
+        <h4>I tested tcpdump and all worked fine, it produced tons of stuff. I prefer ethereal, but it was worth installing just to do the comparison. </h4>
+        <h4>&nbsp;</h4>
+        <h4>Cleanup:  <br />
+        cd /export/home/downloads</h4>
+        <h4>rm -rf sun</h4>
+        <h4>&nbsp;</h4>
+        <h2><a href="#TOP">Top</a></h2>
+        <h4>&nbsp;</h4>
+        <blockquote>
+          <p></p>
+          <p></p>
+          <p></p>
+        </blockquote>
+  </div>
+      <div class="story">
+        <blockquote>&nbsp;</blockquote>
+      </div>
+</div>
+<!-- end masthead -->
+</body>
+</html>

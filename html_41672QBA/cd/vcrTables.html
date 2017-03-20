@@ -1,0 +1,1456 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Final Project</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="../css/topnav.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-weight: bold}
+-->
+</style>
+</head>
+
+<body>
+<div id="masthead">
+  <h1 class="style1" id="siteName">Conceptual Design </h1>
+  <div id="globalNav"> 
+  	<a href="../index.html">Home </a> | <a href="../ConceptualDesign.html">Conceptual Design </a> | <a href="../InternetTechnologies.html">Internet Technologies </a> | <a href="../InternetProgrammingLanguages.html">Internet Programming Languages</a> | <a href="../Assignments.html">Assignments</a> | <a href="../CurrentProjects.html">Projects</a> | <a href="../PersonalLog.html">Personal Log </a> | <a href="../About.html">About</a> 
+  </div>
+</div>
+<div id="content">
+      <h2 id="pageName">&nbsp;</h2>
+  <div class="story">
+    <h1><a name="TOP" id="TOP"></a>Final Project - Database Specifications </h1>
+    <p>The database design is based upon the RDBMS standard. The database has been designed to allow it to be tied  in with existing company databases. The indexes have not yet been defined. </p>
+        <h2>BidRequests</h2>
+        <h4>&nbsp;</h4>
+        <h4>Store requests for bids records.</h4>
+        <h4>&nbsp;</h4>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>BidId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>BidId and VendorId make a unique key between them.</td>
+          </tr>
+          <tr>
+            <td>PackageId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>AlertId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Location</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>DateExpires</td>
+            <td>date</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>VendorId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>ArrivalDate</td>
+            <td>date</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>User</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>entered by </td>
+          </tr>
+          <tr>
+            <td>Date</td>
+            <td>date</td>
+            <td>&nbsp;</td>
+            <td>on this date/time </td>
+          </tr>
+        </table>
+        <h2>&nbsp;</h2>
+        <h4>&nbsp;</h4>
+        <h4>&nbsp;</h4>
+        <h2>BidsOffered</h2>
+        <p>Responses to the bids are considered to be Offers. They are stored in this table. </p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>OffersId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>VendorOfferId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>BidId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>AlertId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>DateExpires</td>
+            <td>Date</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Price</td>
+            <td>number</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Status</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>User</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>entered by </td>
+          </tr>
+          <tr>
+            <td>Date</td>
+            <td>date</td>
+            <td>&nbsp;</td>
+            <td>on this date/time </td>
+          </tr>
+        </table>
+        <h2>&nbsp;</h2>
+        <h2>Orders</h2>
+        <p>Current Orders </p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>OrderId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>VendorOrderId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>VendorId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>PackageId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>AlertId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>ShipDate</td>
+            <td>date</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>User</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Date</td>
+            <td>date</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+        <h2>&nbsp;</h2>
+        <h2>SupplierOrders</h2>
+        <p>Confirmed Orders that have yet to be Accepted.</p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>OrderId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>SupplierOrderId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>SupplierId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>PackageId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>AlertId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>ShipDate</td>
+            <td>date</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>User</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Date</td>
+            <td>date</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>ArrivalDate</td>
+            <td>date</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>ArrivalLocation</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>DateExpires</td>
+            <td>date</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Status</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+        <h2>&nbsp;</h2>
+        <h2>Collection</h2>
+        <p>A collection of items from the catalog </p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Description</td>
+            <td>String</td>
+            <td>&nbsp;</td>
+            <td>for example, Spring Collection </td>
+          </tr>
+          <tr>
+            <td>CatalogGroupId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs CatalogGroup.Id </td>
+          </tr>
+        </table>
+        <h2>&nbsp;</h2>
+        <h2>CatalogGroup</h2>
+        <h4>&nbsp;</h4>
+        <h4>Group related items.</h4>
+        <h4>&nbsp;</h4>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>ref'd by Collection.Id</td>
+          </tr>
+          <tr>
+            <td>Barcode</td>
+            <td>Barcode</td>
+            <td>&nbsp;</td>
+            <td>refs Catalog.Barcode </td>
+          </tr>
+        </table>
+        <h2>&nbsp;</h2>
+        <h2>Catalog</h2>
+        <h4>&nbsp;</h4>
+        <h4>All items that are available to the business.</h4>
+        <h4>&nbsp;</h4>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Barcode</td>
+            <td>Barcode</td>
+            <td>unique</td>
+            <td>exact item </td>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>item type, refs Items.Id </td>
+          </tr>
+          <tr>
+            <td>Description</td>
+            <td>String</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>CostId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>refs Costs.Id </td>
+          </tr>
+          <tr>
+            <td>ImageURL</td>
+            <td>URL</td>
+            <td>&nbsp;</td>
+            <td>URL of the picture of the item </td>
+          </tr>
+          <tr>
+            <td>CharacteristicsId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>refs Characteristics.Id </td>
+          </tr>
+        </table>
+        <h2>&nbsp;</h2>
+        <h2>Items</h2>
+        <h4>&nbsp;</h4>
+        <h4>An item is a generic product type. A pencil is an item, but a certain type of pencil is represented by a barcode in the catalog. </h4>
+        <h4>&nbsp;</h4>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>ref'd by Catalog.Id</td>
+          </tr>
+          <tr>
+            <td>Description</td>
+            <td>String</td>
+            <td>&nbsp;</td>
+            <td>for example, a pencil </td>
+          </tr>
+        </table>
+        <h2>&nbsp;</h2>
+        <h2>&nbsp;</h2>
+        <h2>Characteristics</h2>
+        <h4>&nbsp;</h4>
+        <h4>Define item characteristics. For example height.</h4>
+        <h4>&nbsp;</h4>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs Catalog.CharacteristicsId</td>
+          </tr>
+          <tr>
+            <td>CategoryId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs Category.Id, example Height </td>
+          </tr>
+          <tr>
+            <td>Value</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>example, 30m </td>
+          </tr>
+        </table>
+        <h2>&nbsp;</h2>
+        <h2>&nbsp;</h2>
+        <h2>Categories</h2>
+        <h4>&nbsp;</h4>
+        <h4>A Category is a Characteristic </h4>
+        <h4>&nbsp;</h4>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Description</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>for example, Steel Quality </td>
+          </tr>
+        </table>
+        <h2>&nbsp;</h2>
+        <h2>CategoryValues</h2>
+        <h4>&nbsp;</h4>
+        <h4>These are the available values of a  Characteristic </h4>
+        <h4>&nbsp;</h4>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>CategoryId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs Category.Id</td>
+          </tr>
+          <tr>
+            <td>Value</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Description</td>
+            <td>String</td>
+            <td>&nbsp;</td>
+            <td>example, Stainless Steel </td>
+          </tr>
+        </table>
+        <h2>&nbsp;</h2>
+        <h2>ShippingBarcodes</h2>
+        <h4>&nbsp;</h4>
+        <h4>This is the barcode that is used on every item.</h4>
+        <h4>&nbsp;</h4>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Barcode</td>
+            <td>Barcode</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>SupplierId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>refs Suppliers.Id </td>
+          </tr>
+          <tr>
+            <td>ItemId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>refs Items.Id </td>
+          </tr>
+        </table>
+        <h2>&nbsp;</h2>
+        <h2>Suppliers</h2>
+        <h4>&nbsp;</h4>
+        <h4>These are the details of the suppliers of products to the business.</h4>
+        <h4>&nbsp;</h4>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Barcode</td>
+            <td>Barcode</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td>Name</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>Address</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>WebService</td>
+            <td>WebServicesObject</td>
+            <td>&nbsp;</td>
+            <td>auto web services </td>
+          </tr>
+          <tr>
+            <td>Bank</td>
+            <td>Bank Object </td>
+            <td>&nbsp;</td>
+            <td>electronic payments </td>
+          </tr>
+          <tr>
+            <td>Shipping</td>
+            <td>Shipping Object </td>
+            <td>&nbsp;</td>
+            <td>shipping address </td>
+          </tr>
+          <tr>
+            <td>ShippingReturns</td>
+            <td>Shipping Object </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>BiilingAccountId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>MaxOwed</td>
+            <td>number</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>CurrentOwed</td>
+            <td>number</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>MaxAccountsReceivable</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>a duration </td>
+          </tr>
+          <tr>
+            <td>CreditRating</td>
+            <td>String</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>CreditTerms</td>
+            <td>String</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Comments</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>Status</h2>
+        <h4>&nbsp;</h4>
+        <h4>This is a worker table used primarily to ensure consistent status usage across the system.</h4>
+        <h4>Values of status are: </h4>
+        <h4>1 = New, 2 = Approved, 3 = Confirmed, 4 = Offer, 5 = Reject, 6 = Inventory, 7 = Accept, 8 = Invoiced, 9 = Consigned</h4>
+        <p>It is better for the program to key of an integer than a String. This design also forces the user interface developer to get the string from this table, thus helping to localize the product.</p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>status</td>
+            <td>String</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>Subsystem </h2>
+        <p>List the installed subsystems.</p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>name</td>
+            <td>String</td>
+            <td>&nbsp;</td>
+            <td>short subsystem name </td>
+          </tr>
+          <tr>
+            <td>Description</td>
+            <td>String</td>
+            <td>&nbsp;</td>
+            <td>long description, for example Contracts System </td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>Roles</h2>
+        <p>Details of available roles. </p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td>String</td>
+            <td>&nbsp;</td>
+            <td>example, Sales</td>
+          </tr>
+          <tr>
+            <td>Description</td>
+            <td>String</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>SubsystemId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>refs Subsystem.Id </td>
+          </tr>
+          <tr>
+            <td>Value</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>read=1, write=2, delete=4; value is cumulative, thus all = 7 </td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>Users</h2>
+        <p>Details of users. </p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>EmployeeId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs Employees.Id</td>
+          </tr>
+          <tr>
+            <td>Security</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>handles Encryption </td>
+          </tr>
+          <tr>
+            <td>Database</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>handles Database connectivity </td>
+          </tr>
+          <tr>
+            <td>Roles</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>will be retrieved at login </td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>Employees</h2>
+        <p>Employee data. </p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>WorkAddress</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>PayrollId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Location</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>refs Locations.Id </td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>Alerts</h2>
+        <p>Alerts details. Alerts will handle system, sub system, role and user alerts. </p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs EventObject.Id</td>
+          </tr>
+          <tr>
+            <td>EventObjectId</td>
+            <td>Object</td>
+            <td>unique</td>
+            <td>do this when this alert is raised </td>
+          </tr>
+          <tr>
+            <td>RoleId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td><p>raise the alert to this role</p>            </td>
+          </tr>
+          <tr>
+            <td>Description</td>
+            <td>String</td>
+            <td>&nbsp;</td>
+            <td>describe the alert </td>
+          </tr>
+          <tr>
+            <td>level</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>1 to 99; 1 is highest </td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>EventObject</h2>
+        <p>Describe the handling of an alert. </p>
+        <p>Any database access here should only select data from the database. Any other access could cause a lock out condition, with the application locking itself out! </p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>SQL</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>handles SQL or PL/SQL </td>
+          </tr>
+          <tr>
+            <td>URL</td>
+            <td>URL</td>
+            <td>&nbsp;</td>
+            <td>handles forwarding </td>
+          </tr>
+          <tr>
+            <td>JavaRef</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>hands off to a Java Object</td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>Inventory</h2>
+        <p>Inventory Records</p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Barcode</td>
+            <td>Barcode</td>
+            <td>unique</td>
+            <td>refs Catalog.Barcode</td>
+          </tr>
+          <tr>
+            <td>Quantity</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>number in stock </td>
+          </tr>
+          <tr>
+            <td>LocationId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>at this location </td>
+          </tr>
+          <tr>
+            <td>Status</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>with this status </td>
+          </tr>
+          <tr>
+            <td>ManufacturingId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>if in manufacturing</td>
+          </tr>
+          <tr>
+            <td>ShipmentId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>if shipping </td>
+          </tr>
+          <tr>
+            <td>ExpectedReturnDate</td>
+            <td>Date</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>ManufacturingObjectId</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>ref to Manufacturing process </td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>TargetInventory</h2>
+        <p>These are the targetted Inventory  Records. Maintain these levels of these Barcodes. </p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Barcode</td>
+            <td>barcode</td>
+            <td>unique</td>
+            <td>ref to catalog.barcode </td>
+          </tr>
+          <tr>
+            <td>Quantity</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>desired level </td>
+          </tr>
+          <tr>
+            <td>LocationId</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>at this location </td>
+          </tr>
+          <tr>
+            <td>MinQty</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>min level </td>
+          </tr>
+          <tr>
+            <td>MaxQty</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>max level </td>
+          </tr>
+          <tr>
+            <td>MaintainMinQty</td>
+            <td>boolean</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>MaintainMaxQty</td>
+            <td>boolean</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>Package</h2>
+        <p>Describes a package for shipment.</p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Barcode</td>
+            <td>Barcode</td>
+            <td>unique</td>
+            <td>which item </td>
+          </tr>
+          <tr>
+            <td>Quantity</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>how many </td>
+          </tr>
+        </table>
+        <h2>&nbsp;</h2>
+        <h2>System</h2>
+        <p>Describes the configuration of the installed system</p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>LocationsID</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs Locations.Id </td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>Locations </h2>
+        <p>Describes the business's addresses, particularly for warehouse locations </p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>Costs</h2>
+        <p>Describes a barcode's cost, value, price and discount prices. </p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Barcode</td>
+            <td>Barcode</td>
+            <td>unique</td>
+            <td>refs Catalog.Barcode </td>
+          </tr>
+          <tr>
+            <td>Cost</td>
+            <td>number</td>
+            <td>&nbsp;</td>
+            <td>my cost of this item </td>
+          </tr>
+          <tr>
+            <td>StockValue</td>
+            <td>number</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>WholesalePrice</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>to distributors </td>
+          </tr>
+          <tr>
+            <td>DiscountPrice1</td>
+            <td>number</td>
+            <td>&nbsp;</td>
+            <td>first discount price </td>
+          </tr>
+          <tr>
+            <td>DiscountPrice2</td>
+            <td>number</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>DiscountPrice3</td>
+            <td>number</td>
+            <td>&nbsp;</td>
+            <td>3 is probably enough </td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>Shipments</h2>
+        <p>These tables refer to the shipping of items. I may want to call this Containers as the name better models the function.</p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>TrackingId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs Tracking.Id </td>
+          </tr>
+          <tr>
+            <td>Status</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs Status.Id </td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>ContainerItems</h2>
+        <p>These are the barcodes in a container. </p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>OrderId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs Orders.SupplierId </td>
+          </tr>
+          <tr>
+            <td>Barcode</td>
+            <td>Barcode</td>
+            <td>unique</td>
+            <td>refs Catalog.Barcode </td>
+          </tr>
+          <tr>
+            <td>Quantity</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>number of this item</td>
+          </tr>
+          <tr>
+            <td>Status</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs Status.Id </td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>Tracking</h2>
+        <p>This helps to track the shipment. </p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs to Container.TrackingId</td>
+          </tr>
+          <tr>
+            <td>ShipperId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs Shipper.Id </td>
+          </tr>
+          <tr>
+            <td>TrackingObject</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>params with which to ref Shipper.WebServicesObject </td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>Shipper</h2>
+        <p>This table contains details of the shippers. </p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>Shipper name </td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>WebServices</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>WebServices Interface details </td>
+          </tr>
+          <tr>
+            <td>DateShipped</td>
+            <td>date</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Eta</td>
+            <td>date</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>CurrentLocation</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>ShippingDestination</td>
+            <td>integer</td>
+            <td>&nbsp;</td>
+            <td>refs Locations.Id </td>
+          </tr>
+        </table>
+        <p>I plan to have the software track the shipments. This requires the shipping company to provide a web services interface to it's shipping status web site. I am not aware of any shipping company currently offering this service, but it is probably only a matter of time. </p>
+        <h2>Accounts</h2>
+        <p>This models an account as an Invoice Id and a Customer Id. </p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>CustomerId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs Customers.Id</td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>Invoices</h2>
+        <p>I may want to call this Containers as the name better models the function.</p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs Accounts.Id </td>
+          </tr>
+          <tr>
+            <td>CustomerId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs Customers.Id </td>
+          </tr>
+          <tr>
+            <td>LocationId</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs Locations.Id </td>
+          </tr>
+          <tr>
+            <td>TotalPrice</td>
+            <td>number</td>
+            <td>&nbsp;</td>
+            <td>pre-tax price of items in the invoice </td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <h2>InvoiceItems</h2>
+        <p>This table describes the items in the invoice. </p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>refs Invoices.Id </td>
+          </tr>
+          <tr>
+            <td>Barcode</td>
+            <td>Barcode</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Price</td>
+            <td>number</td>
+            <td>&nbsp;</td>
+            <td>price of this item </td>
+          </tr>
+        </table>
+        <h2>&nbsp;</h2>
+        <h2>Customers</h2>
+        <p>This table describes the people who have bought, or are buying barcodes from the inventory. </p>
+        <p>I may need a customer group as many customers have many different locations, and some even move! </p>
+        <p>WebServices Object for getting Outstanding Balance, Payment record, Max Owed, Credit Rating etc from the Accounting System </p>
+        <table width="100%"  border="1">
+          <tr>
+            <th scope="col">Column Name </th>
+            <th scope="col">Type</th>
+            <th scope="col">Non-Unique</th>
+            <th scope="col">Comments</th>
+          </tr>
+          <tr>
+            <td>Id</td>
+            <td>integer</td>
+            <td>unique</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>ShippingAddress</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>PaymentObject</td>
+            <td>Object</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>AccountingId</td>
+            <td>WebServicesObject</td>
+            <td>&nbsp;</td>
+            <td>to account system </td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <p><a href="#TOP">Top</a></p>
+        <h2>&nbsp;</h2>
+  </div>
+      <div class="story"></div>
+</div>
+<!-- end masthead -->
+</body>
+</html>

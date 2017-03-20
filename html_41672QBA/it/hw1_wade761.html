@@ -1,0 +1,438 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Internet Technology Notes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="../css/topnav.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {color: #FF0000}
+.style2 {color: #0000FF}
+.style3 {color: #006699}
+-->
+</style>
+</head>
+
+<body>
+<div id="masthead">
+  <h1 class="style3" id="siteName">Internet Technology</h1>
+  <div id="globalNav"> 
+  	<a href="../index.html">Home </a> | <a href="../ConceptualDesign.html">Conceptual Design </a> | <a href="../InternetTechnologies.html">Internet Technologies </a> | <a href="../InternetProgrammingLanguages.html">Internet Programming Languages</a> | <a href="../Assignments.html">Assignments</a> | <a href="../CurrentProjects.html">Projects</a> | <a href="../PersonalLog.html">Personal Log </a> | <a href="../About.html">About</a> 
+  </div>
+</div>
+<div id="content">
+      <h2 id="pageName">&nbsp;</h2>
+  <div class="feature"> 
+  <img src="../images/alpseee.jpg" alt="" width="428" height="290" /></div>
+      <div class="story">
+        <h2><a name="TOP" id="TOP"></a>General</h2>
+        <ul><li>
+          <h3><a href="#H1_1">host</a> – look up host names using DNS. </h3>
+        </li>
+          <li><a href="#H1_2">traceroute</a> – print the route packets take to a network host. Includes host, IP and 3 timings. Notes packets dropped. </li>
+          <li><a href="#H1_3">nmap</a> – network exploration tool and security scanner. Find out which hosts are up and what services they are offering. </li>
+          <li><a href="#H1_4">wget</a> – network utility to get files from the WWW, using HTTP and FTP. </li>
+          <li><a href="#H1_5">telnet</a> – user interface to the telnet protocol. Used to communicate with another host </li>
+          <li><a href="#H1_6">nc</a> – basic web server. </li>
+        </ul>
+        <h2><a name="H1_1" id="H1_1"></a>host</h2>
+        <h2>&nbsp;</h2>
+        <h4 class="style2">[jvincent@bob tmp]$ host bob </h4>
+        <h4>bob.marlboro.edu has address 216.114.150.85</h4>
+        <h4 class="style1">Local domain is assumed </h4>
+        <h4>&nbsp;</h4>
+        <h4 class="style2">[jvincent@bob tmp]$ host persons </h4>
+        <h4>persons.marlboro.edu has address 216.114.150.21 </h4>
+        <h4>persons.marlboro.edu mail is handled (pri=10) by akbar.marlboro.edu </h4>
+        <h4>persons.marlboro.edu mail is handled (pri=0) by persons.marlboro.edu </h4>
+        <h4>[jv@mule jv]$ host bob </h4>
+        <h4>Host bob not found: 3(NXDOMAIN) </h4>
+        <h4 class="style1">not in this domain </h4>
+        <h4>&nbsp;</h4>
+        <h4 class="style2">[jv@mule jv]$ host ibm</h4>
+        <h4>Host ibm not found: 3(NXDOMAIN) </h4>
+        <h4 class="style1">host ibm not here </h4>
+        <h4>&nbsp;</h4>
+        <h4 class="style2">[jv@mule jv]$ host www.sun.com </h4>
+        <h4>www.sun.com has address 64.124.140.199 </h4>
+        <h4>[jvincent@bob jvincent]$ host -r <a href="http://www.sun.com/">www.sun.com</a></h4>
+        <h4 class="style1">only check local name server – do not pass on the request </h4>
+        <h4>&nbsp;</h4>
+        <h4><span class="style2">[jvincent@bob jvincent]$ host <a href="http://www.sun.com/">www.sun.com</a></span> <span class="style1">returned by another name server</span> </h4>
+        <h4>www.sun.com has address 64.124.140.199 </h4>
+        <h4><span class="style2">[jvincent@bob jvincent]$ host -r <a href="http://www.sun.com/">www.sun.com</a></span> <span class="style1">now bob's local name server knows </span></h4>
+        <h4>www.sun.com has address 64.124.140.199 </h4>
+        <h4>&nbsp;</h4>
+        <h4><span class="style2">host –l domain_name</span>; <span class="style1">list a complete domain </span></h4>
+        <h4>&nbsp;</h4>
+        <h2><a href="#TOP">Top</a></h2>
+        <h4>&nbsp;</h4>
+        <h2><a name="H1_2" id="H1_2"></a>traceroute</h2>
+        <h4>&nbsp;</h4>
+        <h4 class="style2">[jvincent@bob tmp]$ traceroute www.apache.org </h4>
+        <h4>traceroute to www.apache.org (209.237.227.195), 30 hops max, 38 byte packets </h4>
+        <h4>1 lr.marlboro.edu (216.114.150.1) 0.236 ms 0.377 ms 0.133 ms </h4>
+        <h4>2 cisco1-s4-0-13-0.burl.sover.net (209.198.103.185) 16.471 ms 7.842 ms 6.150 ms </h4>
+        <h4>3 cisco0fe1-0-2.burl.sover.net (207.136.226.109) 6.780 ms 180.883 ms 6.489 ms </h4>
+        <h4>4 c1s4-0.wnskvtao.sover.net (207.136.201.66) 6.979 ms 18.536 ms 12.154 ms </h4>
+        <h4>5 c0p1-0.nycmny83.sover.net (207.136.206.202) 38.485 ms 142.009 ms 54.617 ms </h4>
+        <h4>6 66.28.20.173 (66.28.20.173) 51.863 ms 35.739 ms 26.023 ms </h4>
+        <h4>7 g10-2.core02.jfk02.atlas.cogentco.com (66.28.6.61) 23.378 ms 24.476 ms 20.401 ms </h4>
+        <h4>8 p14-0.core02.ord01.atlas.cogentco.com (66.28.4.86) 48.551 ms 49.143 ms 46.273 ms </h4>
+        <h4>9 p15-0.core01.ord01.atlas.cogentco.com (66.28.4.61) 52.676 ms 46.684 ms 45.353 ms </h4>
+        <h4>10 p5-0.core01.sfo01.atlas.cogentco.com (66.28.4.185) 120.925 ms 92.131 ms 105.721 ms </h4>
+        <h4>11 g49.ba01.b003070-2.sfo01.atlas.cogentco.com (66.28.66.138) 166.362 ms 161.217 ms 91.734 ms </h4>
+        <h4>12 United_Layer.demarc.cogentco.com (66.250.6.6) 92.872 ms 95.734 ms 95.226 ms </h4>
+        <h4>13 GE5-0-0-br01-1019m-sfo.unitedlayer.com (209.237.224.2) 101.689 ms 95.115 ms 92.341 ms </h4>
+        <h4>14 209.237.224.22 (209.237.224.22) 95.541 ms 110.117 ms 98.065 ms </h4>
+        <h4>15 minotaur-2.apache.org (209.237.227.195) 200.492 ms 232.970 ms 95.084 ms </h4>
+        <h4>&nbsp;</h4>
+        <h2><a href="#TOP">Top</a></h2>
+        <h4>&nbsp;</h4>
+        <h2><a name="H1_3" id="H1_3"></a>nmap</h2>
+        <h4>&nbsp;</h4>
+        <h4 class="style2">[jvincent@bob tmp]$ nmap www.aisc.com </h4>
+        <h4>Starting nmap 3.30 ( http://www.insecure.org/nmap/ ) at 2003-09-26 11:05 EDT </h4>
+        <h4>Interesting ports on 65.160.8.211: </h4>
+        <h4>(The 1642 ports scanned but not shown below are in state: filtered) </h4>
+        <h4>Port State Service </h4>
+        <h4>21/tcp open ftp </h4>
+        <h4>80/tcp open http </h4>
+        <h4>Nmap run completed -- 1 IP address (1 host up) scanned in 93.944 seconds </h4>
+        <h4><span class="style2">[jvincent@bob tmp]$ nmap 216.114.150.51</span><span class="style1"> my Linux box – my firewall seems OK </span></h4>
+        <h4>Starting nmap 3.30 ( http://www.insecure.org/nmap/ ) at 2003-09-26 11:08 EDT </h4>
+        <h4>Note: Host seems down. If it is really up, but blocking our ping probes, try -P0 </h4>
+        <h4>Nmap run completed -- 1 IP address (0 hosts up) scanned in 24.021 seconds </h4>
+        <h4>&nbsp;</h4>
+        <h2><a href="#TOP">Top</a></h2>
+        <h4>&nbsp;</h4>
+        <h2><a name="H1_4" id="H1_4"></a>wget</h2>
+        <h4>&nbsp;</h4>
+        <h4>Example usage of wget. </h4>
+        <h4>I went to <a href="http://www.gnu.org/">www.GNU.org </a> as I knew I would get a chance to use wget with their stuff. </h4>
+        <h4>I found Inetutils, a collection of common network programs. </h4>
+        <h4><a href="http://www.gnu.org/directory/network/inetutils.html">http://www.gnu.org/directory/network/inetutils.html </a></h4>
+        <h4>Looked for a mirror site with both http and ftp servers available for download. </h4>
+        <h4><a href="ftp://ftp.wayne.edu/pub/gnu/">ftp.wayne.edu/pub/gnu/ </a></h4>
+        <h4><a href="http://ftp.wayne.edu/pub/gnu/">http://ftp.wayne.edu/pub/gnu/ </a></h4>
+        <h4>Checked http://ftp.wayne.edu/pub/gnu/inetutils/ to find the file names. </h4>
+        <h4 class="style2">mkdir tmp </h4>
+        <h4 class="style2">cd tmp </h4>
+        <h4>[root@mule tmp]# wget http://ftp.wayne.edu/pub/gnu/inetutils/inetutils-1.4.2.tar.gz </h4>
+        <h4>--12:24:23-- http://ftp.wayne.edu/pub/gnu/inetutils/inetutils-1.4.2.tar.gz </h4>
+        <h4>=&gt; `inetutils-1.4.2.tar.gz' </h4>
+        <h4>Resolving ftp.wayne.edu... done. </h4>
+        <h4>Connecting to ftp.wayne.edu[141.217.1.55]:80... connected. </h4>
+        <h4>HTTP request sent, awaiting response... 200 OK </h4>
+        <h4>Length: 1,043,024 [application/x-tar] </h4>
+        <h4>100%[====================================&gt;] 1,043,024 99.64K/s ETA 00:00 </h4>
+        <h4>12:24:54 (99.64 KB/s) - `inetutils-1.4.2.tar.gz' saved [1043024/1043024] </h4>
+        <h4>Tried the ftp server but it wouldn't let me in! </h4>
+        <h4>Try another mirror site: </h4>
+        <h4>[root@mule tmp]# ftp -n </h4>
+        <h4 class="style2">ftp&gt; open ftp.wayne.edu </h4>
+        <h4>Connected to ftp.wayne.edu (141.217.1.55). </h4>
+        <h4>220---------- Welcome to Pure-FTPd 1.0.14 ---------- </h4>
+        <h4>220-You are user number 11 of 300 allowed. </h4>
+        <h4>220-&lt;&lt; </h4>
+        <h4>220-------------------------------------------------------- </h4>
+        <h4>220-= Wayne State University, Detroit, MI = </h4>
+        <h4>220-= FTP Software Distribution Server (ftp.wayne.edu) = </h4>
+        <h4>220-------------------------------------------------------- </h4>
+        <h4>220- </h4>
+        <h4>220-If you have any unusual problems, please contact: </h4>
+        <h4>220- </h4>
+        <h4>220- Nathan W. Labadie &lt;ab0781@wayne.edu&gt; or </h4>
+        <h4>220- Robert Thompson &lt;ab5602@wayne.edu&gt; </h4>
+        <h4>220- </h4>
+        <h4>220-If you are a WSU affiliate, please log in with your AccessID and password. </h4>
+        <h4>220- </h4>
+        <h4>220-For more information regarding WSU the AccessIDs visit: </h4>
+        <h4>220-http://support.wayne.edu/accessid/ </h4>
+        <h4>220-&gt;&gt; </h4>
+        <h4>220-Local time is now 12:36 and the load is 0.02. Server port: 21. </h4>
+        <h4>220 You will be disconnected after 5 minutes of inactivity. </h4>
+        <h4>Remote system type is UNIX. </h4>
+        <h4>Using binary mode to transfer files. </h4>
+        <h4 class="style2">ftp&gt; user anonymous </h4>
+        <h4>421 I can't accept more than 10 connections as the same user no deal </h4>
+        <h4>Login failed. </h4>
+        <h4 class="style2">ftp&gt; bye </h4>
+        <h4>[root@mule tmp]# ftp -n </h4>
+        <h4><span class="style2">ftp&gt; open <a href="ftp://ftp.algx.net/">ftp.algx.ne</a></span><a href="ftp://ftp.algx.net/">t </a>try this one </h4>
+        <h4>Connected to ftp.algx.net (205.197.247.101). </h4>
+        <h4>220 ProFTPD 1.2.7rc1 Server (Allegiance Internet Public FTP Server) [ftp.dmz.algx.net] </h4>
+        <h4>Remote system type is UNIX. </h4>
+        <h4>Using binary mode to transfer files. </h4>
+        <h4 class="style2">ftp&gt; user anonymous </h4>
+        <h4>331 Anonymous login ok, send your complete email address as your password. </h4>
+        <h4>Password: </h4>
+        <h4>230- </h4>
+        <h4>Welcome to the Allegiance Internet Public FTP Server </h4>
+        <h4>--------------------------------------- </h4>
+        <h4>PLEASE NOTE: This server will be changing names on or </h4>
+        <h4>about March 31st, 2002. The new name will be ftp.algx.net. </h4>
+        <h4>Please update your information accordingly. </h4>
+        <h4>All transfers are logged. If you do not like this policy, </h4>
+        <h4>please disconnect now. </h4>
+        <h4>This server mirrors other popular FTP sites. If there is a </h4>
+        <h4>site that you would like to see mirrored on ftp.algx.net, </h4>
+        <h4>please send an email to ftp-admin@algx.net </h4>
+        <h4>You may also access this archive via the WWW at: </h4>
+        <h4>http://ftp.algx.net/ </h4>
+        <h4>Have a Nice Day. </h4>
+        <h4>Due to U.S. Exports Regulations, all cryptographic software on this </h4>
+        <h4>site is subject to the following legal notice: </h4>
+        <h4>This site includes publicly available encryption source code </h4>
+        <h4>which, together with object code resulting from the compiling of </h4>
+        <h4>publicly available source code, may be exported from the United </h4>
+        <h4>States under License Exception &quot;TSU&quot; pursuant to 15 C.F.R. Section </h4>
+        <h4>740.13(e). </h4>
+        <h4>This legal notice applies to cryptographic software only. </h4>
+        <h4>Please see the Bureau of Export Administration, </h4>
+        <h4>http://www.bxa.doc.gov/ for more information about current </h4>
+        <h4>U.S. regulations. </h4>
+        <h4>230 Anonymous access granted, restrictions apply. </h4>
+        <h4 class="style2">ftp&gt; pwd </h4>
+        <h4>257 &quot;/&quot; is current directory. </h4>
+        <h4 class="style2">ftp&gt; cd pub </h4>
+        <h4>250 CWD command successful. </h4>
+        <h4 class="style2">ftp&gt; cd gnu </h4>
+        <h4>250-If you have problems downloading and are seeing &quot;Access denied&quot; or </h4>
+        <h4>&quot;Permission denied&quot;, please make sure that you started your FTP client </h4>
+        <h4>in a directory to which you have write permission. </h4>
+        <h4>Please note that all files ending in `.gz' are compressed with `gzip', </h4>
+        <h4>not with the unix `compress' program. Get the file below for more </h4>
+        <h4>info. </h4>
+        <h4>For a list of mirrors and other ways of getting GNU software, FTP the </h4>
+        <h4>file /pub/gnu/GNUinfo/FTP from ftp.gnu.org or one of its mirror sites. </h4>
+        <h4>Programs that are directly in this directory are actually GNU </h4>
+        <h4>programs, developed under the auspices of GNU. </h4>
+        <h4>We do, however, distribute some non-GNU programs through our FTP </h4>
+        <h4>server, or provide pointers to where they are. We put these </h4>
+        <h4>programs/pointers in the subdirectory non-gnu since they are not </h4>
+        <h4>developed by the GNU project. They are, of course, part of the GNU </h4>
+        <h4>system. See: </h4>
+        <h4>http://www.gnu.org/philosophy/categories.html#TheGNUsystem </h4>
+        <h4>250 CWD command successful. </h4>
+        <h4>drwxr-xr-x 2 ftp-admin ftp 1024 Aug 2 07:15 webbase </h4>
+        <h4 class="style2">ftp&gt; pwd </h4>
+        <h4>257 &quot;/pub/gnu&quot; is current directory. </h4>
+        <h4 class="style2">ftp&gt; cd inetutils </h4>
+        <h4>250 CWD command successful. </h4>
+        <h4 class="style2">ftp&gt; ls </h4>
+        <h4>227 Entering Passive Mode (205,197,247,101,235,199). </h4>
+        <h4>150 Opening ASCII mode data connection for file list </h4>
+        <h4>-rw-r--r-- 1 ftp-admin ftp 30635 Sep 2 2002 inetutils-1.4.0-1.4.1.diff.gz </h4>
+        <h4>-rw-r--r-- 1 ftp-admin ftp 65 Sep 2 2002 inetutils-1.4.0-1.4.1.diff.gz.sig </h4>
+        <h4>-rw-r--r-- 1 ftp-admin ftp 1001308 Jul 31 2002 inetutils-1.4.0.tar.gz </h4>
+        <h4>-rw-r--r-- 1 ftp-admin ftp 132037 Dec 22 2002 inetutils-1.4.1-1.4.2.diff.gz </h4>
+        <h4>-rw-r--r-- 1 ftp-admin ftp 189 Dec 22 2002 inetutils-1.4.1-1.4.2.diff.gz.asc </h4>
+        <h4>-rw-r--r-- 1 ftp-admin ftp 1000030 Sep 2 2002 inetutils-1.4.1.tar.gz </h4>
+        <h4>-rw-r--r-- 1 ftp-admin ftp 65 Sep 2 2002 inetutils-1.4.1.tar.gz.sig </h4>
+        <h4>-rw-r--r-- 1 ftp-admin ftp 1043024 Dec 22 2002 inetutils-1.4.2.tar.gz </h4>
+        <h4>-rw-r--r-- 1 ftp-admin ftp 189 Dec 22 2002 inetutils-1.4.2.tar.gz.asc </h4>
+        <h4>-rw-r--r-- 1 ftp-admin ftp 57 Dec 22 2002 inetutils-1.4.2.tar.gz.sum </h4>
+        <h4>drwxr-xr-x 2 ftp-admin ftp 512 Aug 2 07:14 old </h4>
+        <h4>226 Transfer complete. </h4>
+        <h4 class="style2">ftp&gt; binary </h4>
+        <h4>200 Type set to I. </h4>
+        <h4 class="style2">ftp&gt; lcd </h4>
+        <h4>Local directory now /tmp </h4>
+        <h4 class="style2">ftp&gt; get inetutils-1.4.2.tar.gz </h4>
+        <h4>local: inetutils-1.4.2.tar.gz remote: inetutils-1.4.2.tar.gz </h4>
+        <h4>227 Entering Passive Mode (205,197,247,101,235,201). </h4>
+        <h4>150 Opening BINARY mode data connection for inetutils-1.4.2.tar.gz (1043024 bytes) </h4>
+        <h4>226 Transfer complete. </h4>
+        <h4>1043024 bytes received in 6.66 secs (1.5e+02 Kbytes/sec) </h4>
+        <h4 class="style2">ftp&gt; bye </h4>
+        <h4>221 Goodbye. </h4>
+        <h4 class="style2">[root@mule tmp]# lf </h4>
+        <h4>./ inetutils-1.4.2.tar.gz mkbootdisk.lLTYxW/ po1* </h4>
+        <h4>../ inetutils-1.4.2.tar.gz.asc mkbootdisk.PfPsrt ssh-XXTHGWzr/ </h4>
+        <h4>.fam_socket= inetutils-1.4.2.tar.gz.sum mkbootdisk.Y729em/ ssh-XXU2B3ME/ </h4>
+        <h4>.font-unix/ inetutils-1.4.2.tar.gz.sum.1 .mozilla/ .X0-lock </h4>
+        <h4>.gdm_socket= mkbootdisk.j5YgYJ/ orbit-root/ .X11-unix/ </h4>
+        <h4>.ICE-unix/ mkbootdisk.LEqWiq/ po* </h4>
+        <h4 class="style2">[jvincent@bob html]$ lf </h4>
+        <h4>./ InternetTechnologies.html docs/ </h4>
+        <h4>../ PeerJournal.html images/ </h4>
+        <h4>CalculatorApplet.html PersonalLog.html index.html </h4>
+        <h4>CurrentProjects.htm WebSiteDesign.html src/ </h4>
+        <h4>InternetProgrammingLanguages.html classes/ </h4>
+        <h4 class="style2">[jvincent@bob html]$ pwd </h4>
+        <h4>/home/jvincent/html </h4>
+        <h4 class="style2">[jvincent@bob html]$ </h4>
+        <h4>&nbsp;</h4>
+        <h2><a href="#TOP">Top</a></h2>
+        <h4>&nbsp;</h4>
+        <h2 class="style2"><a name="H1_5" id="H1_5"></a>telnet</h2>
+        <h4 class="style2">&nbsp;</h4>
+        <h4 class="style2">[jvincent@bob tmp]$ telnet bob 80 </h4>
+        <h4>Trying 216.114.150.85... </h4>
+        <h4>Connected to bob. </h4>
+        <h4>Escape character is '^]'. </h4>
+        <h4>GET /~jvincent/CurrentProjects.htm </h4>
+        <h4>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; </h4>
+        <h4>&quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt; </h4>
+        <h4>&lt;html&gt; </h4>
+        <h4>&lt;head&gt; </h4>
+        <h4>&lt;title&gt;Current Projects&lt;/title&gt; </h4>
+        <h4>&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=iso-8859-1&quot;&gt; </h4>
+        <h4>&lt;/head&gt; </h4>
+        <h4>&lt;body&gt; </h4>
+        <h4>&lt;h1&gt;Current Projects&lt;/h1&gt; </h4>
+        <h4>&lt;p&gt;&amp;nbsp;&lt;/p&gt; </h4>
+        <h4>&lt;p&gt;none&lt;/p&gt; </h4>
+        <h4>&lt;/body&gt; </h4>
+        <h4>&lt;/html&gt; </h4>
+        <h4>Connection closed by foreign host. </h4>
+        <h4 class="style2">[jvincent@bob tmp]$ </h4>
+        <h4><span class="style2">[jvincent@bob jvincent]$ host <a href="http://www.hotpop.com">www.hotpop.com</a></span><a href="http://www.hotpop.com"> </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="style1">email </span><br />
+            <a href="http://www.hotpop.com">www.hotpop.com </a> has address 204.57.55.21 <br />
+            <span class="style2">[jvincent@bob jvincent]$ host -v <a href="http://www.hotpop.com">www.hotpop.com </a></span><br />
+  Trying null domain <br />
+  rcode = 0 (Success), ancount=1 <br />
+  The following answer is not authoritative: <br />
+  The following answer is not verified as authentic by the server: <br />
+  <a href="http://www.hotpop.com">www.hotpop.com </a>&nbsp; 3574 IN A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 204.57.55.21 <br />
+  For authoritative answers, see: <br />
+  hotpop.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3574 IN NS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ns6.jerky.net <br />
+  hotpop.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3574 IN NS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ns1.jerky.net <br />
+  Additional information: <br />
+  ns1.jerky.net&nbsp;&nbsp; 142254 IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 204.57.55.100 <br />
+  ns6.jerky.net&nbsp;&nbsp; 142254 IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 199.166.24.129 </h4>
+        <h4><br />
+          <span class="style2">[jvincent@bob jvincent]$ host -v pop.hotpop.com</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="style1"> email </span><br />
+  Trying null domain <br />
+  rcode = 0 (Success), ancount=1 <br />
+  The following answer is not authoritative: <br />
+  The following answer is not verified as authentic by the server: <br />
+  pop.hotpop.com&nbsp; 3600 IN A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 204.57.55.33 <br />
+  For authoritative answers, see: <br />
+  hotpop.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3600 IN NS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ns1.jerky.net <br />
+  hotpop.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3600 IN NS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ns6.jerky.net <br />
+  Additional information: <br />
+  ns1.jerky.net&nbsp;&nbsp; 142219 IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 204.57.55.100 <br />
+  ns6.jerky.net&nbsp;&nbsp; 142219 IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 199.166.24.129 <br />
+  <span class="style2">[jvincent@bob jvincent]$ host -v smtp.hotpop.com</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="style1">email </span><br />
+  Trying null domain <br />
+  rcode = 0 (Success), ancount=3 <br />
+  The following answer is not authoritative: <br />
+  The following answer is not verified as authentic by the server: <br />
+  smtp.hotpop.com 3600 IN A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 204.57.55.68 <br />
+  smtp.hotpop.com 3600 IN A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 204.57.55.69 <br />
+  smtp.hotpop.com 3600 IN A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 204.57.55.67 <br />
+  For authoritative answers, see: <br />
+  hotpop.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3600 IN NS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ns1.jerky.net <br />
+  hotpop.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3600 IN NS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ns6.jerky.net <br />
+  Additional information: <br />
+  ns1.jerky.net&nbsp;&nbsp; 142208 IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 204.57.55.100 <br />
+  ns6.jerky.net&nbsp;&nbsp; 142208 IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 199.166.24.129 </h4>
+        <h4><span class="style2"><br />
+  [jvincent@bob jvincent]$ host smtp.hotpop.com </span><br />
+  smtp.hotpop.com has address 204.57.55.67 <br />
+  smtp.hotpop.com has address 204.57.55.68 <br />
+  smtp.hotpop.com has address 204.57.55.69 </h4>
+        <h4><span class="style2">jv@mule jv]$ telnet </span><br />
+          <span class="style2">telnet&gt; open smtp.hotpop.com 25 </span><br />
+  Trying 204.57.55.67... <br />
+  Connected to . <br />
+  Escape character is '^]'. <br />
+  220 smtp-1.hotpop.com ESMTP Postfix <br />
+  <span class="style2">HELO hotpop.com </span><br />
+  250 smtp-1.hotpop.com <br />
+  <span class="style2">MAIL FROM: &lt; <a href="mailto:skupe@hotpop.com">skupe@hotpop.com </a>&gt;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="style1"> this is not my account </span><br />
+  250 Ok <br />
+  <span class="style2">RCPT TO: &lt; <a href="mailto:jv2351@hotpop.com">jv2351@hotpop.com </a>&gt;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="style1"> this is </span><br />
+  250 Ok <br />
+  <span class="style2">DATA </span><br />
+  354 End data with &lt;CR&gt;&lt;LF&gt;.&lt;CR&gt;&lt;LF&gt; <br />
+  <span class="style2">stuff <br />
+  blah <br />
+  dud <br />
+  done <br />
+  . </span><br />
+  250 Ok: queued as B313E1A023B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="style1">&nbsp;&nbsp; the email got sent and received - no authentication!!!!!! </span><br />
+&nbsp; <br />
+  <span class="style2">QUIT </span><br />
+  221 Bye <br />
+  Connection closed by foreign host. <br />
+  <span class="style2">[jv@mule jv]$ telnet </span><br />
+  <span class="style2">telnet&gt; open pop.hotpop.com 110 </span><br />
+  Trying 204.57.55.33... <br />
+  Connected to . <br />
+  Escape character is '^]'. <br />
+  +OK <br />
+  <span class="style2">user dread&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="style1"> this server does some checking </span><br />
+  +OK <br />
+  <span class="style2">pass killfreds </span><br />
+  -ERR <br />
+  Connection closed by foreign host. </h4>
+        <h4><span class="style2">[jv@mule jv]$ telnet smtp.hotpop.com 25 </span><br />
+  Trying 204.57.55.67... <br />
+  Connected to smtp.hotpop.com. <br />
+  Escape character is '^]'. <br />
+  220 smtp-1.hotpop.com ESMTP Postfix <br />
+  <span class="style2">HELO hotpop.com </span><br />
+  250 smtp-1.hotpop.com <br />
+  <span class="style2">MAIL FROM: &lt; <a href="mailto:jv2351@hotpop.com">jv2351@hotpop.com </a>&gt; </span><br />
+  250 Ok <br />
+  <span class="style2">RCPT TO: &lt; <a href="mailto:jv2351@yahoo.co.uk">jv2351@yahoo.co.uk </a>&gt; </span><br />
+  250 Ok <br />
+  <span class="style2">DATA </span><br />
+  354 End data with &lt;CR&gt;&lt;LF&gt;.&lt;CR&gt;&lt;LF&gt; <br />
+  <span class="style2">test <br />
+  done <br />
+  . </span><br />
+  250 Ok: queued as 52D311A0205&nbsp;&nbsp;&nbsp;<span class="style1"> email sent and received - no authentication, even though this account </span><br />
+  <span class="style2">QUIT&nbsp;&nbsp;</span>&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<span class="style1"> is supposed to require authentication...outlook does not work without </span><br />
+  221 Bye&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="style1">authentication </span><br />
+  Connection closed by foreign host. <br />
+  <span class="style2">[jv@mule jv]$ </span></h4>
+        <h4>&nbsp; </h4>
+        <h4 class="style1">It looks to me as if I can send any email to anyone from any valid user not my own,&nbsp;any time...... no security!!!!!!!! </h4>
+        <h4>&nbsp; </h4>
+        <h2><a href="#TOP">Top</a></h2>
+        <h4>&nbsp;</h4>
+        <h2><a name="h1_6" id="h1_6"></a>nc</h2>
+        <h4>&nbsp;</h4>
+        <h4><span class="style2">[jvincent@bob jvincent]$ nc -v -l -p 7007</span> <span class="style1">opened new browser, http://bob.marlboro.edu:7007/foo </span></h4>
+        <h4>listening on [any] 7007 ... </h4>
+        <h4>connect to [216.114.150.85] from mule.msie.marlboro.edu [216.114.150.51] 3554 </h4>
+        <h4 class="style2">GET /foo HTTP/1.1 </h4>
+        <h4>Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/vnd.ms-powerpoint, application/vnd.ms-excel, application/msword, application/x-shockwave-flash, */* </h4>
+        <h4>Accept-Language: en-us </h4>
+        <h4>Accept-Encoding: gzip, deflate </h4>
+        <h4>User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.0.3705) </h4>
+        <h4>Host: bob.marlboro.edu:7007 </h4>
+        <h4>Connection: Keep-Alive </h4>
+        <h4>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; </h4>
+        <h4>&quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt; </h4>
+        <h4>&lt;html&gt; </h4>
+        <h4>&lt;head&gt; </h4>
+        <h4>&lt;title&gt;Main Page&lt;/title&gt; </h4>
+        <h4>&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=iso-8859-1&quot;&gt; </h4>
+        <h4>&lt;style type=&quot;text/css&quot;&gt; </h4>
+        <h4>&lt;!-- </h4>
+        <h4>.style2 {color: #800040} </h4>
+        <h4>.style3 {color: #0080C0} </h4>
+        <h4>.style4 {color: #000000} </h4>
+        <h4>--&gt; </h4>
+        <h4>&lt;/style&gt; </h4>
+        <h4>&lt;/head&gt; </h4>
+        <h4>&lt;body&gt; </h4>
+        <h4>&lt;p&gt;&amp;nbsp;&lt;/p&gt; </h4>
+        <h4>&lt;h2&gt;Basics&lt;/h2&gt; </h4>
+        <h4 class="style1">The web page was displayed onto the web browser. Thus, nc is acting like a web server. I tried requesting a link from the browser and got the following: </h4>
+        <h4 class="style1">punt! </h4>
+        <h4 class="style2">[jvincent@bob jvincent]$ </h4>
+        <h4>&nbsp;</h4>
+        <h2><a href="#TOP">Top</a></h2>
+        <h4>&nbsp;</h4>
+        <p>&nbsp;</p>
+  </div>
+</div>
+<!-- end masthead -->
+</body>
+</html>

@@ -1,0 +1,63 @@
+#!/bin/sh
+#
+#  transform  using the Xalan XSLT transformer
+#
+# get the files
+#
+XMLFILE=$1
+XSLFILE=$2
+PARAMS=$3
+OUTFILE=$4
+#
+# check the files
+#
+if test $# -lt 2 ; then
+	echo "Usage: jvXalan xml_file xsl_file params output_file"
+	exit 1
+fi
+if [ ! -f "$XMLFILE" ]; then
+	echo "jvXalan: xml_file $XMLFILE not found"
+	exit 1
+fi
+if [ ! -f "$XSLFILE" ]; then
+	echo "jvXalan: xsl_file $XSLFILE not found"
+	exit 1
+fi
+JVMODE="0"
+if [ -z "$OUTFILE" ]; then
+	OUTFILE="/tmp/xslt$$.html"
+	JVMODE="1"
+fi
+#
+# Path
+#
+JAVA_HOME=/opt/SUNWappserver/jdk
+XALAN_HOME=/opt/xalan-j_2_6_0/bin
+JVCP=$XALAN_HOME/xalan.jar:$XALAN_HOME/xml-apis.jar:$XALAN_HOME/xercesImpl.jar
+JVCP=$JVCP:$JAVA_HOME/lib/tools.jar
+#
+# run transformer
+#
+echo " "
+echo "XSLT Transformer"
+echo "           Input File: $XMLFILE"
+echo "      Stylesheet File: $XSLFILE"
+echo "           Parameters: $PARAMS"
+echo "          Output File: $OUTFILE"
+#
+java -cp $JVCP org.apache.xalan.xslt.Process -in $XMLFILE \
+    -xsl $XSLFILE -out $OUTFILE $PARAMS
+status=$?
+if [ $status -ne 0 ]; then
+	echo "Trouble with xslt transform"
+	exit 1
+fi
+echo "XSLT transformation is complete"
+#
+#  start web browser if needed
+#
+if [ $JVMODE -eq 1 ]; then
+	jvweb $OUTFILE
+fi
+
+

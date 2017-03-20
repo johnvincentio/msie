@@ -1,0 +1,111 @@
+<project default="install">
+
+   <property file="build.properties"/> 
+   <property name="appdir" value="${basedir}/${app}"/>
+   <property name="builddir" value="${appdir}/build"/>
+   <basename property="appname" file="${appdir}"/>
+   <property name="warfile" value="${builddir}/${appname}.war"/>
+   
+   <path id="classpath">
+      <pathelement location="${servlet.api.jar}"/>
+      <pathelement location="${jsp.api.jar}"/>
+      <fileset dir="${builddir}/WEB-INF/lib">
+         <include name="*.jar"/>
+      </fileset>   
+   </path>
+   
+   <target name="init">
+      <tstamp/>
+      <fail unless="app" message="Run ant -Dapp=..."/>
+   </target>
+
+   <target name="prepare" depends="init"
+      description="Create build directory.">
+      <mkdir dir="${builddir}"/>
+   </target>
+
+   <target name="copy" depends="prepare"
+      description="Copy files to build directory.">
+      <copy todir="${builddir}">
+         <fileset dir="${appdir}">
+            <exclude name="**/*.java"/>
+            <exclude name="build/**"/>
+            <!-- for Eclipse -->
+            <exclude name="bin/**"/>
+            <exclude name=".*"/>
+         </fileset>
+      </copy>
+      <copy todir="${builddir}/WEB-INF/lib">
+         <fileset dir="${jsf.lib.dir}" includes="${jsf.libs}"/>
+         <fileset dir="${jstl.lib.dir}" includes="${jstl.libs}"/>
+         <fileset dir="${commons.lib.dir}" includes="${commons.libs}"/>
+      </copy>
+   </target>
+   
+   <target name="compile" depends="copy" 
+      description="Compile source files.">
+      <javac 
+         srcdir="${appdir}/WEB-INF/classes" 
+         destdir="${builddir}/WEB-INF/classes"
+         debug="true"
+         deprecation="true">
+         <include name="**/*.java"/>
+         <classpath refid="classpath"/>
+      </javac>
+   </target>
+   
+   <target name="war" depends="compile"
+      description="Build WAR file.">
+      <delete file="${warfile}"/>
+      <jar jarfile="${warfile}" basedir="${builddir}"/>
+   </target>
+
+   <target name="install" depends="war"
+      description="Deploy web application.">
+      <copy file="${warfile}" todir="${tomcat.dir}/webapps"/>
+   </target>
+
+   <target name="clean" depends="init"
+      description="Clean everything.">
+      <delete dir="${builddir}"/>
+      <!-- for Eclipse -->
+      <delete dir="${appdir}/bin"/>
+   </target>
+
+   <!-- requires tomcat/server/lib/catalina-ant.jar -->
+   <target name="deploy" depends="war"
+      description="Deploy web application.">
+      <echo message="Deploying ${appname} ..."/>
+      <taskdef name="deploy"   
+         classname="org.apache.catalina.ant.DeployTask"/>
+      <deploy url="${manager.url}" username="${username}" 
+         password="${password}" path="/${appname}"
+         war="file:${warfile}"/>
+   </target>
+   
+   <target name="undeploy" depends="init"
+      description="Undeploy web application.">
+      <echo message="Undeploying ${appname} ..."/>
+      <taskdef name="undeploy"    
+         classname="org.apache.catalina.ant.UndeployTask"/>
+      <undeploy url="${manager.url}" username="${username}" 
+         password="${password}" path="/${appname}"/>
+   </target>
+
+   <!-- requires ant-contrib (http://ant-contrib.sourceforge.net) -->
+   <target name="try.undeploy" depends="init"
+      description="Call the undeploy task (which may fail).">
+      <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>  
+      <trycatch>
+         <try>
+            <ant target="undeploy"/>
+         </try>
+         <catch/>
+      </trycatch>
+   </target>
+
+   <target name="redeploy" depends="try.undeploy,deploy"
+      description="Undeploy and deploy web application.">
+   </target>
+
+</project>

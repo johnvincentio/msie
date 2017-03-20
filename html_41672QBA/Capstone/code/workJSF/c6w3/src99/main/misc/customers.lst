@@ -1,0 +1,98 @@
+
+Table dropped.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+
+   CUST_ID NAME                                                                 
+---------- ------------------------------                                       
+         1 William Dupont                                                       
+         2 Anna Keeney                                                          
+         3 Mariko Randor                                                        
+         4 John Wilson                                                          
+         5 Lynn Seckinger                                                       
+         6 Richard Tattersall                                                   
+         7 Gabriella Sarintia                                                   
+         8 Lisa Hartwig                                                         
+         9 Shirley Jones                                                        
+        10 Bill Sprague                                                         
+        11 Greg Doench                                                          
+
+   CUST_ID NAME                                                                 
+---------- ------------------------------                                       
+        12 Solange Nadeau                                                       
+        13 Heather McGann                                                       
+        14 Roy Martin                                                           
+        15 Claude Loubier                                                       
+        16 Dan Woodard                                                          
+        17 Ron Dunlap                                                           
+        18 Keith Frankart                                                       
+        19 Andre Nadeau                                                         
+        20 Horace Celestin                                                      
+
+20 rows selected.
+

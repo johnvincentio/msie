@@ -1,0 +1,415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Internet Programming Languages Notes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="../css/topnav.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="masthead">
+  <h1 class="style1" id="siteName">Internet Programming Languages Notes </h1>
+  <div id="globalNav"> 
+  	<a href="../index.html">Home </a> | <a href="../ConceptualDesign.html">Conceptual Design </a> | <a href="../InternetTechnologies.html">Internet Technologies </a> | <a href="../InternetProgrammingLanguages.html">Internet Programming Languages</a> | <a href="../Assignments.html">Assignments</a> | <a href="../CurrentProjects.html">Projects</a> | <a href="../PersonalLog.html">Personal Log </a> | <a href="../About.html">About</a> 
+	</div>
+</div>
+<div id="content">
+      <h2 id="pageName">&nbsp;</h2>
+      <div class="feature"> 
+        <img src="../images/earthfrommoon.jpg" width="434" height="384" />        <h3>&nbsp;</h3>
+          <p>&nbsp; </p>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+  </div>
+      <div class="story">
+        <h3>&nbsp;</h3>
+        <h2><a name="TOP" id="TOP"></a>My Notes </h2>
+        <h3>&nbsp;</h3>
+        <h3> square = new Square[3][3];<br />
+marks = new int[3][3];<br />
+for (int row = 0; row &lt; square.length; row++) {<br />
+for (int col = 0; col &lt; square[row].length; col++) {<br />
+square[row][col] = new Square(row, col,0);<br />
+square[row][col].addMouseListener(lstner);<br />
+boardPanel.add(square[row][col]);<br />
+marks[row][col] = 0;<br />
+}<br />
+        </h3>
+        <p>Ascii table         </p>
+        <p><a href="http://www.asciitable.com/%20">http://www.asciitable.com/ </a></p>
+        <p>JButton.addActionListener(this); // this class will handle this. </p>
+        <h2>Scrabble</h2>
+        <p>Word lists </p>
+        <p><a href="http://www.puzzlers.org/secure/wordlists/dictinfo.php%20">http://www.puzzlers.org/secure/wordlists/dictinfo.php </a></p>
+        <p>http://wordlist.sourceforge.net/</p>
+        <p>http://thepixiepit.co.uk/scrabble/rules.html</p>
+
+  <div class="blue">
+    <h1>Scrabble:Rules</h1>
+<p><b>Object</b> To form words on a grid.</p>
+<p><b>Procedure </b>Scrabble uses a board of 225 squares (15 by 15), on which 
+  players form interlocking words using 100 &#8216;tiles&#8217; bearing letters of the alphabet. 
+  Each letter has a score beside it. The board includes various &#8216;premium squares&#8217; 
+  on which players can score extra points.</p>
+<p>The number of letters in a Scrabble set and their scores are as follows:</p>
+<table cellspacing=0 border=0 cellpadding=7 width=568>
+  <tr>
+    <td width="16%" valign="TOP"> <i><font size=2>
+      <p align="CENTER">Letter
+      </font></i></td>
+    <td width="18%" valign="TOP"> <i><font size=2>
+      <p align="CENTER">Number of tiles
+      </font></i></td>
+    <td width="15%" valign="TOP"> <i><font size=2>
+      <p align="CENTER">Values
+      </font></i></td>
+    <td width="16%" valign="TOP"> <i><font size=2>
+      <p align="CENTER">Letter
+      </font></i></td>
+    <td width="18%" valign="TOP"> <i><font size=2>
+      <p align="CENTER">Number of tiles
+      </font></i></td>
+    <td width="16%" valign="TOP"> <i><font size=2>
+      <p align="CENTER">Value
+      </font></i></td>
+  </tr>
+  <tr>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">A
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">9
+    </td>
+    <td width="15%" valign="TOP"> 
+      <p align="CENTER">1
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">O
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">8
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">1
+    </td>
+  </tr>
+  <tr>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">B
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">2
+    </td>
+    <td width="15%" valign="TOP"> 
+      <p align="CENTER">3
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">P
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">2
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">3
+    </td>
+  </tr>
+  <tr>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">C
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">2
+    </td>
+    <td width="15%" valign="TOP"> 
+      <p align="CENTER">3
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">Q
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">1
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">10
+    </td>
+  </tr>
+  <tr>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">D
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">4
+    </td>
+    <td width="15%" valign="TOP"> 
+      <p align="CENTER">2
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">R
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">6
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">1
+    </td>
+  </tr>
+  <tr>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">E
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">12
+    </td>
+    <td width="15%" valign="TOP"> 
+      <p align="CENTER">1
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">S
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">4
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">1
+    </td>
+  </tr>
+  <tr>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">F
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">2
+    </td>
+    <td width="15%" valign="TOP"> 
+      <p align="CENTER">4
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">T
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">6
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">1
+    </td>
+  </tr>
+  <tr>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">G
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">3
+    </td>
+    <td width="15%" valign="TOP"> 
+      <p align="CENTER">2
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">U
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">4
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">1
+    </td>
+  </tr>
+  <tr>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">H
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">2
+    </td>
+    <td width="15%" valign="TOP"> 
+      <p align="CENTER">4
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">V
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">2
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">4
+    </td>
+  </tr>
+  <tr>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">I
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">9
+    </td>
+    <td width="15%" valign="TOP"> 
+      <p align="CENTER">1
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">W
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">2
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">4
+    </td>
+  </tr>
+  <tr>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">J
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">1
+    </td>
+    <td width="15%" valign="TOP"> 
+      <p align="CENTER">8
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">X
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">1
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">8
+    </td>
+  </tr>
+  <tr>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">K
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">1
+    </td>
+    <td width="15%" valign="TOP"> 
+      <p align="CENTER">5
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">Y
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">2
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">4
+    </td>
+  </tr>
+  <tr>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">L
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">4
+    </td>
+    <td width="15%" valign="TOP"> 
+      <p align="CENTER">1
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">Z
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">1
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">10
+    </td>
+  </tr>
+  <tr>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">M
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">2
+    </td>
+    <td width="15%" valign="TOP"> 
+      <p align="CENTER">3
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">Blank
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">2
+    </td>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">0
+    </td>
+  </tr>
+  <tr>
+    <td width="16%" valign="TOP"> 
+      <p align="CENTER">N
+    </td>
+    <td width="18%" valign="TOP"> 
+      <p align="CENTER">6
+    </td>
+    <td width="15%" valign="TOP"> 
+      <p align="CENTER">1
+    </td>
+    <td width="16%" valign="TOP">&nbsp;</td>
+    <td width="18%" valign="TOP">&nbsp;</td>
+    <td width="16%" valign="TOP">&nbsp;</td>
+  </tr>
+</table>
+<ol>
+  <li>All the letter tiles are turned face downwards or kept in a bag. To decide 
+    who will <b>start the game</b>, each player picks out one tile and the person 
+    drawing the letter nearest to &#8216;A&#8217; plays first. </li>
+  <li>Each player picks <b>seven tiles</b> and places them on a ready-made rack, 
+    where only that player can see them. </li>
+  <li>The first player puts the letters on the board to make a word, either &#8216;across&#8217; 
+    or &#8216;down&#8217; (as in a crossword), with one letter of the word on a <b>central 
+    square</b>. The score is recorded, including any double or triple allowance 
+    for tiles placed on premium squares. The first word always <b>scores double</b>, 
+    as the centre square has a &#8216;double word score&#8217;. </li>
+  <li>A <b>bonus</b> of 50 points is awarded to any player who uses all seven 
+    tiles in one move. </li>
+  <li>The first player picks out from the unused tiles the same number of tiles 
+    as was used to make the word, so as to make up the number to seven again.</li>
+  <li>The next player has to <b>add another word</b>, joining or interlocking 
+    with the word on the board, and so on &#8211;  round the players. </li>
+  <li>All new words must use at least one of the letters that is already on the 
+    board. </li>
+  <li>Players score for any word made or changed by their moves &#8211;  but <b>premium 
+    bonuses</b> apply only the first time that letters are played. </li>
+  <li>Instead of laying down a word, any player can <b>exchange any number of 
+    tiles</b> from their rack for new tiles from the &#8216;bank&#8217;. </li>
+  <li>The Scrabble set includes two <b>blank tiles</b>, which can represent any 
+    letters its player chooses, after which it cannot be changed during the game.</li>
+  <li>The <b>game ends</b> when all the tiles have been used and one player has 
+    laid down all his or her tiles, or nobody can think of new words to place 
+    on the board. The players have to deduct from their scores the value of their 
+    unplayed letters &#8211;  and this total is added to the score of a player who has 
+    disposed of all his own tiles. </li>
+  <li>The <b>winner</b> is the player with the highest score.</li>
+</ol>
+<p><b>Variations</b></p>
+<p>There are several variations of Scrabble. <b>Double-Bag Scrabble</b> divides 
+  the tiles into two separate bags: one for vowels, the other for the consonants. 
+  <b>Scrabble for Juniors</b> is a boxed game using a two-sided board: on one 
+  side, children can play a normal game of Scrabble except that there only 13 
+  by 13 squares and the scoring is simplified; on the other side, young children 
+  have to place letter tiles on words already printed on the board. <b>Solitaire 
+  Scrabble</b> is for one player only. <b>Unscrabble</b> (or Scrabble in Reverse) 
+  involves removing letters from the board: players remove between one and six 
+  tiles from the board at each move, but the letters they leave must spell proper 
+  words interlocked with one another. This game ends when nobody can remove any 
+  more tiles from the board, and the winner is the player whose stock of removed 
+  tiles makes the highest score.</p>
+</div>
+			<br/>
+			<div class="blue"><small></small></div>
+			<br/>
+			<br/>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p><a href="#TOP">Top</a></p>
+        <blockquote>
+          <p></p>
+        </blockquote>
+  </div>
+      <div class="story">
+        <blockquote>&nbsp;</blockquote>
+      </div>
+</div>
+<!-- end masthead -->
+</body>
+</html>

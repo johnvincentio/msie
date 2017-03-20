@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sun-ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Application Server 8.0 EJB 2.1//EN" "http://www.sun.com/software/appserver/dtds/sun-ejb-jar_2_1-0.dtd">
+
+<sun-ejb-jar>
+
+	<enterprise-beans>
+
+		<name>DistributorMDB2</name>
+		<unique-id>796583505</unique-id>
+
+		<ejb>
+			<ejb-name>DistributorMdb2Bean</ejb-name>
+			<jndi-name>jms/DistributorMdb2Queue</jndi-name>
+			<ejb-ref>
+				<ejb-ref-name>ejb/TheDistributorWS1Bean</ejb-ref-name>
+				<jndi-name>DistributorWS1Bean</jndi-name>
+			</ejb-ref>
+			<mdb-connection-factory>
+				<jndi-name>jms/DistributorMdb2QueueConnectionFactory</jndi-name>
+			</mdb-connection-factory>
+		</ejb>
+
+		<message-destination>
+			<message-destination-name>DistributorMdb2PhysicalQueue</message-destination-name>
+			<jndi-name>jms/DistributorMdb2Queue</jndi-name>
+		</message-destination>
+
+	</enterprise-beans>
+
+</sun-ejb-jar>
+

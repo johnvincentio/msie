@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sun-web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Application Server 8.0 Servlet 2.4//EN" "http://www.sun.com/software/appserver/dtds/sun-web-app_2_4-0.dtd">
+
+<sun-web-app>
+	<context-root>/DistributorWAR</context-root>
+
+	<ejb-ref>
+		<ejb-ref-name>ejb/TheDistributor2Bean</ejb-ref-name>
+		<jndi-name>Distributor2Bean</jndi-name>
+	</ejb-ref>
+
+	<resource-ref>
+		<res-ref-name>jms/MyConnectionFactory</res-ref-name>
+		<jndi-name>jms/DistributorMdb1QueueConnectionFactory</jndi-name>
+		<default-resource-principal>
+			<name>j2ee</name>
+			<password>j2ee</password>
+		</default-resource-principal>
+	</resource-ref>
+
+	<message-destination>
+		<message-destination-name>DistributorMdb1PhysicalQueue</message-destination-name>
+		<jndi-name>jms/DistributorMdb1Queue</jndi-name>
+	</message-destination>
+
+</sun-web-app>
+

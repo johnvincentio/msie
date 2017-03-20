@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+  <!ENTITY jvXMLValidateCommands SYSTEM "../../../../workBuild/xmlvalidate.xml">
+]>
+
+<project name="xml" default="displayTest" basedir=".">
+
+	&jvXMLValidateCommands;
+
+	<property name="xml.validate.options"    value="-warning" />
+
+	<property name="xslt.cmd" location="/usr/local/bin/jvXalan"/>
+	<property name="show.cmd" location="/usr/local/bin/jvweb"/>
+	<property name="treeviewer.cmd" location="/usr/local/bin/treeviewer"/>
+
+	<property name="my.xml.tmpfile" value="/tmp/updated.xml"/>
+
+	<target name="clean">
+		<echo message="Remove work file..."/>
+		<delete file="${my.xml.tmpfile}"/>
+	</target>
+
+	<target name="display">
+		<exec executable="${xslt.cmd}" dir=".">
+			<arg value="project.xml"/>
+			<arg value="display.xsl"/>
+			<arg value=""/>
+			<arg value=""/>
+		</exec>
+	</target>
+
+	<target name="sort" depends="clean">
+		<exec executable="${xslt.cmd}" dir=".">
+			<arg value="project.xml"/>
+			<arg value="sort.xsl"/>
+			<arg value="-PARAM Sortkey Priority"/>
+			<arg value="${my.xml.tmpfile}"/>
+		</exec>
+		<exec executable="${xslt.cmd}" dir=".">
+			<arg value="${my.xml.tmpfile}"/>
+			<arg value="display.xsl"/>
+			<arg value=""/>
+			<arg value=""/>
+		</exec>
+	</target>
+
+	<target name="sort2" depends="clean">
+		<exec executable="${xslt.cmd}" dir=".">
+			<arg value="project.xml"/>
+			<arg value="sort.xsl"/>
+			<arg value="-PARAM Sortkey Duration"/>
+			<arg value="${my.xml.tmpfile}"/>
+		</exec>
+		<exec executable="${xslt.cmd}" dir=".">
+			<arg value="${my.xml.tmpfile}"/>
+			<arg value="display.xsl"/>
+			<arg value=""/>
+			<arg value=""/>
+		</exec>
+	</target>
+
+	<target name="select" depends="clean">
+		<exec executable="${xslt.cmd}" dir=".">
+			<arg value="project.xml"/>
+			<arg value="select.xsl"/>
+			<arg value="-PARAM EditPriority Low -PARAM EditStatus Complete"/>
+			<arg value="${my.xml.tmpfile}"/>
+		</exec>
+		<exec executable="${xslt.cmd}" dir=".">
+			<arg value="${my.xml.tmpfile}"/>
+			<arg value="display.xsl"/>
+			<arg value=""/>
+			<arg value=""/>
+		</exec>
+	</target>
+
+	<target name="edit">
+		<exec executable="${xslt.cmd}" dir=".">
+			<arg value="project.xml"/>
+			<arg value="edit.xsl"/>
+			<arg value="-PARAM EditActivityId _90"/>
+			<arg value=""/>
+		</exec>
+	</target>
+
+	<target name="update" depends="clean">
+		<exec executable="${xslt.cmd}" dir=".">
+			<arg value="project.xml"/>
+			<arg value="update.xsl"/>
+			<arg value="-PARAM EditActivityId _90 -PARAM EditDuration 999"/>
+			<arg value="${my.xml.tmpfile}"/>
+		</exec>
+		<exec executable="${xslt.cmd}" dir=".">
+			<arg value="${my.xml.tmpfile}"/>
+			<arg value="display.xsl"/>
+			<arg value=""/>
+			<arg value=""/>
+		</exec>
+	</target>
+
+	<target name="insert" depends="clean">
+		<exec executable="${xslt.cmd}" dir=".">
+			<arg value="project.xml"/>
+			<arg value="insert.xsl"/>
+			<arg value="-PARAM EditActivityId _200 -PARAM EditDescription Restart -PARAM EditDuration 2 -PARAM EditPriority Low -PARAM EditStatus Pending"/>
+			<arg value="${my.xml.tmpfile}"/>
+		</exec>
+		<exec executable="${xslt.cmd}" dir=".">
+			<arg value="${my.xml.tmpfile}"/>
+			<arg value="display.xsl"/>
+			<arg value=""/>
+			<arg value=""/>
+		</exec>
+	</target>
+
+	<target name="delete" depends="clean">
+		<exec executable="${xslt.cmd}" dir=".">
+			<arg value="project.xml"/>
+			<arg value="delete.xsl"/>
+			<arg value="-PARAM EditActivityId _20"/>
+			<arg value="${my.xml.tmpfile}"/>
+		</exec>
+		<exec executable="${xslt.cmd}" dir=".">
+			<arg value="${my.xml.tmpfile}"/>
+			<arg value="display.xsl"/>
+			<arg value=""/>
+			<arg value=""/>
+		</exec>
+	</target>
+
+	<target name="showTmpfile">
+		<exec executable="${xslt.cmd}" dir=".">
+			<arg value="${my.xml.tmpfile}"/>
+			<arg value="display.xsl"/>
+			<arg value=""/>
+			<arg value=""/>
+		</exec>
+	</target>
+
+	<target name="treeviewer">
+		<exec executable="${treeviewer.cmd}" dir=".">
+			<arg value="project.xml"/>
+		</exec>
+	</target>
+
+	<target name="project">
+		<property name="my.dtd.file"    value="project.xsd" />
+		<property name="my.xml.file"    value="project.xml" />
+		<echo message="Checking activities"/>
+		<antcall target="doCheckXML"/>
+	</target>
+
+	<target name="doCheckXML">
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${my.dtd.file}"/>
+			<param name="xml.file" value="${my.xml.file}"/>
+		</antcall>
+	</target>
+
+	<target name="doXSLT">
+		<exec executable="${xslt.cmd}" dir=".">
+			<arg value="${my.xml.file}"/>
+			<arg value="${my.xsl.file}"/>
+			<arg value="${my.xsl.args}"/>
+			<arg value="${my.xslt.file}"/>
+		</exec>
+	</target>
+
+	<target name="doBrowser">
+		<exec executable="${show.cmd}" dir=".">
+			<arg value="${my.html.file}"/>
+		</exec>
+	</target>
+
+</project>
+

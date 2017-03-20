@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/j2ee" version="1.4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd">
+
+	<description>Application description</description>
+	<display-name>AbcdApp</display-name>
+
+	<module>
+		<ejb>ejb1_ejb-jar-ic.jar</ejb>
+	</module>
+
+	<module>
+		<ejb>ejb2_ejb-jar-ic.jar</ejb>
+	</module>
+
+	<module>
+		<java>ejb1_app-client-ic.jar</java>
+	</module>
+
+	<module>
+		<java>ejb2_app-client-ic.jar</java>
+	</module>
+<!--
+	<module>
+		<java>jar-common.jar</java>
+	</module>
+-->
+	<module>
+		<web>
+			<web-uri>war-ic.war</web-uri>
+				<context-root>/c2strutsEAR</context-root>
+		</web>
+	</module>
+
+</application>
+

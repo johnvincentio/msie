@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+  <!ENTITY appServerAntCommands SYSTEM "../../../../workBuild/app-server-ant.xml">
+  <!ENTITY jvXMLValidateCommands SYSTEM "../../../../workBuild/xmlvalidate.xml">
+  <!ENTITY jvJavaDocCommands SYSTEM "../../../../workBuild/javadoc.xml">
+]>
+
+<project name="common" default="all" basedir="."> 
+
+	<property name="build.dir"    value="${basedir}/build" />
+	<property name="dist.dir"     value="${basedir}/dist" />
+
+	<property name="xml.validate.options"    value="-warning" />
+
+	&appServerAntCommands;
+	&jvXMLValidateCommands;
+	&jvJavaDocCommands;
+
+	<property name="app.name"   value="jar-common"/>
+	<property name="app.module" value="${dist.dir}/${app.name}.jar"/>
+	<property name="app.deploy.options" value=""/>
+
+	<path id="javac.classpath">
+		<pathelement location="${build.dir}"/>
+	</path>
+
+	<target name="checkXML">
+		<echo message="Checking custom tag library for version 2.0"/>
+		<antcall target="jsptaglib_2_0">
+			<param name="app.custom.tag.lib" value="${basedir}/tags/JVTags.tld"/>
+		</antcall>
+	</target>
+
+	<target name="all" depends="clean, dist, checkXML"/>
+	<target name="docs" depends="javadocs"/>
+
+	<target name="clean">
+		<echo message="Remove build and distributables..."/>
+		<delete includeEmptyDirs="true" quiet="true">
+			<fileset dir="${build.dir}"/>
+			<fileset dir="${dist.dir}"/>
+			<fileset dir="${javadocs.dir}"/>
+		</delete>
+	</target>
+
+	<target name="mkdirs" depends="clean">
+		<echo message="Create directories..."/>
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${dist.dir}/contents" />
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.dir}/META-INF" />
+	</target>
+
+	<target name="compile" depends="mkdirs">
+		<echo message="Compiling java..."/>
+		<javac srcdir="${basedir}/java" 
+				destdir="${build.dir}">
+			<include name="**/*.java" />
+			<classpath refid="javac.classpath"/>
+		</javac>
+	</target>
+
+	<target name="build" depends="compile">
+		<echo message="Copying files from lib..."/>
+		<copy todir="${build.dir}">
+			<fileset dir="${basedir}/lib"/>
+		</copy>
+	</target>
+
+	<target name="dist" depends="build">
+		<echo message="Creating JAR file...."/>
+    	<jar jarfile="${app.module}" basedir="${build.dir}">
+			<manifest>
+				<attribute name="Built-By" value="jv"/>
+				<attribute name="Class-Path" value=""/>
+			</manifest>
+		</jar>
+		<unjar src="${app.module}" dest="${dist.dir}/contents"/>
+
+		<copy todir="${dist.dir}">
+			<fileset dir="${basedir}/tags">
+				<include name="*.tld" />
+			</fileset>
+		</copy>
+	</target>
+
+</project>
+

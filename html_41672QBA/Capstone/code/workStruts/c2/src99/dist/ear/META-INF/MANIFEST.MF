@@ -1,0 +1,11 @@
+Manifest-Version: 1.1
+Class-Path: 
+
+Name: META-INF/sun-application.xml
+
+Name: META-INF/application.xml
+
+Name: war-ic.war
+
+Name: META-INF/sun-j2ee-ri.project
+

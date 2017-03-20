@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>JUnit / Cactus Work</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="../css/topnav.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {color: #FF0000}
+.style2 {color: #0000FF}
+.style3 {color: #006699}
+-->
+</style>
+</head>
+
+<body>
+<div id="masthead">
+  <h1 class="style3" id="siteName">JSF, Struts and Adventure Builder</h1>
+  <div id="globalNav"> 
+  	</div>
+</div>
+<div id="content">
+      <h2 id="pageName">&nbsp;</h2>
+  <div class="feature"> 
+  <img src="../images/mercury.jpg" alt="" width="500" height="500" /></div>
+      <div class="story">
+        <h2>&nbsp;</h2>
+        <h2><a name="TOP" id="TOP"></a>Adventure Builder</h2>
+        <p>I worked long and hard on the Adventure Builder program. The aim was to build a JSF version of it. I learnt a lot about how it is built, how it is put together and how it stays that way. I learnt a lot about it's framework.</p>
+        <p>I then went to work on JSF. </p>
+        <h2>JSF</h2>
+        <p>I thought I saw an opportunity here. If I could grab the bull and hang on maybe this could be a meal ticket. I could peddle my skills in a new technology, so new that no-one else has any particular advantage over me.</p>
+        <p>It turned out that the technology is just too new. The available information was very poor, indeed mostly wrong. There is a JSF forum, but the others don't seem to be faring any better. I worked extremely hard on this project but was ultimately forced to drop it, having achieved very little but extreme levels of frustration.</p>
+        <p>&nbsp;</p>
+        <h2>Struts</h2>
+        <p>When I dropped JSF, I did so most reluctantly. I don't like to fail, least of all when a meal ticket is on the table, but the hand had to be turned in. I had a week to do something with Struts. I thought I would have no real problems and that I would have JVServlet running in short order, leaving me time enough to have a run at Adventure Builder. </p>
+        <p>Struts turned out to be a lot tougher than I thought. It is not obvious what to do, or how to do it. it took a lot of effort to get anywhere with it.</p>
+        <p>The big breakthrough came when I backed away from the project to take better care of the environment. I solved the problems of poor JSP and XML work, which were always run-time errors, and tons of them. The XML validation and JSP compiles catch most of my silly mistakes. Almost all errors that occur at run-time at real, and can only be detected an runtime. As this is now a reasonably small number of errors, I tend to learn them, what they mean, how I counteract, and how I avoid them in the first place. My templates are a further huge help, as it doesn't take me long to get another project up and running, and in a manner that I confidently expect to serve me, rather than the other way around.</p>
+        <p>With a tight environment, the Struts work progressed. Slowly by surely, I parked the oil tanker with more little moves than I care to imagine. I now have a pretty good idea of how to make Struts work for its supper, what I can do with it and it's limitations. I also have a better idea how long it will take me to build a Struts application.</p>
+        <p>Struts is not obvious, it is not intuitive. it is not obvious how to go about building a Struts application. Some lessons:</p>
+        <p>1. Start with a template that is proven.</p>
+        <p>2. Design the solution carefully, documenting the screens and the application flow.</p>
+        <p>3. Build the basic JSPs, no data, just the flow for now. Just JSPs and struts-config.xml</p>
+        <p>4. Start building up the JSPs, slowly but surely. Any tough code, for example business logic, database access etc, write a noddy with a test rig. get it right and then make it available to Struts. Keep Struts as simple as possible or else Struts development becomes an endless, futile bottom chasing expedition.</p>
+        <p>5. use the JVParameters and JVAttributes code. Know your parameters and your attributes, the keys to servlet programming.</p>
+        <p>6. Design the flow of beans around the application.</p>
+        <p>7. Understand what needs to appear on a JSP. Understand the tag requirements, make the JSP tag code simple, push the complexity up to the bean. This will help to ensure the JSPs are semi-readable, as well as reasonably reliable. Break this law at your peril. </p>
+        <p>8. Build Action classes as needed. Start small and work into the application. Do not build ActionForms yet. To do this, suppress passing info from a JSP. Hardwire variables in the Action class if need be. get it working without getting too entangled in the web of Struts dependencies.</p>
+        <p>9. Create ActionForms as need be. </p>
+        <p>That about covers the basics. I am sure I will think of more as soon as I close this file. </p>
+        <p><a href="Struts/workStruts.zip">My efforts may be downloaded here </a></p>
+        <p>Notes:</p>
+        <p>1. I think update is not working properly.</p>
+        <p>2. I didn't code adding a registering user.</p>
+        <p>3. i didn't code for a lost password due to difficulties sending mail from within a servlet. I need to get back to the security manager.</p>
+        <p>4. I didn't clean up th excessive use of ActionForm classes.</p>
+        <p>5. My Struts TEMPLATE is out of date. I will synchronize at some point.</p>
+        <p>&nbsp;</p>
+        <h2><a href="#TOP">Top</a></h2>
+        <h4>&nbsp;</h4>
+        <p>&nbsp;</p>
+  </div>
+</div>
+<!-- end masthead -->
+</body>
+</html>

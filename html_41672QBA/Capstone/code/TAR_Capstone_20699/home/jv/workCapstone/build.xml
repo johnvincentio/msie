@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<project name="general" default="all" basedir=".">
+
+	<target name="all">
+		<ant dir="Common1/src99" target="dist" inheritAll="false"/>
+		<ant dir="Common2/src99" target="dist" inheritAll="false"/>
+		<ant dir="Common3/src99" target="dist" inheritAll="false"/>
+		<ant dir="Common4/src99" target="dist" inheritAll="false"/>
+		<ant dir="Common5/src99" target="dist" inheritAll="false"/>
+		<ant dir="DistributorWS1/src99" target="dist" inheritAll="false"/>
+		<ant dir="DistributorWS2/src99" target="dist" inheritAll="false"/>
+		<ant dir="Distributor/src99" target="dist" inheritAll="false"/>
+		<ant dir="Supplier/src99" target="dist" inheritAll="false"/>
+		<ant dir="Retailer/src99" target="dist" inheritAll="false"/>
+		<ant dir="Nero/src99" target="dist" inheritAll="false"/>
+		<ant dir="Hadrian/src99" target="dist" inheritAll="false"/>
+	</target>
+
+	<target name="create-resources">
+		<ant dir="Resources/src99" target="all" inheritAll="false"/>
+	</target>
+	<target name="delete-resources">
+		<ant dir="Resources/src99" target="cleanall" inheritAll="false"/>
+	</target>
+
+	<target name="create-data">
+		<ant dir="Resources/src99" target="all" inheritAll="false"/>
+	</target>
+	<target name="delete-data">
+		<ant dir="Resources/src99" target="cleanall" inheritAll="false"/>
+	</target>
+
+<!--
+	remember:
+
+1. project build may make JDBC resources
+2. project build may make JMS resources
+3. undeploy everything before creating anything.
+4. the all target above will also do the deploy
+
+5. copy Capstone to the web server - see Capstone Notes
+		see the copyjpgs script - run as root.
+-->
+
+</project> 
+

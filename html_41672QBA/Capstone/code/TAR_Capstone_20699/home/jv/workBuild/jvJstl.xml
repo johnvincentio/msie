@@ -1,0 +1,101 @@
+
+<!--
+	jvJstl.xml; script to handle Jstl
+-->
+
+	<property name="jstl.home"	value="/opt/jwsdp-1.4/jstl"/>
+	<property name="jstl.lib"	value="${jstl.home}/lib"/>
+	<property name="jstl.tld"	value="${jstl.home}/tld"/>
+
+	<path id="jstl.classpath">
+		<pathelement location="${jstl.lib}/jstl.jar"/>
+		<pathelement location="${jstl.lib}/standard.jar"/>
+	</path>
+
+	<target name="copyJSTLlibs">
+		<echo message="Copying Libs..."/>
+		<copy todir="${build.dir}/WEB-INF/lib">
+			<fileset dir="${jstl.lib}">
+			<patternset>
+				<include name="jstl.jar"/>
+				<include name="standard.jar"/>
+			</patternset>
+			</fileset>
+		</copy>
+		<echo message="Copying Tlds..."/>
+		<copy todir="${build.dir}/WEB-INF">
+			<fileset dir="${jstl.tld}">
+			<patternset>
+				<include name="c-1_0-rt.tld"/>
+				<include name="c-1_0.tld"/>
+				<include name="c.tld"/>
+				<include name="fmt-1_0-rt.tld"/>
+				<include name="fmt-1_0.tld"/>
+				<include name="fmt.tld"/>
+				<include name="fn.tld"/>
+				<include name="permittedTaglibs.tld"/>
+				<include name="scriptfree.tld"/>
+				<include name="sql-1_0-rt.tld"/>
+				<include name="sql-1_0.tld"/>
+				<include name="sql.tld"/>
+				<include name="x-1_0-rt.tld"/>
+				<include name="x-1_0.tld"/>
+				<include name="x.tld"/>
+			</patternset>
+			</fileset>
+		</copy>
+	</target>
+
+<!--
+
+version 1.0
+
+	<property name="jstl.home"	value="/opt/jstl-1.0"/>
+	<property name="jstl.lib"	value="${jstl.home}/lib"/>
+	<property name="jstl.tld"	value="${jstl.home}/tld"/>
+
+	<path id="jstl.classpath">
+		<pathelement location="${jstl.lib}/jstl.jar"/>
+		<pathelement location="${jstl.lib}/standard.jar"/>
+	</path>
+
+	<target name="copyJSTLlibs">
+		<echo message="Copying Libs..."/>
+		<copy todir="${build.dir}/WEB-INF/lib">
+			<fileset dir="${jstl.lib}">
+			<patternset>
+				<include name="jstl.jar"/>
+				<include name="standard.jar"/>
+			</patternset>
+			</fileset>
+		</copy>
+		<echo message="Copying Tlds..."/>
+		<copy todir="${build.dir}/WEB-INF/tags">
+			<fileset dir="${jstl.tld}">
+			<patternset>
+				<include name="c-1_0-rt.tld"/>
+				<include name="c-1_0.tld"/>
+				<include name="c.tld"/>
+				<include name="fmt-1_0-rt.tld"/>
+				<include name="fmt-1_0.tld"/>
+				<include name="fmt.tld"/>
+				<include name="fn.tld"/>
+				<include name="permittedTaglibs.tld"/>
+				<include name="scriptfree.tld"/>
+				<include name="sql-1_0-rt.tld"/>
+				<include name="sql-1_0.tld"/>
+				<include name="sql.tld"/>
+				<include name="x-1_0-rt.tld"/>
+				<include name="x-1_0.tld"/>
+				<include name="x.tld"/>
+			</patternset>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="checkJSTLXML">
+		<echo message="Checking jstl xml scripts"/>
+	</target>
+
+-->
+

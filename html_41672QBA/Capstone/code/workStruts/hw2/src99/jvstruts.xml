@@ -1,0 +1,70 @@
+
+<!--
+	jvstruts.xml; script to handle the struts stuff in a struts project.
+-->
+
+	<property name="struts.home"	value="/opt/jakarta-struts-1.1"/>
+	<property name="struts.lib"		value="${struts.home}/lib"/>
+
+	<path id="cpath.classpath">
+		<pathelement location="${struts.lib}/commons-beanutils.jar"/>
+		<pathelement location="${struts.lib}/commons-digester.jar"/>
+		<pathelement location="${struts.lib}/struts.jar"/>
+		<pathelement location="${build.dir}/WEB-INF/classes"/>
+	</path>
+
+	<target name="copyLibs">
+		<echo message="Copying Libs..."/>
+		<copy todir="${build.dir}/WEB-INF/lib">
+			<fileset dir="${struts.lib}">
+			<patternset>
+				<include name="commons-beanutils.jar"/>
+				<include name="commons-collections.jar"/>
+				<include name="commons-digester.jar"/>
+				<include name="commons-fileupload.jar"/>
+				<include name="commons-lang.jar"/>
+				<include name="commons-logging.jar"/>
+				<include name="commons-validator.jar"/>
+				<include name="jakarta-oro.jar"/>
+				<include name="struts.jar"/>
+			</patternset>
+			</fileset>
+		</copy>
+		<echo message="Copying Tlds..."/>
+		<copy todir="${build.dir}/WEB-INF/tags">
+			<fileset dir="${struts.lib}">
+			<patternset>
+				<include name="struts-bean.tld"/>
+				<include name="struts-html.tld"/>
+				<include name="struts-logic.tld"/>
+				<include name="struts-nested.tld"/>
+				<include name="struts-template.tld"/>
+				<include name="struts-tiles.tld"/>
+			</patternset>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="checkXML">
+		<echo message="Checking struts-config.xml"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${struts.lib}/struts-config_1_1.dtd"/>
+			<param name="xml.file" value="${basedir}/etc/struts-config.xml"/>
+		</antcall>
+		<echo message="Checking tiles-defs.xml"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${struts.lib}/tiles-config_1_1.dtd"/>
+			<param name="xml.file" value="${basedir}/etc/tiles-defs.xml"/>
+		</antcall>
+		<echo message="Checking validation.xml"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${struts.lib}/validation_1_1.dtd"/>
+			<param name="xml.file" value="${basedir}/etc/validation.xml"/>
+		</antcall>
+		<echo message="Checking validator-rules.xml"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${struts.lib}/validator-rules_1_1.dtd"/>
+			<param name="xml.file" value="${basedir}/etc/validator-rules.xml"/>
+		</antcall>
+	</target>
+

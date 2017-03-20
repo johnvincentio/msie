@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+  <!ENTITY appServerAntCommands SYSTEM "../../../../workBuild/app-server-ant.xml">
+  <!ENTITY jvXMLValidateCommands SYSTEM "../../../../workBuild/xmlvalidate.xml">
+  <!ENTITY jvJavaDocCommands SYSTEM "../../../../workBuild/javadoc.xml">
+]>
+
+<project name="ejb2" default="all" basedir=".">
+
+	<property name="build.dir"    value="${basedir}/build" />
+	<property name="build.ear.dir"    value="${basedir}/build/ear" />
+	<property name="build.ejb.dir"    value="${basedir}/build/ejb" />
+	<property name="build.appclient.dir"    value="${basedir}/build/appclient" />
+
+	<property name="dist.dir"     value="${basedir}/dist" />
+	<property name="dist.ear.dir"     value="${basedir}/dist/ear" />
+	<property name="dist.ejb.dir"     value="${basedir}/dist/ejb" />
+	<property name="dist.appclient.dir"     value="${basedir}/dist/appclient" />
+
+	<property name="javadocs.dir" value="${basedir}/docs/api"/>
+
+	<property name="xml.validate.options"    value="-warning" />
+
+	&appServerAntCommands;
+	&jvXMLValidateCommands;
+	&jvJavaDocCommands;
+
+	<property name="app.name"   value="${ant.project.name}"/>
+	<property name="app.module" value="${dist.dir}/${ant.project.name}.ear"/>
+
+	<property name="ejb.jar.name" value="${dist.ejb.dir}/ejb-jar-ic.jar"/>
+	<property name="appClient.jar.name"
+				value="${dist.appclient.dir}/app-client-ic.jar"/>
+
+<!-- deploy -->
+
+	<property name="app.client.jar"
+				value="${dist.dir}/${ant.project.name}Client.jar"/>
+	<property name="app.deploy.options" value="--retrieve=${dist.dir}"/>
+
+<!-- external jars -->
+
+	<property name="app.common2.jar.name"
+		value="../../../Common2/src99/common/dist/jar-common.jar"/>
+	<property name="app.common4.jar.name"
+		value="../../../Common4/src99/common/dist/jar-common.jar"/>
+
+<!--		Setup javac classpath		-->
+
+	<path id="javac.classpath">
+		<pathelement location="${build.ejb.dir}"/>
+		<pathelement location="${app.common2.jar.name}"/>
+		<pathelement location="${app.common4.jar.name}"/>
+	</path>
+
+	<target name="checkXML" depends="application_1_4, sun-application_1_4, 
+					ejb-jar_2_1,sun-ejb-jar_2_1,
+					application-client_1_4, sun-application-client_1_4"/>
+
+<!--	Begin making something	-->
+
+	<target name="all" depends="clean, dist, checkXML"/>
+	<target name="docs" depends="javadocs"/>
+
+	<target name="clean">
+		<echo message="Remove build and distributables..."/>
+		<delete includeEmptyDirs="true" quiet="true">
+			<fileset dir="${build.dir}"/>
+			<fileset dir="${dist.dir}"/>
+			<fileset dir="${javadocs.dir}"/>
+		</delete>
+	</target>
+	<target name="mkdirs" depends="clean">
+		<echo message="Create directories..."/>
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${dist.ear.dir}" />
+		<mkdir dir="${dist.ejb.dir}" />
+		<mkdir dir="${dist.appclient.dir}" />
+
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.ear.dir}" />
+		<mkdir dir="${build.ear.dir}/META-INF" />
+		<mkdir dir="${build.appclient.dir}" />
+		<mkdir dir="${build.appclient.dir}/META-INF" />
+		<mkdir dir="${build.ejb.dir}" />
+		<mkdir dir="${build.ejb.dir}/META-INF" />
+	</target>
+
+	<target name="compile" depends="mkdirs">
+		<echo message="Compiling EJB java..."/>
+		<javac srcdir="${basedir}/java" 
+				destdir="${build.ejb.dir}">
+			<include name="**/*.java" />
+			<classpath refid="javac.classpath"/>
+		</javac>
+		<echo message="Compiling appClient java..."/>
+		<javac srcdir="${basedir}/javaclient" 
+				destdir="${build.appclient.dir}">
+			<include name="**/*.java" />
+			<classpath refid="javac.classpath"/>
+		</javac>
+	</target>
+
+	<target name="build" depends="compile">
+		<echo message="Copying files from lib..."/>
+		<copy todir="${build.ejb.dir}">
+			<fileset dir="${basedir}/lib"/>
+		</copy>
+		<echo message="Copying common JARs"/>
+		<copy todir="${build.ejb.dir}/common2" file="${app.common2.jar.name}"/>
+		<copy todir="${build.ejb.dir}/common4" file="${app.common4.jar.name}"/>
+
+		<echo message="Copying EAR META-INF/*.xml files..."/>
+		<copy todir="${build.ear.dir}/META-INF">
+			<fileset dir="${basedir}/etc">
+				<include name="application.xml" />
+				<include name="sun-application.xml" />
+			</fileset>
+		</copy>
+		<echo message="Copying EJB META-INF/*.xml files..."/>
+		<copy todir="${build.ejb.dir}/META-INF">
+			<fileset dir="${basedir}/etc">
+				<include name="ejb-jar.xml" />
+				<include name="sun-ejb-jar.xml" />
+			</fileset>
+		</copy>
+		<echo message="Copying appClient META-INF/*.xml files..."/>
+		<copy todir="${build.appclient.dir}/META-INF">
+			<fileset dir="${basedir}/etc">
+				<include name="application-client.xml" />
+				<include name="sun-application-client.xml" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="dist" depends="build">
+		<echo message="Creating EJB JAR file...."/>
+    	<jar jarfile="${ejb.jar.name}" basedir="${build.ejb.dir}">
+			<manifest>
+				<attribute name="Built-By" value="jv"/>
+				<attribute name="Class-Path" value=""/>
+			</manifest>
+		</jar>
+		<unjar src="${ejb.jar.name}" dest="${dist.ejb.dir}"/>
+
+		<echo message="Creating AppClient JAR file...."/>
+    	<jar jarfile="${appClient.jar.name}" basedir="${build.appclient.dir}">
+			<manifest>
+				<attribute name="Built-By" value="jv"/>
+				<attribute name="Class-Path" value=""/>
+			</manifest>
+		</jar>
+		<unjar src="${appClient.jar.name}" dest="${dist.appclient.dir}"/>
+
+		<echo message="Copying EJB JAR files..."/>
+		<copy file="${ejb.jar.name}" todir="${build.ear.dir}"/>
+		<copy file="${appClient.jar.name}" todir="${build.ear.dir}"/>
+
+		<echo message="Creating EJB JAR file...."/>
+    	<jar jarfile="${app.module}" basedir="${build.ear.dir}">
+			<manifest>
+				<attribute name="Built-By" value="jv"/>
+				<attribute name="Class-Path" value=""/>
+				<section name="META-INF/application.xml"/>
+				<section name="META-INF/sun-application.xml"/>
+				<section name="ejb-jar-ic.jar"/>
+				<section name="app-client-ic.jar"/>
+			</manifest>
+		</jar>
+		<echo message="Expanding EAR file...."/>
+		<unjar src="${app.module}" dest="${dist.ear.dir}"/>
+	</target>
+
+	<target name="appclient">
+		<echo message="Executing appclient...."/>
+			<exec dir="${dist.dir}" executable="appclient">
+				<arg line="-client ${app.client.jar}"/>
+				<arg line="-mainclass AbcdClient"/>
+		</exec>
+	</target>
+
+</project>
+

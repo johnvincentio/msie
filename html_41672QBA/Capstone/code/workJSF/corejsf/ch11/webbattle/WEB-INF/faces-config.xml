@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+
+<faces-config>
+
+   <navigation-rule>
+      <from-view-id>/setup.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>setup</from-outcome>
+         <to-view-id>/setup.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>turn</from-outcome>
+         <to-view-id>/turn.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/turn.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>turn</from-outcome>
+         <to-view-id>/turn.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>win</from-outcome>
+         <to-view-id>/win.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>lose</from-outcome>
+         <to-view-id>/lose.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/win.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>setup</from-outcome>
+         <to-view-id>/setup.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/lose.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>setup</from-outcome>
+         <to-view-id>/setup.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+
+   <component>
+      <component-type>com.corejsf.BattleMap</component-type>
+      <component-class>javax.faces.component.UIInput</component-class>
+   </component>
+
+   <render-kit>
+      <renderer>
+         <component-family>javax.faces.Input</component-family>
+         <renderer-type>com.corejsf.BattleMap</renderer-type>
+         <renderer-class>com.corejsf.BattleMapRenderer</renderer-class>
+      </renderer>
+   </render-kit>
+   
+   <managed-bean> 
+      <managed-bean-name>game</managed-bean-name>
+      <managed-bean-class>com.corejsf.GameBean</managed-bean-class> 
+      <managed-bean-scope>session</managed-bean-scope> 
+   </managed-bean>
+   <managed-bean> 
+      <managed-bean-name>setupform</managed-bean-name>
+      <managed-bean-class>com.corejsf.SetupForm</managed-bean-class> 
+      <managed-bean-scope>session</managed-bean-scope> 
+      <managed-property>
+         <property-name>battleGround</property-name>
+         <value>#{game.own}</value>
+      </managed-property>
+   </managed-bean>
+</faces-config>

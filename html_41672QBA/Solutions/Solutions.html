@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Solutions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="../css/topnav.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {
+	color: #0000FF;
+	font-size: 100%;	
+}
+.style3 {color: #0033FF}
+-->
+</style>
+</head>
+
+<body>
+<div id="masthead">
+  <h1 class="style1" id="siteName">Solutions</h1>
+  <div id="globalNav"> 
+  	<a href="../index.html">Home </a> | <a href="../Assignments.html">Assignments</a>| <a href="../CurrentProjects.html">Projects</a>| <a href="../Specifications.html">Specifications</a> |<a href="../Documentation.html"> Documentation </a> | <a href="../PersonalLog.html">Personal Log </a></div>
+</div>
+<div id="content">
+      <h2 id="pageName">&nbsp;</h2>
+      <div class="story">
+        <h3>&nbsp;</h3>
+        <h2><a name="TOP" id="TOP"></a>Word Game </h2>
+        <p><a href="wordgame.zip">Click here to download </a></p>
+        <h2>Slider RGB Tool </h2>
+        <p><a href="rgb.zip">Click here to download </a></p>
+        <h2>Knight Game </h2>
+        <p><a href="knight7.zip">Click here to download </a></p>
+        <h2>Java Application Launcher for Windows</h2>
+        <h4>&nbsp;</h4>
+        <h4>This program allows a Windows user to run a Java Application from a shortcut, or automatically from Explorer. It requires a configuration file. I explain the usage through an example.</h4>
+        <h4>&nbsp;</h4>
+        <h4>Download the program and copy to c:\windows. Actually, it just needs to be in your PATH, but c:\windows will get it done.</h4>
+        <h4>&nbsp;</h4>
+        <h4>Create  file app.jlv and enter the following: </h4>
+        <pre class="style1">
+env,CLASSPATH,deploy
+// java App
+run,javaw App		
+</pre>
+        <h4>where:
+        </h4>
+        <ul><li><h4>env sets an enviroment variable. Will only be set in the environment of  the Java Application.</h4>
+      </li>
+      <li>
+        <h4>run sets the command line.</h4>
+      </li>
+      <li>
+        <h4>all other command types are ignored. </h4>
+      </li>
+        </ul>
+        <h4>Note:</h4>
+        <ul>
+          <li>
+            <h4>the above example assumes the class files are in the deploy subdirectory of the directory that stores the jlv file.</h4>
+          </li>
+          <li>you may enter the usual command line parameters for the JVM.</li>
+          <li>you may enter any environment variable, including JAVA_HOME and PATH if you wish.</li>
+          <li>use javaw for no console, java if you require a console. </li>
+        </ul>
+        <h4>Start Explorer. Locate the file app.jlv. Select the file and right click. Select Open.</h4>
+        <h4>Windows will complain that it cannot open the file. You have the file that knows how to handle this type of file. You just need to tell Windows which program to run.</h4>
+        <h4>Select the &quot;Select the program from a list&quot; radio button and select OK. </h4>
+        <h4>A list of programs will appear. The program you need, namely jvjava.exe will not be in the list. Tick the &quot;Always use the selected.....&quot; checkbox. Click on the Browse button. </h4>
+        <h4>Navigate to c:\Windows and select jvjava.exe.</h4>
+        <h4>&nbsp;</h4>
+        <h4>From now on, whenever you open a jlv type file from explorer, the Java Application Launcher will automatically run the Java Application. </h4>
+        <h4>&nbsp;</h4>
+        <h4>To create a short cut, locate the app.jlv file, right click, create short cut, drag the short cut to your desktop, and rename the short cut as per your requirements.</h4>
+        <h4>&nbsp;</h4>
+        <h4>To download the program, <a href="jvjava.exe">click here</a>.</h4>
+        <h4>I  provide the <a href="jvjava.zip">source here</a> on the following conditions:</h4>
+        <ul>
+          <li>If you find a problem, let me know.</li>
+          <li>If you make a fix, let me know.</li>
+          <li>If you a good idea, let me know.</li>
+          <li>If you find other uses for it, let me know.</li>
+          <li>You have some fun with it!</li>
+        </ul>
+        <p>Note that this program is not intended as a Java Application Distribution mechanism, in that it does not support an embedded JRE.</p>
+        <h2>JUnit Test Rig </h2>
+        <p>I wanted to at least figure out how JUnit works and so I wrote some classes, some tests and a test rig which I modified to work with JUnit. Once I got past the silly stuff, it really wasn't that bad.</p>
+        <p>You need to first download and install JUnit. I put JUnit into /opt/junit3.8.1, which needs to be included in the Classpath in build.xml. Then download the code. </p>
+        <p><a href="junit.zip">Click here to download </a></p>
+        <p>Unzip, cd src99 and run the tests with </p>
+	    <blockquote>
+	      <h4 class="style3"> ant runTests</h4>
+        </blockquote>
+	    <p>&nbsp;</p>
+        <p><a href="#TOP">Top</a></p>
+        <blockquote>
+          <p></p>
+        </blockquote>
+  </div>
+      <div class="story">
+        <blockquote>&nbsp;</blockquote>
+      </div>
+</div>
+<!-- end masthead -->
+</body>
+</html>
+

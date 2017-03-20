@@ -1,0 +1,32 @@
+
+
+	---------------------------
+        STATIC VERIFICATION RESULTS
+	---------------------------
+	
+
+	----------------------------------
+	NUMBER OF FAILURES/WARNINGS/ERRORS
+	----------------------------------
+
+	# of Failures : 1
+        # of Warnings : 0
+	# of Errors : 0
+
+	-----------------------------------
+        RESULTS FOR APPCLIENT-RELATED TESTS
+	-----------------------------------
+
+        
+
+	--------------
+	FAILED TESTS : 
+	--------------
+	
+
+	 Test Name : tests.appclient.elements.AppClientEjbReferencesElement
+	 Test Assertion : Application client references to other beans homes test
+	 Test Description : For [ app-client-ic.jar ]
+Error: [ ejb/SimpleAbcd ] class cannot be found within this jar [ AbcdHome ].
+For [ app-client-ic.jar ]
+Error: [ ejb/SimpleAbcd ] class cannot be found within this jar [ Abcd ].

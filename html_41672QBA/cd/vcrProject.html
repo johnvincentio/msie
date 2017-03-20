@@ -1,0 +1,658 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Final Project</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="../css/topnav.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-weight: bold}
+-->
+</style>
+</head>
+
+<body>
+<div id="masthead">
+  <h1 class="style1" id="siteName">Conceptual Design </h1>
+  <div id="globalNav"> 
+  	<a href="../index.html">Home </a> | <a href="../ConceptualDesign.html">Conceptual Design </a> | <a href="../InternetTechnologies.html">Internet Technologies </a> | <a href="../InternetProgrammingLanguages.html">Internet Programming Languages</a> | <a href="../Assignments.html">Assignments</a> | <a href="../CurrentProjects.html">Projects</a> | <a href="../PersonalLog.html">Personal Log </a> | <a href="../About.html">About</a> 
+  </div>
+</div>
+<div id="content">
+      <h2 id="pageName">&nbsp;</h2>
+  <div class="story">
+    <h1><a name="TOP" id="TOP"></a>Final Project</h1>
+        <h2>&nbsp;</h2>
+        <p>Design considerations in a browser based, Web Services, integrated applications environment. </p>
+        <p>This document contains the following sections: </p>
+        <ul>
+          <li><a href="#FW">Foreword</a></li>
+          <li>
+            <h4><a href="#PG">Goals</a></h4>
+          </li>
+          <li><a href="#STRATEGY">Strategy</a></li>
+          <li><a href="#ASSUMPTIONS">Assumptions</a></li>
+          <li><a href="#REQUIREMENTS">Requirements</a></li>
+          <li><a href="#FEATURES">Feature List </a></li>
+          <li><a href="#COMPETE">Competitive Review </a></li>
+          <li><a href="#MISSION">Mission Statement</a></li>
+          <li>
+            <h4><a href="#USERSGOALS">Users and Goals</a> </h4>
+          </li>
+          <li>
+            <h4><a href="#SCENARIOS">User Scenarios </a></h4>
+          </li>
+          <li><a href="#CARDSORT">Card Sort</a></li>
+          <li><a href="#WIREFRAMES">Wireframes </a></li>
+          <li>
+            <h4><a href="#DESIGN">Designs</a></h4>
+          </li>
+          <li><a href="vcrTables.html">Database Specification </a></li>
+          <li><a href="#PERMISSIONS">Permissions</a></li>
+          <li><a href="#OTHER">Other Issues </a></li>
+          <li><a href="#LESSONS">Lessons Learned </a></li>
+          <li><a href="#FINAL">Finally</a></li>
+        </ul>
+        <h2><a name="FW" id="FW"></a>Foreword</h2>
+        <p>For this project, I originally chose an Inventory System, loosely based on an apparel distribution business. </p>
+        <p>However, it quickly became clear to me that I have very little to say about inventory systems. I am much more interested in the ideas, concepts and technologies that facilitate an interface between different applications, allowing the real-time usage of data between incompatible systems. </p>
+        <p>Most businesses of today have multiple software packages performing largely separate tasks on systems that are largely incompatible. These systems may be internal or external to a business as the effects are the same, namely considerable limits on the ability of the software to perform business essential tasks. The solutions to these limitations involve people providing that interface, usually requiring a considerable human involvement, usually introducing a lot of human error. </p>
+        <p>This is an example of people providing the technology. Software should be the technology; it should provide the smarts, leaving people to perform human related tasks. </p>
+        <p>Some businesses have attempted to solve the problems by buying an integrated suite of products. These tend to very expensive to purchase, implement and maintain. </p>
+        <p>To a business, the software application is a subsystem to the business. They don't know and don't care about incompatible systems. If they are incompatible, they shouldn't be! </p>
+        <p>I am most keen to examine the implications of the advent of web services. It is not the technology per se that interests me. It is what can be done with it, and what are the consequences. </p>
+        <p>The true promise of web services is that independent, unrelated software packages can be integrated without having to make big changes to any package. Thus applications behave as modules or subsystems within the context of a business's business software solution. Hands off software interactions could change the way we think, and most surely the software we buy. </p>
+        <p>An opportunity for me is to produce a package that performs various tasks, and interface with other products to perform other tasks. This looks to me to be a brave new world, full of opportunities for those who are willing to make the journey. </p>
+        <p>I thus chose to consider a distribution business and to design software to address its needs. I created a fictional business called Advanced Products Manufacturing or APM, and characters who perform key roles within APM. I identified their goals and attempted to understand their interactions with the software through the creation of stories. </p>
+        <p>This led me to design a product around the concept of roles. A role is identified by a group of tasks, for example Sales. Human users (or just users) would be assigned their own login object to gain access to the system, their user name providing access to subsystems through the belonging to a role or roles. </p>
+        <p>An interesting consequence of this design is that there is no need for the application to have a single point of entry. In fact, there is no single application, or rather, there doesn't need to be. This is not the case in traditional application design. </p>
+        <p>Control of the user through the use of his roles leads to the next interesting thought. Each user's interface needs to be dynamic, adjusting at least somewhat to his capabilities, as well as his needs as identified by his goals. This also flies in the face of traditional software design as well as creating a number of challenges. </p>
+        <p>If the user interface were dynamic, defining and controlling that interface would create serious development problems. Testing a user interface is always very hard and incredibly time consuming. A dynamic user interface would test the professionalism, to say nothing of the resolve, of even the most patient and skilled tester. </p>
+        <p>It would appear then, that the dynamic interface will require some design gymnastics, and doubtless some compromises, if a design is to be successful. </p>
+        <p>Despite the difficulties, I chose this approach because I wanted to see where it might lead, to learn what I can, to determine the issues and to maybe even resolve them. </p>
+        <p>The user interface issues results in the need to design the business intelligence into the back end. I propose to implement much of the business intelligence user interface as an alerts subsystem. </p>
+        <p><a href="#TOP">Top</a></p>
+        <h2><a name="PG" id="PG"></a>Goals</h2>
+        <p>Some goals for this project are: </p>
+        <ul>
+          <li>Design business subsystems for a Web Services environment. </li>
+          <li>Design an inventory system as one of those subsystems. </li>
+          <li>Obtain useful skills. </li>
+          <li>Gain valuable experience in the design and building of a web based application. </li>
+          <li>Learn as much as I can about conceptual design. </li>
+          <li>Learn how to design solutions based on intelligent tasking. </li>
+          <li>The project should be a cross section of what I need to learn. </li>
+          <li>Define the interface and dependencies to other software. </li>
+          <li>Start to climb the Web Services mountain. </li>
+        </ul>
+        <p>Some goals for the product are: </p>
+        <ul>
+          <li>Manage the inventory of a small to medium sized business. </li>
+          <li>Provide required functionality for the key user groups. </li>
+          <li>Provide an interface to other software packages. </li>
+        </ul>
+        <p><a href="#TOP">Top</a></p>
+        <h2><a name="STRATEGY" id="STRATEGY"></a>Strategy</h2>
+        <p>Employ a top down approach, starting with the role types. Model tasks as objects, modularized and encapsulated. Define the interfaces, noting where the interface is external. The end result should be pieces that fit together and look like one. </p>
+        <p><a href="#TOP">Top</a></p>
+        <h2><a name="ASSUMPTIONS" id="ASSUMPTIONS"></a>Assumptions</h2>
+        <ul>
+          <li>I have assumed throughout that the application would be browser based. This is because I wanted to discover, through the design of a product, the issues relating to the development of such an application in the browser environment. The designs will also work in a traditional GUI environment, doubtless made prettier and a lot more functional, but would work much the same anyway. I have further assumed the application would not be an applet, although it could be, for the same reasons as above. </li>
+          <li>The designs assume that many businesses use old equipment, and so the browser version may be old. </li>
+          <li>As an aid to the design process, I have assumed that many items would be implemented as objects. For example, Login, Name, Address, Alerts, Tracking. They will need to be defined at some point in the design process, but they would be implemented as objects in any case. </li>
+          <li>I have assumed the product needs to be localizable. The choice of an Address object is a consequence of that, as is not keying off strings. </li>
+          <li>It is expected that many of the users of the system will be relative computer novices. The user interface will need to be simple and easy to use. </li>
+          <li>I have assumed no particular market for the product and so the designs need to be easily adapted to other businesses. I thus need a generalized solution. </li>
+          <li>All items entering or leaving the warehouse are marked with a barcode consistent with have a predetermined barcode system. </li>
+          <li>All suppliers, manufacturers and retailers use the same barcode system. </li>
+          <li>The barcode will live with the item until a paying customer removes it. </li>
+          <li>I have assumed a web services interface to other systems. These include accounting and shipment tracking systems which are probably internal systems, and also to suppliers, manufacturers and retailers that are not. I have defined each interface as a Web Services Object, thus delaying the precise definition of these interfaces until I have a better understanding of the capabilities of the technology. </li>
+          <li>The designs and documents are not complete, nor are they intended to be. If the project were to be taken to the next step, the designs would need to be completed, all issues and inconsistencies resolved, the documentation completed. </li>
+          <li>I am clear that I do not currently possess the skills necessary to understand exactly what can be implemented as a user interface in a browser. From a quick peek at next terms books, I think this knowledge will be coming soon. </li>
+          <li>My knowledge of databases is not sufficient to determine the design, and maybe the feasibility of some database objects</li>
+        </ul>
+    <p>&nbsp;</p>
+    <p><a href="#TOP">Top</a></p>
+    <h2><a name="REQUIREMENTS" id="REQUIREMENTS"></a>Requirements</h2>
+        <ul>
+          <li>Manage the inventory of a business. </li>
+        </ul>
+        <ul>
+          <li>Record all transactions </li>
+          <li>Record all item movements. </li>
+          <li>Conduct thorough error checking. </li>
+          <li>Ensure the integrity of the data. </li>
+        </ul>
+        <ul>
+          <li>Suppliers provide inventory items. </li>
+          <li>Items may be distributed to manufacturers, distributors or retailers. </li>
+          <li>Items may be distributed as a consignment, which may be returned if not sold. </li>
+          <li>Items may be distributed as a sale, to be invoiced later. </li>
+          <li>Items may be sold online through the distributors web site. </li>
+        </ul>
+        <ul>
+          <li>Keep track of all inventories. </li>
+          <li>Keep track of bids. </li>
+          <li>Keep track of orders. </li>
+          <li>Keep track of shipments, both entering and leaving. </li>
+          <li>Use the company logo and make the product accessible from the company web site. </li>
+          <li>The user interface must be clear, simple and easy to use. User training curves must be reduced. </li>
+          <li>Each user role interface needs to make it clear who is using the system, and how they use it. </li>
+        </ul>
+        <ul>
+          <li>Integrate with an accounting package. </li>
+          <li>Provide web services access to its inventory and customer records, as other products will require such access. </li>
+          <li>Be consistent with other web services based products. </li>
+          <li>Differentiate user types by roles, the roles being limited to their own tasks, accessibility to data controlled by access, and by view. </li>
+          <li>There will be a person assigned as the super user role who, it is assumed, will be knowledgeable with regard to the software. </li>
+          <li>Recognize different roles and show an appropriate interface for that user. </li>
+          <li>Address the needs of each user type, facilitating great user efficiency, and to inform the user of pending issues and problems, all in a user configurable manner. </li>
+          <li>All items need to be categorized, that is, all it's properties need to be definable within a constructed environment. For example, for an item that needs to be assigned a color, the list of available colors must be predefined and controlled. </li>
+          <li>Properties are to be implemented as Characteristics. They are user configurable, and theoretically infinite. </li>
+        </ul>
+        <ul>
+          <li>The user interface must be kept simple to program. </li>
+          <li>The intelligent part of the system needs to be built into the back end (server). </li>
+          <li>A simple interface must connect the user interface with the business logic in the server. </li>
+          <li>System configuration issues will be reserved for a user type who it is assumed will be knowledgeable with regard to the product. </li>
+          <li>The server subsystem will watch the system. It will issue alerts to the appropriate role(s) for system defined conditions and also for user defined alert conditions. </li>
+          <li>Alerts conditions will include inventory item low, shipment late, payment late conditions. </li>
+          <li>The alerts system will need to be continually designed during the development phase of the project. </li>
+          <li>The supplier via Web Services will upload shipment details before the shipment arrives. </li>
+          <li>Only when a transaction has been completed can the related information be archived. </li>
+          <li>The archive information and format must be chosen carefully to allow easy access by tax accounting software, marketing and legal software. These issues are beyond the scope of this project. </li>
+        </ul>
+        <p>A system of this type is a huge undertaking. It is clearly not possible for me to complete the whole product and so, I must carefully create divisions that at least allow me to make some progress towards completing the goals I have set for the project. </p>
+        <p>In the interests of time, and my sanity, I have chosen to break down the project into pieces defined by the required roles, plus the role of a super user. </p>
+        <ul>
+          <li>Warehouse Manager - Shipping </li>
+          <li>Inventory Manager - Inventory </li>
+          <li>Product Manager – Bids, Offers, Contracts, Products, Catalog, Suppliers </li>
+          <li>Sales Manager. </li>
+          <li>Marketing Manager. </li>
+          <li>Super User Role – Permissions System, System Configuration, Alerts System. </li>
+        </ul>
+        <p><a href="#TOP">Top</a></p>
+        <h2><a name="FEATURES" id="FEATURES"></a>Feature List </h2>
+        <p>This is a work in progress and, as such, is not intended to be a complete document. </p>
+        <ul>
+          <li>Product Management. </li>
+          <li>Inventory Management. </li>
+          <li>Order Management. </li>
+          <li>Integration with Accounting software through Web Services. </li>
+          <li>Inventory is managed as a Content Management System. </li>
+          <li>Inventory items are fully configurable. </li>
+          <li>Shipment Tracking. </li>
+          <li>Supports multiple warehouses. </li>
+          <li>Supports remanufacturing. </li>
+          <li>Supports multiple suppliers, distributors and retailers through a Web Services interface. </li>
+          <li>Open database allows for data access from external applications. </li>
+          <li>Supports up to 1000 concurrent users. </li>
+          <li>Supports industry standard RDBMS that supports JDBC 2.0, including Oracle9i. </li>
+          <li>Supports Internet Explorer 4.0 and higher. </li>
+          <li>Supports Netscape Navigator 4.5 and higher. </li>
+          <li>APM Server supports Solaris, IBM, HP, Linux and Windows 2003. </li>
+          <li>Task Management. </li>
+          <li>Systems administration and configuration through the System Management Module. </li>
+          <li>Roles Management. </li>
+          <li>Alerts Management. </li>
+        </ul>
+        <p><a href="#TOP">Top</a></p>
+        <h2><a name="COMPETE" id="COMPETE"></a>Competitive Review </h2>
+        <p>I have spent many long hours looking for web based inventory systems. There are very few, and they are not available as demo systems. I am thus limited to non-web based systems, many of which are very simplistic. The more sophisticated systems are not available as downloads.</p>
+        <p>I could conduct a review of these products but I feel the gain, if any, would not be worth the effort. However, there are some interesting points:</p>
+        <ul>
+          <li>They are all monolithic applications.</li>
+          <li>They have a single interface, which all users need to navigate.</li>
+          <li>The interfaces are very cluttered, partly because there is not a recognition that the information being presented is not tailored to the viewer.</li>
+          <li>They are not easy to use.</li>
+          <li>Once learnt, the systems are probably fairly easy to use, the learning curve being a problem. </li>
+          <li>They mostly do not handle multiple concurrency issues.</li>
+          <li>They are not hi-tech designs, solutions or implementations.</li>
+          <li>They are not web based.</li>
+          <li>They do not implement Web Services. I did see an article about a company that implemented a Web Services interface between itself and a supplier. They raved about it. Saved them lots of money, they claimed.</li>
+          <li>They usually do not implement a RDBMS. </li>
+          <li>To compete, they usually integrate with software from other suppliers. Due to the difficulties of integration, this appears to be as much a liability as an asset. </li>
+        </ul>
+        <p><a href="#TOP">Top</a></p>
+        <h2><a name="MISSION" id="MISSION"></a>APM Mission Statement</h2>
+        <h4>&nbsp;</h4>
+        <h4> To provide high quality products to a discerning market.</h4>
+        <h4></h4>
+        <p><a href="#TOP">Top</a></p>
+        <h2><a name="USERSGOALS" id="USERSGOALS"></a>Users and Goals </h2>
+        <ul>
+          <li>Supplier
+            <ul>
+              <li>Upload shipment inventory.</li>
+              <li>Track status of shipment.</li>
+              <li>Track any returned items.</li>
+              <li>Track payment information.</li>
+              <li>Track potential for new orders.</li>
+              <li>Track new order.  </li>
+            </ul>
+          </li>
+          <li>Warehouse Manager 
+            <ul>
+              <li>Track and plan potential orders.</li>
+              <li>Track arriving shipments.</li>
+              <li>Investigate shipment, track and return defective items.</li>
+              <li>Move items into the inventory.</li>
+              <li>Track item low status.   </li>
+            </ul>
+          </li>
+          <li>Inventory Manager
+            <ul>
+              <li>Track incoming shipments.</li>
+              <li>Track current inventory.</li>
+              <li>Track item status.</li>
+            </ul>
+          </li>
+          <li>Sales
+            <ul>
+              <li>Understand the inventory.</li>
+              <li>Track and understand the customers. </li>
+              <li>Track sales and shipments.</li>
+              <li>Track payments and commissions.</li>
+            </ul>
+          </li>
+          <li>Marketing
+            <ul>
+              <li>Understand the inventory.</li>
+              <li>Understand the market. </li>
+              <li>Study  sales data.</li>
+              <li> </li>
+            </ul>
+          Produce marketing material based on current and future stock and sales predictions.
+          <ul>
+            <li>Make future product recommendations.</li>
+          </ul>
+          </li>
+          <li>Product Manager
+            <ul>
+              <li>Development of business plan.</li>
+              <li>Track actual performance of the business plan.</li>
+              <li>Track sales.</li>
+              <li>Track cash flow.</li>
+              <li>Track customer data. </li>
+            </ul>
+          </li>
+          <li>Human Resources
+            <ul>
+              <li></li>
+            </ul>
+          Track employee data.
+          <ul>
+            <li>Track commissions.</li>
+            <li>Track job data and ensure all jobs are filled.   </li>
+          </ul>
+          </li>
+          <li>Employee - cheap left overs
+            <ul>
+              <li>Track the seasonal leftovers.</li>
+              <li>Secure those leftovers at heavy discounts</li>
+            </ul>
+          </li>
+        </ul>
+        <p><a href="#TOP">Top</a></p>
+        <h2><a name="SCENARIOS" id="SCENARIOS"></a>User Scenarios</h2>
+        <h4>&nbsp;</h4>
+        <h4>I have chosen the following key user groups:</h4>
+        <ul>
+          <li>
+            <h4>Supplier</h4>
+          </li>
+          <li>
+            <h4>Warehouse Manager</h4>
+          </li>
+          <li>
+            <h4>Inventory Manager</h4>
+          </li>
+          <li>
+            <h4>Sales Manager </h4>
+          </li>
+          <li>
+            <h4>Marketing Manager </h4>
+          </li>
+        </ul>
+        <h4> For each user, I have chosen the following format, but I have mixed it up where I thought it would be suitable: </h4>
+        <ul>
+          <li>
+            <h4>Name </h4>
+          </li>
+          <li>
+            <h4>Quote </h4>
+          </li>
+          <li>
+            <h4>Profession </h4>
+          </li>
+          <li>
+            <h4>Background </h4>
+          </li>
+          <li>
+            <h4>Goals </h4>
+          </li>
+          <li>
+            <h4>A story of their interaction with the idealized web site. </h4>
+          </li>
+    </ul>
+        <table width="100%" height="214"  border="0">
+          <tr>
+            <td width="17%" height="210" valign="top"><img name="" src="images/supplier.jpg" width="160" height="200" alt="" /></td>
+            <td width="83%" valign="top"><div align="left">
+                <h2>Luigi</h2>
+                <h4>&nbsp;</h4>
+                <h4>&quot;I must be able to plan the future of my business. I need to track my shipments and my money.&quot;</h4>
+                <h4>&nbsp;</h4>
+                <h4>Luigi has been in the business all  his life. His business, Asconi Products, was founded by his great grandfather Carlo, a poor Sicilian immigrant. Luigi was groomed from childhood to run the family business. He has continued to grow the business, despite some considerable business and family problems, and is widely respected in the business. His customers are mostly medium sized distributors and remanufacturors, all of them based in North America. His insistence on only using the finest materials, employing highly skilled craftsmen and his endless demands for quality have led his company to be widely regarded as a producer of high quality products. </h4>
+                <h4>&nbsp;</h4>
+                <h4>Luigi is married to Marie, and they have four children, to whom some day, he hopes to pass the business.</h4>
+            </div></td>
+          </tr>
+        </table>
+        <table width="100%" height="200"  border="0">
+          <tr>
+            <td height="196" valign="top"><div align="left">
+                <p>Luigi begins his day the way he always does. He gets up, takes a five mile run, goes home, showers, has breakfast, kisses his wife and children goodbye, and arrives at his office before 7am. His many issues today include problems with the ongoing expansion of his manufacturing facilities, problems securing the quality raw materials from his main supplier and preparing for an end of month meeting with his bankers. However, his top priority issue is to ensure the latest large shipment to his primary customer passes the inspection checks today, cash flow always being a primary concern.</p>
+                <h4>From his ever-present laptop, he starts his browser and selects the shortcut to the APM Web Site, from where he selects the Supplier Portal. He securely enters his username and password. He sees an alert from APM which he checks. It states that the shipment passed inventory checks late yesterday and that the invoice will be paid later today. Somewhat relieved, he checks the status of the next order which he expects to receive in the next few weeks. There is no further progress, just as he expected.</h4>
+                <p>Just then the phone rings, his Sales Manager has some good news....... </p>
+            </div></td>
+          </tr>
+        </table>
+        <table width="100%" height="189"  border="0">
+          <tr>
+            <td valign="top" width="17%"><img name="" src="images/warehousemanager.jpg" width="192" height="175" alt="" /></td>
+            <td width="83%" valign="top">
+              <h2>Howard - Warehouse Manager </h2>
+              <h4>&nbsp;</h4>
+              <h4>&quot;I need to quickly pass into inventory all that belongs there, and return the rest&quot; </h4>
+              <h4>&nbsp;</h4>
+              <h4>Howard has been in manufacturing all  his life. He started on the factory floor and has progressed through foreman to management. His knowledge of all aspects of the manufacturing and distributions systems have made him a valuable asset to the company. Howard's quick eagle eye for quality allows him to spot defects from before it gets anywhere near the warehouse, or so claim his many admirers, and his determination to pass only top quality products is vital to the success of APM. </h4>
+              <h4>&nbsp;</h4>
+              <h4>Howard is divorced and has 2 grown children. His hobbies include hunting and fishing. </h4></td>
+          </tr>
+        </table>
+        <table width="100%" height="157"  border="0">
+          <tr>
+            <td height="153" valign="top"><div align="left">
+                <h4>Howard has been unusually busy the last few weeks. With stocking up for the new season and tracking the remanufactured items, his plate has been full. </h4>
+                <h4>&nbsp;</h4>
+                <h4>Howard's staff are checking a supply of items that arrived only yesterday, a shipment that has been of consider interest to the head of sales. Howard is feeling the heat and frequently checks their progress, to the point of meddling, some say. </h4>
+                <h4>&nbsp;</h4>
+                <h4>Howard's logs on to the system and lists the items that have passed inspection. &quot;Nearly done&quot; he thinks to himself, &quot;I can't wait to get Richard off my back&quot;. Howard then checks the progress of some four shipments he is expecting over the next week. He notes the expected shipping dates and begins to plan accordingly. </h4>
+            </div></td>
+          </tr>
+        </table>
+        <table width="100%" height="204"  border="0">
+          <tr>
+            <td width="15%" height="200" valign="top"><img name="" src="images/inventorymanager.jpg" width="141" height="184" alt="" /></td>
+            <td width="85%" valign="top">
+              <h2>Doug - Inventory Manager</h2>
+              <h4>&nbsp;</h4>
+              <h4>&quot;I need to keep track of everything that comes in and everything that goes out. We need to keep a stock, not too much, and not too little. &quot; </h4>
+              <h4>&nbsp;</h4>
+              <h4>Doug has been with APM for some 3 years, having worked for a customer for over ten years. &quot;He knows the products and knows them well&quot; says the CEO, and has brought valuable insights into product developments in the industry. Doug's selection of the new inventory control software has proved instrumental in the introduction of B2B methods and technologies to AP M.</h4>
+              <h4>&nbsp;</h4>
+              <h4>Doug was a budding football star until injury cut short his career. </h4></td>
+          </tr>
+        </table>
+        <table width="100%" border="0">
+          <tr>
+            <td height="149" valign="top"><div align="left">
+                <p>Doug starts the day with a cup of coffee and the company's intranet, his browser aimed at the APM Portal. He securely logs in and is presented with a series of alerts. &quot;Nothing unusual&quot; he thinks, &quot;just status changes&quot;. Doug checks each alert, dismissing some with ease. For example, the warning that the C5 package will be out of season in two months time has already been handled, the next management meeting already has this item on the agenda. The warnings about the imminent return of the WT165 package from consignment has implications of a rather more complicated nature.</p>
+                <h4>Doug notes the satisfactory movement of most of this seasons products. His stock of the QP412 package is getting very low, another matter for the management meeting.</h4>
+            </div></td>
+          </tr>
+        </table>
+        <table width="100%" height="204"  border="0">
+          <tr>
+            <td valign="top" width="16%" height="190"><img src="images/sales.jpg" width="147" height="194" alt="" /></td>
+            <td width="84%" valign="top">
+              <h2>Richard - Sales Manager</h2>
+              <h4>&nbsp;</h4>
+              <h4>&quot;I need to know where the fish are biting and what they are biting on&quot; </h4>
+              <h4>&nbsp;</h4>
+              <h4>Richard is a born salesman. He eats and drinks the sales game. He loves the chase and nothing beats the thrill of closing the sale. Richard's tireless enthusiasm and pursuit of his quarry have been legendary. His charm and charisma are infectious, and he has an incredible ability to inspire others. A master salesman, he truly could sell sand to the arabs. </h4>
+              <h4>&nbsp;</h4>
+              <h4>Richard is married to his University sweetheart Anne, a dental assistant, and they have three young children.</h4>
+              <h4>&nbsp;</h4>
+              <h4>&nbsp;</h4></td>
+          </tr>
+        </table>
+        <table width="100%" height="79"  border="0">
+          <tr>
+            <td valign="top"><div align="left">
+                <p>It is 2.30pm and Richard has just arrived at the office. &quot;Lazy&quot; you doubtless think, but how little do you know. Richard has been on the road every day for the last three weeks. He got off the plane and got a taxi to the office. He still has not yet gone home! </p>
+                <h4>The end of season push is on. It is essential to move the seasonal products while the price, profits and commissions are good. &quot;Dusty products make dust&quot;, he thinks, and my family can't survive on dust! </h4>
+                <p>Richard logs onto the APM Portal system and receives a dozen or so alerts. Some are great news, some fool finally bought and paid good money for that dreadful assignment WA351, the one the CEO bet Richard he could not sell, and the confirmation of that big order from Texas. Others are not so good, the return of two consignments and a damaged lot. &quot;Problems, problems&quot; he thinks, as he settles down with a cup of coffee, and the telephone. </p>
+            </div></td>
+          </tr>
+        </table>
+        <table width="100%" height="229"  border="0">
+          <tr>
+            <td width="18%" height="225" valign="top"><img name="" src="images/marketing.jpg" width="166" height="216" alt="" /></td>
+            <td width="82%" valign="top">
+              <h2>Barbara - Marketing</h2>
+              <h4>&nbsp;</h4>
+              <h4>&quot;I need to know what is selling or not selling, where and why, so I can target appropriate market segments with our messages &quot; </h4>
+              <h4>&nbsp;</h4>
+              <h4>Barbara, or Babs to her friends, is relatively new to the marketing game. She first trained to be a Human Resources Administrator, having obtained a BA from Penn State. Babs was successful in her two jobs but found the work rather dull. </h4>
+              <h4>&nbsp;</h4>
+              <h4>Babs was delighted when she was asked to help  a marketing project. Babs turned out to be a natural and excelled to such an extent she was transferred her permanently to the marketing department. Babs worked tirelessly, obtaining a BA before being tempted over to APM by promises of artistic freedom. </h4>
+              <h4>&nbsp;</h4>
+              <h4>Babs is twice divorced and working on number three.</h4></td>
+          </tr>
+        </table>
+        <table width="100%"  border="0">
+          <tr>
+            <td height="149" valign="top"><div align="left">
+                <h4>Things have been really hectic lately for Babs. With the endless product promotions aimed at moving stock before it becomes out dated, and the new marketing material for next season's products, Babs has been run off her feet. &quot;The new software helps me so much&quot; she thinks as she logs into the portal. </h4>
+                <h4>&nbsp;</h4>
+                <h4>She investigates her alerts, most of them she knew were coming. The news that assignment WA351 has been sold is great, she thinks, I no longer have to create a marketing plan for that. Another marketing plan will not now be necessary, she notes, as sales of item T6374883 have picked up, mostly in the Boston area. Others cause some worry, especially as an ongoing marketing effort should be bearing some fruit. </h4>
+                <h4>&nbsp;</h4>
+                <h4>Babs runs some graphic reports  allowing her to better target her upcoming advertising campaign. </h4>
+            </div></td>
+          </tr>
+        </table>
+        <h4>&nbsp;</h4>
+        <p><a href="#TOP">Top</a></p>
+        <h2><a name="CARDSORT" id="CARDSORT"></a>Card Sort </h2>
+        <h2>&nbsp;</h2>
+        <p>The requirement that the user interface be tailored to the role of the user suggests that the key tasks are related to each role rather than to the whole application. I could perform a card sort on each role but I thought the gain wasn't worth the effort. It is possible, in the future when I have a suitable understanding of the application and the technologies, that I may find some value in this exercise.</p>
+        <p><a href="#TOP">Top</a></p>
+        <h2><a name="WIREFRAMES" id="WIREFRAMES"></a>Wireframes</h2>
+        <p>The wireframes are drawn on the large pieces of paper. They are intended to show the flow of the application and to indicate data requirements. They are rather primitive but also suggestive. They need to be simple as the application interface must be simple, and because the underlying technology is very limited as a user interface. They are suggestive in that they point the way towards possible designs. </p>
+        <p><a href="#TOP">Top</a></p>
+        <h2>&nbsp;</h2>
+        <h2><a name="DESIGN" id="DESIGN"></a>Design Diagramatics</h2>
+        <h1>&nbsp;</h1>
+        <h4>The drawings are adorned with descriptions that are largely self explanatory. I will add comments here as needed, although I probably would rather add a comment to the drawing if clarification is required.</h4>
+        <h2>&nbsp;</h2>
+        <h2>Page 1</h2>
+        <p><strong>Section A </strong>describes the process by which items will be added to the catalog. A note suggests that items should be moved into the catalog from a supplier through a web service. I offer a design to handle both options.</p>
+        <p><strong>Section B</strong> describes a bid, offer and contract system. A product manager role user, responding to an item low alert, may deem it necessary to ask for bids to fill the order. First create a package and add items to it from the catalog (C). Add a new bid, complete the details and save (D). Approve the bid request (E). </p>
+        <p>(F) and (G) show an advantage of web services. People make the decisions, the software talks to software informing the software of that persons decision. People are not involved in the technology. </p>
+        <p>(H) shows the submitted bid event has been detected, the contracts manager role has been informed. Go to Page 2. </p>
+        <h2>Page 2 </h2>
+        <p>(A) shows the details of a bid. (B) through (F) show the contract being accepted by all parties.</p>
+        <p>(G) shows the new contract steps without a bidding process.</p>
+        <h2>Page 3 </h2>
+        <p>Shows some system related tasks that are reserved for the SuperUser Role.</p>
+        <p>(A) shows adding a new Role.</p>
+        <p>(B) shows granting a  Role access to a subsystem.</p>
+        <p>(C) shows adding a new User.</p>
+        <p>(D) suggests some of the configuration tasks that need to be considered.</p>
+        <p>(E) and (F) refer to configuring Alerts.</p>
+        <h2>Page 4, also contains Page 5 </h2>
+        <p>Section 4 refers to shipments. </p>
+        <p>(A) shows another advantage of using a Web Service. Shipment information is sent to the receiver of the shipment before the shipment is sent. It is early, it is correct, it is online and people did nothing. The arrival of the data triggers an alert to the Warehouse Manager Role (B).</p>
+        <p>(C) and (D) show the warehouse manager looking over the shipment, as he needs to know what will be arriving and when.</p>
+        <p>When the shipment arrives, the WarehouseManager Role needs to examine the items (E). </p>
+        <p>Items that are accepted (F) need to be placed into the inventory.</p>
+        <p>Items that are rejected need to be returned (G) through (J).</p>
+        <p>Section 5 suggests a technique for providing access to access permitted subsystems through a dynamic interface. </p>
+        <h2>Page 6 </h2>
+        <p>This page refers to the inventory subsystem. An interesting thing happened here. An inventory system actually has very little to do with inventory. It is about how items get into inventory, how they go someplace else, how items, money and people are tracked. This is why this page has so little to say, and why some of the other pages are so tough.</p>
+        <p>(A) and (B) show items being accepted into the inventory.</p>
+        <p>In (C) I was thinking with words, it turns out that most of the functions I thought were Inventory Manager Role tasks are not.</p>
+        <p>(D) are some musings on the Product Manufacturing Process. Of particular interest here is that items in the inventory are sent to another location to be manufactured into some other item(s) that are put into the inventory. So when does an item leave an inventory? If an item has been sent for manufacturing, what is it's current state? Where is it? Manufacturing can require multiple steps. The items used in that process must be tracked as they are assets. This suggests a need for a subsystem that understands the manufacturing process, that allows a ManufacturingManager Role person to model the process, to allow for the tracking of the items that are used in those processes. </p>
+        <h2>Page 7 </h2>
+        <h1>&nbsp;</h1>
+        <h4>This page refers to the SalesManager Role. </h4>
+        <p>(7A) shows the home page of the SalesManager Role.</p>
+        <p>(7B) through (7E) refer to sending items on consignment. </p>
+        <p> (7F) and (7G) refer to shipping the consignment.</p>
+        <p>(7H) and (7I) refer to creating a new invoice. Someone wants to buy something. Make an invoice (7I) and add items to the invoice (7J),(7K),(7L). The items will be shipped (7M) much as (7F).</p>
+        <h2>Page 8 </h2>
+        <h1>&nbsp;</h1>
+        <h4>This page refers to the ProductManager Role. </h4>
+        <p>(A) shows the home page of the ProductManager Role.</p>
+        <p>(B) shows the catalog page.</p>
+        <p>(C), (D) and (E) refer to adding a collection, and adding items to the collection.</p>
+        <p>(F), (G) and (H) refer to a product group. The idea is that some products are related to others. Maybe they go together, maybe they are required together, or maybe they are commonly sold together. I am not so sure this is a ProductManager Role task. Probably should be moved to the SalesManager.</p>
+        <p>(J) talks briefly about the suppliers. Note that a supplier catalog could be imported or retrieved through a web service request.</p>
+        <p>(K) and (T) refer to alerts regarding the inventory.</p>
+        <h2>Page 9 </h2>
+        <h1>&nbsp;</h1>
+        <h4>This page, when done, would have referred to the MarketingManager Role. It is not part of the final project.</h4>
+        <p><a href="#TOP">Top</a></p>
+        <h2><a name="PERMISSIONS" id="PERMISSIONS"></a>Permissions</h2>
+    <p>Permissions within the application are defined by roles. A role is granted read, write and/or delete access to a subsystem. Further, users are granted a role, or multiple roles, allowing access to that roles access permitted subsystem, with the grants of that role. </p>
+        <p>There are roles that are defined by the system, for example SuperUser Role, and roles that are user defined. For example, a role FactorySales could be created with read access to remanufacturing information. A user granted the FactorySales role would thus be permitted access to remanufacturing information.</p>
+        <p>This design allows for almost complete control over all users of the application. </p>
+        <p>A user called the super user owns the permissions subsystem. The super user: </p>
+        <ul>
+          <li>has all rights to all parts of all subsystems. </li>
+          <li>Assigns permissions to subsystems by roles and/or users. </li>
+          <li>Assigns users to roles. </li>
+          <li>Assigns permissions to roles and/or to users within those roles. </li>
+        </ul>
+        <p>Each user, in effect, has a permissions object. The software will retrieve this object. Menu choices will be determined by the choices available to the user. The user interface will be dynamic and based upon the tasks the user is permitted to perform. </p>
+        <p>Available access types are: </p>
+        <ul>
+          <li>Read (select) </li>
+          <li>Write (read and write) </li>
+          <li>Delete</li>
+    </ul>
+        <p><a href="#TOP">To</a><a href="#TOP">p</a></p>
+        <h2><a name="OTHER" id="OTHER"></a>Other Issues </h2>
+        <ul>
+          <li>Need to handle discounting.</li>
+          <li>Need to design the online store.</li>
+          <li>Need to handle item overstocked state.</li>
+          <li>I have only scratched the surface of the application with regard to roles and users.</li>
+          <li>Could draw a few wireframes of AMP and Asconi Products home pages. Also the online store.</li>
+          <li>Haven't really illustrated how the business entities are interdependent.</li>
+          <li>I have ignored currencies for now.</li>
+          <li>I have ignored tax systems.</li>
+          <li>Tax systems require localization. </li>
+          <li>what can I do with the technology that exists for a browser app?</li>
+          <li>need to determine exactly how everything is going to work, as answers to design questions could change the design. </li>
+          <li>need to maintain a consistent state throughout the application - handle power off, exit etc conditions.</li>
+          <li>handle back/forward buttons of the browser. </li>
+          <li>install with default alerts.</li>
+          <li>installation will need wizards to set up users, roles, alerts, server configuration, database connectivity, catalog, etc </li>
+          <li>overlapping roles could be problematic. </li>
+          <li>define an alert object. </li>
+          <li>Define functionality of the checker server.</li>
+          <li>understand Web Services; What can you do with them? Could only allow read access for now..... </li>
+        </ul>
+        <p>What if the server is not running? Need an alert to alert that the alert system is down! Probably the OS will have to do this, a cron job could periodically check to see if the /var/lock/serverSystem/pid.lock PID is still running. Would have to email the root user, hopefully he is awake.....</p>
+        <p>Configuration item - cycle delay.</p>
+        <p><a href="#TOP">Top</a></p>
+        <h2><a name="LESSONS" id="LESSONS"></a>Lessons Learned</h2>
+        <ul><li><h4>be careful what you expect from others </h4>
+          </li>
+          <li>
+            <h4>there exists not a molehill that I cannot turn into a mountain.</h4>
+          </li>
+          <li>there exists not a mountain that can, from afar, look like a molehill. </li>
+          <li>
+            <h4>people are incredibly clever....</h4>
+          </li>
+          <li>
+            <h4>brainstorming sessions make the creative process so much easier, and a lot more fun...</h4>
+          </li>
+          <li>
+            <h4>brainstorming sessions can go almost anywhere as the participants tend to have their own biases, experiences and thoughts.</h4>
+          </li>
+          <li>design a brainstorming session, decide an issue, decide who to invite, limit the time for each topic. </li>
+          <li>I realized, a little late, that I really have very little to say about inventory systems. </li>
+          <li>I got myself into a tiz over the inventory system. realized that that was not what i had to say - it is the interwoven relationships of dependent independent businesses, how they interact and how their software will help them do that.</li>
+          <li>Extranet - a company's intranet that allows customers access to certain applications within that intranet.</li>
+          <li>Must do prep work - always like to avoid this stuff.</li>
+          <li>Break down the project into smaller logical pieces. Continue until the pieces are manageable.</li>
+          <li>Define each piece, describe how the pieces interact. </li>
+          <li>Providing a web based interface for non-computer literate people is asking for trouble. Such people would probably be better off with an environment which is much more closely controlled. </li>
+          <li>Researching a market is incredibly time consuming.</li>
+          <li>Researching competing products is even more time consuming.</li>
+          <li>This work is hard to measure, is what I am doing working, will it lead anywhere, will I get feedback, from whom, when, how, if ever.....</li>
+          <li>Pushing around tons of paper is not fun. </li>
+          <li>I can draw images illustrating ideas...this is quite easy.</li>
+          <li>Turning images into something more concrete, like a specification is very hard.</li>
+          <li>I hate writing specs!</li>
+          <li>I don't have the skills with graphical tools like Visio to be able to produce decent electronic specs in a sensible amount of time.</li>
+          <li>I would rather do something concrete, work with a client, build something for real.</li>
+          <li>I had to get away from the how do I display everything. It is just too hard to visualize an interface that is a browser.</li>
+          <li>Stick to basic design questions and let the user interface question wait until I know what I need to do.</li>
+          <li>What I really needed to do with this project was to work the technology to see what I could do. Knowing what is possible with the technology would allow me to design an application that uses that technology. Without those skills, I find myself guessing too much, and not being able to design on solid ground.</li>
+          <li>An inventory system touches on other applications. It is hard to consider one without considering the others.</li>
+          <li>These systems are very large, with so many options, they perform so many functions in so many ways. It is hard to get my head around it.</li>
+          <li>Work with a real client, someone who understands the requirements of the application. I cannot be the application expert.</li>
+          <li>Need lots of input. Competing products need to be examined.</li>
+          <li>Using a browser solution is a solution, not the problem. browser may not be the solution.</li>
+          <li>To design anything I first need a pretty good understanding of the underlying technologies. </li>
+          <li>Without having an understanding of the application, I have had to determine the questions, inside a context of not knowing the answers nor the environment in which this is all taking place.</li>
+          <li>It is hard to know where to stop. Every which way I turn I open yet more cans of worms. Must understand the market so I can limit the scope.</li>
+          <li>Understand your customer.</li>
+          <li>Else, you are building on sand, everything keeps shifting, I cannot focus, cannot complete anything. </li>
+          <li>I could easily spend the next two months writing a detailed spec.</li>
+          <li>However, it would probably be of limited value as I haven't addressed the market, the customers or the application. </li>
+          <li>doesn 't matter how I design the app, I cannot banish the possibility of human error. All I do is move it along.</li>
+          <li>the software can only be as good as the people who use it. </li>
+          <li> write a checker, scan the system for errors, alerts to anyone who can fix it.</li>
+          <li>Different types of errors, alert different tier of management based on the error.</li>
+          <li>software that is smarter than the people who use it will not be successful.</li>
+          <li> have had to relearn how to design a software solution. Maybe that is what this project was really about for me.</li>
+          <li>the time consuming part is figuring out the questions.</li>
+          <li>design for localization....note the issues....design around them.</li>
+          <li>I feel as if I just took part in a high scoring game of football, which I lost 5-1, in which I scored all 6 goals, not so surprising as I was the only player on the field.</li>
+          <li>Without a client, it is just a mental exercise.</li>
+          <li>How much do I want to be exercised? That answers the question &quot;How far do I take this?&quot;.</li>
+          <li>Trying to model the vast number of possible scenarios becomes bewildering.</li>
+          <li>Next term are courses that are aimed at building web applications. Next term I will learn whether this application can be written for a browser.</li>
+          <li>The best I can do now is to design the application and present my findings. Maybe next term I will write at least some of it.</li>
+          <li>Need a more controlled environment to control the user, to ensure the integrity of the data, that is the business.</li>
+          <li>must research the market, the available products, the customers, understand them all, design a solution based on that understanding.....</li>
+          <li>interesting to note that I use the human experience to model a problem...visualization tool. </li>
+          <li>cannot eliminate human error. For example, edit/delete permissions, could remove an order! The checker can scan the system and a supplier system, via web services, and probably determine there is a problem. But what if there is also a problem with the supplier system? Someone there may have committed a human error. Just cannot design away human error.</li>
+          <li>This project scope just keeps creeping along!</li>
+          <li>Define where the system starts and where it ends. </li>
+          <li>need a client to work with.</li>
+          <li>need an expert in the application itself.</li>
+          <li>need to define the exact aims and requirements.</li>
+          <li>do not allow the scope to change unless required.</li>
+          <li>what I learn is not necessarily what I think I will learn. </li>
+          <li>I see my technical ideas as great ideas that  I must implement, do all that is necessary. It is not my web site, it is not there for me, or for people just like me. I need to back away and see what thoughts and ideas are provoked in others. It is a choice I must learn to exercise. </li>
+          <li>interesting how, at some point during the design process, the screens for different roles started to converge! </li>
+          <li>a natural tendency is to design models around the human experience. For example, a package for shipment. I design the software to perform steps very similar to those he would take if he did not have the software. Does this close off more innovative designs? </li>
+          <li>I wrote my lessons learned whenever I learnt a lesson. I did so from the beginning of the project. The odd thing is there are very few duplicates in this list. </li>
+          <li>this project has been another lesson in the &quot;So you think you know how to do that&quot; series. This time the &quot;that&quot; is design. </li>
+        </ul>
+        <p><a href="#TOP">Top</a></p>
+        <h2> </h2>
+        <h2><a name="FINAL" id="FINAL"></a>Final Thoughts</h2>
+        <p>This project may form the backbone of a capstone project, or maybe even a commercial product. Today, I simply do not know enough to be able to determine the future value of this project. However, minimally, I could use this design work as a basis for some interesting development projects to answer some of those questions.</p>
+        <p>Even the mighty oak started as an acorn. Whether this project will become an oak or is destined to be eaten by squirrels remains to be seen. </p>
+        <p><a href="#TOP">Top</a></p>
+        <blockquote>
+          <p></p>
+        </blockquote>
+  </div>
+      <div class="story">
+        <blockquote>&nbsp;</blockquote>
+      </div>
+</div>
+<!-- end masthead -->
+</body>
+</html>

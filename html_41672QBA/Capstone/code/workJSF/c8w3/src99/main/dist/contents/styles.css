@@ -1,0 +1,39 @@
+.headerMenuContent {
+   vertical-align: top;
+   width: 100%;
+   height: 100%;
+}
+.header {
+   width: 100%;
+}
+.headerRow {
+   width: 100%;
+   text-align: center;
+   background-color: #eee;
+   border: thin solid CornflowerBlue;
+}
+.menuColumn {
+   vertical-align: top;
+   background-color: #eee;
+   border: thin solid #777;
+}
+.contentColumn {
+   vertical-align: top;
+   text-align: left;
+   width: *;
+}
+.links {
+   width: 85px;
+   vertical-align: top;
+   text-align: center;
+}
+.linksColumn {
+   vertical-align: top;
+   text-align: center;
+}
+.bookTitle {
+   text-align: center;
+   font-style: italic;
+   font-size: 1.3em;
+   font-family: Helvetica;
+}

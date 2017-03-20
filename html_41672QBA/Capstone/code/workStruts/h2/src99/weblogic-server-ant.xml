@@ -1,0 +1,60 @@
+
+
+	<property environment="env"/>
+	<property name="weblogicUser" value="${env.WEBLOGIC_USER}"/>
+	<property name="weblogicPassword" value="${env.WEBLOGIC_PASSWORD}"/>
+	<property name="weblogicServer" value="${env.WEBLOGIC_SERVER}"/>
+	<property name="weblogicMyServer" value="${env.WEBLOGIC_MYSERVER}"/>
+	<property name="weblogicClasspath" value="${env.WEBLOGIC_CLASSPATH}"/>
+	<echo message="${weblogicClasspath}"/>
+
+	<target name="deploy" depends="init">
+		<serverdeploy action="deploy" source="${app.module}">
+			<weblogic. application="${ant.project.name}"
+				server="${weblogic.Server}"
+				classpath="${weblogic.Classpath}"
+				username="${weblogic.User}"
+				password="${weblogic.Password}"
+				component="${app.name}:${weblogic.MyServer}"
+				debug="true"
+			/>
+		</serverdeploy>
+	</target>
+
+	<target name="deployList" depends="init">
+		<serverdeploy action="list" >
+			<weblogic. application="${ant.project.name}"
+				server="${weblogic.Server}"
+				classpath="${weblogic.Classpath}"
+				username="${weblogic.User}"
+				password="${weblogic.Password}"
+				component="${app.name}:${weblogic.MyServer}"
+				debug="true"
+			/>
+		</serverdeploy>
+	</target>
+	<target name="undeploy" depends="init">
+		<serverdeploy action="undeploy" >
+			<weblogic. application="${ant.project.name}"
+				server="${weblogic.Server}"
+				classpath="${weblogic.Classpath}"
+				username="${weblogic.User}"
+				password="${weblogic.Password}"
+				component="${app.name}:${weblogic.MyServer}"
+				debug="true"
+			/>
+		</serverdeploy>
+	</target>
+	<target name="delete" depends="init">
+		<serverdeploy action="delete" source="${app.module}">
+			<weblogic. application="${ant.project.name}"
+				server="${weblogic.Server}"
+				classpath="${weblogic.Classpath}"
+				username="${weblogic.User}"
+				password="${weblogic.Password}"
+				component="${app.name}:${weblogic.MyServer}"
+				debug="true"
+			/>
+		</serverdeploy>
+	</target>
+

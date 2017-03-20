@@ -1,0 +1,18 @@
+
+[Project]
+Name=Elevator
+Description=
+Directory=C:\Docs\MSIE_Html\sd\Elevator\Elevator\Elevator.rqs
+Owner=jv
+Owner Key=2
+GUID={333FFDB2-197F-4EC3-88E0-13460C272446}
+Key=1
+Revision number=1.0000
+Prefix=
+Revision=1.0001
+
+[Documents]
+1=GlossaryGLS
+2=Requirements Management PlanRMP
+3=VisionVIS
+

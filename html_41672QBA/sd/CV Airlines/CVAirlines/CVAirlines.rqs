@@ -1,0 +1,17 @@
+
+[Project]
+Name=CVAirlines
+Description=
+Directory=C:\Docs\MSIE_Html\sd\CV Airlines\CVAirlines\CVAirlines.rqs
+Owner=jv
+Owner Key=2
+GUID={9B5AE192-6A5E-4C3C-AAFD-956E3112499E}
+Key=1
+Revision number=1.0000
+Prefix=
+
+[Documents]
+1=GlossaryGLS
+2=Requirements Management PlanRMP
+3=VisionVIS
+

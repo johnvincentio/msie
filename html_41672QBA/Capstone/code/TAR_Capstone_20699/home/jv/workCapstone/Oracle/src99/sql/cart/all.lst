@@ -1,0 +1,334 @@
+
+Trigger dropped.
+
+
+Sequence dropped.
+
+
+Trigger dropped.
+
+
+Sequence dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table created.
+
+
+Sequence created.
+
+
+Trigger created.
+
+
+TABLE_NAME                                                                      
+------------------------------                                                  
+USERS                                                                           
+
+
+SEQUENCE_NAME                                                                   
+------------------------------                                                  
+USER_SEQ                                                                        
+
+
+TRIGGER_NAME                                                                    
+------------------------------                                                  
+USER_TRIGGER                                                                    
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+
+    USERID EMAIL                     PASSWORD     FIRSTNAME                 M   
+---------- ------------------------- ------------ ------------------------- -   
+LASTNAME                  FADDRESS                  LADDRESS                    
+------------------------- ------------------------- -------------------------   
+CITY                      ST ZIP   PHONE                                        
+------------------------- -- ----- -----------                                  
+         1 email1@pop.com            password1    first1                    1   
+last2                     address1                  address1                    
+city1                     s1 zip1  phone1                                       
+                                                                                
+         2 email2@pop.com            password2    first2                    2   
+last2                     address2                  address2                    
+city2                     s2 zip2  phone2                                       
+
+    USERID EMAIL                     PASSWORD     FIRSTNAME                 M   
+---------- ------------------------- ------------ ------------------------- -   
+LASTNAME                  FADDRESS                  LADDRESS                    
+------------------------- ------------------------- -------------------------   
+CITY                      ST ZIP   PHONE                                        
+------------------------- -- ----- -----------                                  
+                                                                                
+         3 jv2351@hotpop.com         password3    first3                    3   
+last2                     address3                  address3                    
+city3                     s3 zip3  phone3                                       
+                                                                                
+         4 email4@pop.com            password4    first4                    4   
+last2                     address4                  address4                    
+
+    USERID EMAIL                     PASSWORD     FIRSTNAME                 M   
+---------- ------------------------- ------------ ------------------------- -   
+LASTNAME                  FADDRESS                  LADDRESS                    
+------------------------- ------------------------- -------------------------   
+CITY                      ST ZIP   PHONE                                        
+------------------------- -- ----- -----------                                  
+city4                     s4 zip4  phone4                                       
+                                                                                
+         5 email5@pop.com            password5    first5                    5   
+last2                     address5                  address5                    
+city5                     s5 zip5  phone5                                       
+                                                                                
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+
+ CATALOGID                                                                      
+----------                                                                      
+DS                                                                              
+--------------------------------------------------------------------------------
+         1                                                                      
+Computer Books                                                                  
+                                                                                
+         2                                                                      
+Children's Books                                                                
+                                                                                
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+
+    ITEMID  CATALOGID                                                           
+---------- ----------                                                           
+SDS                                                                             
+--------------------------------------------------------------------------------
+LDS                                                                             
+--------------------------------------------------------------------------------
+     PRICE                                                                      
+----------                                                                      
+         1          1                                                           
+<I>Core Servlets and JavaServer Pages 2nd Edition</I> (Volume 1) by Marty Hall a
+nd Larry Brown                                                                  
+The definitive reference on servlets and JSP from Prentice Hall and Sun Microsys
+tems Press.<P>Nominated for the Nobel Prize in Literature.                      
+
+    ITEMID  CATALOGID                                                           
+---------- ----------                                                           
+SDS                                                                             
+--------------------------------------------------------------------------------
+LDS                                                                             
+--------------------------------------------------------------------------------
+     PRICE                                                                      
+----------                                                                      
+     39.95                                                                      
+                                                                                
+         2          1                                                           
+<I>Core Web Programming, 2nd Edition</I> by Marty Hall and Larry Brown          
+One stop shopping for the Web programmer. Topics include <UL><LI>Thorough covera
+
+    ITEMID  CATALOGID                                                           
+---------- ----------                                                           
+SDS                                                                             
+--------------------------------------------------------------------------------
+LDS                                                                             
+--------------------------------------------------------------------------------
+     PRICE                                                                      
+----------                                                                      
+ge of Java 2; including Threads, Networking, Swing, Java 2D, RMI, JDBC, and Coll
+ections<LI>A fast introduction to HTML 4.01, including frames, style sheets, and
+ layers.<LI>A fast introduction to HTTP 1.1, servlets, and JavaServer Pages.<LI>
+A quick overview of JavaScript 1.2</UL>                                         
+     49.99                                                                      
+
+    ITEMID  CATALOGID                                                           
+---------- ----------                                                           
+SDS                                                                             
+--------------------------------------------------------------------------------
+LDS                                                                             
+--------------------------------------------------------------------------------
+     PRICE                                                                      
+----------                                                                      
+                                                                                
+         3          2                                                           
+<I>The Chronicles of Narnia</I> by C.S. Lewis                                   
+The classic children's adventure pitting Aslan the Great Lion and his followers 
+against the White Witch and the forces of evil. Dragons, magicians, quests, and 
+
+    ITEMID  CATALOGID                                                           
+---------- ----------                                                           
+SDS                                                                             
+--------------------------------------------------------------------------------
+LDS                                                                             
+--------------------------------------------------------------------------------
+     PRICE                                                                      
+----------                                                                      
+talking animals wound around a deep spiritual allegory. Series includes<I>The Ma
+gician's Nephew</I>,<I>The Lion, the Witch and the Wardrobe</I>,<I>The Horse and
+ His Boy</I>,<I>Prince Caspian</I>,<I>The Voyage of the Dawn Treader</I>,<I>The 
+Silver Chair</I>, and <I>The Last Battle</I>.                                   
+     19.95                                                                      
+
+    ITEMID  CATALOGID                                                           
+---------- ----------                                                           
+SDS                                                                             
+--------------------------------------------------------------------------------
+LDS                                                                             
+--------------------------------------------------------------------------------
+     PRICE                                                                      
+----------                                                                      
+                                                                                
+         4          2                                                           
+<I>The Prydain Series</I> by Lloyd Alexander                                    
+Humble pig-keeper Taran joins mighty Lord Gwydion in his battle against Arawn th
+e Lord of Annuvin. Joined by his loyal friends the beautiful princess Eilonwy, w
+
+    ITEMID  CATALOGID                                                           
+---------- ----------                                                           
+SDS                                                                             
+--------------------------------------------------------------------------------
+LDS                                                                             
+--------------------------------------------------------------------------------
+     PRICE                                                                      
+----------                                                                      
+annabe bard Fflewddur Fflam, and furry half-man Gurgi, Taran discovers courage, 
+nobility, and other values along the way. Series includes<I>The Book of Three</I
+>,<I>The Black Cauldron</I>,<I>The Castle of Llyr</I>,<I>Taran Wanderer</I>, and
+<I>The High King</I>.                                                           
+     19.95                                                                      
+
+    ITEMID  CATALOGID                                                           
+---------- ----------                                                           
+SDS                                                                             
+--------------------------------------------------------------------------------
+LDS                                                                             
+--------------------------------------------------------------------------------
+     PRICE                                                                      
+----------                                                                      
+                                                                                
+         5          2                                                           
+<I>The Harry Potter Series</I> by J.K. Rowling                                  
+The first five of the popular stories about wizard-in-training Harry Potter topp
+ed both the adult and children's best-seller lists. Series includes<I>Harry Pott
+
+    ITEMID  CATALOGID                                                           
+---------- ----------                                                           
+SDS                                                                             
+--------------------------------------------------------------------------------
+LDS                                                                             
+--------------------------------------------------------------------------------
+     PRICE                                                                      
+----------                                                                      
+er and the Sorcerer's Stone</I>,<I>Harry Potter and the Chamber of Secrets</I>,<
+I>Harry Potter and the Prisoner of Azkaban</I>, "<I>Harry Potter and the Goblet 
+of Fire</I>, and<I>Harry Potter and the Order of the Phoenix</I>.               
+     59.95                                                                      
+                                                                                
+
+
+Table created.
+
+
+Sequence created.
+
+
+Trigger created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+
+    CARTID     ITEMID     USERID   QUANTITY                                     
+---------- ---------- ---------- ----------                                     
+         1          1          3          4                                     
+         2          3          3          1                                     
+         3          5          3          2                                     
+         4          2          1          1                                     
+         5          3          1          2                                     
+         6          5          1          7                                     
+         7          1          5          1                                     
+         8          3          5          3                                     
+         9          4          5          2                                     
+
+9 rows selected.
+

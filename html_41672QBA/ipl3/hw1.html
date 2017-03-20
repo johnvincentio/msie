@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>EJBs, Part One</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="../css/topnav.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {color: #FF0000}
+.style2 {color: #0000FF}
+.style3 {color: #006699}
+-->
+</style>
+</head>
+
+<body>
+<div id="masthead">
+  <h1 class="style3" id="siteName">JSF, Struts, Tiles, Capstone, EJB </h1>
+  <div id="globalNav"> 
+  	</div>
+</div>
+<div id="content">
+      <h2 id="pageName">&nbsp;</h2>
+  <div class="feature"> 
+  <img src="../images/hubble1.jpg" alt="" width="400" height="409" /></div>
+      <div class="story">
+        <h2>&nbsp;</h2>
+        <h2><a name="TOP" id="TOP"></a>JSF</h2>
+        <p>For my capstone, I have this concept of an environment that is configured according to the roles assigned to a user. The obvious thing to do is to implement this functionality as tabs. I thus looked around for a tabs solution. I found one in JSF and, seeing as I was very keen to secure skills with JSF, I decided to pursue this option. I found a very good source in a pre-production version of a JSF book and built all of author's samples. I built a JSF development template so I can easily built a JSF web component. I learnt a lot about JSF. However, I ran into many of the same problems that caused me to drop JSF in an earlier course. It is just too immature, even though JSF 1.1 is a lot better than JSF 1.0, the available information is just too sketchy or just plain non existent, and much of the functionality of JSF is tough to understand. I felt that pursuing this option for a capstone project would be extremely risky. </p>
+        <h2>Tiles</h2>
+        <p>From a self-assigned, between terms project, I knew that the tiles-documentation project, which is a part of the jakarta-struts 1.1 download, has some very useful templates, a tabs template being among them, I thus resolved to understand Tiles and to verify the usefulness of the template. </p>
+        <p>I found Tiles to be troublesome. It is an extra layer of complexity and is, therefore inherently trouble. It caused a lot of headaches with regard to resource bundles. While the framework could have considerable value for a project involving hundreds of template conforming pages, I found it to be more trouble than it was worth for my project.</p>
+        <p>Further, while the tabs template does work, it is important to note that it the tabs are actually static, in the sense that they are defined at development time, and cannot change at run-time. My need is for truly dynamic tabs.</p>
+        <p>I thus resolved to create my own tabs template from within a Struts framework. </p>
+        <h2><a href="#TOP">Top</a></h2>
+        <h4>&nbsp;</h4>
+        <h2>Struts</h2>
+        <p>Creating my own Tabs template turned out to be quite easy. A Tabs template is just a JSP and a bean, the bean being configured in an Action class. The other templates were also straightforward. However, the requirement that the JSP contents be configured in a bean implies that much JSP functionality would require a Java programmer.</p>
+        <p>While this is great for me, this may not work so well in a commercial setting.</p>
+        <p>This framework became the obvious template to use to build my EJB skills, and an assignment. </p>
+        <h2><a href="#TOP">Top</a></h2>
+        <h4>&nbsp;</h4>
+        <h2>EJB</h2>
+        <p>I went into this project, having lost a few weeks for personal reasons, with my back squarely against the wall. This was promptly compounded by the difficulty of the task at hand. </p>
+        <p>I had enormous difficulties getting anything to run. Start with a sample stateless session bean. How hard can it be?</p>
+        <p>I found that the bulk of the work was related to learning how to build components, how to define the pieces and to understanding how those pieces need to be configured. This is not documented anywhere.</p>
+        <p>I had decided long ago to work with SunOne Application Server first, and then to work with WebLogic and WebSphere, in that order.</p>
+        <p>Sun has an IDE, but the cost is far too great.</p>
+        <p>WebLogic and WebSphere both have IDEs, but neither product supports J2EE 1.4. I don't see any point my trying to learn 1.3 and 1.4, and as all vendors will doubtless soon support 1.4, I committed myself to understanding J2EE 1.4. Thus, neither of these IDEs were useful to me. Further, I am a little suspicious of IDEs because they hide too much from me, things that I feel I need to know and understand. They also sometimes break!</p>
+        <p>Sun's Deploytool is fairly useful for trying out an idea or two, however it also tends to break, it imposes no real structure on the project, it performs a lot of magic (or not as the case may be), it has a steep learning curve as you need to understand the meaning of the questions with regard to the component, and mastering one project in no way helps you build the next one.</p>
+        <p>There were just so many variables, so many things I did not understand, so many things that were flapping around in the breeze that I spent many days just getting extremely frustrated.</p>
+        <p>The breakthrough came when I just accepted that I needed to build scripts to build everything, and that everything, absolutely everything would have to be nailed down, one step at a time.</p>
+        <p>This would be very painful at the beginning but I knew that this route would ultimately lead to success, one way or the other. Further, incremental progress is vastly superior to bottom chasing.</p>
+        <p>I had to back away from my original plan to build some EJBs into my capstone project. There were just too many variables, far too many things to think about.</p>
+        <p>I thus used the framework I had been using to test templates and basic web site design, namely the Struts Thames Bookstore assignment from last term. I just added some menu items to see whatever ideas I had.</p>
+        <p>I currently have templates to build an EAR, and within that EAR, EJB(s), JAR(s) and WAR(s), the WARs being of type JSP, Servlet, My Own Servlet, Struts, Tiles or JSF. This template has proved to be strong, although I don't doubt I will be tuning this framework.</p>
+        <p>The system currently only handles stateless and stateful session beans. I will add support for the others as part of my capstone project.</p>
+        <p>I used a stateful session bean to handle the database access requirements of the application. Interestingly, the application knows nothing about the database. It just gets what it needs from the bean via a JNDI name.</p>
+        <p>The EJB uses connection pooling. I am aware that it does have to recreate the DataSource on ejbActivation(). I coded it this way to ensure there were no changes between the class used by the EJB and the class previously used by the servlet. </p>
+        <p><a href="ejb_assignment_1.zip">My efforts may be downloaded here </a></p>
+        <p><a href="workBuild.zip">My current workBuild directory may be downloaded here </a></p>
+        <p>Start with build.xml in the base directory. The dist target shows the order of things. Note that ant from this directory builds all components and deploys the EAR. </p>
+        <p>Notes:</p>
+        <p>1. I think I got this pretty clean. </p>
+        <p>2. It can all seem a little cryptic. To actually see anything you need to run it and look at the traces! </p>
+        <h2><a href="#TOP">Top</a></h2>
+        <h4>&nbsp;</h4>
+        <h2>A Final Thought </h2>
+        <p>This project was rather like trying to park 10 supertankers in the same harbour at the same time. It is one heck of a dance, it takes ages, it requires very great care, but at the end of the day, it is almost impossible not to end up with a harbour full of oil.</p>
+        <h2><a href="#TOP">Top</a></h2>
+        <h4>&nbsp;</h4>
+        <p>&nbsp;</p>
+  </div>
+</div>
+<!-- end masthead -->
+</body>
+</html>

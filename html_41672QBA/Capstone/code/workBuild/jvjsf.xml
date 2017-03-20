@@ -1,0 +1,60 @@
+
+<!--
+	jvjsf.xml; script to handle jsf project.
+-->
+
+	<property name="jsf.home"	value="/opt/jsf_1.1"/>
+	<property name="jsf.lib"	value="${jsf.home}/lib"/>
+	<property name="jstl.home"	value="/opt/jstl-1.0"/>
+	<property name="jstl.lib"	value="${jstl.home}/lib"/>
+
+	<path id="jsf.classpath">
+		<pathelement location="${jsf.lib}/commons-beanutils.jar"/>
+		<pathelement location="${jsf.lib}/commons-collections.jar"/>
+		<pathelement location="${jsf.lib}/commons-digester.jar"/>
+		<pathelement location="${jsf.lib}/commons-logging.jar"/>
+		<pathelement location="${jsf.lib}/jsf-api.jar"/>
+		<pathelement location="${jsf.lib}/jsf-impl.jar"/>
+		<pathelement location="${jstl.lib}/jstl.jar"/>
+		<pathelement location="${jstl.lib}/standard.jar"/>
+	</path>
+
+	<target name="copyJSFLibs">
+		<echo message="Copying Libs..."/>
+		<copy todir="${build.dir}/WEB-INF/lib">
+			<fileset dir="${jsf.lib}">
+			<patternset>
+				<include name="commons-beanutils.jar"/>
+				<include name="commons-collections.jar"/>
+				<include name="commons-digester.jar"/>
+				<include name="commons-logging.jar"/>
+				<include name="jsf-api.jar"/>
+				<include name="jsf-impl.jar"/>
+			</patternset>
+			</fileset>
+			<fileset dir="${jstl.lib}">
+			<patternset>
+				<include name="jstl.jar"/>
+				<include name="standard.jar"/>
+			</patternset>
+			</fileset>
+		</copy>
+		<echo message="Copying Tlds..."/>
+		<copy todir="${build.dir}/WEB-INF/tags">
+			<fileset dir="${jsf.lib}">
+			<patternset>
+				<include name="jsf-core.tld"/>
+				<include name="html_basic.tld"/>
+			</patternset>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="checkJSFXML">
+		<echo message="Checking faces-config.xml"/>
+		<antcall target="XMLValidate">
+			<param name="dtd.file" value="${jsf.lib}/web-facesconfig_1_1.dtd"/>
+			<param name="xml.file" value="${basedir}/etc/faces-config.xml"/>
+		</antcall>
+	</target>
+

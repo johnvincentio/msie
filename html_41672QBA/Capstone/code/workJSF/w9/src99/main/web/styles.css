@@ -1,0 +1,19 @@
+body {
+   background: #eee; 
+}
+.emphasis {
+   font-style: italic;
+   font-size: 1.3em;
+}
+.enabledColors {
+   font-size: 1.5em;
+   font-style: italic;
+   color: Blue;
+   background: Yellow;
+}
+.disabledColors {
+   font-size: 0.8em;
+   font-style: italic;
+   color: Yellow;
+   background: Blue;
+}

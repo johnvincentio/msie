@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sun-ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Application Server 8.0 EJB 2.1//EN" "http://www.sun.com/software/appserver/dtds/sun-ejb-jar_2_1-0.dtd">
+
+<sun-ejb-jar>
+	<enterprise-beans>
+		<name>HelloServiceJAR</name>
+		<ejb>
+			<ejb-name>HelloServiceBean</ejb-name>
+			<resource-ref>
+				<res-ref-name>jms/MyConnectionFactory</res-ref-name>
+				<jndi-name>jms/DistributorMdb2QueueConnectionFactory</jndi-name>
+				<default-resource-principal>
+					<name>j2ee</name>
+					<password>j2ee</password>
+				</default-resource-principal>
+			</resource-ref>
+			<webservice-endpoint>
+				<port-component-name>HelloIF</port-component-name>
+				<endpoint-address-uri>hello-ejb/hello</endpoint-address-uri>
+			</webservice-endpoint>
+		</ejb>
+		<message-destination>
+			<message-destination-name>DistributorMdb2PhysicalQueue</message-destination-name>
+			<jndi-name>jms/DistributorMdb2Queue</jndi-name>
+		</message-destination>
+
+	</enterprise-beans>
+</sun-ejb-jar>
+
+<!--
+	<resource-ref>
+		<res-ref-name>jms/MyConnectionFactory</res-ref-name>
+		<jndi-name>jms/SupplierMdb1QueueConnectionFactory</jndi-name>
+		<default-resource-principal>
+			<name>j2ee</name>
+			<password>j2ee</password>
+		</default-resource-principal>
+	</resource-ref>
+
+	<message-destination>
+		<message-destination-name>SupplierMdb1PhysicalQueue</message-destination-name>
+		<jndi-name>jms/SupplierMdb1Queue</jndi-name>
+	</message-destination>
+-->
+
+
+
+<!--
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sun-ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Application Server 8.0 EJB 2.1//EN" "http://www.sun.com/software/appserver/dtds/sun-ejb-jar_2_1-0.dtd">
+
+<sun-ejb-jar>
+	<enterprise-beans>
+		<name>HelloServiceJAR</name>
+		<ejb>
+			<ejb-name>HelloServiceBean</ejb-name>
+			<ejb-ref>
+				<ejb-ref-name>ejb/TheSupplierBean</ejb-ref-name>
+				<jndi-name>SupplierBean</jndi-name>
+			</ejb-ref>
+			<webservice-endpoint>
+				<port-component-name>HelloIF</port-component-name>
+				<endpoint-address-uri>hello-ejb/hello</endpoint-address-uri>
+			</webservice-endpoint>
+		</ejb>
+	</enterprise-beans>
+</sun-ejb-jar>
+
+-->
+
+

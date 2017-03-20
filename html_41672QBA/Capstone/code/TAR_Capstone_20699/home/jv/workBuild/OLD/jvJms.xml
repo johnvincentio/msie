@@ -1,0 +1,56 @@
+<!--
+	jvJms.xml; script to handle JMS resources
+-->
+
+	<target name="create-my-jms-resources"
+		depends="create-qcf, create-queue, list-jmsdest, list-jms-resources"/>
+
+	<target name="delete-my-jms-resources" depends="delete-qcf,delete-queue"/>
+
+	<target name="create-qcf" description="Create queue connection factory.">
+		<echo message="Creating queue connection factory"/>
+		<antcall target="create-jms-connection">
+			<param name="jms.restype" value="${app.jmsfactory.restype}"/>
+			<param name="jms.resource.name" value="${app.jmsfactory.resource.name}"/>
+		</antcall>
+	</target>
+
+	<target name="create-queue"
+			description="Create physical queue and queue resource.">
+		<echo message="Creating physical queue"/>
+		<antcall target="create-jms-dest">
+			<param name="jms.dest.desttype" value="${app.jmsdest.desttype}"/>
+			<param name="jms.dest.property" value="${app.jmsdest.property}"/>
+			<param name="jms.dest.name" value="${app.jmsdest.name}"/>
+		</antcall>
+
+		<echo message="Creating queue resource"/>
+		<antcall target="create-jms-resource">
+			<param name="jms.restype" value="${app.jmsresource.restype}"/>
+			<param name="jms.property" value="${app.jmsresource.property}"/>
+			<param name="jms.resource.name" value="${app.jmsresource.resource.name} "/>
+		</antcall>
+	</target>
+
+	<target name="delete-queue" 
+			description="Delete physical queue and queue resource.">
+		<echo message="Delete physical queue"/>
+		<antcall target="delete-jms-dest">
+			<param name="jms.dest.desttype" value="${app.jmsdest.desttype}"/>
+			<param name="jms.dest.name" value="${app.jmsdest.name}"/>
+		</antcall>
+		<echo message="Delete queue resource"/>
+		<antcall target="delete-jms-resource">
+			<param name="jms.resource.name" value="${app.jmsresource.resource.name} "/>
+		</antcall>
+
+	</target>
+
+	<target name="delete-qcf" 
+			description="Delete queue connection factory.">
+		<echo message="Delete queue connection factory"/>
+		<antcall target="delete-jms-resource">
+			<param name="jms.resource.name" value="${app.jmsfactory.resource.name}"/>
+		</antcall>
+	</target>
+

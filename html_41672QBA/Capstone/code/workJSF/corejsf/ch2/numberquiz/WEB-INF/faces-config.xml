@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+
+<faces-config>
+   <application>
+      <locale-config>
+         <default-locale>en</default-locale>
+         <supported-locale>de</supported-locale>
+      </locale-config>
+   </application>
+
+   <navigation-rule>
+      <from-view-id>/index.faces</from-view-id>
+      <navigation-case>
+         <from-outcome>next</from-outcome>
+         <to-view-id>/index.faces</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+
+   <managed-bean>
+      <managed-bean-name>quiz</managed-bean-name>
+      <managed-bean-class>com.corejsf.QuizBean</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>   
+</faces-config>

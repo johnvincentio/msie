@@ -1,0 +1,19 @@
+Manifest-Version: 1.1
+Class-Path: 
+
+Name: WEB-INF/wsdl/MyHelloService.wsdl
+
+Name: WEB-INF/web.xml
+
+Name: WEB-INF/sun-j2ee-ri.project
+
+Name: WEB-INF/sun-web.xml
+
+Name: WEB-INF/classes/helloservice/HelloImpl.class
+
+Name: build/mapping.xml
+
+Name: WEB-INF/classes/helloservice/HelloIF.class
+
+Name: WEB-INF/webservices.xml
+

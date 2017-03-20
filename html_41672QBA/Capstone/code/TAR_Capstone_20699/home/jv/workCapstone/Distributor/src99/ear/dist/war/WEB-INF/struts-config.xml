@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<struts-config>
+
+    <form-beans>
+        <form-bean name="logonForm" type="jvapp.LogonForm"/>
+        <form-bean name="appMainForm" type="jvapp.AppMainForm"/>
+    </form-beans>
+
+    <global-forwards>
+        <forward name="main" path="/Main.do"/>
+        <forward name="logon" path="/Logon.do"/>
+        <forward name="logoff" path="/Logoff.do"/>
+    </global-forwards>
+
+    <action-mappings>
+
+        <action 
+            path="/MainTemplate"
+            type="org.apache.struts.actions.ForwardAction"
+            parameter="/templates/Main.jsp"/>
+
+        <action 
+            path="/Error"
+            type="org.apache.struts.actions.ForwardAction"
+            parameter="/pages/Error.jsp"/>
+
+        <action 
+            path="/Main"
+            type="jvapp.MainAction"
+			name="appMainForm"
+            validate="false"
+            scope="request">
+            <forward name="success" path="/MainTemplate.do"/>
+            <forward name="failure" path="/Error.do"/>
+        </action>
+
+        <action 
+            path="/Logon"
+            type="jvapp.PreLogonAction"
+			name="appMainForm"
+            validate="false"
+            scope="request">
+            <forward name="success" path="/MainTemplate.do"/>
+            <forward name="failure" path="/Error.do"/>
+        </action>
+
+        <action 
+            path="/AppMain"
+            type="jvapp.AppMainAction"
+			name="appMainForm"
+            validate="false"
+            scope="request">
+            <forward name="success" path="/MainTemplate.do"/>
+            <forward name="failure" path="/Error.do"/>
+        </action>
+
+        <action 
+            path="/Construction"
+            type="jvapp.ConstructionAction"
+			name="appMainForm"
+            validate="false"
+            scope="request">
+            <forward name="success" path="/MainTemplate.do"/>
+            <forward name="failure" path="/Error.do"/>
+        </action>
+
+        <action 
+            path="/LogonSubmit"
+            type="jvapp.LogonAction"
+            name="logonForm"    
+            scope="request"
+            validate="true">
+            <forward name="success" path="/AppMain.do"/>
+        </action>
+
+        <action 
+            path="/Logoff"
+			type="jvapp.LogoffAction">
+            <forward name="success" path="/Main.do"/>
+        </action>
+
+        <action 
+            path="/Barcodes"
+            type="jvapp.BarcodesAction"
+			name="appMainForm"
+            validate="false"
+            scope="request">
+            <forward name="success" path="/MainTemplate.do"/>
+            <forward name="failure" path="/Error.do"/>
+            <forward name="presendcollection" path="/MyPreSendCollection.do"/>
+        </action>
+
+        <action 
+            path="/BarcodeDetails"
+            type="jvapp.BarcodeDetailsAction"
+			name="appMainForm"
+            validate="false"
+            scope="request">
+            <forward name="success" path="/MainTemplate.do"/>
+            <forward name="failure" path="/Error.do"/>
+        </action>
+
+        <action 
+            path="/SendCollection"
+            type="jvapp.SendCollectionAction"
+			name="appMainForm"
+            validate="false"
+            scope="request">
+            <forward name="success" path="/Main.do"/>
+            <forward name="failure" path="/Error.do"/>
+        </action>
+
+        <action 
+            path="/MyPreSendCollection"
+            type="jvapp.PreSendCollectionAction"
+			name="appMainForm"
+            validate="false"
+            scope="request">
+            <forward name="success" path="/MainTemplate.do"/>
+            <forward name="failure" path="/Error.do"/>
+        </action>
+
+    </action-mappings>
+
+</struts-config>
+

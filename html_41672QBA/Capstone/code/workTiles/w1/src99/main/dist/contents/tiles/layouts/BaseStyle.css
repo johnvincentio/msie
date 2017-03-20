@@ -1,0 +1,141 @@
+/* link, visited, active, hover not suppotted by n4 */
+
+body {
+  background-color:#FFFFFF;
+  color:#000000;
+  link:000066;
+  visited:#660066;
+  active:#33CCCC;
+  text-align:center;
+}
+
+A:hover { color: #FF0000; }
+
+
+/* grouping not supported by n4 */
+
+h1 { font-family: Arial,Helvetica,sans-serif; }
+h2 { font-family: Arial,Helvetica,sans-serif; }
+h3 { font-family: Arial,Helvetica,sans-serif; }
+h4 { font-family: Arial,Helvetica,sans-serif; }
+h5 { font-family: Arial,Helvetica,sans-serif; }
+h6 { font-family: Arial,Helvetica,sans-serif; }
+
+
+table.outer {
+  width:600px;
+  border-width:1px;
+  border-color:#000000;
+  padding:0px,0px,0px,0px;
+}
+
+table.inner {
+  width:98%;
+  align:center;
+}
+
+td.error {
+  background-color:#FFFFEE;
+}
+
+td.message {
+  background-color:#FFFFEE;
+}
+
+td.heading { 
+  background-color:#DCDCDC;
+  color:#000000;
+  font-size:80%;
+  font-family:Arial,Helvetica,sans-serif;
+  font-weight:bold;
+  text-align:center;
+}
+
+td.headline {
+  font-family:Arial,Helvetica,sans-serif;
+  font-weight:bold;
+}
+
+tr.subhead {
+  background-color:#DCDCDC;
+  text-align:center;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+th.invisible { 
+  color:#000000;
+}
+
+td.label {
+  font-size:80%;
+  font-family:Arial,Helvetica,sans-serif;
+  vertical-align:top;
+  text-align:right;
+}
+
+td.required {
+  color:red;
+  text-align:right;
+}
+
+td.input {
+  text-align:left;
+}
+
+td.button {
+  text-align:right;
+}
+
+td.button.left {
+  text-align:left;
+}
+
+td.hint { 
+  font-size:60%;
+  font-family:Arial,Helvetica,sans-serif;
+  background-color:#FFFFEE;
+  text-align:left;
+}
+
+td.reqHint { 
+  color:red;  
+  font-size:60%;
+  font-family:Arial,Helvetica,sans-serif;
+  background-color:#FFFFEE;
+  text-align:left;
+}
+
+td.article {
+  background-color:#FFFFFF;
+}
+
+td.navbar { 
+  background-color:#DCDCDC;
+  color:#000000;
+  font-size:80%;
+  font-family:Arial,Helvetica,sans-serif;
+  font-weight:bold;
+  text-align:center;
+}
+
+td.footer { 
+  color:#999999;
+  font-size:60%;
+  font-family:Arial,Helvetica,sans-serif;
+  text-align:center;
+}
+
+td.imagebg { 
+  background-color:#CCCCCC;
+  align:center;
+}
+
+td.dimmed { 
+  color:#CCCCCC;
+}
+
+td.author { 
+  font-style:italic;
+  font-size:60%;
+  font-family:Arial,Helvetica,sans-serif;
+}

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://bob.marlboro.edu/~jvincent/schemas"
+	xmlns:project="http://bob.marlboro.edu/~jvincent/schemas"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+
+<xsd:annotation>
+	<xsd:documentation>
+		This schema checks my project XML file. The XML file should not be
+		considered as an accurate representation of any project, real or imaginary.
+	</xsd:documentation>
+</xsd:annotation>
+
+<xsd:simpleType name="DurationType">
+	<xsd:restriction base="xsd:positiveInteger">
+		<xsd:maxInclusive value="2000"/>
+	</xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="PriorityType">
+	<xsd:restriction base="xsd:string">
+		<xsd:enumeration value="Miniscule"/>
+		<xsd:enumeration value="Low"/>
+		<xsd:enumeration value="Medium"/>
+		<xsd:enumeration value="High"/>
+		<xsd:enumeration value="Critical"/>
+		<xsd:enumeration value="Meltdown"/>
+	</xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="StatusType">
+	<xsd:restriction base="xsd:string">
+		<xsd:enumeration value="Pending"/>
+		<xsd:enumeration value="Started"/>
+		<xsd:enumeration value="Complete"/>
+	</xsd:restriction>
+</xsd:simpleType>
+
+
+<xsd:complexType name="ActivityType">
+	<xsd:sequence>
+		<xsd:element name="Activityid" type="xsd:ID"/>
+		<xsd:element name="Description" type="xsd:string"/>
+		<xsd:element name="Duration" type="project:DurationType"/>
+		<xsd:element name="Priority" type="project:PriorityType"/>
+		<xsd:element name="Status" type="project:StatusType"/>
+	</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType name="ProjectType">
+	<xsd:sequence>
+		<xsd:element name="Projectid" type="xsd:positiveInteger"/>
+		<xsd:element name="Description" type="xsd:string"/>
+		<xsd:element name="Activity" type="project:ActivityType"
+			maxOccurs="unbounded"/>
+	</xsd:sequence>
+</xsd:complexType>
+
+<xsd:element name="Project" type="project:ProjectType"/>
+
+</xsd:schema>
+

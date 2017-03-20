@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Container
+	xmlns="http://bob.marlboro.edu/~jvincent/schemas"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocator="http://bob.marlboro.edu/~jvincent/schemas http://bob.marlboro.edu/~jvincent/schemas/container.xsd" >
+
+	<Containerid>1</Containerid>
+
+	<Barcode Barcodeid="_1">
+		<Quantity>3</Quantity>
+		<Item>
+			<Itemid>1</Itemid>
+			<Name>Pen</Name>
+			<Description>Hard wearing pens from Mars</Description>
+			<Characteristic>
+				<Category>
+					<Name>Type1</Name>
+					<Description>Type 1 description</Description>
+				</Category>
+				<Option>
+					<Name>Type1</Name>
+					<Value>Waht</Value>
+				</Option>
+			</Characteristic>
+			<Characteristic>
+				<Category>
+					<Name>Type2</Name>
+					<Description>Type2 something</Description>
+				</Category>
+				<Option>
+					<Name>Type2</Name>
+					<Value>Wehre</Value>
+				</Option>
+			</Characteristic>
+		</Item>
+
+		<Supplier>
+			<Supplierid>9345</Supplierid>
+			<Person>
+				<Personid>9345</Personid>
+				<PersonInfo>
+					<FirstName>fred</FirstName>
+					<MiddleName>little</MiddleName>
+					<LastName>stone</LastName>
+				</PersonInfo>
+				<PersonInfo>
+					<FirstName>fred</FirstName>
+					<MiddleName>big</MiddleName>
+					<LastName>stone</LastName>
+				</PersonInfo>
+			</Person>
+			<MaxOwed>23.04</MaxOwed>
+			<CurrentOwed>23.04</CurrentOwed>
+		</Supplier>
+
+		<Cost>
+			<Costid>124</Costid>
+			<StockValue>23.04</StockValue>
+			<WholesalePrice>17.34</WholesalePrice>
+			<DiscountPrice1>31.95</DiscountPrice1>
+			<DiscountPrice2>30.95</DiscountPrice2>
+			<DiscountPrice3>29.95</DiscountPrice3>
+			<DiscountPrice4>28.95</DiscountPrice4>
+			<DiscountPrice5>27.95</DiscountPrice5>
+		</Cost>
+		<ImageURL>a url</ImageURL>
+		<Barcode>some barcode</Barcode>
+	</Barcode>
+
+	<Orders>
+		<Ordersid>2</Ordersid>
+		<Orderdate>2004-02-14T13:45:41.312</Orderdate>
+
+		<User>
+			<Userid>78345923</Userid>
+			<Person>
+				<Personid>31543</Personid>
+				<PersonInfo>
+					<FirstName>percy</FirstName>
+					<MiddleName>lord</MiddleName>
+					<LastName>miller</LastName>
+				</PersonInfo>
+				<PersonInfo>
+					<FirstName>bertram</FirstName>
+					<MiddleName>earl</MiddleName>
+					<LastName>stringray</LastName>
+				</PersonInfo>
+			</Person>
+			<Location>
+				<Locationid>429866</Locationid>
+				<Description>somewhere in deepest nowhere</Description>
+			</Location>
+		</User>
+	</Orders>
+
+	<Shipper>
+		<Shipperid>319493</Shipperid>
+		<Person>
+			<Personid>3198744</Personid>
+			<PersonInfo>
+				<FirstName>walter</FirstName>
+				<MiddleName>the</MiddleName>
+				<LastName>truck</LastName>
+			</PersonInfo>
+		</Person>
+		<Tracking>
+			<Trackingid>6498333</Trackingid>
+			<url>http://www.mytransport.com/find_your_package</url>
+			<id>390543345</id>
+		</Tracking>
+	</Shipper>
+
+</Container>
+

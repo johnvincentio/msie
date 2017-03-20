@@ -1,0 +1,3094 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Firewall Files</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+.style1 {
+	color: #0000FF;
+}
+.style2 {
+	color: #CC0000;
+	font-size: 100%;	
+}
+-->
+</style>
+</head>
+
+<body>
+
+<h1><a name="TOP"></a>Firewall</h1>
+<ul>
+  <li>
+    <h4><a href="#F1_0">firewall.iptables</a></h4>
+  </li>
+  <li>
+    <h4><a href="#F1_1">firewall.conf.iptables</a></h4>
+  </li>
+  <li>
+    <h4><a href="#F1_2">firewall.banned</a></h4>
+  </li>
+  <li>
+    <h4><a href="#F1_3">firewall.iana_reserved</a></h4>
+  </li>
+  <li>
+    <h4><a href="#F1_5">iptables --list </a></h4>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+<h2><a name="F1_0"></a>firewall.iptables</h2>
+<h4>This script runs the firewall. It is placed into /etc/rc.d/init.d and is started at boot time.</h4>
+<pre class="style1">
+#!/bin/sh
+#
+# firewall      Firewall startup/shutdown script
+#
+# Version:      @(#) /etc/rc.d/init.d/firewall.iptables  25-Aug-2003
+#
+#
+# Translated to iptables format, with several additions and modifications,
+# from Craig Zeller's (zeller@fatpenguin.com) ipchains-based firewall script, by
+# Bob Sully (rcs@malibyte.net)
+#
+# Thanks to Jeff Carlson (jeff@ultimateevil.org) for his assistance re: DHCP and several other issues, 
+# Rohan Amin (rohan@rohanamin.com) and Erik Wasser (erik.wasser@iquer.com) for help with the port-forwarding 
+# routine, and Nate Waddoups for his quick PPTP hack.
+
+#
+# Latest revision: 25-Aug-2003
+#
+
+# chkconfig: 345 11 91
+#
+# description: IP Firewall startup/shutdown script for iptables
+#
+# probe: true
+#
+
+#
+# CONSTANTS - Do not edit
+#
+
+ANYWHERE="0.0.0.0/0"			# Match any IP address
+BROADCAST_SRC="0.0.0.0"			# Broadcast Source Address
+BROADCAST_DEST="255.255.255.255"	# Broadcast Destination Address
+CLASS_A="10.0.0.0/8"			# Class-A Private (RFC-1918) Networks
+CLASS_B="172.16.0.0/12"			# Class-B Private (RFC-1918) Networks
+CLASS_C="192.168.0.0/16"		# Class-C Private (RFC-1918) Networks
+CLASS_D_MULTICAST="224.0.0.0/4"		# Class-D Multicast Addresses
+CLASS_E_RESERVED_NET="240.0.0.0/5"	# Class-E Reserved Addresses
+PRIVPORTS="0:1023"			# Well-Known, Privileged Port Range
+UNPRIVPORTS="1024:65535"		# Unprivileged Port Range
+TRACEROUTE_SRC_PORTS="32769:65535"	# Traceroute Source Ports
+TRACEROUTE_DEST_PORTS="33434:33523"	# Traceroute Destination Ports
+
+
+#
+# The Loopback interface defines should not be
+# edited unless your Linux distribution defines
+# these differently.
+#
+
+LOOPBACK_INTERFACE="lo"			# The loopback interface
+LOOPBACK_NETWORK="127.0.0.0/8"		# Reserved Loopback Address Range
+
+#
+# Source function library.
+#
+
+. /etc/rc.d/init.d/functions
+
+#
+# See how we were called.
+#
+
+case "$1" in
+  start)
+        echo "Starting Firewall services"
+	echo "firewall: Configuring Firewall Rules using iptables"
+
+ 	# Remove any existing rules from all chains
+    	iptables -F
+    	iptables -F -t nat
+    	iptables -F -t mangle
+
+    	# Set the default policy to drop
+    	iptables -P INPUT   DROP
+    	iptables -P OUTPUT  DROP
+    	iptables -P FORWARD DROP
+
+	# Allow unlimited traffic on the loopback interface
+	iptables -A INPUT -i $LOOPBACK_INTERFACE -j ACCEPT
+	iptables -A OUTPUT -o $LOOPBACK_INTERFACE -j ACCEPT
+
+	# A bug that showed up as of the Red Hat 7.2 release results in
+    	# the following 5 default policies breaking the firewall
+    	# initialization:
+
+	#     fgrep -q '7.2' /etc/redhat-release
+	#     if [ $? -ne 0 ] ; then
+	#       iptables -t nat    -P PREROUTING  DROP
+	#       iptables -t nat    -P OUTPUT      DROP 
+	#       iptables -t nat    -P POSTROUTING DROP
+
+	#       iptables -t mangle -P PREROUTING  DROP
+	#       iptables -t mangle -P OUTPUT      DROP
+	#     fi
+
+    	# Remove any pre-existing user-defined chains
+    	iptables -X
+    	iptables -X -t nat
+    	iptables -X -t mangle
+
+	# Zero counts
+	iptables -Z
+
+        iptables -L
+
+	# Open the configuration file
+	if [ -f /etc/firewall/firewall.conf.iptables ]; then
+	    . /etc/firewall/firewall.conf.iptables
+	else
+	    # Turn off IP Forwarding & Masquerading
+	    echo 0 >/proc/sys/net/ipv4/ip_forward
+	
+	    # Turn off dynamic IP hacking
+            echo "0" > /proc/sys/net/ipv4/ip_dynaddr
+	
+	    # Allow unlimited traffic on the loopback interface
+	    iptables -A INPUT -i $LOOPBACK_INTERFACE -j ACCEPT
+	    iptables -A OUTPUT -o $LOOPBACK_INTERFACE -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       # Allow unlimited local traffic on the internal interface
+	       iptables -A INPUT -i $INTERNAL_INTERFACE -j ACCEPT
+	       iptables -A OUTPUT -o $INTERNAL_INTERFACE -j ACCEPT
+	    fi
+
+	    echo "firewall: No configuration file found at /etc/firewall/firewall.conf.iptables; "
+	    echo "firewall: default policies set to DROP on INPUT/OUTPUT/FORWARD chains."
+	    exit 1
+	fi
+
+
+        #
+        # If your IP address is dynamically assigned by a DHCP server,
+        # your DHCP server's IP address and this machine's IP address are
+        # obtained from /etc/dhcpc/hostinfo-$EXTERNAL_INTERFACE or
+        # /etc/dhcpc/dhcpcd-$EXTERNAL_INTERFACE.info.
+        #
+
+
+        if [ $DHCP -gt 0 ]; then
+
+	  # Grab external IP address if already assigned
+
+          EXTERNAL_IP=$( ifconfig $EXTERNAL_INTERFACE | grep 'inet[^6]' | sed 's/[a-zA-Z:]//g' | awk '{print $1}' )
+	  if [ -n $EXTERNAL_IP ]; then
+            EXT_NETMASK=$( ifconfig $EXTERNAL_INTERFACE | grep 'inet[^6]' | sed 's/[a-zA-Z:]//g' | awk '{print $3}' )
+            EXTERNAL_NETWORK=$( ipcalc -n $EXTERNAL_IP $EXT_NETMASK | cut -d\= -f2 )
+            BROADCAST_NET=$( ipcalc -b $EXTERNAL_IP $EXT_NETMASK | cut -d\= -f2 )
+	  fi 
+
+          # Turn on dynamic IP hacking
+          echo "1" > /proc/sys/net/ipv4/ip_dynaddr
+
+
+          # Incoming DHCPOFFER from available DHCP servers
+          iptables -A INPUT -i $EXTERNAL_INTERFACE -p udp \
+                   -s 0.0.0.0         --sport 67 \
+                   -d 255.255.255.255 --dport 68 -j ACCEPT
+
+          # Initialization of rebinding: No lease or Lease time expired.
+          iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p udp   \
+                   -s 0.0.0.0         --sport 68 \
+                   -d 255.255.255.255 --dport 67 -j ACCEPT
+
+          # Fall back to initialization
+          # The client knows its server, but has either lost its
+          # lease, or else needs to reconfirm the IP address after
+          # rebooting.
+          iptables -A INPUT -i $EXTERNAL_INTERFACE -p udp \
+                   -s $DHCP_SERVER --sport 67     \
+                   -d 255.255.255.255 --dport 68 -j ACCEPT
+          iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p udp \
+                   -s 255.255.255.255 --sport 68 \
+                   -d $DHCP_SERVER --dport 67 -j ACCEPT
+
+          # As a result of the above, we're supposed to change our IP
+          # address with this message, which is addressed to our new
+          # address before the dhcp client has received the update.
+          # Depending on the server implementation, the destination
+          # address can be the new IP address, the subnet address, or
+          # the limited broadcast address.
+
+          # If the network subnet address is used as the destination,
+          # the next rule must allow incoming packets destined to the
+          # subnet address, and the rule must preceed any general rules
+          # that block such incoming broadcast packets.
+
+          iptables -A INPUT -i $EXTERNAL_INTERFACE -p udp \
+                   -s $DHCP_SERVER --sport 67     \
+                   --dport 68 -j ACCEPT
+
+          # Lease renewal
+          iptables -A INPUT -i $EXTERNAL_INTERFACE -p udp \
+                   -s $DHCP_SERVER --sport 67     \
+                   -d $EXTERNAL_IP --dport 68 -j ACCEPT
+          iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p udp \
+                   -s $EXTERNAL_IP --sport 68       \
+                   -d $DHCP_SERVER --dport 67 -j ACCEPT
+
+          echo "firewall: DHCP Client configured"
+	  
+	  else
+	    # External IP assigned without DHCP (i.e. static); get some more info
+            EXT_NETMASK=$( ifconfig $EXTERNAL_INTERFACE | grep 'inet[^6]' | sed 's/[a-zA-Z:]//g' | awk '{print $3}' )
+            EXTERNAL_NETWORK=$( ipcalc -n $EXTERNAL_IP $EXT_NETMASK | cut -d\= -f2 )
+            BROADCAST_NET=$( ipcalc -b $EXTERNAL_IP $EXT_NETMASK | cut -d\= -f2 )
+	  
+        fi
+
+
+	#
+  	# Refuse directed broadcasts; you may choose not to log these, as they can fill up your logs quickly
+	#
+
+#   	iptables -A INPUT -i $EXTERNAL_INTERFACE -d $EXTERNAL_NETWORK \
+#             -m limit --limit 1/s            \
+#             -j LOG --log-prefix "[Directed Broadcast] "
+    	iptables -A INPUT -i $EXTERNAL_INTERFACE -d $EXTERNAL_NETWORK -j DROP
+# 	iptables -A INPUT -i $EXTERNAL_INTERFACE -d $BROADCAST_NET \
+#             -m limit --limit 1/s            \
+#             -j LOG --log-prefix "[Directed Broadcast] "
+	iptables -A INPUT  -i $EXTERNAL_INTERFACE -d $BROADCAST_NET -j DROP
+
+	# Refuse limited broadcasts
+#    	iptables -A INPUT  -i $EXTERNAL_INTERFACE -d 255.255.255.255 \
+#             -m limit --limit 1/s                    \
+#             -j LOG --log-prefix "[Limited Broadcast] "
+    	iptables -A INPUT  -i $EXTERNAL_INTERFACE -d 255.255.255.255 -j DROP
+
+
+
+	#
+	# Edit these to match the number of servers or connections
+	# you support.
+	#
+
+	# X Window port allocation begins at 6000 and increments
+	# for each additional server running from 6000 to 6063.
+
+	XWINDOW_PORTS="6000:6063"		# (TCP) X Windows
+
+	# SSH starts at 1023 and works down to 513 for each additional
+	# simultaneous incoming connection.
+
+	SSH_HI_PORTS="513:1023"			# SSH Simultaneous Connections
+
+
+	#
+	# Iptables allows creation of customized chains.  The -l (log) flag no longer
+	# exists.  This is a custom chain which allows logging of DROPped packets.
+	#
+
+	iptables -N LnD			# Define custom chain
+
+	iptables -A LnD -p tcp -m limit --limit 1/s -j LOG --log-prefix "[TCP drop] " --log-level=info
+	iptables -A LnD -p udp -m limit --limit 1/s -j LOG --log-prefix "[UDP drop] " --log-level=info
+	iptables -A LnD -p icmp -m limit --limit 1/s -j LOG --log-prefix "[ICMP drop] " --log-level=info
+	iptables -A LnD -f -m limit --limit 1/s -j LOG --log-prefix "[FRAG drop] " --log-level=info
+	iptables -A LnD -j DROP
+
+	#
+	# This custom chain logs, then REJECTs packets.
+	#
+
+	iptables -N LnR			# Define custom chain
+
+	iptables -A LnR -p tcp -m limit --limit 1/s -j LOG --log-prefix "[TCP reject] " --log-level=info
+	iptables -A LnR -p udp -m limit --limit 1/s -j LOG --log-prefix "[UDP reject] " --log-level=info
+	iptables -A LnR -p icmp -m limit --limit 1/s -j LOG --log-prefix "[ICMP reject] " --log-level=info
+ 	iptables -A LnR -f -m limit --limit 1/s -j LOG --log-prefix "[FRAG reject] " --log-level=info
+	iptables -A LnR -j REJECT
+
+	#
+	# This chain logs, then DROPs "Xmas" and Null packets which might indicate a port-scan attempt
+	#
+
+	iptables -N ScanD		# Define custom chain
+
+	iptables -A ScanD -p tcp -m limit --limit 1/s -j LOG --log-prefix "[TCP Scan?] "
+	iptables -A ScanD -p udp -m limit --limit 1/s -j LOG --log-prefix "[UDP Scan?] "
+	iptables -A ScanD -p icmp -m limit --limit 1/s -j LOG --log-prefix "[ICMP Scan?] "
+	iptables -A ScanD -f -m limit --limit 1/s -j LOG --log-prefix "[FRAG Scan?] "
+	iptables -A ScanD -j DROP
+
+
+
+        #
+        # Disallow packets frequently used by port-scanners
+        # 
+
+	# All of the bits are cleared
+    	iptables -A INPUT -p tcp --tcp-flags ALL NONE -j ScanD
+
+    	# SYN and FIN are both set
+    	iptables -A INPUT -p tcp --tcp-flags SYN,FIN SYN,FIN -j ScanD
+
+    	# SYN and RST are both set
+    	iptables -A INPUT -p tcp --tcp-flags SYN,RST SYN,RST -j ScanD
+
+    	# FIN and RST are both set
+    	iptables -A INPUT -p tcp --tcp-flags FIN,RST FIN,RST -j ScanD
+
+    	# FIN is the only bit set, without the expected accompanying ACK
+    	iptables -A INPUT -p tcp --tcp-flags ACK,FIN FIN -j ScanD
+
+    	# PSH is the only bit set, without the expected accompanying ACK
+    	iptables -A INPUT -p tcp --tcp-flags ACK,PSH PSH -j ScanD
+
+    	# URG is the only bit set, without the expected accompanying ACK
+    	iptables -A INPUT -p tcp --tcp-flags ACK,URG URG -j ScanD
+
+
+
+	# Enable broadcast echo Protection
+	echo 1 > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts
+
+	# Disable Source Routed Packets
+	for f in /proc/sys/net/ipv4/conf/*/accept_source_route; do
+    	   echo 0 > $f
+	done
+
+	# Enable TCP SYN Cookie Protection
+	echo 1 > /proc/sys/net/ipv4/tcp_syncookies
+
+	# Disable ICMP Redirect Acceptance
+	for f in /proc/sys/net/ipv4/conf/*/accept_redirects; do
+   	   echo 0 > $f
+	done
+
+	# Don't send Redirect Messages
+	for f in /proc/sys/net/ipv4/conf/*/send_redirects; do
+   	   echo 0 > $f
+	done
+
+	# Disable ICMP Redirect Acceptance
+	for f in /proc/sys/net/ipv4/conf/*/accept_redirects; do
+	    echo 0 > $f
+	done
+
+	# Drop Spoofed Packets coming in on an interface, which if replied to,
+	# would result in the reply going out a different interface.
+	for f in /proc/sys/net/ipv4/conf/*/rp_filter; do
+  	   echo 1 > $f
+	done
+
+	# Log packets with impossible addresses.
+	for f in /proc/sys/net/ipv4/conf/*/log_martians; do
+  	   echo 1 > $f
+	done
+
+	# Disable Source Routed Packets
+	for f in /proc/sys/net/ipv4/conf/*/accept_source_route; do
+	    echo 0 > $f
+	done
+
+	# Disallow fragmented packets.  This may not be as necessary as it once was.
+	# Comment it out with # if desired.
+#	iptables -A INPUT -f -i $EXTERNAL_INTERFACE -j LnD
+#	iptables -A INPUT -f -i $INTERNAL_INTERFACE -j LnD
+
+
+	#
+	# Loopback
+	#
+
+	# Unlimited traffic on the loopback interface (lo)
+
+	iptables -A INPUT -i $LOOPBACK_INTERFACE -j ACCEPT
+	iptables -A OUTPUT -o $LOOPBACK_INTERFACE -j ACCEPT
+
+
+	#
+	# Masquerade internal traffic
+	#
+
+	if [ $MASQUERADING -gt 0 ]; then
+
+
+	    # All internal traffic is masqueraded externally
+
+	    iptables -t nat -A POSTROUTING -s $INTERNAL_NETWORK -o $EXTERNAL_INTERFACE -j SNAT \
+	    --to $EXTERNAL_IP
+
+	    # Enable IP Forwarding
+	
+	    echo 1 >/proc/sys/net/ipv4/ip_forward
+
+	    #
+	    # Unlimited traffic within the local network
+	    #
+
+	    # All internal machines have access to the firewall machine
+
+	    iptables -A INPUT -i $INTERNAL_INTERFACE -s $INTERNAL_NETWORK -j ACCEPT
+
+	    iptables -A OUTPUT -o $INTERNAL_INTERFACE -d $INTERNAL_NETWORK -j ACCEPT
+
+            if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Masquerading internal network"
+	    fi
+	fi
+
+
+	#
+	# Refuse any connections to/from problem sites.
+	#
+	# /etc/firewall/firewall.banned contains a list of IPs
+	# to block all access, both inbound and outbound.
+	# The file should contain IP addresses with CIDR
+	# netmask, one per line:
+	#
+	# NOTE: No comments are allowed in the file.
+	#
+	# 111.222.333.444/32		- To block a single IP address
+	# 111.222.333.444/8		- To block a Class-A network
+	# 111.222.333.444/16		- To block a Class-B network
+	# 111.222.333.444/24		- To block a Class-C network
+	#
+	# The CIDR netmask number describes the number of bits
+	# in the network portion of the address, and may be on
+	# any boundary.
+	#
+
+	if [ -f /etc/firewall/firewall.banned ]; then
+	    while read BANNED; do
+		iptables -A INPUT -i $EXTERNAL_INTERFACE -s $BANNED -j DROP
+		iptables -A INPUT -i $EXTERNAL_INTERFACE -d $BANNED -j DROP
+		iptables -A OUTPUT -o $EXTERNAL_INTERFACE -s $BANNED -j DROP
+		iptables -A OUTPUT -o $EXTERNAL_INTERFACE -d $BANNED -j DROP
+	    done < /etc/firewall/firewall.banned
+	    echo "firewall: Banned addresses added to rule set"
+	fi
+
+
+	#
+	# Refuse connections from IANA-reserved blocks
+	#
+	
+	if [ -f /etc/firewall/firewall.iana-reserved ]; then
+	    while read RESERVED; do
+		iptables -A INPUT -i $EXTERNAL_INTERFACE -s $RESERVED -j DROP
+		iptables -A INPUT -i $EXTERNAL_INTERFACE -d $RESERVED -j DROP
+		iptables -A OUTPUT -o $EXTERNAL_INTERFACE -s $RESERVED -j DROP
+		iptables -A OUTPUT -o $EXTERNAL_INTERFACE -d $RESERVED -j DROP
+	    done < /etc/firewall/firewall.iana-reserved
+	    echo "firewall: Connections from IANA-reserved addresses blocked"
+	fi
+
+
+	#
+	# Localizations
+	#
+	# The /etc/firewall/firewall.local file should contain rules in
+	# standard 'iptables' format.
+	#
+
+	if [ -f /etc/firewall/firewall.local.iptables ]; then
+	    . /etc/firewall/firewall.local.iptables
+	    echo "firewall: Local rules added"
+	fi
+
+
+
+	#
+	# ICMP
+	#
+
+	# (4) Source Quench.
+	# Incoming & outgoing requests to slow down (flow control)
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -p ICMP --icmp-type 4 \
+	    -s $ANYWHERE  -d $EXTERNAL_IP -j ACCEPT
+
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p ICMP --icmp-type 4 \
+	    -s $EXTERNAL_IP  -d $ANYWHERE -j ACCEPT
+
+	if [ $MASQUERADING -gt 0 ]; then
+	    iptables -A FORWARD -p ICMP --icmp-type 4 -j ACCEPT
+	fi
+
+	# (12) Parameter Problem.
+	# Incoming & outgoing error messages
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -p ICMP --icmp-type 12 \
+	    -s $ANYWHERE  -d $EXTERNAL_IP -j ACCEPT
+
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p ICMP --icmp-type 12 \
+	    -s $EXTERNAL_IP  -d $ANYWHERE -j ACCEPT
+
+	if [ $MASQUERADING -gt 0 ]; then
+	    iptables -A FORWARD -p ICMP --icmp-type 12 -j ACCEPT
+	fi
+
+	# (3) Destination Unreachable, Service Unavailable.
+	# Incoming & outgoing size negotiation, service or
+	# destination unavailability, final traceroute response
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -p ICMP --icmp-type 3 \
+	    -s $ANYWHERE  -d $EXTERNAL_IP -j ACCEPT
+
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p ICMP --icmp-type 3 \
+	    -s $EXTERNAL_IP  -d $ANYWHERE -j ACCEPT
+
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p ICMP --icmp-type \
+	    fragmentation-needed -s $EXTERNAL_IP  -d $ANYWHERE -j ACCEPT
+
+	if [ $MASQUERADING -gt 0 ]; then
+	    iptables -A FORWARD -p ICMP --icmp-type 3 -j ACCEPT
+	    iptables -A FORWARD -p ICMP --icmp-type fragmentation-needed -j ACCEPT
+	fi
+
+	# (11) Time Exceeded.
+	# Incoming & outgoing timeout conditions,
+	# also intermediate TTL response to traceroutes
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -p ICMP --icmp-type 11 \
+	    -s $ANYWHERE  -d $EXTERNAL_IP -j ACCEPT
+
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p ICMP --icmp-type 11 \
+	    -s $EXTERNAL_IP  -d $ANYWHERE -j ACCEPT
+
+	if [ $MASQUERADING -gt 0 ]; then
+	    iptables -A FORWARD -p ICMP --icmp-type 11 -j ACCEPT
+	fi
+
+	# (0 | 8) Allow OUTPUT pings to anywhere.
+
+	if [ $OUTBOUND_PING -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p ICMP --icmp-type 8 \
+		-s $EXTERNAL_IP  -d $ANYWHERE -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p ICMP --icmp-type 0 \
+		-s $ANYWHERE  -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p ICMP --icmp-type 8 -s $INTERNAL_NETWORK -j ACCEPT
+	       iptables -A FORWARD -p ICMP --icmp-type 0 -d $INTERNAL_NETWORK -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Outbound ping enabled"
+	    fi
+
+	fi
+
+	# (0 | 8) Allow incoming pings from anywhere
+	#       (stops at firewall).
+
+	if [ $INBOUND_PING -gt 0 ]; then
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p ICMP --icmp-type 8 \
+		-s $ANYWHERE  -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p ICMP --icmp-type 0 \
+		-s $EXTERNAL_IP  -d $ANYWHERE -j ACCEPT
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Inbound ping enabled"
+	    fi
+
+	fi
+
+	#
+	# Unprivileged Ports
+	# Avoid ports subject to protocol and system administration problems.
+	#
+
+	NFS_PORT="2049"				# (TCP/UDP) NFS
+	OPENWINDOWS_PORT="2000"			# (TCP) Openwindows
+	SOCKS_PORT="1080"			# (TCP) Socks
+
+
+	# Openwindows: establishing a connection
+
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state NEW \
+	--dport $OPENWINDOWS_PORT -s $EXTERNAL_IP -d $ANYWHERE -j LnR
+
+	# Openwindows: incoming connection
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state NEW \
+	--dport $OPENWINDOWS_PORT -d $EXTERNAL_IP -j LnD
+
+	# X Window: establishing a remote connection
+
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state NEW \
+	--dport $XWINDOW_PORTS -s $EXTERNAL_IP -d $ANYWHERE -j LnR
+
+	# X Window: incoming connection attempt
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state NEW \
+	--dport $XWINDOW_PORTS -d $EXTERNAL_IP -j LnD
+
+	# SOCKS: establishing a connection
+
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state NEW \
+	--dport $SOCKS_PORT -s $EXTERNAL_IP -d $ANYWHERE  -j LnR
+
+	# SOCKS: incoming connection
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state NEW \
+	--dport	$SOCKS_PORT -d $EXTERNAL_IP -j LnD
+
+	# NFS: TCP connections
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state NEW \
+	--dport $NFS_PORT -d $EXTERNAL_IP -j LnD
+
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state NEW \
+	--dport	$NFS_PORT -d $ANYWHERE -j LnR
+
+	# NFS: UDP connections
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -p UDP \
+	--dport $NFS_PORT -d $EXTERNAL_IP -j LnD
+
+	# NFS: incoming request (normal UDP mode)
+
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p UDP \
+	--dport $NFS_PORT -d $ANYWHERE -j LnR
+
+
+        #
+        # DNAT/SNAT Port Forwarding
+        # 
+
+ 	if [ $PORT_FORWARD -gt 0 ]; then 
+           if [ -f /etc/firewall/firewall.nat ]; then
+             while read IP_PORT; do
+               # extract the protocols, IPs and ports
+	       NAT_TYPE=$(echo "$IP_PORT" | awk '{print $1}')
+               NAT_EXT_PORT=$(echo "$IP_PORT" | awk '{print $2}')
+               NAT_INT_IP=$(echo "$IP_PORT" | awk '{print $3}')
+               NAT_INT_PORT=$(echo "$IP_PORT" | awk '{print $4}')
+
+               # write the rules!
+
+               # this is the prerouting dnat
+               iptables -A PREROUTING -t nat -p $NAT_TYPE -d $EXTERNAL_IP --dport $NAT_EXT_PORT -j DNAT \
+                --to-destination $NAT_INT_IP:$NAT_INT_PORT
+
+               # This allows packets from external->internal
+               iptables -A FORWARD -i $EXTERNAL_INTERFACE -o $INTERNAL_INTERFACE -p $NAT_TYPE  \
+                -d $NAT_INT_IP --dport $NAT_INT_PORT -m state \
+                --state NEW,ESTABLISHED,RELATED -j ACCEPT
+
+               # This allows packets from internal->external
+               iptables -A FORWARD -i $INTERNAL_INTERFACE -o $EXTERNAL_INTERFACE -p $NAT_TYPE  \
+                -s $NAT_INT_IP --sport $NAT_INT_PORT -m state \
+                --state NEW,ESTABLISHED,RELATED -j ACCEPT
+
+               # This enables access to the 'public' server from the internal network
+               iptables -t nat -A POSTROUTING -d $NAT_INT_IP -s $INTERNAL_NETWORK \
+                -p $NAT_TYPE --dport $NAT_INT_PORT -j SNAT --to $INTERNAL_IP
+
+               echo firewall: dnat: $NAT_TYPE:$EXTERNAL_IP:$NAT_EXT_PORT - $NAT_INT_IP:$NAT_INT_PORT
+
+             done < /etc/firewall/firewall.nat
+
+            # unset some variables
+              unset IP_PORT
+	      unset NAT_TYPE
+              unset NAT_EXT_PORT
+              unset NAT_INT_IP
+              unset NAT_INT_PORT
+
+	   else
+              echo "firewall.nat (port-forwarding table) not found!  Port-forwarding not enabled."
+	   fi
+        fi
+
+
+	#
+	# NOTE:
+	#     The symbolic names used in /etc/services for the port numbers
+	#     vary by supplier.
+	#
+
+	# Required Services
+
+	#
+	# DNS client modes (53)
+	#
+
+	if [ $DNS_CLIENT -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p UDP \
+		--sport $UNPRIVPORTS --dport 53 -s $EXTERNAL_IP \
+		-d $ANYWHERE -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p UDP --sport 53 \
+		--dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p UDP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 53 -j ACCEPT
+	       iptables -A FORWARD -p UDP -d $INTERNAL_NETWORK --sport 53 --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    # TCP client-to-server requests are allowed by the protocol
+	    # if UDP requests fail. This is rarely seen. Usually, clients
+	    # use TCP as a secondary name server for zone transfers from
+	    # their primary name servers, and as hackers.
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP --sport \
+		$UNPRIVPORTS --dport 53 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+		--sport 53 --dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 53 -j ACCEPT
+	       iptables -A FORWARD -m state --state ESTABLISHED,RELATED -p TCP -d $INTERNAL_NETWORK \
+		--sport 53 --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: DNS client enabled"
+	    fi
+	fi
+
+	#
+	# DNS server modes (53)
+	#
+
+	#
+	# DNS caching & forwarding name server
+	#
+
+	if [ $DNS_CACHING_SERVER -gt 0 ]; then
+
+	    # Server-to-server query or response
+	    # Caching only name server uses UDP, not TCP
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p UDP \
+	--sport 53 --dport 53 -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p UDP \
+	--sport 53 --dport 53 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: DNS Caching server enabled"
+	    fi
+
+	fi
+
+	#
+	# DNS full name server
+	#
+
+	if [ $DNS_FULL_SERVER -gt 0 ]; then
+
+	    # Client-to-server DNS transaction.
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p UDP \
+	--sport $UNPRIVPORTS --dport 53 -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p UDP \
+	--sport 53 --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    # Peer-to-peer server DNS transaction.
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p UDP \
+	--sport 53 --dport 53 -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p UDP \
+	--sport 53 --dport 53 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    # Zone Transfers.
+	    # Due to the potential danger of zone transfers,
+	    # allow TCP traffic to only specific secondaries.
+
+            # /etc/firewall/firewall.dns contains a list of
+            # secondary, tertiary, etc. domain name servers with which
+            # zone transfers are allowed.  The file should contain IP
+            # addresses with CIDR netmask, one per line:
+
+
+        if [ -f /etc/firewall/firewall.dns ]; then
+                while read DNS_SECONDARY; do
+
+            iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP \
+                --sport $UNPRIVPORTS --dport 53 -s $DNS_SECONDARY -d $EXTERNAL_IP -j ACCEPT
+
+            iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+                --sport 53 --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $DNS_SECONDARY -j ACCEPT
+
+            done < /etc/firewall/firewall.dns
+
+        else
+            echo "firewall: ** No secondary DNS configured **"
+
+        fi
+
+            if [ $VERBOSE -gt 0 ]; then
+                echo "firewall: DNS Full server enabled"
+            fi
+
+        fi
+
+	#
+	# AUTH (113) - Allowing your outgoing AUTH requests as a client
+	#
+
+	if [ $AUTH_CLIENT -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 113 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 113 --dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 113 -j ACCEPT
+	       iptables -A FORWARD -m state --state ESTABLISHED,RELATED -p TCP -d $INTERNAL_NETWORK \
+		--sport 113 --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Auth client enabled"
+	    fi
+
+	fi
+
+
+	# AUTH server (113)
+
+	if [ $AUTH_SERVER -gt 0 ]; then
+
+	    # Accepting incoming AUTH requests
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 113 -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 113 --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Auth server enabled"
+	    fi
+
+	else
+
+	    # Rejecting incoming AUTH requests
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP \
+		--dport 113 -d $EXTERNAL_IP -j LnR
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Auth server requests will be rejected"
+	    fi
+
+	fi
+
+
+	#
+	# TCP Services on selected ports.
+	#
+
+	#
+	# Sending Mail through a remote SMTP server (25)
+	#
+
+	if [ $SMTP_REMOTE_SERVER -gt 0 ]; then
+
+	    # SMTP client to an ISP account without a local server
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 25 -s $EXTERNAL_IP -d $SMTP_SERVER -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 25 --dport $UNPRIVPORTS -s $SMTP_SERVER -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 25 -j ACCEPT
+	       iptables -A FORWARD -m state --state ESTABLISHED,RELATED -p TCP -d $INTERNAL_NETWORK \
+		--sport 25 --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: SMTP Remote server enabled"
+	    fi
+	fi
+
+	#
+	# Sending Mail through a local SMTP server (25)
+	#
+
+	if [ $SMTP_LOCAL_SERVER -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 25 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 25 --dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    # Receiving Mail as a Local SMTP server (25)
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 25 -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 25 --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: SMTP Local server enabled"
+	    fi
+
+	fi
+
+
+	#
+	# POP3 (110) - Retrieving Mail as a POP3 client
+	#
+
+	if [ $POP3_CLIENT -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 110 -s $EXTERNAL_IP -d $POP_SERVER -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 110 --dport $UNPRIVPORTS -s $POP_SERVER -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 110 -j ACCEPT
+	       iptables -A FORWARD -m state --state ESTABLISHED,RELATED -p TCP -d $INTERNAL_NETWORK \
+		--sport 110 --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Clients may access remote POP-3 servers"
+	    fi
+
+	fi
+
+
+
+	#
+	# POP3 (110) - Hosting a POP3 server for remote clients
+	#
+
+	if [ $POP3_SERVER -gt 0 ]; then
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 110 -s $MY_POP3_CLIENTS -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 110 --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $MY_POP3_CLIENTS -j ACCEPT
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Remote clients may access local POP-3 server"
+	    fi
+
+	fi
+
+	#
+	# IMAP (143) - Retrieving Mail as an IMAP client
+	#
+
+	if [ $IMAP_CLIENT -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 143 -s $EXTERNAL_IP -d $MY_IMAP_SERVER -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 143 --dport $UNPRIVPORTS -s $MY_IMAP_SERVER -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 143 -j ACCEPT
+	       iptables -A FORWARD -m state --state ESTABLISHED,RELATED -p TCP -d $INTERNAL_NETWORK \
+		--sport 143 --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Clients may access remote IMAP servers"
+	    fi
+
+	fi
+
+	#
+	# IMAP (143) - Hosting an IMAP server for remote clients
+	#
+
+	if [ $IMAP_SERVER -gt 0 ]; then
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 143 -s $MY_IMAP_CLIENTS -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 143 --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $MY_IMAP_CLIENTS -j ACCEPT
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Remote clients may access local IMAP server"
+	    fi
+
+	fi
+
+
+	#
+	# NNTP (119) - Reading and posting news as a Usenet client
+	#
+
+	if [ $NNTP_CLIENT -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 119 -s $EXTERNAL_IP -d $NEWS_SERVER -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 119 --dport $UNPRIVPORTS -s $NEWS_SERVER -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 119 -j ACCEPT
+	       iptables -A FORWARD -m state --state ESTABLISHED,RELATED -p TCP -d $INTERNAL_NETWORK \
+		--sport 119 --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Clients may access remote NNTP servers"
+	    fi
+
+	fi
+
+	#
+	# NNTP (119) - Hosting a Usenet news server for remote clients
+	#
+
+	if [ $NNTP_SERVER -gt 0 ]; then
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 119 -s $MY_NNTP_CLIENTS -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 119 --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $MY_NNTP_CLIENTS -j ACCEPT
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Remote clients may access local NNTP server"
+	    fi
+
+	fi
+
+	#
+	# NNTP (119) - Allowing peer news feeds for a local Usenet server
+	#
+
+	if [ $NNTP_NEWS_FEED -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 119 -s $EXTERNAL_IP -d $MY_NEWS_FEED -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 119 --dport $UNPRIVPORTS -s $MY_NEWS_FEED -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: External NNTP News feed access enabled"
+	    fi
+
+	fi
+
+	#
+        # Secure NNTP (563) - Reading and posting news as a Usenet client over SSL
+        # Submitted by Renaud Colinet
+	#
+
+        if [ $NNTPS_CLIENT -gt 0 ]; then
+
+            iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+        --sport $UNPRIVPORTS --dport 563 -s $EXTERNAL_IP -d $SNEWS_SERVER -j ACCEPT
+
+            iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+        --sport 563 --dport $UNPRIVPORTS -s $SNEWS_SERVER -d $EXTERNAL_IP -j ACCEPT
+
+            if [ $MASQUERADING -gt 0 ]; then
+               iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 563 -j ACCEPT
+               iptables -A FORWARD -m state --state ESTABLISHED,RELATED -p TCP -d $INTERNAL_NETWORK \
+                --sport 563 --dport $UNPRIVPORTS -j ACCEPT
+            fi
+
+            if [ $VERBOSE -gt 0 ]; then
+                echo "firewall: Clients may access remote secure NNTP servers"
+            fi
+
+        fi
+
+	#
+	# TELNET (23) - Allowing outgoing client access to remote sites
+	#
+
+	if [ $TELNET_CLIENT -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 23 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 23 --dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 23 -j ACCEPT
+	       iptables -A FORWARD -m state --state ESTABLISHED,RELATED -p TCP -d $INTERNAL_NETWORK \
+		--sport 23 --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Clients may access remote TELNET servers"
+	    fi
+
+	fi
+
+	#
+	# TELNET (23) - Allowing incoming access to your local server
+	#
+
+	if [ $TELNET_SERVER -gt 0 ]; then
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 23 -s $MY_TELNET_CLIENTS -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 23 --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $MY_TELNET_CLIENTS -j ACCEPT
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Remote clients may access local TELNET server"
+	    fi
+
+	fi
+
+	#
+	# SSH Client (22) - Allowing client access to remote SSH servers
+	#
+
+	if [ $SSH_CLIENT -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 22 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 22 --dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	--sport $SSH_HI_PORTS --dport 22 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 22 --dport $SSH_HI_PORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 22 -j ACCEPT
+	       iptables -A FORWARD -m state --state ESTABLISHED,RELATED -p TCP -d $INTERNAL_NETWORK \
+		--sport 22 --dport $UNPRIVPORTS -j ACCEPT
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $SSH_HI_PORTS --dport 22 -j ACCEPT
+	       iptables -A FORWARD -m state --state ESTABLISHED,RELATED -p TCP -d $INTERNAL_NETWORK \
+		--sport 22 --dport $SSH_HI_PORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Clients may access remote SSH servers"
+	    fi
+
+	fi
+
+	#
+	# SSH (see config) - Allowing remote client access to your local SSH server
+	#
+
+	if [ $SSH_SERVER -gt 0 ]; then
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport $SSH_PORT -s $MY_SSH_CLIENTS -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport $SSH_PORT --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $MY_SSH_CLIENTS -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP \
+	--sport $SSH_HI_PORTS --dport $SSH_PORT -s $MY_SSH_CLIENTS -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport $SSH_PORT --dport $SSH_HI_PORTS -s $EXTERNAL_IP -d $MY_SSH_CLIENTS -j ACCEPT
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Remote sites may access local SSH server"
+	    fi
+
+	fi
+
+
+	#
+	# FTP (20, 21) - Allowing outgoing client access to remote FTP servers
+	#
+
+	if [ $FTP_CLIENT -gt 0 ]; then
+
+	    # Outgoing request
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 21 --dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state NEW,ESTABLISHED \
+	--sport $UNPRIVPORTS --dport 21 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    # Normal Port mode FTP data channels
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 20 --dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state NEW,ESTABLISHED \
+	--sport $UNPRIVPORTS --dport 20 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    # Passive mode FTP data channels
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport $UNPRIVPORTS --dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state NEW,ESTABLISHED \
+	--sport $UNPRIVPORTS --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 20:21 -j ACCEPT
+	       iptables -A FORWARD -p TCP -d $INTERNAL_NETWORK --sport 20:21 --dport $UNPRIVPORTS -j ACCEPT
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport $UNPRIVPORTS -j ACCEPT
+	       iptables -A FORWARD -p TCP -d $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Clients may access remote FTP servers"
+	    fi
+
+	fi
+
+	#
+	# FTP (20, 21) - Allowing incoming access to your local FTP server
+	#
+
+      if [ $FTP_SERVER -gt 0 ]; then
+              
+            # Incoming request
+          
+            iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state NEW,ESTABLISHED \
+        --sport $UNPRIVPORTS --dport 21 -s $MY_FTP_CLIENTS -d $EXTERNAL_IP -j ACCEPT
+        
+            iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+        --sport 21 --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $MY_FTP_CLIENTS -j ACCEPT
+        
+            # Normal Port mode FTP data channel responses
+            
+            iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+        --sport 20 --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $MY_FTP_CLIENTS -j ACCEPT
+            
+            iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+        --sport $UNPRIVPORTS --dport 20 -s $MY_FTP_CLIENTS -d $EXTERNAL_IP -j ACCEPT
+            
+            # Passive mode FTP data channel responses
+               
+            iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state NEW,ESTABLISHED \
+        --sport $UNPRIVPORTS --dport $UNPRIVPORTS -s $MY_FTP_CLIENTS -d $EXTERNAL_IP -j ACCEPT
+            
+            iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+        --sport $UNPRIVPORTS --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $MY_FTP_CLIENTS -j ACCEPT
+            
+            if [ $VERBOSE -gt 0 ]; then
+                echo "firewall: Remote clients may access local FTP server"
+            fi
+	fi
+
+
+	#
+	# HTTP (80) - Accessing remote web sites as a client
+	#
+
+	if [ $HTTP_CLIENT -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 80 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 80 --dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 80 -j ACCEPT
+	       iptables -A FORWARD -p TCP -d $INTERNAL_NETWORK --sport 80 --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Clients may access remote HTTP servers"
+	    fi
+
+	fi
+
+	#
+	# HTTP (80) - Allowing remote access to a local web server
+	#
+
+	if [ $HTTP_SERVER -gt 0 ]; then
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 80 -s $MY_HTTP_CLIENTS -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 80 --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $MY_HTTP_CLIENTS -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 8080 -s $MY_HTTP_CLIENTS -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 8080 --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $MY_HTTP_CLIENTS -j ACCEPT
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Remote clients may access local HTTP server"
+	    fi
+
+	fi
+
+
+	#
+	# HTTPS (443) - Accessing remote web sites over SSL as a client
+	#
+
+	if [ $HTTPS_CLIENT -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 443 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 443 --dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 443 -j ACCEPT
+	       iptables -A FORWARD -m state --state ESTABLISHED,RELATED -p TCP -d $INTERNAL_NETWORK \
+		--sport 443 --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Clients may access remote HTTPS servers"
+	    fi
+
+	fi
+
+	#
+	# HTTPS (443) - Allowing remote access to a local SSL web server
+	#
+
+	if [ $HTTPS_SERVER -gt 0 ]; then
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 443 -s $MY_HTTP_CLIENTS -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 443 --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $MY_HTTP_CLIENTS -j ACCEPT
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Remote clients may access local HTTPS server"
+	    fi
+
+	fi
+
+	#
+	# HTTP Proxy Client (8008/8080)
+	#
+
+	if [ $HTTP_PROXY -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport $WEB_PROXY_PORT -s $EXTERNAL_IP -d $WEB_PROXY_SERVER -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport $WEB_PROXY_PORT --dport $UNPRIVPORTS -s $WEB_PROXY_SERVER -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport $WEB_PROXY_PORT -j ACCEPT
+	       iptables -A FORWARD -m state --state ESTABLISHED,RELATED -p TCP -d $INTERNAL_NETWORK \
+		--sport $WEB_PROXY_PORT --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Clients may access remote sites via HTTP Proxy Server"
+	    fi
+
+	fi
+
+
+	#
+	# FINGER (79) - Accessing remote finger servers as a client
+	#
+
+	if [ $FINGER_CLIENT -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 79 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 79 --dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 79 -j ACCEPT
+	       iptables -A FORWARD -m state --state ESTABLISHED,RELATED -p TCP -d $INTERNAL_NETWORK \
+		--sport 79 --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Clients may access remote FINGER servers"
+	    fi
+
+	fi
+
+	#
+	# FINGER (79) - Allowing remote client access to a local finger server (dangerous!)
+	#
+
+	if [ $FINGER_SERVER -gt 0 ]; then
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 79 -s $MY_FINGER_CLIENTS -d $EXTERNAL_IP -j ACCEPT
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 79 --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $MY_FINGER_CLIENTS -j ACCEPT
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Remote clients may access local FINGER server"
+	    fi
+
+	fi
+
+	#
+	# WHOIS (43) - Accessing a remote WHOIS server as a client
+	#
+
+	if [ $WHOIS_CLIENT -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 43 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 43 --dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 43 -j ACCEPT
+	       iptables -A FORWARD -m state --state ESTABLISHED,RELATED -p TCP -d $INTERNAL_NETWORK \
+		--sport 43 --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Clients may access remote WHOIS servers"
+	    fi
+
+	fi
+
+	#
+	# GOPHER (70) - Accessing a remote GOPHER server as a client
+	#
+
+	if [ $GOPHER_CLIENT -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 70 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 70 --dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 70 -j ACCEPT
+	       iptables -A FORWARD -m state --state ESTABLISHED,RELATED -p TCP -d $INTERNAL_NETWORK \
+		--sport 70 --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Clients may access remote GOPHER servers"
+	    fi
+
+	fi
+
+	#
+	# WAIS (210) - Accessing a remote WAIS server as a client
+	#
+
+	if [ $WAIS_CLIENT -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	--sport $UNPRIVPORTS --dport 210 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP -m state --state ESTABLISHED,RELATED \
+	--sport 210 --dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 210 -j ACCEPT
+	       iptables -A FORWARD -m state --state ESTABLISHED,RELATED -p TCP -d $INTERNAL_NETWORK \
+		--sport 210 --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Clients may access remote WAIS servers"
+	    fi
+
+	fi
+
+	#
+        # Real Video (554) - Real Video Client
+        #
+
+        if [ $RV_CLIENT -gt 0 ]; then
+            iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+               --sport $UNPRIVPORTS --dport 554 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+            iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP \
+               --sport 554 -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 554 -j ACCEPT
+	       iptables -A FORWARD -m state --state ESTABLISHED,RELATED -p TCP -d $INTERNAL_NETWORK \
+		--sport 554 --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+            if [ $VERBOSE -gt 0 ]; then
+                echo "firewall: Real Video client enabled"
+            fi
+        fi
+
+        #
+        # PPTP (1723) - Accessing PPTP servers as a client
+        #
+
+        if [ $PPTP_CLIENT -gt 0 ]; then
+
+            iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+                --sport $UNPRIVPORTS --dport 1723 \
+                -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+            iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP  \
+                --sport 1723 --dport $UNPRIVPORTS \
+                -s $ANYWHERE -d $EXTERNAL_IP \
+                -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+            iptables -A INPUT -i $EXTERNAL_INTERFACE -p 47 -j ACCEPT
+            iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p 47 -j ACCEPT
+
+            if [ $MASQUERADING -gt 0 ]; then
+               iptables -A INPUT -i $INTERNAL_INTERFACE -p 47 -j ACCEPT
+               iptables -A OUTPUT -o $INTERNAL_INTERFACE -p 47 -j ACCEPT
+
+               iptables -A FORWARD -p TCP -s $INTERNAL_NETWORK \
+                  --sport $UNPRIVPORTS --dport 1723 -j ACCEPT
+
+               iptables -A FORWARD -p TCP -d $INTERNAL_NETWORK \
+                  -m state --state ESTABLISHED,RELATED \
+                  --sport 1723 --dport $UNPRIVPORTS -j ACCEPT
+
+               iptables -A FORWARD -p 47 -s $INTERNAL_NETWORK -j ACCEPT
+               iptables -A FORWARD -p 47 -d $INTERNAL_NETWORK -j ACCEPT
+
+            fi
+
+            if [ $VERBOSE -gt 0 ]; then
+                echo "firewall: Clients may access remote PPTP servers"
+            fi
+
+        fi
+
+
+
+	#
+	# UDP - Accept only on selected ports
+	#
+
+	#
+	# TRACEROUTE
+	#
+	# Traceroute usually uses -s 32769:65535 -d 33434:33523
+	#
+
+	if [ $OUTBOUND_TRACEROUTE -gt 0 ]; then
+
+	    # Enable outgoing TRACEROUTE requests
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p UDP \
+	--sport $TRACEROUTE_SRC_PORTS --dport $TRACEROUTE_DEST_PORTS \
+	-s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p UDP -s $INTERNAL_NETWORK --sport $TRACEROUTE_SRC_PORTS \
+		--dport $TRACEROUTE_DEST_PORTS -j ACCEPT
+	       iptables -A FORWARD -p UDP -d $INTERNAL_NETWORK --sport $TRACEROUTE_DEST_PORTS \
+		--dport $TRACEROUTE_SRC_PORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Outbound TRACEROUTE enabled"
+	    fi
+
+	fi
+
+	if [ $INBOUND_TRACEROUTE -gt 0 ]; then
+
+	    # Enable incoming TRACEROUTE query
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p UDP \
+	--sport $TRACEROUTE_SRC_PORTS --dport $TRACEROUTE_DEST_PORTS \
+	-s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p UDP -d $INTERNAL_NETWORK --sport $TRACEROUTE_SRC_PORTS \
+		--dport $TRACEROUTE_DEST_PORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+		echo "firewall: Inbound TRACEROUTE enabled"
+	    fi
+
+	fi
+
+
+        #
+        # DHCP Server
+	#
+        # This assumes that you're running a DHCP server on your firewall to
+        # supply IP addresses to your internal network using dhcpd.  See any
+        # of several DHCP HowTo sites for the actual server setup.
+        #
+
+        if [ $DHCP_SERVER -gt 0 ]; then
+
+            iptables -A INPUT -i $INTERNAL_INTERFACE -p udp -s $BROADCAST_SRC \
+        -d $BROADCAST_DEST --sport 67:68 --dport 67:68 -j ACCEPT
+            iptables -A OUTPUT -o $INTERNAL_INTERFACE -p udp -s $INTERNAL_IP \
+        --sport 67:68 --dport 67:68 -j ACCEPT
+            iptables -A FORWARD -p udp -s $INTERNAL_NETWORK --sport 67:68 --dport 67:68 -j ACCEPT
+	    iptables -A FORWARD -p udp -d $INTERNAL_NETWORK --sport 67:68 --dport 67:68 -j ACCEPT
+
+           if [ $VERBOSE -gt 0 ]; then
+                echo "firewall: DHCP Server enabled"
+           fi
+
+        fi
+
+
+        #
+        # NTP (123) - Accessing remote Network Time Servers
+        #
+
+        if [ $NTP_CLIENT -gt 0 ]; then
+
+            iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p UDP \
+        --sport $UNPRIVPORTS --dport 123 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+            iptables -A INPUT -i $EXTERNAL_INTERFACE -p UDP \
+        --sport 123 --dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+            iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p UDP \
+        --sport 123 --dport 123 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+            iptables -A INPUT -i $EXTERNAL_INTERFACE -p UDP \
+        --sport 123 --dport 123 -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p UDP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 123 -j ACCEPT
+	       iptables -A FORWARD -p UDP -d $INTERNAL_NETWORK --sport 123 --dport $UNPRIVPORTS -j ACCEPT
+	       iptables -A FORWARD -p UDP -s $INTERNAL_NETWORK --sport 123 --dport 123 -j ACCEPT
+	       iptables -A FORWARD -p UDP -d $INTERNAL_NETWORK --sport 123 --dport 123 -j ACCEPT
+	    fi
+
+            if [ $VERBOSE -gt 0 ]; then
+                echo "firewall: NTP Client enabled"
+            fi
+
+        fi
+
+
+	#
+	# ICQ (4000) - The Miribilis ICQ Client
+	#
+
+	if [ $ICQ_CLIENT -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p UDP \
+	--sport $UNPRIVPORTS --dport 4000 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p UDP \
+	--sport 4000 --dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p UDP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 4000 -j ACCEPT
+	       iptables -A FORWARD -p UDP -d $INTERNAL_NETWORK --sport 4000 --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+	        echo "firewall: ICQ Client enabled"
+	    fi
+
+	fi
+
+	#
+	# GAMES
+	# Half-Life/CounterStrike
+	#
+
+	if [ $HALF_LIFE -gt 0 ]; then
+
+	    iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p UDP \
+	--sport 27000:27050 --dport $UNPRIVPORTS -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+
+	    iptables -A INPUT -i $EXTERNAL_INTERFACE -p UDP \
+	-m state --state RELATED,ESTABLISHED,NEW --dport 27000:27050 -s $ANYWHERE \ 
+	-d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p UDP -s $INTERNAL_NETWORK --sport 27000:27050 --dport $UNPRIVPORTS -j ACCEPT
+	       iptables -A FORWARD -p UDP -d $INTERNAL_NETWORK -m state --state RELATED,ESTABLISHED,NEW --dport 27000:27050 -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+	        echo "firewall: Half-Life/CounterStrike game ports enabled"
+	    fi
+
+	fi
+	
+	#
+	# Return to Castle Wolfenstein
+	#
+
+	if [ $WOLF_CLIENT -gt 0 ]; then
+
+	    iptables  -A OUTPUT -o $EXTERNAL_INTERFACE -p UDP \
+	--sport $UNPRIVPORTS --dport 27950:27965 -s $EXTERNAL_IP -d $ANYWHERE -j ACCEPT
+	    iptables  -A INPUT -i $EXTERNAL_INTERFACE -p UDP \
+	--sport 27950:27965 --dport $UNPRIVPORTS -s $ANYWHERE -d $EXTERNAL_IP -j ACCEPT
+
+	    if [ $MASQUERADING -gt 0 ]; then
+	       iptables -A FORWARD -p UDP -s $INTERNAL_NETWORK --sport $UNPRIVPORTS --dport 27950:27965 -j ACCEPT
+	       iptables -A FORWARD -p UDP -d $INTERNAL_NETWORK --sport 27950:27965 --dport $UNPRIVPORTS -j ACCEPT
+	    fi
+
+	    if [ $VERBOSE -gt 0 ]; then
+	        echo "firewall: Castle Wolfenstein game ports enabled"
+	    fi
+	fi
+
+
+	# -------------------------------------------------------------
+
+	#
+	# Spoofing and Bad Addresses
+	#
+
+	# (These would usually be logged as well, rather than just DROPped, but the
+	# huge number of attempts from China to play game(s) generates huge log files;
+	# if you want them logged, put the rules in firewall.local)
+
+	# Refuse spoofed packets.
+	# Ignore blatantly illegal source addresses.
+	# Protect yourself from sending to bad addresses.
+
+	# Refuse spoofed packets pretending to be from
+	# the external interface's IP address.
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -s $EXTERNAL_IP -j LnD
+
+	# Refuse packets claiming to be to or from a Class-A private network.
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -s $CLASS_A -j LnD
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -d $CLASS_A -j LnD
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -s $CLASS_A -j LnD
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -d $CLASS_A -j LnD
+
+	# Refuse packets claiming to be to or from a Class-B private network.
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -s $CLASS_B -j LnD
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -d $CLASS_B -j LnD
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -s $CLASS_B -j LnD
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -d $CLASS_B -j LnD
+
+	# Refuse packets claiming to be to or from a Class-C private network.
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -s $CLASS_C -j LnD
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -d $CLASS_C -j LnD
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -s $CLASS_C -j LnD
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -d $CLASS_C -j LnD
+
+	# Refuse packets claiming to be from the loopback.
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -s $LOOPBACK_NETWORK -j LnD
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -s $LOOPBACK_NETWORK -j LnD
+
+	# Refuse malformed broadcast packets.
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -s $BROADCAST_DEST -j LnD
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -d $BROADCAST_SRC  -j LnD
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -s $BROADCAST_DEST -j LnD
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -d $BROADCAST_SRC  -j LnD
+
+	# Refuse Class-D Multicast addresses.
+	# Multicast is only illegal as a source address.
+	# Multicast uses UDP.
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -s $CLASS_D_MULTICAST -j LnD
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -s $CLASS_D_MULTICAST -j LnR
+
+	# Refuse Class-E reserved IP addresses.
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -s $CLASS_E_RESERVED_NET -j LnD
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -d $CLASS_E_RESERVED_NET -j LnR
+
+
+	# -------------------------------------------------------------
+
+	#
+	# DROP (on input), REJECT (output) and LOG anything else on the external (red) interface
+	#
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -p TCP \
+	    -s $ANYWHERE -j LnD
+
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p TCP \
+	    -s $ANYWHERE -j LnR
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -p UDP \
+	    -s $ANYWHERE -j LnD
+
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p UDP \
+	    -s $ANYWHERE -j LnR
+
+	iptables -A INPUT -i $EXTERNAL_INTERFACE -p ICMP \
+	    -s $ANYWHERE -j LnD
+
+	iptables -A OUTPUT -o $EXTERNAL_INTERFACE -p ICMP \
+	    -s $ANYWHERE -j LnR
+
+	# -------------------------------------------------------------
+
+	# Zero counts
+	iptables -Z
+
+	# -------------------------------------------------------------
+
+	echo "done"
+	touch /var/lock/subsys/firewall
+	echo
+	;;
+
+  status)
+  	if [ -f /var/lock/subsys/firewall ]; then
+	    echo "Firewall started and configured"
+	else
+	    echo "Firewall stopped"
+	fi
+	exit 0
+	;;
+
+  restart|reload)
+	$0 stop
+	$0 start
+	;;
+
+  stop)
+  	echo "Shutting down Firewall services"
+
+	# Turn off IP Forwarding
+	echo 0 >/proc/sys/net/ipv4/ip_forward
+
+	# Turn off dynamic IP hacking
+      	echo 0 > /proc/sys/net/ipv4/ip_dynaddr
+
+	# Flush the rule chains
+	iptables -F
+
+	# Delete custom chains
+	iptables -X
+
+	# Zero counts
+	iptables -Z
+
+	# Set the default policy to DROP
+	iptables -P INPUT DROP
+	iptables -P OUTPUT DROP
+	iptables -P FORWARD DROP
+
+	# Allow unlimited traffic on the loopback interface
+	iptables -A INPUT -i $LOOPBACK_INTERFACE -j ACCEPT
+	iptables -A OUTPUT -o $LOOPBACK_INTERFACE -j ACCEPT
+
+	# Open the configuration file
+	if [ -f /etc/firewall/firewall.conf.iptables ]; then
+	    . /etc/firewall/firewall.conf.iptables
+
+	    # Allow unlimited traffic on the loopback interface
+	    iptables -A INPUT -i $LOOPBACK_INTERFACE -j ACCEPT
+	    iptables -A OUTPUT -o $LOOPBACK_INTERFACE -j ACCEPT
+
+            if [ $MASQUERADING -gt 0 ]; then
+                # Allow unlimited local traffic on the internal interface
+                iptables -A INPUT -i $INTERNAL_INTERFACE -j ACCEPT
+                iptables -A OUTPUT -o $INTERNAL_INTERFACE -j ACCEPT
+	    fi
+	else
+	    echo "firewall: No configuration file found at /etc/firewall/firewall.conf.iptables"
+	    exit 1
+	fi
+
+	rm -f /var/lock/subsys/firewall
+	echo
+	;;
+  *)
+	echo "Usage: /etc/rc.d/init.d/firewall.iptables {start|stop|status|restart|reload}"
+	exit 1
+esac
+
+exit 0
+</pre>
+<h4><a href="#TOP">Top</a></h4>
+<h2><a name="F1_1" id="F1_1"></a>firewall.conf.iptables</h2>
+<pre class="style1">
+#
+# File:	/etc/firewall/firewall.conf.iptables
+#
+# Firewall Configuration
+#
+# This file contains the editable firewall parameters.
+# User edits belong in this file. It is included by
+# /etc/rc.d/init.d/firewall when the configuration script
+# runs.
+#
+# Original ipchains scripts by:
+#       Craig Zeller &lt;zeller@fatpenguin.com> - 03-Jan-2000
+# Translated to iptables and modified by:
+#       Bob Sully    (rcs@malibyte.net) - latest: 06-Jul-2003
+
+# ------------------------------------------------------------------
+
+
+VERBOSE=1				# Turns on verbose feature
+					# (configuration messages)
+#
+# INTERFACES
+#
+# Edit these to suit your system interfaces
+#
+
+#
+# The 'External Interface' is the connection to your
+# ISP via Ethernet, xDSL, Cable Modem, T1, etc. This
+# is the Internet side, where the bad guys hang out.
+#
+
+#EXTERNAL_INTERFACE="eth0"		# Unsecure (Red) Interface		<--- Edit here!
+#EXTERNAL_IP="11.222.111.221"		# Unsecure (Red) IP address		<--- Edit here!
+EXTERNAL_INTERFACE="eth0"		# Unsecure (Red) Interface
+EXTERNAL_IP="216.114.150.51"		# Unsecure (Red) IP address
+
+#
+# Special case for PPP external interface: grabs external IP address after connecting.
+# If running PPP over Ethernet, may need to change "ppp0" to "ethx" where ethx = 
+#   your "external" network interface, e.g. eth0
+# Requires awk; thanks to Sean Mannion &lt;jbkr26c@worldnet.att.net> 
+#
+
+if [ $EXTERNAL_INTERFACE == "ppp0" ]; then
+        EXTERNAL_IP=`/sbin/ifconfig ppp0 |awk '/inet addr/{split($2,x,":"); print x[2]}'`
+fi
+
+
+#	
+# The 'Internal Interface' is the connection to your
+# protected network(s).
+#
+
+#INTERNAL_INTERFACE="eth1"		# Secure (Black) Interface		<--- Edit here!
+#INTERNAL_NETWORK="192.168.56.0/24"	# Secure (Black) LAN network range	<--- Edit here!
+#INTERNAL_IP="192.168.56.1"		# Secure (Black) LAN IP address		<--- Edit here!
+INTERNAL_INTERFACE="eth1"		# Secure (Black) Interface
+INTERNAL_NETWORK="195.114.150.0/24"	# Secure (Black) LAN network range
+INTERNAL_IP="195.114.150.1"		# Secure (Black) LAN IP address	
+
+
+BROADCAST_NET="11.222.111.255"		# Broadcast address for your local subnet;
+					# can be used for user-generated rules in
+					# firewall.local; not required to be defined 
+					# otherwise.
+
+# ------------------------------------------------------------------
+
+#
+# Your ISP's servers
+#
+
+#
+# Valid responses here consist of:
+#
+#   1.  A single IP address in CIDR notation (ex: 192.168.1.1/32)
+#
+#   2.  A network IP address range in CIDR notation (ex: 192.168.1.0/24)
+#
+#   3.  The expression 'any/0', which matches any IP address.
+#
+# Note that in CIDR (Classless Internet Domain Routing) notation, the
+# number following the slash mark is the number of bits in the network
+# portion of the address. This notation replaces the old Class-A (CIDR /8),
+# Class-B (CIDR /16), and Class-C (CIDR /24) netmasks. CIDR addressing
+# greatly simplifies sub-netting as netmasks can be on any bit-boundary.
+#
+
+DHCP_SERVER_IP="my.dhcp.server"		# ISPs DHCP Server (if known)
+SMTP_SERVER="my.smtp.server"		# ISPs External SMTP Mail Server
+POP_SERVER="my.pop3.server"		# External POP3 Server, if any
+MY_IMAP_SERVER="my.imap.server"		# External IMAP Server, if any
+NEWS_SERVER="my.news.server"		# External NNTP News Server, if any
+SNEWS_SERVER="your.snews.server"        # External Secure NNTP News Server, if any
+MY_NEWS_FEED="my.news.feed"		# ISP NNTP News Feed, if any
+
+SMTP_SERVER="smtp.hotpop.com"		# ISPs External SMTP Mail Server
+POP_SERVER="pop.hotpop.com"		# External POP3 Server, if any
+
+#
+# The following entry requires an IP address or range as in the
+# previous paragraph.
+#
+
+#WEB_PROXY_SERVER="my.www.proxy"	# ISP Web Proxy Server, if any
+
+#
+# The port number of your proxy host. Typically this is 8008
+# or 8080.
+#
+
+#WEB_PROXY_PORT="www.proxy.port"	# ISP Web Proxy Port, if any
+
+
+# ------------------------------------------------------------------
+
+#
+# Firewall Configuration Options
+#
+
+# Set the variables on the following lines = 1 to enable
+# their respective features, or = 0 to disable.
+
+#
+# IP MASQUERADING
+#
+# Set the following variable = 1 if you are Masquerading
+#  your internal (RFC-1918) network, else = 0.
+#
+
+MASQUERADING=1
+
+#
+# Set the following variable = 1 if your firewall's
+# external interface gets its IP address from your ISP's
+# DHCP server. The 'external interface' is the one that is
+# connected to your ISP via xDSL, Cable Modem, T1, etc.,
+# and is often referred to as the 'Red' interface.
+#
+# New DHCP client routine should work with just about any DHCP 
+# client application.
+  
+DHCP=0
+
+#
+# Port-Forwarding
+#
+#
+# Set the following variable = 1 if you wish to allow 
+# port-forwarding through your firewall to services 
+# running on machines in your internal network.
+#
+
+PORT_FORWARD=0
+
+
+#
+# ICMP Services
+#
+
+#
+# Set the following variable = 1 if you wish to allow
+# local clients to 'ping' external sites.
+#
+
+OUTBOUND_PING=1
+
+#
+# Set the following variable = 1 if you wish to allow
+# external sites to ping your firewall (stops at the
+# firewall).
+#
+
+INBOUND_PING=0
+
+#
+# Set the following variable = 1 if you wish to allow
+# local clients to 'traceroute' to external sites.
+#
+
+OUTBOUND_TRACEROUTE=1
+
+#
+# Set the following variable = 1 if you wish to allow
+# external sites to 'traceroute' to your firewall (stops
+# at the firewall).
+#
+
+INBOUND_TRACEROUTE=0
+
+
+# ------------------------------------------------------------------
+
+
+#
+# E-Mail Services
+#
+
+#
+# Set the following variable = 1 if you send your outbound
+# EMail via SMTP protocol through your ISPs mail server.
+# This is most frequently used in combination with the
+# next option, POP3_CLIENT.
+#
+
+SMTP_REMOTE_SERVER=1
+
+#
+# Set the following variable = 1 if you receive your
+# inbound EMail via POP3 protocol from your ISPs mail
+# server. This is the method most installations will use.
+#
+
+POP3_CLIENT=1
+
+#
+# Set the following variable = 1 if you get your
+# EMail via IMAP protocol from your ISPs mail server.
+# This is still quite rare.
+#
+
+IMAP_CLIENT=0
+
+#
+# Set the following variable = 1 if you are running
+# Sendmail (or other MTA) on your firewall. Your
+# local mail clients will connect via POP3 to your
+# firewall for mail delivery. Note that this does
+# not require the POP3_CLIENT option for clients
+# inside the firewall.
+#
+
+SMTP_LOCAL_SERVER=0
+
+
+# ------------------------------------------------------------------
+
+
+#
+# CLIENT ACCESS
+#
+# Set the following variables = 1 to enable their respective
+# client services, or = 0 to disable. These features allow
+# your internal clients to access services on external
+# Internet servers.
+#
+
+AUTH_CLIENT=1			# The Auth Protocol
+DNS_CLIENT=1			# Domain Name Servers
+FINGER_CLIENT=1			# Finger Protocol
+FTP_CLIENT=1			# File Transfer Protocol
+GOPHER_CLIENT=1			# Gopher Protocol
+HTTP_CLIENT=1			# WWW Client Protocol
+HTTPS_CLIENT=1			# Secure WWW Client Protocol
+HTTP_PROXY=0			# WWW through a Web Proxy Server
+NNTP_CLIENT=0			# The Usenet News Protocol
+NNTPS_CLIENT=0                  # NNTP access over SSL (port 563)
+NTP_CLIENT=0			# The Network Time Protocol
+SSH_CLIENT=1			# The secure SSH Protocol (Telnet/FTP)
+TELNET_CLIENT=1			# The Telnet Protocol
+WAIS_CLIENT=1			# The WAIS Protocol
+WHOIS_CLIENT=1			# WHOIS Protocol
+ICQ_CLIENT=1			# The Miribilis ICQ Client Protocol
+RV_CLIENT=1			# The RealVideo Client (port 554)
+PPTP_CLIENT=1			# PPTP server access as client (1723)
+					
+# ------------------------------------------------------------------
+
+#
+# SERVER ACCESS
+#
+
+# Enable this if you're running dhcpd on your firewall to
+# supply IP addresses to machines on your internal (masqueraded)
+# network.
+ 
+DHCP_SERVER=1                   # DHCP server for internal network
+
+
+# Note: Enabling these services is for EXTERNAL access from
+# the Internet. Access from internal clients to the firewall
+# server does not require that these items be configured.
+# THIS IS FOR EXTERNAL ACCESS - BE CAREFUL!
+#
+
+FTP_SERVER=0			# If you are running an FTP server
+MY_FTP_CLIENTS="any/0"		# My FTP client list
+DNS_CACHING_SERVER=0		# Caching-Only Domain Name Server
+DNS_FULL_SERVER=0		# Full-function Domain Name Server
+				# DNS Secondary name servers for zone transfer:
+				# Place allowed DNS IP's in /etc/firewall/firewall.dns
+				# in CIDR format, one IP per line
+AUTH_SERVER=0			# AUTH protocol server
+POP3_SERVER=0			# POP-3 EMail server
+MY_POP3_CLIENTS="any/0"		# POP-3 EMail client list
+IMAP_SERVER=0			# IMAP EMail server
+MY_IMAP_CLIENTS="any/0"		# IMAP EMail client list
+NNTP_SERVER=0			# Usenet NNTP News server
+MY_NNTP_CLIENTS="any/0"		# Usenet News client list
+NNTP_NEWS_FEED=0		# NNTP News feeds
+TELNET_SERVER=0			# Telnet server (unsecure - not recommended)
+MY_TELNET_CLIENTS="any/0"	# Telnet client list
+SSH_SERVER=0			# Secure SSH server (Telnet/FTP)
+MY_SSH_CLIENTS="any/0"		# Secure SSH client list
+SSH_PORT="22"			# SSH access port, usually 22
+HTTP_SERVER=0			# Web (HTTP) server
+MY_HTTP_CLIENTS="any/0"		# My WWW client list
+HTTPS_SERVER=0			# Secure Web server (SSL)
+FINGER_SERVER=0			# Finger Server (not recommended)
+MY_FINGER_CLIENTS="any/0"	# My Finger client list
+
+#
+# Games
+#
+
+HALF_LIFE=0			# Enable this if you run a 
+				# Half-Life/CounterStrike server
+WOLF_CLIENT=0			# Client ports for Return to Castle Wolfenstein
+</pre>
+<h4><a href="#TOP">Top</a></h4>
+<h2><a name="F1_2"></a>firewall.banned</h2>
+<pre class="style1">
+202.0.110.0/24
+203.0.111.1/32
+204.1.0.0/16
+205.0.0.0/8
+4.63.103.107
+4.72.38.219
+12.80.38.5
+24.73.153.114
+24.215.145.246
+63.246.140.210
+64.123.9.46
+65.74.27.110
+66.143.249.75
+68.63.127.219
+68.48.101.170
+80.56.188.54
+80.139.188.37
+80.143.108.184
+80.179.193.162
+81.59.90.118
+192.18.97.53
+196.10.101.14
+200.38.28.3
+200.66.188.29
+209.111.103.45
+211.180.220.140
+213.13.226.142
+213.36.207.164
+213.51.197.224
+216.114.163.68
+216.114.175.143
+216.114.175.183
+218.23.66.231
+</pre>
+<h4><a href="#TOP">Top</a></h4>
+<h2><a name="F1_3"></a>firewall.iana_reserved</h2>
+<pre class="style1">
+0.0.0.0/8
+1.0.0.0/8
+2.0.0.0/8
+5.0.0.0/8
+7.0.0.0/8
+23.0.0.0/8
+27.0.0.0/8
+31.0.0.0/8
+36.0.0.0/8
+37.0.0.0/8
+39.0.0.0/8
+41.0.0.0/8
+42.0.0.0/8
+58.0.0.0/8
+59.0.0.0/8
+70.0.0.0/8
+71.0.0.0/8
+72.0.0.0/8
+73.0.0.0/8
+74.0.0.0/8
+75.0.0.0/8
+76.0.0.0/8
+77.0.0.0/8
+78.0.0.0/8
+79.0.0.0/8
+83.0.0.0/8
+84.0.0.0/8
+85.0.0.0/8
+86.0.0.0/8
+87.0.0.0/8
+88.0.0.0/8
+89.0.0.0/8
+90.0.0.0/8
+91.0.0.0/8
+92.0.0.0/8
+93.0.0.0/8
+94.0.0.0/8
+95.0.0.0/8
+96.0.0.0/8
+97.0.0.0/8
+98.0.0.0/8
+99.0.0.0/8
+100.0.0.0/8
+101.0.0.0/8
+102.0.0.0/8
+103.0.0.0/8
+104.0.0.0/8
+105.0.0.0/8
+106.0.0.0/8
+107.0.0.0/8
+108.0.0.0/8
+109.0.0.0/8
+110.0.0.0/8
+111.0.0.0/8
+112.0.0.0/8
+113.0.0.0/8
+114.0.0.0/8
+115.0.0.0/8
+116.0.0.0/8
+117.0.0.0/8
+118.0.0.0/8
+119.0.0.0/8
+120.0.0.0/8
+121.0.0.0/8
+122.0.0.0/8
+123.0.0.0/8
+124.0.0.0/8
+125.0.0.0/8
+126.0.0.0/8
+127.0.0.0/8
+173.0.0.0/8
+174.0.0.0/8
+175.0.0.0/8
+176.0.0.0/8
+177.0.0.0/8
+178.0.0.0/8
+179.0.0.0/8
+180.0.0.0/8
+181.0.0.0/8
+182.0.0.0/8
+183.0.0.0/8
+184.0.0.0/8
+185.0.0.0/8
+186.0.0.0/8
+187.0.0.0/8
+189.0.0.0/8
+190.0.0.0/8
+197.0.0.0/8
+223.0.0.0/8
+</pre>
+<p><a href="#TOP">Top</a></p>
+<h2><a name="F1_5"></a>iptables --list</h2>
+<pre class="style1">
+Chain INPUT (policy DROP)
+target     prot opt source               destination
+ACCEPT     all  --  anywhere             anywhere
+DROP       all  --  anywhere             216.114.150.0
+DROP       all  --  anywhere             216.114.150.127
+DROP       all  --  anywhere             255.255.255.255
+ScanD      tcp  --  anywhere             anywhere           tcp flags:FIN,SYN,RST,PSH,ACK,URG/NONE
+ScanD      tcp  --  anywhere             anywhere           tcp flags:FIN,SYN/FIN,SYN
+ScanD      tcp  --  anywhere             anywhere           tcp flags:SYN,RST/SYN,RST
+ScanD      tcp  --  anywhere             anywhere           tcp flags:FIN,RST/FIN,RST
+ScanD      tcp  --  anywhere             anywhere           tcp flags:FIN,ACK/FIN
+ScanD      tcp  --  anywhere             anywhere           tcp flags:PSH,ACK/PSH
+ScanD      tcp  --  anywhere             anywhere           tcp flags:ACK,URG/URG
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     all  --  195.114.150.0/24     anywhere
+DROP       all  --  202.0.110.0/24       anywhere
+DROP       all  --  anywhere             202.0.110.0/24
+DROP       all  --  203.0.111.1          anywhere
+DROP       all  --  anywhere             203.0.111.1
+DROP       all  --  204.1.0.0/16         anywhere
+DROP       all  --  anywhere             204.1.0.0/16
+DROP       all  --  205.0.0.0/8          anywhere
+DROP       all  --  anywhere             205.0.0.0/8
+DROP       all  --  crtntx1-ar5-4-63-103-107.crtntx1.dsl-verizon.net  anywhere
+DROP       all  --  anywhere             crtntx1-ar5-4-63-103-107.crtntx1.dsl-verizon.net
+DROP       all  --  dialup-4.72.38.219.Dial1.Miami1.Level3.net  anywhere
+DROP       all  --  anywhere             dialup-4.72.38.219.Dial1.Miami1.Level3.net
+DROP       all  --  12.80.38.5           anywhere
+DROP       all  --  anywhere             12.80.38.5
+DROP       all  --  rrcs-se-24-73-153-114.biz.rr.com  anywhere
+DROP       all  --  anywhere             rrcs-se-24-73-153-114.biz.rr.com
+DROP       all  --  user-0cdf4fm.cable.mindspring.com  anywhere
+DROP       all  --  anywhere             user-0cdf4fm.cable.mindspring.com
+DROP       all  --  63.246.140.210       anywhere
+DROP       all  --  anywhere             63.246.140.210
+DROP       all  --  adsl-64-123-9-46.dsl.austtx.swbell.net  anywhere
+DROP       all  --  anywhere             adsl-64-123-9-46.dsl.austtx.swbell.net
+DROP       all  --  110-27-74-65.gci.net  anywhere
+DROP       all  --  anywhere             110-27-74-65.gci.net
+DROP       all  --  adsl-66-143-249-75.dsl.snantx.swbell.net  anywhere
+DROP       all  --  anywhere             adsl-66-143-249-75.dsl.snantx.swbell.net
+DROP       all  --  pcp01259934pcs.nhaven01.ct.comcast.net  anywhere
+DROP       all  --  anywhere             pcp01259934pcs.nhaven01.ct.comcast.net
+DROP       all  --  pcp04316147pcs.dalect01.va.comcast.net  anywhere
+DROP       all  --  anywhere             pcp04316147pcs.dalect01.va.comcast.net
+DROP       all  --  f188054.upc-f.chello.nl  anywhere
+DROP       all  --  anywhere             f188054.upc-f.chello.nl
+DROP       all  --  p508BBC25.dip.t-dialin.net  anywhere
+DROP       all  --  anywhere             p508BBC25.dip.t-dialin.net
+DROP       all  --  p508F6CB8.dip.t-dialin.net  anywhere
+DROP       all  --  anywhere             p508F6CB8.dip.t-dialin.net
+DROP       all  --  80.179.193.162.forward.012.net.il  anywhere
+DROP       all  --  anywhere             80.179.193.162.forward.012.net.il
+DROP       all  --  dslam118-90-59-81.dyndsl.zonnet.nl  anywhere
+DROP       all  --  anywhere             dslam118-90-59-81.dyndsl.zonnet.nl
+DROP       all  --  jsecom16c.Sun.COM    anywhere
+DROP       all  --  anywhere             jsecom16c.Sun.COM
+DROP       all  --  bcrux.airborn.biz    anywhere
+DROP       all  --  anywhere             bcrux.airborn.biz
+DROP       all  --  200.38.28.3          anywhere
+DROP       all  --  anywhere             200.38.28.3
+DROP       all  --  dup-200-66-188-29.prodigy.net.mx  anywhere
+DROP       all  --  anywhere             dup-200-66-188-29.prodigy.net.mx
+DROP       all  --  gw01-chv-nc-209-111-103-45.rasserver.net  anywhere
+DROP       all  --  anywhere             gw01-chv-nc-209-111-103-45.rasserver.net
+DROP       all  --  koreaptg.co.kr       anywhere
+DROP       all  --  anywhere             koreaptg.co.kr
+DROP       all  --  213.13.226.142       anywhere
+DROP       all  --  anywhere             213.13.226.142
+DROP       all  --  dyn-213-36-207-164.ppp.tiscali.fr  anywhere
+DROP       all  --  anywhere             dyn-213-36-207-164.ppp.tiscali.fr
+DROP       all  --  co150483-a.olden1.ov.home.nl  anywhere
+DROP       all  --  anywhere             co150483-a.olden1.ov.home.nl
+DROP       all  --  dialup829.wnskvtao.sover.net  anywhere
+DROP       all  --  anywhere             dialup829.wnskvtao.sover.net
+DROP       all  --  dialup3952.wnskvtao.sover.net  anywhere
+DROP       all  --  anywhere             dialup3952.wnskvtao.sover.net
+DROP       all  --  dialup3992.wnskvtao.sover.net  anywhere
+DROP       all  --  anywhere             dialup3992.wnskvtao.sover.net
+DROP       all  --  218.23.66.231        anywhere
+DROP       all  --  anywhere             218.23.66.231
+DROP       all  --  0.0.0.0/8            anywhere
+DROP       all  --  anywhere             0.0.0.0/8
+DROP       all  --  1.0.0.0/8            anywhere
+DROP       all  --  anywhere             1.0.0.0/8
+DROP       all  --  2.0.0.0/8            anywhere
+DROP       all  --  anywhere             2.0.0.0/8
+DROP       all  --  5.0.0.0/8            anywhere
+DROP       all  --  anywhere             5.0.0.0/8
+DROP       all  --  7.0.0.0/8            anywhere
+DROP       all  --  anywhere             7.0.0.0/8
+DROP       all  --  23.0.0.0/8           anywhere
+DROP       all  --  anywhere             23.0.0.0/8
+DROP       all  --  27.0.0.0/8           anywhere
+DROP       all  --  anywhere             27.0.0.0/8
+DROP       all  --  31.0.0.0/8           anywhere
+DROP       all  --  anywhere             31.0.0.0/8
+DROP       all  --  36.0.0.0/8           anywhere
+DROP       all  --  anywhere             36.0.0.0/8
+DROP       all  --  37.0.0.0/8           anywhere
+DROP       all  --  anywhere             37.0.0.0/8
+DROP       all  --  39.0.0.0/8           anywhere
+DROP       all  --  anywhere             39.0.0.0/8
+DROP       all  --  41.0.0.0/8           anywhere
+DROP       all  --  anywhere             41.0.0.0/8
+DROP       all  --  42.0.0.0/8           anywhere
+DROP       all  --  anywhere             42.0.0.0/8
+DROP       all  --  58.0.0.0/8           anywhere
+DROP       all  --  anywhere             58.0.0.0/8
+DROP       all  --  59.0.0.0/8           anywhere
+DROP       all  --  anywhere             59.0.0.0/8
+DROP       all  --  70.0.0.0/8           anywhere
+DROP       all  --  anywhere             70.0.0.0/8
+DROP       all  --  71.0.0.0/8           anywhere
+DROP       all  --  anywhere             71.0.0.0/8
+DROP       all  --  72.0.0.0/8           anywhere
+DROP       all  --  anywhere             72.0.0.0/8
+DROP       all  --  73.0.0.0/8           anywhere
+DROP       all  --  anywhere             73.0.0.0/8
+DROP       all  --  74.0.0.0/8           anywhere
+DROP       all  --  anywhere             74.0.0.0/8
+DROP       all  --  75.0.0.0/8           anywhere
+DROP       all  --  anywhere             75.0.0.0/8
+DROP       all  --  76.0.0.0/8           anywhere
+DROP       all  --  anywhere             76.0.0.0/8
+DROP       all  --  77.0.0.0/8           anywhere
+DROP       all  --  anywhere             77.0.0.0/8
+DROP       all  --  78.0.0.0/8           anywhere
+DROP       all  --  anywhere             78.0.0.0/8
+DROP       all  --  79.0.0.0/8           anywhere
+DROP       all  --  anywhere             79.0.0.0/8
+DROP       all  --  83.0.0.0/8           anywhere
+DROP       all  --  anywhere             83.0.0.0/8
+DROP       all  --  84.0.0.0/8           anywhere
+DROP       all  --  anywhere             84.0.0.0/8    
+DROP       all  --  85.0.0.0/8           anywhere           
+DROP       all  --  anywhere             85.0.0.0/8         
+DROP       all  --  86.0.0.0/8           anywhere         
+DROP       all  --  anywhere             86.0.0.0/8         
+DROP       all  --  87.0.0.0/8           anywhere         
+DROP       all  --  anywhere             87.0.0.0/8         
+DROP       all  --  88.0.0.0/8           anywhere          
+DROP       all  --  anywhere             88.0.0.0/8         
+DROP       all  --  89.0.0.0/8           anywhere          
+DROP       all  --  anywhere             89.0.0.0/8         
+DROP       all  --  90.0.0.0/8           anywhere
+DROP       all  --  anywhere             90.0.0.0/8   
+DROP       all  --  91.0.0.0/8           anywhere
+DROP       all  --  anywhere             91.0.0.0/8
+DROP       all  --  92.0.0.0/8           anywhere
+DROP       all  --  anywhere             92.0.0.0/8
+DROP       all  --  93.0.0.0/8           anywhere
+DROP       all  --  anywhere             93.0.0.0/8
+DROP       all  --  94.0.0.0/8           anywhere
+DROP       all  --  anywhere             94.0.0.0/8
+DROP       all  --  95.0.0.0/8           anywhere
+DROP       all  --  anywhere             95.0.0.0/8
+DROP       all  --  96.0.0.0/8           anywhere
+DROP       all  --  anywhere             96.0.0.0/8
+DROP       all  --  97.0.0.0/8           anywhere
+DROP       all  --  anywhere             97.0.0.0/8
+DROP       all  --  98.0.0.0/8           anywhere
+DROP       all  --  anywhere             98.0.0.0/8
+DROP       all  --  99.0.0.0/8           anywhere
+DROP       all  --  anywhere             99.0.0.0/8
+DROP       all  --  100.0.0.0/8          anywhere
+DROP       all  --  anywhere             100.0.0.0/8
+DROP       all  --  101.0.0.0/8          anywhere
+DROP       all  --  anywhere             101.0.0.0/8
+DROP       all  --  102.0.0.0/8          anywhere
+DROP       all  --  anywhere             102.0.0.0/8
+DROP       all  --  103.0.0.0/8          anywhere
+DROP       all  --  anywhere             103.0.0.0/8
+DROP       all  --  104.0.0.0/8          anywhere
+DROP       all  --  anywhere             104.0.0.0/8
+DROP       all  --  105.0.0.0/8          anywhere
+DROP       all  --  anywhere             105.0.0.0/8
+DROP       all  --  106.0.0.0/8          anywhere
+DROP       all  --  anywhere             106.0.0.0/8
+DROP       all  --  107.0.0.0/8          anywhere
+DROP       all  --  anywhere             107.0.0.0/8
+DROP       all  --  108.0.0.0/8          anywhere
+DROP       all  --  anywhere             108.0.0.0/8
+DROP       all  --  109.0.0.0/8          anywhere
+DROP       all  --  anywhere             109.0.0.0/8
+DROP       all  --  110.0.0.0/8          anywhere
+DROP       all  --  anywhere             110.0.0.0/8
+DROP       all  --  111.0.0.0/8          anywhere
+DROP       all  --  anywhere             111.0.0.0/8
+DROP       all  --  112.0.0.0/8          anywhere
+DROP       all  --  anywhere             112.0.0.0/8
+DROP       all  --  113.0.0.0/8          anywhere
+DROP       all  --  anywhere             113.0.0.0/8
+DROP       all  --  114.0.0.0/8          anywhere
+DROP       all  --  anywhere             114.0.0.0/8
+DROP       all  --  115.0.0.0/8          anywhere
+DROP       all  --  anywhere             115.0.0.0/8
+DROP       all  --  116.0.0.0/8          anywhere
+DROP       all  --  anywhere             116.0.0.0/8
+DROP       all  --  117.0.0.0/8          anywhere
+DROP       all  --  anywhere             117.0.0.0/8
+DROP       all  --  118.0.0.0/8          anywhere
+DROP       all  --  anywhere             118.0.0.0/8
+DROP       all  --  119.0.0.0/8          anywhere
+DROP       all  --  anywhere             119.0.0.0/8
+DROP       all  --  120.0.0.0/8          anywhere
+DROP       all  --  anywhere             120.0.0.0/8
+DROP       all  --  121.0.0.0/8          anywhere
+DROP       all  --  anywhere             121.0.0.0/8
+DROP       all  --  122.0.0.0/8          anywhere
+DROP       all  --  anywhere             122.0.0.0/8
+DROP       all  --  123.0.0.0/8          anywhere
+DROP       all  --  anywhere             123.0.0.0/8
+DROP       all  --  124.0.0.0/8          anywhere
+DROP       all  --  anywhere             124.0.0.0/8
+DROP       all  --  125.0.0.0/8          anywhere
+DROP       all  --  anywhere             125.0.0.0/8
+DROP       all  --  126.0.0.0/8          anywhere
+DROP       all  --  anywhere             126.0.0.0/8
+DROP       all  --  127.0.0.0/8          anywhere
+DROP       all  --  anywhere             127.0.0.0/8
+DROP       all  --  173.0.0.0/8          anywhere
+DROP       all  --  anywhere             173.0.0.0/8
+DROP       all  --  174.0.0.0/8          anywhere
+DROP       all  --  anywhere             174.0.0.0/8
+DROP       all  --  175.0.0.0/8          anywhere
+DROP       all  --  anywhere             175.0.0.0/8
+DROP       all  --  176.0.0.0/8          anywhere
+DROP       all  --  anywhere             176.0.0.0/8
+DROP       all  --  177.0.0.0/8          anywhere
+DROP       all  --  anywhere             177.0.0.0/8
+DROP       all  --  178.0.0.0/8          anywhere
+DROP       all  --  anywhere             178.0.0.0/8
+DROP       all  --  179.0.0.0/8          anywhere
+DROP       all  --  anywhere             179.0.0.0/8
+DROP       all  --  180.0.0.0/8          anywhere
+DROP       all  --  anywhere             180.0.0.0/8
+DROP       all  --  181.0.0.0/8          anywhere
+DROP       all  --  anywhere             181.0.0.0/8
+DROP       all  --  182.0.0.0/8          anywhere
+DROP       all  --  anywhere             182.0.0.0/8
+DROP       all  --  183.0.0.0/8          anywhere
+DROP       all  --  anywhere             183.0.0.0/8
+DROP       all  --  184.0.0.0/8          anywhere
+DROP       all  --  anywhere             184.0.0.0/8
+DROP       all  --  185.0.0.0/8          anywhere
+DROP       all  --  anywhere             185.0.0.0/8
+DROP       all  --  186.0.0.0/8          anywhere
+DROP       all  --  anywhere             186.0.0.0/8
+DROP       all  --  187.0.0.0/8          anywhere
+DROP       all  --  anywhere             187.0.0.0/8
+DROP       all  --  189.0.0.0/8          anywhere
+DROP       all  --  anywhere             189.0.0.0/8
+DROP       all  --  190.0.0.0/8          anywhere
+DROP       all  --  anywhere             190.0.0.0/8
+DROP       all  --  197.0.0.0/8          anywhere
+DROP       all  --  anywhere             197.0.0.0/8
+DROP       all  --  223.0.0.0/8          anywhere
+DROP       all  --  anywhere             223.0.0.0/8
+ACCEPT     icmp --  anywhere             mule.msie.marlboro.eduicmp source-quench
+ACCEPT     icmp --  anywhere             mule.msie.marlboro.eduicmp parameter-problem
+ACCEPT     icmp --  anywhere             mule.msie.marlboro.eduicmp destination-unreachable
+ACCEPT     icmp --  anywhere             mule.msie.marlboro.eduicmp time-exceeded
+ACCEPT     icmp --  anywhere             mule.msie.marlboro.eduicmp echo-reply
+LnD        tcp  --  anywhere             mule.msie.marlboro.edustate NEW tcp dpt:2000
+LnD        tcp  --  anywhere             mule.msie.marlboro.edustate NEW tcp dpts:x11:6063
+LnD        tcp  --  anywhere             mule.msie.marlboro.edustate NEW tcp dpt:socks
+LnD        tcp  --  anywhere             mule.msie.marlboro.edustate NEW tcp dpt:nfs
+LnD        udp  --  anywhere             mule.msie.marlboro.eduudp dpt:nfs
+ACCEPT     udp  --  anywhere             mule.msie.marlboro.eduudp spt:domain dpts:1024:65535
+ACCEPT     tcp  --  anywhere             mule.msie.marlboro.edustate RELATED,ESTABLISHED tcp spt:domain dpts:1024:65535
+ACCEPT     tcp  --  anywhere             mule.msie.marlboro.edustate RELATED,ESTABLISHED tcp spt:auth dpts:1024:65535
+LnR        tcp  --  anywhere             mule.msie.marlboro.edutcp dpt:auth
+ACCEPT     tcp  --  smtp-1.hotpop.com    mule.msie.marlboro.edustate RELATED,ESTABLISHED tcp spt:smtp dpts:1024:65535
+ACCEPT     tcp  --  smtp-3.hotpop.com    mule.msie.marlboro.edustate RELATED,ESTABLISHED tcp spt:smtp dpts:1024:65535
+ACCEPT     tcp  --  pop.hotpop.com       mule.msie.marlboro.edustate RELATED,ESTABLISHED tcp spt:pop3 dpts:1024:65535
+ACCEPT     tcp  --  anywhere             mule.msie.marlboro.edustate RELATED,ESTABLISHED tcp spt:telnet dpts:1024:65535
+ACCEPT     tcp  --  anywhere             mule.msie.marlboro.edustate RELATED,ESTABLISHED tcp spt:ssh dpts:1024:65535
+ACCEPT     tcp  --  anywhere             mule.msie.marlboro.edustate RELATED,ESTABLISHED tcp spt:ssh dpts:login:1023
+ACCEPT     tcp  --  anywhere             mule.msie.marlboro.edustate RELATED,ESTABLISHED tcp spt:ftp dpts:1024:65535
+ACCEPT     tcp  --  anywhere             mule.msie.marlboro.edustate RELATED,ESTABLISHED tcp spt:ftp-data dpts:1024:65535
+ACCEPT     tcp  --  anywhere             mule.msie.marlboro.edustate RELATED,ESTABLISHED tcp spts:1024:65535 dpts:1024:65535
+ACCEPT     tcp  --  anywhere             mule.msie.marlboro.edustate RELATED,ESTABLISHED tcp spt:http dpts:1024:65535
+ACCEPT     tcp  --  anywhere             mule.msie.marlboro.edustate RELATED,ESTABLISHED tcp spt:https dpts:1024:65535
+ACCEPT     tcp  --  anywhere             mule.msie.marlboro.edustate RELATED,ESTABLISHED tcp spt:finger dpts:1024:65535
+ACCEPT     tcp  --  anywhere             mule.msie.marlboro.edustate RELATED,ESTABLISHED tcp spt:nicname dpts:1024:65535
+ACCEPT     tcp  --  anywhere             mule.msie.marlboro.edustate RELATED,ESTABLISHED tcp spt:gopher dpts:1024:65535
+ACCEPT     tcp  --  anywhere             mule.msie.marlboro.edustate RELATED,ESTABLISHED tcp spt:z39.50 dpts:1024:65535
+ACCEPT     tcp  --  anywhere             mule.msie.marlboro.edutcp spt:rtsp
+ACCEPT     tcp  --  anywhere             mule.msie.marlboro.edutcp spt:1723 dpts:1024:65535 state RELATED,ESTABLISHED
+ACCEPT     gre  --  anywhere             anywhere
+ACCEPT     gre  --  anywhere             anywhere
+ACCEPT     udp  --  anywhere             mule.msie.marlboro.eduudp spts:32769:65535 dpts:traceroute:33523
+ACCEPT     udp  --  0.0.0.0              255.255.255.255    udp spts:bootps:bootpc dpts:bootps:bootpc
+ACCEPT     udp  --  anywhere             mule.msie.marlboro.eduudp spt:4000 dpts:1024:65535
+LnD        all  --  mule.msie.marlboro.edu  anywhere
+LnD        all  --  10.0.0.0/8           anywhere
+LnD        all  --  anywhere             10.0.0.0/8
+LnD        all  --  172.16.0.0/12        anywhere
+LnD        all  --  anywhere             172.16.0.0/12
+LnD        all  --  192.168.0.0/16       anywhere
+LnD        all  --  anywhere             192.168.0.0/16
+LnD        all  --  127.0.0.0/8          anywhere
+LnD        all  --  255.255.255.255      anywhere
+LnD        all  --  anywhere             0.0.0.0
+LnD        all  --  BASE-ADDRESS.MCAST.NET/4  anywhere
+LnD        all  --  240.0.0.0/5          anywhere
+LnD        tcp  --  anywhere             anywhere
+LnD        udp  --  anywhere             anywhere
+LnD        icmp --  anywhere             anywhere
+
+Chain FORWARD (policy DROP)
+target     prot opt source               destination
+ACCEPT     icmp --  anywhere             anywhere           icmp source-quench
+ACCEPT     icmp --  anywhere             anywhere           icmp parameter-problem
+ACCEPT     icmp --  anywhere             anywhere           icmp destination-unreachable
+ACCEPT     icmp --  anywhere             anywhere           icmp fragmentation-needed
+ACCEPT     icmp --  anywhere             anywhere           icmp time-exceeded
+ACCEPT     icmp --  195.114.150.0/24     anywhere           icmp echo-request
+ACCEPT     icmp --  anywhere             195.114.150.0/24   icmp echo-reply
+ACCEPT     udp  --  195.114.150.0/24     anywhere           udp spts:1024:65535 dpt:domain
+ACCEPT     udp  --  anywhere             195.114.150.0/24   udp spt:domain dpts:1024:65535
+ACCEPT     tcp  --  195.114.150.0/24     anywhere           tcp spts:1024:65535 dpt:domain
+ACCEPT     tcp  --  anywhere             195.114.150.0/24   state RELATED,ESTABLISHED tcp spt:domain dpts:1024:65535
+ACCEPT     tcp  --  195.114.150.0/24     anywhere           tcp spts:1024:65535 dpt:auth
+ACCEPT     tcp  --  anywhere             195.114.150.0/24   state RELATED,ESTABLISHED tcp spt:auth dpts:1024:65535
+ACCEPT     tcp  --  195.114.150.0/24     anywhere           tcp spts:1024:65535 dpt:smtp
+ACCEPT     tcp  --  anywhere             195.114.150.0/24   state RELATED,ESTABLISHED tcp spt:smtp dpts:1024:65535
+ACCEPT     tcp  --  195.114.150.0/24     anywhere           tcp spts:1024:65535 dpt:pop3
+ACCEPT     tcp  --  anywhere             195.114.150.0/24   state RELATED,ESTABLISHED tcp spt:pop3 dpts:1024:65535
+ACCEPT     tcp  --  195.114.150.0/24     anywhere           tcp spts:1024:65535 dpt:telnet
+ACCEPT     tcp  --  anywhere             195.114.150.0/24   state RELATED,ESTABLISHED tcp spt:telnet dpts:1024:65535
+ACCEPT     tcp  --  195.114.150.0/24     anywhere           tcp spts:1024:65535 dpt:ssh
+ACCEPT     tcp  --  anywhere             195.114.150.0/24   state RELATED,ESTABLISHED tcp spt:ssh dpts:1024:65535
+ACCEPT     tcp  --  195.114.150.0/24     anywhere           tcp spts:login:1023 dpt:ssh
+ACCEPT     tcp  --  anywhere             195.114.150.0/24   state RELATED,ESTABLISHED tcp spt:ssh dpts:login:1023
+ACCEPT     tcp  --  195.114.150.0/24     anywhere           tcp spts:1024:65535 dpts:ftp-data:ftp
+ACCEPT     tcp  --  anywhere             195.114.150.0/24   tcp spts:ftp-data:ftp dpts:1024:65535
+ACCEPT     tcp  --  195.114.150.0/24     anywhere           tcp spts:1024:65535 dpts:1024:65535
+ACCEPT     tcp  --  anywhere             195.114.150.0/24   tcp spts:1024:65535 dpts:1024:65535
+ACCEPT     tcp  --  195.114.150.0/24     anywhere           tcp spts:1024:65535 dpt:http
+ACCEPT     tcp  --  anywhere             195.114.150.0/24   tcp spt:http dpts:1024:65535
+ACCEPT     tcp  --  195.114.150.0/24     anywhere           tcp spts:1024:65535 dpt:https
+ACCEPT     tcp  --  anywhere             195.114.150.0/24   state RELATED,ESTABLISHED tcp spt:https dpts:1024:65535
+ACCEPT     tcp  --  195.114.150.0/24     anywhere           tcp spts:1024:65535 dpt:finger
+ACCEPT     tcp  --  anywhere             195.114.150.0/24   state RELATED,ESTABLISHED tcp spt:finger dpts:1024:65535
+ACCEPT     tcp  --  195.114.150.0/24     anywhere           tcp spts:1024:65535 dpt:nicname
+ACCEPT     tcp  --  anywhere             195.114.150.0/24   state RELATED,ESTABLISHED tcp spt:nicname dpts:1024:65535
+ACCEPT     tcp  --  195.114.150.0/24     anywhere           tcp spts:1024:65535 dpt:gopher
+ACCEPT     tcp  --  anywhere             195.114.150.0/24   state RELATED,ESTABLISHED tcp spt:gopher dpts:1024:65535
+ACCEPT     tcp  --  195.114.150.0/24     anywhere           tcp spts:1024:65535 dpt:z39.50
+ACCEPT     tcp  --  anywhere             195.114.150.0/24   state RELATED,ESTABLISHED tcp spt:z39.50 dpts:1024:65535
+ACCEPT     tcp  --  195.114.150.0/24     anywhere           tcp spts:1024:65535 dpt:rtsp
+ACCEPT     tcp  --  anywhere             195.114.150.0/24   state RELATED,ESTABLISHED tcp spt:rtsp dpts:1024:65535
+ACCEPT     tcp  --  195.114.150.0/24     anywhere           tcp spts:1024:65535 dpt:1723
+ACCEPT     tcp  --  anywhere             195.114.150.0/24   state RELATED,ESTABLISHED tcp spt:1723 dpts:1024:65535
+ACCEPT     gre  --  195.114.150.0/24     anywhere
+ACCEPT     gre  --  anywhere             195.114.150.0/24
+ACCEPT     udp  --  195.114.150.0/24     anywhere           udp spts:32769:65535 dpts:traceroute:33523
+ACCEPT     udp  --  anywhere             195.114.150.0/24   udp spts:traceroute:33523 dpts:32769:65535
+ACCEPT     udp  --  anywhere             195.114.150.0/24   udp spts:32769:65535 dpts:traceroute:33523
+ACCEPT     udp  --  195.114.150.0/24     anywhere           udp spts:bootps:bootpc dpts:bootps:bootpc
+ACCEPT     udp  --  anywhere             195.114.150.0/24   udp spts:bootps:bootpc dpts:bootps:bootpc
+ACCEPT     udp  --  195.114.150.0/24     anywhere           udp spts:1024:65535 dpt:4000
+ACCEPT     udp  --  anywhere             195.114.150.0/24   udp spt:4000 dpts:1024:65535
+
+Chain OUTPUT (policy DROP)
+target     prot opt source               destination
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     all  --  anywhere             195.114.150.0/24
+DROP       all  --  202.0.110.0/24       anywhere
+DROP       all  --  anywhere             202.0.110.0/24
+DROP       all  --  203.0.111.1          anywhere
+DROP       all  --  anywhere             203.0.111.1
+DROP       all  --  204.1.0.0/16         anywhere
+DROP       all  --  anywhere             204.1.0.0/16
+DROP       all  --  205.0.0.0/8          anywhere
+DROP       all  --  anywhere             205.0.0.0/8
+DROP       all  --  crtntx1-ar5-4-63-103-107.crtntx1.dsl-verizon.net  anywhere
+DROP       all  --  anywhere             crtntx1-ar5-4-63-103-107.crtntx1.dsl-verizon.net
+DROP       all  --  dialup-4.72.38.219.Dial1.Miami1.Level3.net  anywhere
+DROP       all  --  anywhere             dialup-4.72.38.219.Dial1.Miami1.Level3.net
+DROP       all  --  12.80.38.5           anywhere
+DROP       all  --  anywhere             12.80.38.5
+DROP       all  --  rrcs-se-24-73-153-114.biz.rr.com  anywhere
+DROP       all  --  anywhere             rrcs-se-24-73-153-114.biz.rr.com
+DROP       all  --  user-0cdf4fm.cable.mindspring.com  anywhere
+DROP       all  --  anywhere             user-0cdf4fm.cable.mindspring.com
+DROP       all  --  63.246.140.210       anywhere
+DROP       all  --  anywhere             63.246.140.210
+DROP       all  --  adsl-64-123-9-46.dsl.austtx.swbell.net  anywhere
+DROP       all  --  anywhere             adsl-64-123-9-46.dsl.austtx.swbell.net
+DROP       all  --  110-27-74-65.gci.net  anywhere
+DROP       all  --  anywhere             110-27-74-65.gci.net
+DROP       all  --  adsl-66-143-249-75.dsl.snantx.swbell.net  anywhere
+DROP       all  --  anywhere             adsl-66-143-249-75.dsl.snantx.swbell.net
+DROP       all  --  pcp01259934pcs.nhaven01.ct.comcast.net  anywhere
+DROP       all  --  anywhere             pcp01259934pcs.nhaven01.ct.comcast.net
+DROP       all  --  pcp04316147pcs.dalect01.va.comcast.net  anywhere
+DROP       all  --  anywhere             pcp04316147pcs.dalect01.va.comcast.net
+DROP       all  --  f188054.upc-f.chello.nl  anywhere
+DROP       all  --  anywhere             f188054.upc-f.chello.nl
+DROP       all  --  p508BBC25.dip.t-dialin.net  anywhere
+DROP       all  --  anywhere             p508BBC25.dip.t-dialin.net
+DROP       all  --  p508F6CB8.dip.t-dialin.net  anywhere
+DROP       all  --  anywhere             p508F6CB8.dip.t-dialin.net
+DROP       all  --  80.179.193.162.forward.012.net.il  anywhere
+DROP       all  --  anywhere             80.179.193.162.forward.012.net.il
+DROP       all  --  dslam118-90-59-81.dyndsl.zonnet.nl  anywhere
+DROP       all  --  anywhere             dslam118-90-59-81.dyndsl.zonnet.nl
+DROP       all  --  jsecom16c.Sun.COM    anywhere
+DROP       all  --  anywhere             jsecom16c.Sun.COM
+DROP       all  --  bcrux.airborn.biz    anywhere
+DROP       all  --  anywhere             bcrux.airborn.biz
+DROP       all  --  200.38.28.3          anywhere
+DROP       all  --  anywhere             200.38.28.3
+DROP       all  --  dup-200-66-188-29.prodigy.net.mx  anywhere
+DROP       all  --  anywhere             dup-200-66-188-29.prodigy.net.mx
+DROP       all  --  gw01-chv-nc-209-111-103-45.rasserver.net  anywhere
+DROP       all  --  anywhere             gw01-chv-nc-209-111-103-45.rasserver.net
+DROP       all  --  koreaptg.co.kr       anywhere
+DROP       all  --  anywhere             koreaptg.co.kr
+DROP       all  --  213.13.226.142       anywhere
+DROP       all  --  anywhere             213.13.226.142
+DROP       all  --  dyn-213-36-207-164.ppp.tiscali.fr  anywhere
+DROP       all  --  anywhere             dyn-213-36-207-164.ppp.tiscali.fr
+DROP       all  --  co150483-a.olden1.ov.home.nl  anywhere
+DROP       all  --  anywhere             co150483-a.olden1.ov.home.nl
+DROP       all  --  dialup829.wnskvtao.sover.net  anywhere
+DROP       all  --  anywhere             dialup829.wnskvtao.sover.net
+DROP       all  --  dialup3952.wnskvtao.sover.net  anywhere
+DROP       all  --  anywhere             dialup3952.wnskvtao.sover.net
+DROP       all  --  dialup3992.wnskvtao.sover.net  anywhere
+DROP       all  --  anywhere             dialup3992.wnskvtao.sover.net
+DROP       all  --  218.23.66.231        anywhere
+DROP       all  --  anywhere             218.23.66.231
+DROP       all  --  0.0.0.0/8            anywhere
+DROP       all  --  anywhere             0.0.0.0/8
+DROP       all  --  1.0.0.0/8            anywhere
+DROP       all  --  anywhere             1.0.0.0/8
+DROP       all  --  2.0.0.0/8            anywhere
+DROP       all  --  anywhere             2.0.0.0/8
+DROP       all  --  5.0.0.0/8            anywhere
+DROP       all  --  anywhere             5.0.0.0/8
+DROP       all  --  7.0.0.0/8            anywhere
+DROP       all  --  anywhere             7.0.0.0/8
+DROP       all  --  23.0.0.0/8           anywhere
+DROP       all  --  anywhere             23.0.0.0/8
+DROP       all  --  27.0.0.0/8           anywhere
+DROP       all  --  anywhere             27.0.0.0/8
+DROP       all  --  31.0.0.0/8           anywhere
+DROP       all  --  anywhere             31.0.0.0/8
+DROP       all  --  36.0.0.0/8           anywhere
+DROP       all  --  anywhere             36.0.0.0/8
+DROP       all  --  37.0.0.0/8           anywhere
+DROP       all  --  anywhere             37.0.0.0/8
+DROP       all  --  39.0.0.0/8           anywhere
+DROP       all  --  anywhere             39.0.0.0/8
+DROP       all  --  41.0.0.0/8           anywhere
+DROP       all  --  anywhere             41.0.0.0/8
+DROP       all  --  42.0.0.0/8           anywhere
+DROP       all  --  anywhere             42.0.0.0/8
+DROP       all  --  58.0.0.0/8           anywhere
+DROP       all  --  anywhere             58.0.0.0/8
+DROP       all  --  59.0.0.0/8           anywhere
+DROP       all  --  anywhere             59.0.0.0/8
+DROP       all  --  70.0.0.0/8           anywhere
+DROP       all  --  anywhere             70.0.0.0/8
+DROP       all  --  71.0.0.0/8           anywhere
+DROP       all  --  anywhere             71.0.0.0/8
+DROP       all  --  72.0.0.0/8           anywhere
+DROP       all  --  anywhere             72.0.0.0/8
+DROP       all  --  73.0.0.0/8           anywhere
+DROP       all  --  anywhere             73.0.0.0/8
+DROP       all  --  74.0.0.0/8           anywhere
+DROP       all  --  anywhere             74.0.0.0/8
+DROP       all  --  75.0.0.0/8           anywhere
+DROP       all  --  anywhere             75.0.0.0/8
+DROP       all  --  76.0.0.0/8           anywhere
+DROP       all  --  anywhere             76.0.0.0/8
+DROP       all  --  77.0.0.0/8           anywhere
+DROP       all  --  anywhere             77.0.0.0/8
+DROP       all  --  78.0.0.0/8           anywhere
+DROP       all  --  anywhere             78.0.0.0/8
+DROP       all  --  79.0.0.0/8           anywhere
+DROP       all  --  anywhere             79.0.0.0/8
+DROP       all  --  83.0.0.0/8           anywhere
+DROP       all  --  anywhere             83.0.0.0/8
+DROP       all  --  84.0.0.0/8           anywhere
+DROP       all  --  anywhere             84.0.0.0/8
+DROP       all  --  85.0.0.0/8           anywhere
+DROP       all  --  anywhere             85.0.0.0/8
+DROP       all  --  86.0.0.0/8           anywhere
+DROP       all  --  anywhere             86.0.0.0/8
+DROP       all  --  87.0.0.0/8           anywhere
+DROP       all  --  88.0.0.0/8           anywhere
+DROP       all  --  anywhere             88.0.0.0/8
+DROP       all  --  89.0.0.0/8           anywhere
+DROP       all  --  anywhere             89.0.0.0/8
+DROP       all  --  90.0.0.0/8           anywhere
+DROP       all  --  anywhere             90.0.0.0/8
+DROP       all  --  91.0.0.0/8           anywhere
+DROP       all  --  anywhere             91.0.0.0/8
+DROP       all  --  92.0.0.0/8           anywhere
+DROP       all  --  anywhere             92.0.0.0/8
+DROP       all  --  93.0.0.0/8           anywhere
+DROP       all  --  anywhere             93.0.0.0/8
+DROP       all  --  94.0.0.0/8           anywhere
+DROP       all  --  anywhere             94.0.0.0/8
+DROP       all  --  95.0.0.0/8           anywhere
+DROP       all  --  anywhere             95.0.0.0/8
+DROP       all  --  96.0.0.0/8           anywhere
+DROP       all  --  anywhere             96.0.0.0/8
+DROP       all  --  97.0.0.0/8           anywhere
+DROP       all  --  anywhere             97.0.0.0/8
+DROP       all  --  98.0.0.0/8           anywhere
+DROP       all  --  anywhere             98.0.0.0/8
+DROP       all  --  99.0.0.0/8           anywhere
+DROP       all  --  anywhere             99.0.0.0/8
+DROP       all  --  100.0.0.0/8          anywhere
+DROP       all  --  anywhere             100.0.0.0/8
+DROP       all  --  101.0.0.0/8          anywhere
+DROP       all  --  anywhere             101.0.0.0/8
+DROP       all  --  102.0.0.0/8          anywhere
+DROP       all  --  anywhere             102.0.0.0/8
+DROP       all  --  103.0.0.0/8          anywhere
+DROP       all  --  anywhere             103.0.0.0/8
+DROP       all  --  104.0.0.0/8          anywhere
+DROP       all  --  anywhere             104.0.0.0/8
+DROP       all  --  105.0.0.0/8          anywhere
+DROP       all  --  anywhere             105.0.0.0/8
+DROP       all  --  106.0.0.0/8          anywhere
+DROP       all  --  anywhere             106.0.0.0/8
+DROP       all  --  107.0.0.0/8          anywhere
+DROP       all  --  anywhere             107.0.0.0/8
+DROP       all  --  108.0.0.0/8          anywhere
+DROP       all  --  anywhere             108.0.0.0/8
+DROP       all  --  109.0.0.0/8          anywhere
+DROP       all  --  anywhere             109.0.0.0/8
+DROP       all  --  110.0.0.0/8          anywhere
+DROP       all  --  anywhere             110.0.0.0/8
+DROP       all  --  111.0.0.0/8          anywhere
+DROP       all  --  anywhere             111.0.0.0/8
+DROP       all  --  112.0.0.0/8          anywhere
+DROP       all  --  anywhere             112.0.0.0/8
+DROP       all  --  113.0.0.0/8          anywhere
+DROP       all  --  anywhere             113.0.0.0/8
+DROP       all  --  114.0.0.0/8          anywhere
+DROP       all  --  anywhere             114.0.0.0/8
+DROP       all  --  115.0.0.0/8          anywhere
+DROP       all  --  anywhere             115.0.0.0/8
+DROP       all  --  116.0.0.0/8          anywhere
+DROP       all  --  anywhere             116.0.0.0/8
+DROP       all  --  117.0.0.0/8          anywhere
+DROP       all  --  anywhere             117.0.0.0/8
+DROP       all  --  118.0.0.0/8          anywhere
+DROP       all  --  anywhere             118.0.0.0/8
+DROP       all  --  119.0.0.0/8          anywhere
+DROP       all  --  anywhere             119.0.0.0/8
+DROP       all  --  120.0.0.0/8          anywhere
+DROP       all  --  anywhere             120.0.0.0/8
+DROP       all  --  121.0.0.0/8          anywhere
+DROP       all  --  anywhere             121.0.0.0/8
+DROP       all  --  122.0.0.0/8          anywhere
+DROP       all  --  anywhere             122.0.0.0/8
+DROP       all  --  123.0.0.0/8          anywhere
+DROP       all  --  anywhere             123.0.0.0/8
+DROP       all  --  124.0.0.0/8          anywhere
+DROP       all  --  anywhere             124.0.0.0/8
+DROP       all  --  125.0.0.0/8          anywhere
+DROP       all  --  anywhere             125.0.0.0/8
+DROP       all  --  126.0.0.0/8          anywhere
+DROP       all  --  anywhere             126.0.0.0/8
+DROP       all  --  127.0.0.0/8          anywhere
+DROP       all  --  anywhere             127.0.0.0/8
+DROP       all  --  173.0.0.0/8          anywhere
+DROP       all  --  anywhere             173.0.0.0/8
+DROP       all  --  174.0.0.0/8          anywhere
+DROP       all  --  anywhere             174.0.0.0/8
+DROP       all  --  175.0.0.0/8          anywhere
+DROP       all  --  anywhere             175.0.0.0/8
+DROP       all  --  176.0.0.0/8          anywhere
+DROP       all  --  anywhere             176.0.0.0/8
+DROP       all  --  177.0.0.0/8          anywhere
+DROP       all  --  anywhere             177.0.0.0/8
+DROP       all  --  178.0.0.0/8          anywhere
+DROP       all  --  anywhere             178.0.0.0/8
+DROP       all  --  179.0.0.0/8          anywhere
+DROP       all  --  anywhere             179.0.0.0/8
+DROP       all  --  180.0.0.0/8          anywhere
+DROP       all  --  anywhere             180.0.0.0/8
+DROP       all  --  181.0.0.0/8          anywhere
+DROP       all  --  anywhere             181.0.0.0/8
+DROP       all  --  182.0.0.0/8          anywhere
+DROP       all  --  anywhere             182.0.0.0/8
+DROP       all  --  183.0.0.0/8          anywhere
+DROP       all  --  anywhere             183.0.0.0/8
+DROP       all  --  184.0.0.0/8          anywhere
+DROP       all  --  anywhere             184.0.0.0/8
+DROP       all  --  185.0.0.0/8          anywhere
+DROP       all  --  anywhere             185.0.0.0/8
+DROP       all  --  186.0.0.0/8          anywhere
+DROP       all  --  anywhere             186.0.0.0/8
+DROP       all  --  187.0.0.0/8          anywhere
+DROP       all  --  anywhere             187.0.0.0/8
+DROP       all  --  189.0.0.0/8          anywhere
+DROP       all  --  anywhere             189.0.0.0/8
+DROP       all  --  190.0.0.0/8          anywhere
+DROP       all  --  anywhere             190.0.0.0/8
+DROP       all  --  197.0.0.0/8          anywhere
+DROP       all  --  anywhere             197.0.0.0/8
+DROP       all  --  223.0.0.0/8          anywhere
+DROP       all  --  anywhere             223.0.0.0/8
+ACCEPT     icmp --  mule.msie.marlboro.edu  anywhere           icmp source-quench
+ACCEPT     icmp --  mule.msie.marlboro.edu  anywhere           icmp parameter-problem
+ACCEPT     icmp --  mule.msie.marlboro.edu  anywhere           icmp destination-unreachable
+ACCEPT     icmp --  mule.msie.marlboro.edu  anywhere           icmp fragmentation-needed
+ACCEPT     icmp --  mule.msie.marlboro.edu  anywhere           icmp time-exceeded
+ACCEPT     icmp --  mule.msie.marlboro.edu  anywhere           icmp echo-request
+LnR        tcp  --  mule.msie.marlboro.edu  anywhere           state NEW tcp dpt:2000
+LnR        tcp  --  mule.msie.marlboro.edu  anywhere           state NEW tcp dpts:x11:6063
+LnR        tcp  --  mule.msie.marlboro.edu  anywhere           state NEW tcp dpt:socks
+LnR        tcp  --  anywhere             anywhere           state NEW tcp dpt:nfs
+LnR        udp  --  anywhere             anywhere           udp dpt:nfs
+ACCEPT     udp  --  mule.msie.marlboro.edu  anywhere           udp spts:1024:65535 dpt:domain
+ACCEPT     tcp  --  mule.msie.marlboro.edu  anywhere           tcp spts:1024:65535 dpt:domain
+ACCEPT     tcp  --  mule.msie.marlboro.edu  anywhere           tcp spts:1024:65535 dpt:auth
+ACCEPT     tcp  --  mule.msie.marlboro.edu  smtp-3.hotpop.com  tcp spts:1024:65535 dpt:smtp
+ACCEPT     tcp  --  mule.msie.marlboro.edu  smtp-1.hotpop.com  tcp spts:1024:65535 dpt:smtp
+ACCEPT     tcp  --  mule.msie.marlboro.edu  pop.hotpop.com     tcp spts:1024:65535 dpt:pop3
+ACCEPT     tcp  --  mule.msie.marlboro.edu  anywhere           tcp spts:1024:65535 dpt:telnet
+ACCEPT     tcp  --  mule.msie.marlboro.edu  anywhere           tcp spts:1024:65535 dpt:ssh
+ACCEPT     tcp  --  mule.msie.marlboro.edu  anywhere           tcp spts:login:1023 dpt:ssh
+ACCEPT     tcp  --  mule.msie.marlboro.edu  anywhere           state NEW,ESTABLISHED tcp spts:1024:65535 dpt:ftp
+ACCEPT     tcp  --  mule.msie.marlboro.edu  anywhere           state NEW,ESTABLISHED tcp spts:1024:65535 dpt:ftp-data
+ACCEPT     tcp  --  mule.msie.marlboro.edu  anywhere           state NEW,ESTABLISHED tcp spts:1024:65535 dpts:1024:65535
+ACCEPT     tcp  --  mule.msie.marlboro.edu  anywhere           tcp spts:1024:65535 dpt:http
+ACCEPT     tcp  --  mule.msie.marlboro.edu  anywhere           tcp spts:1024:65535 dpt:https
+ACCEPT     tcp  --  mule.msie.marlboro.edu  anywhere           tcp spts:1024:65535 dpt:finger
+ACCEPT     tcp  --  mule.msie.marlboro.edu  anywhere           tcp spts:1024:65535 dpt:nicname
+ACCEPT     tcp  --  mule.msie.marlboro.edu  anywhere           tcp spts:1024:65535 dpt:gopher
+ACCEPT     tcp  --  mule.msie.marlboro.edu  anywhere           tcp spts:1024:65535 dpt:z39.50
+ACCEPT     tcp  --  mule.msie.marlboro.edu  anywhere           tcp spts:1024:65535 dpt:rtsp
+ACCEPT     tcp  --  mule.msie.marlboro.edu  anywhere           tcp spts:1024:65535 dpt:1723
+ACCEPT     gre  --  anywhere             anywhere
+ACCEPT     gre  --  anywhere             anywhere
+ACCEPT     udp  --  mule.msie.marlboro.edu  anywhere           udp spts:32769:65535 dpts:traceroute:33523
+ACCEPT     udp  --  195.114.150.1        anywhere           udp spts:bootps:bootpc dpts:bootps:bootpc
+ACCEPT     udp  --  mule.msie.marlboro.edu  anywhere           udp spts:1024:65535 dpt:4000
+LnD        all  --  10.0.0.0/8           anywhere
+LnD        all  --  anywhere             10.0.0.0/8
+LnD        all  --  172.16.0.0/12        anywhere
+LnD        all  --  anywhere             172.16.0.0/12
+LnD        all  --  192.168.0.0/16       anywhere
+LnD        all  --  anywhere             192.168.0.0/16
+LnD        all  --  127.0.0.0/8          anywhere
+LnD        all  --  255.255.255.255      anywhere
+LnD        all  --  anywhere             0.0.0.0
+LnR        all  --  BASE-ADDRESS.MCAST.NET/4  anywhere
+LnR        all  --  anywhere             240.0.0.0/5
+LnR        tcp  --  anywhere             anywhere
+LnR        udp  --  anywhere             anywhere
+LnR        icmp --  anywhere             anywhere
+
+Chain LnD (29 references)
+target     prot opt source               destination
+LOG        tcp  --  anywhere             anywhere           limit: avg 1/sec burst 5 LOG level info prefix `[TCP drop] '
+LOG        udp  --  anywhere             anywhere           limit: avg 1/sec burst 5 LOG level info prefix `[UDP drop] '
+LOG        icmp --  anywhere             anywhere           limit: avg 1/sec burst 5 LOG level info prefix `[ICMP drop] '
+LOG        all  -f  anywhere             anywhere           limit: avg 1/sec burst 5 LOG level info prefix `[FRAG drop] '
+DROP       all  --  anywhere             anywhere
+
+Chain LnR (11 references)
+target     prot opt source               destination
+LOG        tcp  --  anywhere             anywhere           limit: avg 1/sec burst 5 LOG level info prefix `[TCP reject] '
+LOG        udp  --  anywhere             anywhere           limit: avg 1/sec burst 5 LOG level info prefix `[UDP reject] '
+LOG        icmp --  anywhere             anywhere           limit: avg 1/sec burst 5 LOG level info prefix `[ICMP reject] '
+LOG        all  -f  anywhere             anywhere           limit: avg 1/sec burst 5 LOG level info prefix `[FRAG reject] '
+REJECT     all  --  anywhere             anywhere           reject-with icmp-port-unreachable
+
+Chain ScanD (7 references)
+target     prot opt source               destination
+LOG        tcp  --  anywhere             anywhere           limit: avg 1/sec burst 5 LOG level warning prefix `[TCP Scan?] '
+LOG        udp  --  anywhere             anywhere           limit: avg 1/sec burst 5 LOG level warning prefix `[UDP Scan?] '
+LOG        icmp --  anywhere             anywhere           limit: avg 1/sec burst 5 LOG level warning prefix `[ICMP Scan?] '
+LOG        all  -f  anywhere             anywhere           limit: avg 1/sec burst 5 LOG level warning prefix `[FRAG Scan?] '
+DROP       all  --  anywhere             anywhere
+
+</pre>
+<p><a href="#TOP">Top</a></p>
+</body>
+</html>

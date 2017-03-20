@@ -1,0 +1,11 @@
+Manifest-Version: 1.1
+Class-Path: 
+
+Name: META-INF/sun-application.xml
+
+Name: ejb-jar-ic.jar
+
+Name: META-INF/application.xml
+
+Name: META-INF/sun-j2ee-ri.project
+

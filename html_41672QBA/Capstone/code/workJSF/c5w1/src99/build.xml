@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<project name="general" default="dist" basedir=".">
+
+	<target name="dist">
+		<ant dir="main" target="dist" inheritAll="false" inheritRefs="false"/>
+	</target>
+	<target name="deploy-apps">
+		<ant dir="main" target="deploy-app" inheritAll="false" 
+						inheritRefs="false"/>     
+	</target>
+	<target name="verify">
+		<ant dir="main" target="verify" inheritAll="false" 
+						inheritRefs="false"/>     
+	</target>
+	<target name="undeploy-apps">
+		<ant dir="main" target="undeploy" inheritAll="false" 
+						inheritRefs="false"/>
+	</target>
+	<target name="docs">
+		<ant dir="main" target="docs" inheritAll="false" inheritRefs="false"/>
+	</target>
+	<target name="checkXML">
+		<ant dir="main" target="checkXML" inheritAll="false" inheritRefs="false"/>
+	</target>
+	<target name="cleanall">
+		<ant dir="main" target="clean" inheritAll="false" inheritRefs="false"/>
+	</target>
+</project> 
+

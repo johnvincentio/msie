@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+  <!ENTITY appServerAntCommands SYSTEM "../../../../workBuild/app-server-ant.xml">
+  <!ENTITY jvXMLValidateCommands SYSTEM "../../../../workBuild/xmlvalidate.xml">
+  <!ENTITY jvJavaDocCommands SYSTEM "../../../../workBuild/javadoc.xml">
+]>
+
+<project name="ejb2" default="all" basedir=".">
+
+	<property name="build.dir"    value="${basedir}/build" />
+	<property name="build.client.dir"    value="${basedir}/buildclient" />
+	<property name="dist.dir"     value="${basedir}/dist" />
+	<property name="javadocs.dir" value="${basedir}/docs/api"/>
+
+	<property name="xml.validate.options"    value="-warning" />
+
+	&appServerAntCommands;
+	&jvXMLValidateCommands;
+	&jvJavaDocCommands;
+
+	<echo message="Initializing..."/>
+	<property environment="env"/>
+	<echo message="${env.PATH}"/>
+	<echo message="${env.CLASSPATH}"/>
+
+	<property name="ejb.jar.name" value="${dist.dir}/ejb-jar-ic.jar"/>
+	<property name="appClient.jar.name" value="${dist.dir}/app-client-ic.jar"/>
+
+	<property name="app.common.jar.name"
+		value="../../../Common1/src99/common/dist/jar-common.jar"/>
+
+<!--		Setup javac classpath		-->
+
+	<path id="javac.classpath">
+		<pathelement location="${build.dir}"/>
+		<pathelement location="${app.common.jar.name}"/>
+	</path>
+
+	<target name="checkXML" depends="ejb-jar_2_1,sun-ejb-jar_2_1, application-client_1_4, sun-application-client_1_4"/>
+	
+
+<!--	Begin making something	-->
+
+	<target name="all" depends="clean, dist, checkXML"/>
+	<target name="docs" depends="javadocs"/>
+
+	<target name="clean">
+		<echo message="Remove build and distributables..."/>
+		<delete includeEmptyDirs="true" quiet="true">
+			<fileset dir="${build.dir}"/>
+			<fileset dir="${build.client.dir}"/>
+			<fileset dir="${dist.dir}"/>
+			<fileset dir="${javadocs.dir}"/>
+		</delete>
+	</target>
+
+	<target name="mkdirs" depends="clean">
+		<echo message="Create directories..."/>
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${dist.dir}/ejb" />
+		<mkdir dir="${dist.dir}/appclient" />
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.dir}/META-INF" />
+		<mkdir dir="${build.client.dir}" />
+		<mkdir dir="${build.client.dir}/META-INF" />
+	</target>
+
+	<target name="compile" depends="mkdirs">
+		<echo message="Compiling EJB java..."/>
+		<javac srcdir="${basedir}/java" 
+				destdir="${build.dir}">
+			<include name="**/*.java" />
+			<classpath refid="javac.classpath"/>
+		</javac>
+		<echo message="Compiling appClient java..."/>
+		<javac srcdir="${basedir}/javaclient" 
+				destdir="${build.client.dir}">
+			<include name="**/*.java" />
+			<classpath refid="javac.classpath"/>
+		</javac>
+	</target>
+
+	<target name="build" depends="compile">
+		<echo message="Copying common JAR from common..."/>
+		<copy todir="${build.dir}"
+			file="${app.common.jar.name}"/>
+
+		<echo message="Copying EJB META-INF/*.xml files..."/>
+		<copy todir="${build.dir}/META-INF">
+			<fileset dir="${basedir}/etc">
+				<include name="ejb-jar.xml" />
+				<include name="sun-ejb-jar.xml" />
+			</fileset>
+		</copy>
+		<echo message="Copying appClient META-INF/*.xml files..."/>
+		<copy todir="${build.client.dir}/META-INF">
+			<fileset dir="${basedir}/etc">
+				<include name="application-client.xml" />
+				<include name="sun-application-client.xml" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="dist" depends="build">
+		<echo message="Creating EJB JAR file...."/>
+    	<jar jarfile="${ejb.jar.name}" basedir="${build.dir}">
+			<manifest>
+				<attribute name="Built-By" value="jv"/>
+				<attribute name="Class-Path" value=""/>
+				<section name="jvejb2/Abcd.class"/>
+				<section name="jvejb2/AbcdBean.class"/>
+				<section name="jvejb2/AbcdHome.class"/>
+				<section name="jvejb2/JVDatabase.class"/>
+			</manifest>
+		</jar>
+		<unjar src="${ejb.jar.name}" dest="${dist.dir}/ejb"/>
+
+		<echo message="Creating AppClient JAR file...."/>
+    	<jar jarfile="${appClient.jar.name}" basedir="${build.client.dir}">
+			<manifest>
+				<attribute name="Built-By" value="jv"/>
+				<attribute name="Class-Path" value=""/>
+				<attribute name="Main-Class" value="AbcdClient"/>
+				<section name="AbcdClient.class"/>
+			</manifest>
+		</jar>
+		<unjar src="${appClient.jar.name}" dest="${dist.dir}/appclient"/>
+	</target>
+
+</project>
+

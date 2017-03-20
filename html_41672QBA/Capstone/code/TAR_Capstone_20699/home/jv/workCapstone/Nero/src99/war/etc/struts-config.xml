@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<struts-config>
+
+    <form-beans>
+        <form-bean name="logonForm" type="jvapp.LogonForm"/>
+        <form-bean name="registerForm" type="jvapp.RegisterForm"/>
+        <form-bean name="catalogForm" type="jvapp.CatalogForm"/>
+        <form-bean name="catalogsForm" type="jvapp.CatalogsForm"/>
+        <form-bean name="catalogItemForm" type="jvapp.CatalogItemForm"/>
+        <form-bean name="cartForm" type="jvapp.CartForm"/>
+        <form-bean name="cartUpdateForm" type="jvapp.CartUpdateForm"/>
+        <form-bean name="checkoutForm" type="jvapp.CheckoutForm"/>
+        <form-bean name="appMainForm" type="jvapp.AppMainForm"/>
+    </form-beans>
+
+    <global-forwards>
+        <forward name="main" path="/Main.do"/>
+        <forward name="logon" path="/Logon.do"/>
+        <forward name="logoff" path="/Logoff.do"/>
+        <forward name="register" path="/Register.do"/>
+    </global-forwards>
+
+    <action-mappings>
+
+        <action 
+            path="/MainTemplate"
+            type="org.apache.struts.actions.ForwardAction"
+            parameter="/templates/Main.jsp"/>
+
+        <action 
+            path="/Error"
+            type="org.apache.struts.actions.ForwardAction"
+            parameter="/pages/Error.jsp"/>
+
+        <action 
+            path="/Main"
+            type="jvapp.MainAction"
+			name="appMainForm"
+            validate="false"
+            scope="request">
+            <forward name="success" path="/MainTemplate.do"/>
+            <forward name="failure" path="/Error.do"/>
+        </action>
+
+        <action 
+            path="/Logon"
+            type="jvapp.PreLogonAction"
+			name="appMainForm"
+            validate="false"
+            scope="request">
+            <forward name="success" path="/MainTemplate.do"/>
+            <forward name="failure" path="/Error.do"/>
+        </action>
+
+        <action 
+            path="/LogonSubmit"
+            type="jvapp.LogonAction"
+            name="logonForm"    
+            scope="request"
+            validate="true">
+            <forward name="success" path="/Catalogs.do"/>
+        </action>
+
+        <action 
+            path="/Logoff"
+			type="jvapp.LogoffAction">
+            <forward name="success" path="/Main.do"/>
+        </action>
+
+        <action 
+            path="/Catalogs"
+            type="jvapp.CatalogsAction"
+            name="catalogsForm"    
+            scope="request"
+            validate="true">
+            <forward name="success" path="/MainTemplate.do"/>
+            <forward name="failure" path="/Error.do"/>
+        </action>
+
+        <action 
+            path="/Construction"
+            type="jvapp.ConstructionAction"
+			name="appMainForm"
+            validate="false"
+            scope="request">
+            <forward name="success" path="/MainTemplate.do"/>
+            <forward name="failure" path="/Error.do"/>
+        </action>
+
+        <action 
+            path="/SelectCatalog"
+            type="jvapp.CatalogAction"
+            name="catalogForm"    
+            scope="request"
+            validate="true">
+            <forward name="success" path="/MainTemplate.do"/>
+            <forward name="failure" path="/Error.do"/>
+        </action>
+
+        <action 
+            path="/Cart"
+            type="jvapp.CartAction"
+            name="cartForm"    
+            scope="request"
+            validate="false">
+            <forward name="success" path="/MainTemplate.do"/>
+            <forward name="update" path="/CartUpdate.do"/>
+            <forward name="failure" path="/Error.do"/>
+        </action>
+
+        <action 
+            path="/CartUpdate"
+            type="jvapp.CartUpdateAction"
+            name="cartUpdateForm"    
+            scope="request"
+            validate="true">
+            <forward name="success" path="/MainTemplate.do"/>
+            <forward name="failure" path="/Error.do"/>
+        </action>
+
+        <action 
+            path="/CatalogItemsAdd"
+            type="jvapp.CatalogItemAction"
+            name="catalogItemForm"    
+            scope="request"
+            validate="true">
+            <forward name="success" path="/Catalogs.do"/>
+            <forward name="failure" path="/Error.do"/>
+        </action>
+
+        <action 
+            path="/Checkout"
+            type="jvapp.CheckoutAction"
+            name="checkoutForm"    
+            scope="request"
+            validate="true">
+            <forward name="success" path="/MainTemplate.do"/>
+            <forward name="update" path="/CartUpdate.do"/>
+            <forward name="failure" path="/Error.do"/>
+        </action>
+
+        <action 
+            path="/Confirmed"
+            type="jvapp.ConfirmedAction"
+            name="appMainForm"    
+            scope="request"
+            validate="true">
+            <forward name="success" path="/Construction.do"/>
+            <forward name="failure" path="/Error.do"/>
+        </action>
+
+    </action-mappings>
+
+</struts-config>
+
+<!--
+
+        <action 
+            path="/Register"
+            type="org.apache.struts.actions.ForwardAction"
+            parameter="/pages/Register.jsp">
+        </action>
+
+
+        <action 
+            path="/SaveRegister"
+            type="jvapp.RegisterAction"
+            name="registerForm"    
+            scope="request"
+            validate="true"
+            input="/pages/Register.jsp">
+            <forward name="success" path="/pages/Logon.jsp"/>
+        </action>
+
+-->
+

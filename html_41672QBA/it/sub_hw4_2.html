@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Internet Technology Homework</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="../css/topnav.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {color: #0000FF}
+.style2 {color: #FF0000}
+.style7 {
+	font-size: 140%;
+	font-weight: bold;
+}
+.style9 {font-size: 140%; font-weight: bold; color: #C5D5FC; }
+-->
+</style>
+</head>
+
+<body>
+<div id="masthead">
+  <h1 class="style1" id="siteName">Internet Technology</h1>
+  <div id="globalNav"> 
+  	<a href="../index.html">Home </a> | <a href="../ConceptualDesign.html">Conceptual Design </a> | <a href="../InternetTechnologies.html">Internet Technologies </a> | <a href="../InternetProgrammingLanguages.html">Internet Programming Languages</a> | <a href="../Assignments.html">Assignments</a> | <a href="../CurrentProjects.html">Projects</a> | <a href="../PersonalLog.html">Personal Log </a> | <a href="../About.html">About</a> 
+  </div>
+</div>
+<div id="content">
+  <h2 id="pageName">&nbsp;</h2>
+  <h2> <a name="TOP" id="TOP"></a>msie.marlboro.edu </h2>
+  <h4>&nbsp;</h4>
+  <div class="story">
+        <ul>
+          <li>
+            <h4><a href="#H4A">Running the Scripts</a></h4>
+          </li>
+          <li>
+            <h4><a href="#H4B">Alllist</a></h4>
+          </li>
+          <li><a href="#H4C">Sorted Alllist </a></li>
+          <li>
+            <h4><a href="#H4D">Sorted IP List </a></h4>
+          </li>
+          <li><a href="#H4E">Traceroute</a></li>
+          <li><a href="#H4F">Nmap</a></li>
+          <li><a href="#H4G">Logfile</a></li>
+        </ul>
+        <h2>&nbsp;</h2>
+        <h2><a name="H4A" id="H4A"></a>Running the Scripts </h2>
+    <h4>&nbsp;</h4>
+        <h4><span class="style1">./ppall &gt; save.lst 2&gt;&amp;1</span><br />
+          or
+        </h4>
+        <h4><span class="style1">./ppall</span><br />
+          Listing msie.marlboro.edu network<br />
+          Clearing out the output files<br />
+          Cleaning directory /tmp/msie.marlboro.edu<br />
+          List all network nodes /tmp/msie.marlboro.edu/alllist at 17:33:12<br />
+          Make a sorted list of nodes with an IP in the network at 17:33:12<br />
+          Make a sorted list of network nodes /tmp/msie.marlboro.edu/sorted_alllist at 17:33:12<br />
+          Ping each node and add to OK list if ping OK at 17:33:12<br />
+          Begin traceroute of pinged IPs on network msie.marlboro.edu at 17:34:18<br />
+          traceroute to 216.114.150.126 (216.114.150.126), 30 hops max, 38 byte packets<br />
+          traceroute to 216.114.150.49 (216.114.150.49), 30 hops max, 38 byte packets<br />
+          traceroute to 216.114.150.50 (216.114.150.50), 30 hops max, 38 byte packets<br />
+          traceroute to 216.114.150.51 (216.114.150.51), 30 hops max, 38 byte packets<br />
+          traceroute to 216.114.150.52 (216.114.150.52), 30 hops max, 38 byte packets<br />
+          traceroute to 216.114.150.53 (216.114.150.53), 30 hops max, 38 byte packets<br />
+          traceroute to 216.114.150.54 (216.114.150.54), 30 hops max, 38 byte packets<br />
+          traceroute to 216.114.150.55 (216.114.150.55), 30 hops max, 38 byte packets<br />
+          traceroute to 216.114.150.56 (216.114.150.56), 30 hops max, 38 byte packets<br />
+          traceroute to 216.114.150.58 (216.114.150.58), 30 hops max, 38 byte packets<br />
+          traceroute to 216.114.150.59 (216.114.150.59), 30 hops max, 38 byte packets<br />
+          traceroute to 216.114.150.60 (216.114.150.60), 30 hops max, 38 byte packets<br />
+          traceroute to 216.114.150.61 (216.114.150.61), 30 hops max, 38 byte packets<br />
+          traceroute to 216.114.150.62 (216.114.150.62), 30 hops max, 38 byte packets<br />
+          traceroute to 216.114.150.63 (216.114.150.63), 30 hops max, 38 byte packets<br />
+          traceroute to 216.114.150.64 (216.114.150.64), 30 hops max, 38 byte packets<br />
+          traceroute to 216.114.150.67 (216.114.150.67), 30 hops max, 38 byte packets<br />
+          traceroute to 216.114.150.81 (216.114.150.81), 30 hops max, 38 byte packets<br />
+          Completed traceroute of pinged IPs on network msie.marlboro.edu at 17:34:23<br />
+          Make traceroute and nmap files for useful looking IPs<br />
+          <br />
+          Summary: <br />
+Network: msie.marlboro.edu<br />
+Log File: /tmp/msie.marlboro.edu/logfile<br />
+All IPs with node names: /tmp/msie.marlboro.edu/alllist<br />
+Sorted IPs with node names: /tmp/msie.marlboro.edu/sorted_alllist<br />
+Sorted IPs: /tmp/msie.marlboro.edu/sorted_iplist<br />
+Pinged IPs: /tmp/msie.marlboro.edu/pinged_list<br />
+Traceroute file: /tmp/msie.marlboro.edu/traceroute<br />
+Nmap file: /tmp/msie.marlboro.edu/nmap<br />
+<br />
+Completed at 17:34:23<br />
+</h4>
+    <h4>&nbsp;</h4>
+        <h4><a href="#TOP"></h4>
+        <h2><a name="H4B" id="H4B"></a>Alllist file </h2>
+    <h4>&nbsp;</h4>
+    <h4>msie.marlboro.edu SOA ns.msie.marlboro.edu. markf.marlboro.edu. 200311091 86400 7200 2592000 345600<br />
+      msie.marlboro.edu name server ns.msie.marlboro.edu.<br />
+      msie.marlboro.edu mail is handled by 0 bob.marlboro.edu.<br />
+      a.msie.marlboro.edu is an alias for arenal.msie.marlboro.edu.<br />
+      b.msie.marlboro.edu is an alias for bezmianny.msie.marlboro.edu.<br />
+      bezmianny.msie.marlboro.edu has address 216.114.150.67<br />
+      d.msie.marlboro.edu is an alias for dawn.msie.marlboro.edu.<br />
+      dawn.msie.marlboro.edu has address 216.114.150.52<br />
+      e.msie.marlboro.edu is an alias for etna.msie.marlboro.edu.<br />
+      etna.msie.marlboro.edu has address 216.114.150.53<br />
+      h.msie.marlboro.edu is an alias for harmonicas.msie.marlboro.edu.<br />
+      haleiwa.msie.marlboro.edu has address 216.114.150.81<br />
+      harmonicas.msie.marlboro.edu has address 216.114.150.54<br />
+      j.msie.marlboro.edu is an alias for jewels.msie.marlboro.edu.<br />
+      jab.msie.marlboro.edu has address 216.114.150.88<br />
+      jewels.msie.marlboro.edu has address 216.114.150.55<br />
+      k.msie.marlboro.edu is an alias for keys.msie.marlboro.edu.<br />
+      kalapana.msie.marlboro.edu has address 216.114.150.84<br />
+      keys.msie.marlboro.edu has address 216.114.150.56<br />
+      l.msie.marlboro.edu is an alias for lights.msie.marlboro.edu.<br />
+      lights.msie.marlboro.edu has address 216.114.150.57<br />
+      m.msie.marlboro.edu is an alias for mule.msie.marlboro.edu.<br />
+      makaopuhi.msie.marlboro.edu has address 216.114.150.82<br />
+      merapi.msie.marlboro.edu has address 216.114.150.58<br />
+      mirage.msie.marlboro.edu has address 216.114.150.87<br />
+      mule.msie.marlboro.edu has address 216.114.150.51<br />
+      n.msie.marlboro.edu is an alias for nyiragongo.msie.marlboro.edu.<br />
+      napau.msie.marlboro.edu has address 216.114.150.83<br />
+      ns.msie.marlboro.edu has address 216.114.150.126<br />
+      nyiragongo.msie.marlboro.edu has address 216.114.150.59<br />
+      p.msie.marlboro.edu is an alias for play.msie.marlboro.edu.<br />
+      play.msie.marlboro.edu has address 216.114.150.60<br />
+      q.msie.marlboro.edu is an alias for quiet.msie.marlboro.edu.<br />
+      quiet.msie.marlboro.edu has address 216.114.150.50<br />
+      r.msie.marlboro.edu is an alias for rain.msie.marlboro.edu.<br />
+      rain.msie.marlboro.edu has address 216.114.150.61<br />
+      s.msie.marlboro.edu is an alias for skeleton.msie.marlboro.edu.<br />
+      skeleton.msie.marlboro.edu has address 216.114.150.62<br />
+      t.msie.marlboro.edu is an alias for tricks.msie.marlboro.edu.<br />
+      tricks.msie.marlboro.edu has address 216.114.150.63<br />
+      u.msie.marlboro.edu is an alias for up.msie.marlboro.edu.<br />
+      up.msie.marlboro.edu has address 216.114.150.64<br />
+      v.msie.marlboro.edu is an alias for vesuvius.msie.marlboro.edu.<br />
+      vesuvius.msie.marlboro.edu has address 216.114.150.65<br />
+      visions.msie.marlboro.edu has address 216.114.150.49<br />
+      z.msie.marlboro.edu is an alias for zhupanovsky.msie.marlboro.edu.<br />
+      zhupanovsky.msie.marlboro.edu has address 216.114.150.66<br />
+    msie.marlboro.edu SOA ns.msie.marlboro.edu. markf.marlboro.edu. 200311091 86400 7200 2592000 345600</h4>
+    <h4>&nbsp;</h4>
+    <h4><a href="#TOP">Top</a></h4>
+    <h4>&nbsp;</h4>
+    <h2><a name="H4C" id="H4C"></a>Sorted Alllist </h2>
+    <h4>&nbsp;</h4>
+    <h4>ns.msie.marlboro.edu has address 216.114.150.126<br />
+      visions.msie.marlboro.edu has address 216.114.150.49<br />
+      quiet.msie.marlboro.edu has address 216.114.150.50<br />
+      mule.msie.marlboro.edu has address 216.114.150.51<br />
+      dawn.msie.marlboro.edu has address 216.114.150.52<br />
+      etna.msie.marlboro.edu has address 216.114.150.53<br />
+      harmonicas.msie.marlboro.edu has address 216.114.150.54<br />
+      jewels.msie.marlboro.edu has address 216.114.150.55<br />
+      keys.msie.marlboro.edu has address 216.114.150.56<br />
+      lights.msie.marlboro.edu has address 216.114.150.57<br />
+      merapi.msie.marlboro.edu has address 216.114.150.58<br />
+      nyiragongo.msie.marlboro.edu has address 216.114.150.59<br />
+      play.msie.marlboro.edu has address 216.114.150.60<br />
+      rain.msie.marlboro.edu has address 216.114.150.61<br />
+      skeleton.msie.marlboro.edu has address 216.114.150.62<br />
+      tricks.msie.marlboro.edu has address 216.114.150.63<br />
+      up.msie.marlboro.edu has address 216.114.150.64<br />
+      vesuvius.msie.marlboro.edu has address 216.114.150.65<br />
+      zhupanovsky.msie.marlboro.edu has address 216.114.150.66<br />
+      bezmianny.msie.marlboro.edu has address 216.114.150.67<br />
+      haleiwa.msie.marlboro.edu has address 216.114.150.81<br />
+      makaopuhi.msie.marlboro.edu has address 216.114.150.82<br />
+      napau.msie.marlboro.edu has address 216.114.150.83<br />
+      kalapana.msie.marlboro.edu has address 216.114.150.84<br />
+      mirage.msie.marlboro.edu has address 216.114.150.87<br />
+      jab.msie.marlboro.edu has address 216.114.150.88<br />
+</h4>
+    <h4>&nbsp;</h4>
+    <h4><a href="#TOP">Top</a></h4>
+    <h4>&nbsp;</h4>
+    <h2>      <a name="H4D" id="H4D"></a>Pinged IPs</h2>
+    <h4>&nbsp;</h4>
+<h4>216.114.150.126<br />
+          216.114.150.49<br />
+          216.114.150.50<br />
+          216.114.150.51<br />
+          216.114.150.52<br />
+          216.114.150.53<br />
+          216.114.150.54<br />
+          216.114.150.55<br />
+          216.114.150.56<br />
+          216.114.150.59<br />
+          216.114.150.60<br />
+          216.114.150.61<br />
+          216.114.150.62<br />
+          216.114.150.63<br />
+          216.114.150.64<br />
+          216.114.150.67<br />
+          216.114.150.81<br />
+</h4>
+        <h4>&nbsp;        </h4>
+        <h4><a href="#TOP">Top</a></h4>
+        <h4>&nbsp;        </h4>
+        <h2><a name="H4E" id="H4E"></a>Traceroute</h2>
+    	<h4>&nbsp;</h4>
+        <h4>traceroute 216.114.150.126<br />
+          traceroute 216.114.150.49<br />
+          traceroute 216.114.150.50<br />
+          traceroute 216.114.150.51<br />
+          traceroute 216.114.150.52<br />
+          traceroute 216.114.150.53<br />
+          traceroute 216.114.150.54<br />
+          traceroute 216.114.150.55<br />
+          traceroute 216.114.150.56<br />
+          traceroute 216.114.150.58<br />
+          traceroute 216.114.150.59<br />
+          traceroute 216.114.150.60<br />
+          traceroute 216.114.150.61<br />
+          traceroute 216.114.150.62<br />
+          traceroute 216.114.150.63<br />
+          traceroute 216.114.150.64<br />
+          traceroute 216.114.150.67<br />
+          traceroute 216.114.150.81<br />
+</h4>
+        <h4>&nbsp;</h4>
+        <h4><a href="#TOP">Top</a></h4>
+        <h4>&nbsp;</h4>
+        <h2><a name="H4F" id="H4F"></a>Nmap</h2>
+        <h4>&nbsp;</h4>
+        <h4>nmap 216.114.150.126<br />
+          nmap 216.114.150.49<br />
+          nmap 216.114.150.50<br />
+          nmap 216.114.150.51<br />
+          nmap 216.114.150.52<br />
+          nmap 216.114.150.53<br />
+          nmap 216.114.150.54<br />
+          nmap 216.114.150.55<br />
+          nmap 216.114.150.56<br />
+          nmap 216.114.150.58<br />
+          nmap 216.114.150.59<br />
+          nmap 216.114.150.60<br />
+          nmap 216.114.150.61<br />
+          nmap 216.114.150.62<br />
+          nmap 216.114.150.63<br />
+          nmap 216.114.150.64<br />
+          nmap 216.114.150.67<br />
+          nmap 216.114.150.81<br />
+</h4>
+        <h4>&nbsp;</h4>
+        <h4><a href="#TOP">Top</a></h4>
+        <h4>&nbsp;</h4>
+        <h2><a name="H4G" id="H4G"></a>Logfile</h2>
+        <h4>&nbsp;</h4>
+        <h4>Beginning network search at 17:33:12</h4>
+    <h4>&nbsp;</h4>
+        <h4>CROSSED/SINGLE traceroute 216.114.150.126<br />
+    1 zonorus.marlboro.edu (216.114.150.3) 1.683 ms * 0.455 ms</h4>
+    <h4>&nbsp;</h4>
+        <h4>STRAIGHT/SINGLE traceroute 216.114.150.49<br />
+    1 visions.msie.marlboro.edu (216.114.150.49) 0.486 ms 0.321 ms 0.248 ms</h4>
+    <h4>&nbsp;</h4>
+        <h4>STRAIGHT/SINGLE traceroute 216.114.150.50<br />
+    1 quiet.msie.marlboro.edu (216.114.150.50) 0.489 ms 0.328 ms 0.256 ms</h4>
+    <h4>&nbsp;</h4>
+        <h4>STRAIGHT/SINGLE traceroute 216.114.150.51<br />
+    1 mule.msie.marlboro.edu (216.114.150.51) 0.159 ms 0.129 ms 0.064 ms</h4>
+    <h4>&nbsp;</h4>
+        <h4>STRAIGHT/SINGLE traceroute 216.114.150.52<br />
+    1 dawn.msie.marlboro.edu (216.114.150.52) 0.497 ms 0.323 ms 0.244 ms</h4>
+    <h4>&nbsp;</h4>
+        <h4>STRAIGHT/SINGLE traceroute 216.114.150.53<br />
+    1 etna.msie.marlboro.edu (216.114.150.53) 0.486 ms 0.319 ms 0.243 ms</h4>
+    <h4>&nbsp;</h4>
+        <h4>STRAIGHT/SINGLE traceroute 216.114.150.54<br />
+    1 harmonicas.msie.marlboro.edu (216.114.150.54) 0.494 ms 0.291 ms 0.218 ms</h4>
+    <h4>&nbsp;</h4>
+        <h4>STRAIGHT/SINGLE traceroute 216.114.150.55<br />
+    1 jewels.msie.marlboro.edu (216.114.150.55) 0.492 ms 0.316 ms 0.241 ms</h4>
+    <h4>&nbsp;</h4>
+        <h4>STRAIGHT/SINGLE traceroute 216.114.150.56<br />
+    1 keys.msie.marlboro.edu (216.114.150.56) 0.483 ms 0.321 ms 0.243 ms</h4>
+    <h4>&nbsp;</h4>
+        <h4>STRAIGHT/SINGLE traceroute 216.114.150.58<br />
+    1 merapi.msie.marlboro.edu (216.114.150.58) 0.487 ms 0.261 ms 0.186 ms</h4>
+    <h4>&nbsp;</h4>
+        <h4>STRAIGHT/SINGLE traceroute 216.114.150.59<br />
+    1 nyiragongo.msie.marlboro.edu (216.114.150.59) 0.484 ms 0.297 ms 0.215 ms</h4>
+    <h4>&nbsp;</h4>
+        <h4>STRAIGHT/SINGLE traceroute 216.114.150.60<br />
+    1 play.msie.marlboro.edu (216.114.150.60) 0.477 ms 0.296 ms 0.215 ms</h4>
+    <h4>&nbsp;</h4>
+        <h4>STRAIGHT/SINGLE traceroute 216.114.150.61<br />
+    1 rain.msie.marlboro.edu (216.114.150.61) 0.484 ms 0.291 ms 0.214 ms</h4>
+    <h4>&nbsp;</h4>
+        <h4>STRAIGHT/SINGLE traceroute 216.114.150.62<br />
+    1 skeleton.msie.marlboro.edu (216.114.150.62) 0.571 ms 0.323 ms 0.213 ms</h4>
+    <h4>&nbsp;</h4>
+        <h4>STRAIGHT/SINGLE traceroute 216.114.150.63<br />
+    1 tricks.msie.marlboro.edu (216.114.150.63) 0.495 ms 0.324 ms 0.229 ms</h4>
+    <h4>&nbsp;</h4>
+        <h4>STRAIGHT/SINGLE traceroute 216.114.150.64<br />
+    1 up.msie.marlboro.edu (216.114.150.64) 0.474 ms 0.286 ms 0.212 ms</h4>
+        <h4>&nbsp;</h4>
+        <h4>STRAIGHT/SINGLE traceroute 216.114.150.67<br />
+    1 bezmianny.msie.marlboro.edu (216.114.150.67) 0.484 ms 0.324 ms 0.246 ms<br />
+    </h4>
+        <h4>&nbsp;</h4>
+        <h4>STRAIGHT/SINGLE traceroute 216.114.150.81<br />
+  1 haleiwa.msie.marlboro.edu (216.114.150.81) 0.485 ms 0.326 ms 0.241 ms</h4>
+        <p>Completed network search at 17:34:23</p>
+        <h4>&nbsp;</h4>
+        <h4><a href="#TOP">Top</a></h4>
+        <h4>&nbsp;</h4>
+  </div>
+</div>
+<!-- end masthead -->
+</body>
+</html>

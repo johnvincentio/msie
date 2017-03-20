@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE faces-config PUBLIC
+   "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+   "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+
+<faces-config>
+   <managed-bean>
+      <managed-bean-name>tabbedPaneBean</managed-bean-name>
+      <managed-bean-class>com.corejsf.TabbedPaneBean</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>
+
+   <navigation-rule>
+      <from-view-id>/index.jsp</from-view-id>
+         <navigation-case>
+            <to-view-id>/welcome.jsp</to-view-id>
+         </navigation-case>
+   </navigation-rule>
+
+   <component>
+      <component-type>com.corejsf.TabbedPane</component-type>
+      <component-class>com.corejsf.UITabbedPane</component-class>
+   </component>
+<!--
+   <component>
+      <description>A tabbed pane</description>
+      <component-type>com.corejsf.TabbedPane</component-type>
+      <component-class>com.corejsf.UITabbedPane</component-class>
+   </component>
+-->
+   <render-kit>
+      <renderer>
+         <component-family>javax.faces.Command</component-family>
+         <renderer-type>com.corejsf.TabbedPane</renderer-type>
+         <renderer-class>com.corejsf.TabbedPaneRenderer</renderer-class>
+      </renderer>
+   </render-kit>
+</faces-config>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<struts-config>
+
+    <form-beans>
+        <form-bean name="logonForm" type="jvapp.LogonForm"/>
+        <form-bean name="appMainForm" type="jvapp.AppMainForm"/>
+    </form-beans>
+
+    <global-forwards>
+        <forward name="main" path="/Main.do"/>
+        <forward name="logon" path="/Logon.do"/>
+        <forward name="logoff" path="/Logoff.do"/>
+    </global-forwards>
+
+    <action-mappings>
+
+        <action 
+            path="/Main"
+            type="org.apache.struts.actions.ForwardAction"
+            parameter="/pages/Main.jsp"/>
+
+        <action 
+            path="/Logon"
+            type="org.apache.struts.actions.ForwardAction"
+            parameter="/pages/Logon.jsp"/>
+
+        <action 
+            path="/LogonSubmit"
+            type="jvapp.LogonAction"
+            name="logonForm"    
+            scope="request"
+            validate="true"
+            input="/pages/Logon.jsp">
+            <forward name="success" path="/AppMain.do"/>
+        </action>
+
+        <action 
+            path="/Logoff" type="jvapp.LogoffAction">
+            <forward name="success" path="/Main.do"/>
+        </action>
+
+        <action 
+            path="/Construction"
+            type="org.apache.struts.actions.ForwardAction"
+            parameter="/pages/Construction.jsp"/>
+
+<!--  tabs -->
+
+        <action 
+            path="/AppMain"
+            type="jvapp.AppMainAction"
+			name="appMainForm"
+            validate="false"
+            scope="request">
+            <forward name="success" path="/pages/Tabs.jsp"/>
+            <forward name="failure" path="/pages/Error.jsp"/>
+        </action>
+
+        <action 
+            path="/BarcodeDetails"
+            type="jvapp.BarcodeDetailsAction"
+			name="appMainForm"
+            validate="false"
+            scope="request">
+            <forward name="success" path="/pages/Tabs.jsp"/>
+            <forward name="failure" path="/pages/Error.jsp"/>
+        </action>
+
+<!-- non tabs, data -->
+
+        <action 
+            path="/Barcodes"
+            type="jvapp.BarcodesAction"
+			name="appMainForm"
+            validate="false"
+            scope="request">
+            <forward name="success" path="/pages/Barcodes.jsp"/>
+            <forward name="failure" path="/pages/Error.jsp"/>
+            <forward name="presendcollection" path="/MyPreSendCollection.do"/>
+        </action>
+
+        <action 
+            path="/MyPreSendCollection"
+            type="jvapp.PreSendCollectionAction"
+			name="appMainForm"
+            validate="false"
+            scope="request">
+            <forward name="success" path="/pages/SendCollection.jsp"/>
+            <forward name="failure" path="/pages/Error.jsp"/>
+        </action>
+
+        <action 
+            path="/SendCollection"
+            type="jvapp.SendCollectionAction"
+			name="appMainForm"
+            validate="false"
+            scope="request">
+            <forward name="success" path="/Main.do"/>
+            <forward name="failure" path="/pages/Error.jsp"/>
+        </action>
+
+
+<!-- testing -->
+
+        <action 
+            path="/Tab1"
+            type="jvapp.TabAction"
+            scope="request">
+            <forward name="success" path="/pages/Tabs.jsp"/>
+            <forward name="failure" path="/pages/Error.jsp"/>
+        </action>
+
+    </action-mappings>
+
+</struts-config>
+

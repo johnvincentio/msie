@@ -1,0 +1,7 @@
+
+<html:link page="/construction">Under Construction(2)</html:link>
+this does not work - does not look up the global forward....
+
+<html:link page="/Construction.do">Under Construction</html:link>
+this works.....
+

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://bob.marlboro.edu/~jvincent/schemas"
+	xmlns:container="http://bob.marlboro.edu/~jvincent/schemas"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+
+<xsd:annotation>
+	<xsd:documentation>
+		This schema is loosely associated with the database schema. I didn't tie them together too tightly as the database schema is in obvious need of improvements.
+	</xsd:documentation>
+</xsd:annotation>
+
+<xsd:simpleType name="positiveDecimal">
+	<xsd:restriction base="xsd:decimal">
+		<xsd:minInclusive value="0.0"/>
+	</xsd:restriction>
+</xsd:simpleType>
+
+<xsd:complexType name="TrackingType">
+	<xsd:sequence>
+		<xsd:element name="Trackingid" type="xsd:positiveInteger"/>
+		<xsd:element name="url" type="xsd:string"/>
+		<xsd:element name="id" type="xsd:positiveInteger"/>
+	</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType name="ShipperType">
+	<xsd:sequence>
+		<xsd:element name="Shipperid" type="xsd:positiveInteger"/>
+		<xsd:element name="Person" type="container:PersonType"/>
+		<xsd:element name="Tracking" type="container:TrackingType"/>
+	</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType name="LocationType">
+	<xsd:sequence>
+		<xsd:element name="Locationid" type="xsd:positiveInteger"/>
+		<xsd:element name="Description" type="xsd:string"/>
+	</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType name="UserType">
+	<xsd:sequence>
+		<xsd:element name="Userid" type="xsd:positiveInteger"/>
+		<xsd:element name="Person" type="container:PersonType"/>
+		<xsd:element name="Location" type="container:LocationType"/>
+	</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType name="OrdersType">
+	<xsd:sequence>
+		<xsd:element name="Ordersid" type="xsd:positiveInteger"/>
+		<xsd:element name="Orderdate" type="xsd:dateTime"/>
+		<xsd:element name="User" type="container:UserType"/>
+	</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType name="CategoryType">
+	<xsd:sequence>
+		<xsd:element name="Name" type="xsd:string"/>
+		<xsd:element name="Description" type="xsd:string"/>
+	</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType name="OptionType">
+	<xsd:sequence>
+		<xsd:element name="Name" type="xsd:string"/>
+		<xsd:element name="Value" type="xsd:string"/>
+	</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType name="CharacteristicType">
+	<xsd:sequence>
+		<xsd:element name="Category" type="container:CategoryType"
+			maxOccurs="unbounded"/>
+		<xsd:element name="Option" type="container:OptionType"
+			maxOccurs="unbounded"/>
+	</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType name="ItemType">
+	<xsd:sequence>
+		<xsd:element name="Itemid" type="xsd:positiveInteger"/>
+		<xsd:element name="Name" type="xsd:string"/>
+		<xsd:element name="Description" type="xsd:string"/>
+		<xsd:element name="Characteristic" type="container:CharacteristicType"
+			maxOccurs="unbounded"/>
+	</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType name="PersonListType">
+	<xsd:sequence>
+		<xsd:element name="FirstName" type="xsd:string"/>
+		<xsd:element name="MiddleName" type="xsd:string"/>
+		<xsd:element name="LastName" type="xsd:string"/>
+	</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType name="PersonType">
+	<xsd:sequence>
+		<xsd:element name="Personid" type="xsd:positiveInteger"/>
+		<xsd:element name="PersonInfo" type="container:PersonListType"
+			maxOccurs="unbounded"/>
+	</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType name="CostType">
+	<xsd:sequence>
+		<xsd:element name="Costid" type="xsd:positiveInteger"/>
+		<xsd:element name="StockValue" type="container:positiveDecimal"/>
+		<xsd:element name="WholesalePrice" type="container:positiveDecimal"/>
+		<xsd:element name="DiscountPrice1" type="container:positiveDecimal"/>
+		<xsd:element name="DiscountPrice2" type="container:positiveDecimal"/>
+		<xsd:element name="DiscountPrice3" type="container:positiveDecimal"/>
+		<xsd:element name="DiscountPrice4" type="container:positiveDecimal"/>
+		<xsd:element name="DiscountPrice5" type="container:positiveDecimal"/>
+	</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType name="SupplierType">
+	<xsd:sequence>
+		<xsd:element name="Supplierid" type="xsd:positiveInteger"/>
+		<xsd:element name="Person" type="container:PersonType"
+			maxOccurs="unbounded"/>
+		<xsd:element name="MaxOwed" type="container:positiveDecimal"/>
+		<xsd:element name="CurrentOwed" type="container:positiveDecimal"/>
+	</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType name="BarcodeType">
+	<xsd:sequence>
+		<xsd:element name="Quantity" type="xsd:positiveInteger"/>
+		<xsd:element name="Item" type="container:ItemType"/>
+		<xsd:element name="Supplier" type="container:SupplierType"/>
+		<xsd:element name="Cost" type="container:CostType"/>
+		<xsd:element name="ImageURL" type="xsd:string"/>
+		<xsd:element name="Barcode" type="xsd:string"/>
+	</xsd:sequence>
+	<xsd:attribute name="Barcodeid" type="xsd:ID" use="required"/>
+</xsd:complexType>
+
+<xsd:complexType name="ContainerType">
+	<xsd:sequence>
+		<xsd:element name="Containerid" type="xsd:positiveInteger"/>
+		<xsd:element name="Barcode" type="container:BarcodeType"
+			maxOccurs="unbounded"/>
+		<xsd:element name="Orders" type="container:OrdersType"
+			maxOccurs="unbounded"/>
+		<xsd:element name="Shipper" type="container:ShipperType"/>
+	</xsd:sequence>
+</xsd:complexType>
+
+<xsd:element name="Container" type="container:ContainerType"/>
+
+</xsd:schema>
+

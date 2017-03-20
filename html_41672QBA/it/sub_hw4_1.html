@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Internet Technology Homework</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="../css/topnav.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {color: #0000FF}
+.style2 {color: #FF0000}
+.style7 {
+	font-size: 140%;
+	font-weight: bold;
+}
+.style9 {font-size: 140%; font-weight: bold; color: #C5D5FC; }
+-->
+</style>
+</head>
+
+<body>
+<div id="masthead">
+  <h1 class="style1" id="siteName">Internet Technology</h1>
+  <div id="globalNav"> 
+  	<a href="../index.html">Home </a> | <a href="../ConceptualDesign.html">Conceptual Design </a> | <a href="../InternetTechnologies.html">Internet Technologies </a> | <a href="../InternetProgrammingLanguages.html">Internet Programming Languages</a> | <a href="../Assignments.html">Assignments</a> | <a href="../CurrentProjects.html">Projects</a> | <a href="../PersonalLog.html">Personal Log </a> | <a href="../About.html">About</a> 
+  </div>
+</div>
+<div id="content">
+  <h2 id="pageName">&nbsp;</h2>
+  <h2> Unix Scripts </h2>
+  <h4>&nbsp;</h4>
+  <h4>These scripts are constantly being improved........ </h4>
+  <p>The main controlling script is ppall</p>
+  <h4>
+  <pre>#!/bin/sh
+#
+trap 'echo Script has been aborted; exit 1' 1 2 15
+#
+#  Script to scan through the marlboro domains looking for useful information
+#
+./pp "msie.marlboro.edu"
+./pp "marlboro.edu"</pre>
+  </h4>
+  <h4><br> 
+    The aim is to list the domains here and let it rip.</h4>
+  <h4>&nbsp;</h4>
+  <h4>The worker script pp is:</h4>
+  <p>
+  <pre>#!/bin/sh
+#
+trap 'echo Script has been aborted; exit 1' 1 2 15
+#
+#  Assume:
+#     1. if cannot ping, I cannot proceed with the IP, thus drop it.
+#     2. if cannot traceroute, drop it.
+#     3. if traceroute takes a single hop to itself, it is on the same network.
+#        can still portscan for interest, but not a network issue.
+#     4. a single hop to a different IP is of interest.
+#
+jvdate() {
+   date '+%T';    # help with some timings
+}
+#
+if test $# -lt 1
+then                            # poor usage
+   echo "Usage: pp network_name"
+   exit 1
+fi
+JV_NETWORK=$1
+if [ -z "$JV_NETWORK" ]; then     # belts and braces
+   echo "Usage: pp network_name"
+   exit 1
+fi
+echo "Listing $JV_NETWORK network"
+#
+echo "Clearing out the output files"
+JVTMP="/tmp/${JV_NETWORK}"
+#echo ":${JVTMP}:"
+if [ -d $JVTMP ]; then
+   echo "Cleaning directory $JVTMP"
+   rm $JVTMP/*
+else
+   echo "Creating directory $JVTMP for the output files"
+   mkdir $JVTMP         # a tad presumptious
+fi
+#
+JVLOGFILE=$JVTMP/logfile
+JVTMP1=$JVTMP/alllist
+JVTMP2=$JVTMP/sorted_alllist
+JVTMP3=$JVTMP/sorted_iplist
+JVTMP3A=$JVTMP/pinged_list
+JVTMP4=$JVTMP/traceroute
+JVTMP4A=$JVTMP/traceroute
+JVTMP5=$JVTMP/nmap
+#
+JVTMPT2=/tmp/ff$$
+JVTMP4T=/tmp/tt$$
+#
+echo "Beginning network search at `jvdate`" > $JVLOGFILE
+#
+echo "List all network nodes $JVTMP1 at `jvdate`"
+host -l $JV_NETWORK > $JVTMP1
+#
+echo "Make a sorted list of nodes with an IP in the network at `jvdate`"
+cat $JVTMP1 | grep -i "has address" | sort -t ' ' -k4 > $JVTMP2
+#
+echo "Make a sorted list of network nodes $JVTMP2 at `jvdate`"
+cat $JVTMP1 | grep -i "has address" | cut -d ' ' -f4 | sort >> $JVTMP3
+#
+echo "Ping each node and add to OK list if ping OK at `jvdate`"
+cat $JVTMP3 | while read LINE
+do
+#  echo "Pinging $LINE"
+   ping -c3 $LINE > /dev/null
+   status=$?
+   if [ $status -eq 0 ]; then
+      echo $LINE >> $JVTMP3A
+   fi
+done
+#
+echo "Begin traceroute of pinged IPs on network $JV_NETWORK at `jvdate`"
+cat $JVTMP3A | while read LINE
+do
+   traceroute $LINE > $JVTMP4T
+   status=$?
+   if [ $status -eq 0 ]; then
+      ddd1=`cat $JVTMP4T | wc -l`
+      if [ $ddd1 -gt 1 ]; then      # more than 1 hop, this I want
+         echo " " >> $JVLOGFILE
+         echo "MULTIPLE traceroute $LINE" >> $JVLOGFILE
+         cat $JVTMP4T >> $JVLOGFILE
+      else
+         if [ $ddd1 -eq 1 ]; then
+            ZZSTR="(${LINE})"
+            cat $JVTMP4T | sed "/$ZZSTR/d" > $JVTMPT2
+            ddd2=`cat $JVTMPT2 | wc -l`
+            if [ $ddd2 -gt 0 ]; then    # did not hop to itself...
+               echo " " >> $JVLOGFILE
+               echo "CROSSED/SINGLE traceroute $LINE" >> $JVLOGFILE
+               cat $JVTMP4T >> $JVLOGFILE
+            else
+               echo " " >> $JVLOGFILE
+               echo "STRAIGHT/SINGLE traceroute $LINE" >> $JVLOGFILE
+               cat $JVTMP4T >> $JVLOGFILE
+            fi
+         else
+            echo " " >> $JVLOGFILE
+            echo "traceroute $LINE" >> $JVLOGFILE  # trouble, but why?
+            echo "ERROR - no output" >> $JVLOGFILE
+         fi
+      fi
+      echo "traceroute $LINE" >> $JVTMP4   # add to traceroute list
+      echo "nmap $LINE" >> $JVTMP5    # add to portscan list
+   fi
+done
+echo " " >> $JVLOGFILE
+echo "Completed traceroute of pinged IPs on network $JV_NETWORK at `jvdate`"
+#
+echo "Make traceroute and nmap files for useful looking IPs"
+if [ -r $JVTMP4 ]; then
+   chmod 700 $JVTMP4
+fi
+if [ -r $JVTMP5 ]; then
+   chmod 700 $JVTMP5
+fi
+#
+echo " "
+echo " "
+echo "Summary: "
+echo "                   Network: $JV_NETWORK"
+echo "                  Log File: $JVLOGFILE"
+echo "   All IPs with node names: $JVTMP1"
+echo "Sorted IPs with node names: $JVTMP2"
+echo "                Sorted IPs: $JVTMP3"
+echo "                Pinged IPs: $JVTMP3A"
+echo "           Traceroute file: $JVTMP4"
+echo "                 Nmap file: $JVTMP5"
+echo " "
+#
+echo "Completed network search at `jvdate`" >> $JVLOGFILE
+echo "Completed at `jvdate`"
+
+  </pre>
+  <p>
+  <pre>&nbsp;</pre>
+  </p>
+  <h4>&nbsp;</h4>
+  <h4>
+    <!-- end masthead -->
+        </h4>
+</div>
+</body>
+</html>

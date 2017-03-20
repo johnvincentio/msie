@@ -1,0 +1,58 @@
+
+<!--
+	jspvalidate.xml; script to compile the JSPs.
+		Should find the typos and assorted sillies before it gets
+		to the server.
+
+	Based on: jspc -v -d $OUTPUT_DIR -webapp $BUILDDIR
+-->
+	<target name="precompileJSP_clean">
+		<echo message="Cleaning JSP Validate...."/>
+		<delete includeEmptyDirs="true" quiet="true">
+			<fileset dir="${jsp.test.dir}"/>
+		</delete>
+	</target>
+
+	<target name="precompileJSP" depends="precompileJSP_clean">
+        <echo message="Precompiling JSP to Java code..."/>
+		<mkdir dir="${jsp.test.dir}" />
+		<mkdir dir="${jsp.test.dir}/java" />
+		<mkdir dir="${jsp.test.dir}/classes" />
+		<mkdir dir="${jsp.test.dir}/generated" />
+
+		<property name="jsp.precompile.dir" value="${jsp.test.dir}/java"/>
+		<path id="jsp.precompile.path">
+			<pathelement location="${j2ee.home}/lib/appserv-rt.jar"/>
+			<pathelement location="${j2ee.home}/lib/j2ee.jar"/>
+			<pathelement location="${j2ee.home}/lib/ant/lib/ant.jar"/>
+		</path>
+
+		<java classname="org.apache.jasper.JspC"
+				failonerror="true" 
+				fork="true"
+				classpathref="jsp.precompile.path">
+			<arg value="-v"/>
+			<arg value="-die"/>
+			<arg value="-d"/>
+			<arg value="${jsp.test.dir}/java" />
+			<arg value="-webapp"/>
+			<arg value="${build.dir}"/>
+			<arg value="-webxml"/>
+			<arg value="${jsp.test.dir}/generated/webxml.xml"/>
+		</java>
+	</target>
+
+	<target name="CompileJSP" depends="precompileJSP">
+		<path id="jsp.postcompile.path">
+			<pathelement location="${j2ee.home}/lib/appserv-rt.jar"/>
+			<fileset dir="${build.dir}/WEB-INF/lib">
+				<include name="*.jar"/>
+			</fileset>
+		</path>
+		<echo message="Compiling translated JSP code..."/>
+		<javac srcdir="${jsp.test.dir}/java"
+			destdir="${jsp.test.dir}/classes"
+			failonerror="true"
+			classpathref="jsp.postcompile.path"/>
+  </target>
+

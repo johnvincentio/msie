@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns="http://java.sun.com/xml/ns/j2ee" version="2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd">
+
+	<display-name>SupplierMDB1</display-name>
+
+	<enterprise-beans>
+
+		<message-driven>
+			<ejb-name>SupplierMdb1Bean</ejb-name>
+			<ejb-class>jvmsg1/SimpleMessageBean</ejb-class>
+			<messaging-type>javax.jms.MessageListener</messaging-type>
+			<transaction-type>Container</transaction-type>
+			<message-destination-type>javax.jms.Queue</message-destination-type>
+			<message-destination-link>SupplierMdb1PhysicalQueue</message-destination-link>
+			<ejb-ref>
+				<ejb-ref-name>ejb/TheSupplierBean</ejb-ref-name>
+				<ejb-ref-type>Session</ejb-ref-type>
+				<home>jvejb2.AbcdHome</home>
+				<remote>jvejb2.Abcd</remote>
+			</ejb-ref>
+		</message-driven>
+	</enterprise-beans>
+
+	<assembly-descriptor>
+		<container-transaction>
+			<method>
+				<ejb-name>SupplierMdb1Bean</ejb-name>
+				<method-name>onMessage</method-name>
+				<method-params>
+					<method-param>javax.jms.Message</method-param>
+				</method-params>
+			</method>
+			<trans-attribute>Required</trans-attribute>
+		</container-transaction>
+		<message-destination>
+			<message-destination-name>SupplierMdb1PhysicalQueue</message-destination-name>
+		</message-destination>
+	</assembly-descriptor>
+
+</ejb-jar>
+
+<!--
+	<display-name>SupplierMDB1</display-name>
+
+	<enterprise-beans>
+		<message-driven>
+			<ejb-name>SupplierMdb1Bean</ejb-name>
+			<ejb-class>jvmsg1/SimpleMessageBean</ejb-class>
+			<messaging-type>javax.jms.MessageListener</messaging-type>
+			<transaction-type>Container</transaction-type>
+			<message-destination-type>javax.jms.Queue</message-destination-type>
+			<message-destination-link>SupplierMdb1PhysicalQueue</message-destination-link>
+		</message-driven>
+	</enterprise-beans>
+
+	<assembly-descriptor>
+		<container-transaction>
+			<method>
+				<ejb-name>SupplierMdb1Bean</ejb-name>
+				<method-name>onMessage</method-name>
+				<method-params>
+					<method-param>javax.jms.Message</method-param>
+				</method-params>
+			</method>
+			<trans-attribute>Required</trans-attribute>
+		</container-transaction>
+		<message-destination>
+			<message-destination-name>SupplierMdb1PhysicalQueue</message-destination-name>
+		</message-destination>
+	</assembly-descriptor>
+
+</ejb-jar>
+
+-->

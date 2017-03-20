@@ -1,0 +1,34 @@
+Manifest-Version: 1.0
+Class-Path: 
+Main-Class: appclient.HelloClient
+
+Name: appclient/MyHelloService_Impl.class
+
+Name: appclient/HelloIF_sayHello_RequestStruct.class
+
+Name: appclient/HelloIF_sayHello_RequestStruct_SOAPSerializer.class
+
+Name: appclient/HelloIF.class
+
+Name: build/mapping.xml
+
+Name: META-INF/sun-j2ee-ri.project
+
+Name: appclient/MyHelloService_SerializerRegistry.class
+
+Name: appclient/HelloClient.class
+
+Name: appclient/HelloIF_sayHello_ResponseStruct.class
+
+Name: appclient/HelloIF_Stub.class
+
+Name: appclient/MyHelloService.class
+
+Name: META-INF/wsdl/MyHelloService.wsdl
+
+Name: appclient/HelloIF_sayHello_ResponseStruct_SOAPBuilder.class
+
+Name: appclient/HelloIF_sayHello_ResponseStruct_SOAPSerializer.class
+
+Name: appclient/HelloIF_sayHello_RequestStruct_SOAPBuilder.class
+

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns="http://java.sun.com/xml/ns/j2ee" version="2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd">
+
+	<display-name>HelloServiceJAR</display-name>
+	<enterprise-beans>
+		<session>
+			<ejb-name>HelloServiceBean</ejb-name>
+			<service-endpoint>helloservice.HelloIF</service-endpoint>
+			<ejb-class>helloservice.HelloServiceBean</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Bean</transaction-type>
+			<resource-ref>
+				<res-ref-name>jms/MyConnectionFactory</res-ref-name>
+				<res-type>javax.jms.ConnectionFactory</res-type>
+				<res-auth>Container</res-auth>
+				<res-sharing-scope>Shareable</res-sharing-scope>
+			</resource-ref>
+			<message-destination-ref>
+				<message-destination-ref-name>jms/DistributorMdb2QueueName</message-destination-ref-name>
+				<message-destination-type>javax.jms.Queue</message-destination-type>
+				<message-destination-usage>Produces</message-destination-usage>
+				<message-destination-link>mdb2_ejb-jar-ic.jar#DistributorMdb2PhysicalQueue</message-destination-link>
+			</message-destination-ref>
+			<security-identity>
+				<use-caller-identity/>
+			</security-identity>
+		</session>
+	</enterprise-beans>
+
+	<assembly-descriptor>
+		<message-destination>
+			<message-destination-name>DistributorMdb2PhysicalQueue</message-destination-name>
+		</message-destination>
+	</assembly-descriptor>
+
+</ejb-jar>
+
+<!--
+from deploytool
+
+<display-name>a1JAR</display-name>
+<enterprise-beans>
+<session>
+<ejb-name>HelloServiceBean</ejb-name>
+<service-endpoint>helloservice.HelloIF</service-endpoint>
+<ejb-class>helloservice.HelloServiceBean</ejb-class>
+<session-type>Stateless</session-type>
+<transaction-type>Bean</transaction-type>
+<resource-ref>
+<res-ref-name>jms/MyConnectionFactory</res-ref-name>
+<res-type>javax.jms.ConnectionFactory</res-type>
+<res-auth>Container</res-auth>
+<res-sharing-scope>Shareable</res-sharing-scope>
+</resource-ref>
+<message-destination-ref>
+<message-destination-ref-name>jms/DistributorMdb1QueueName</message-destination-ref-name>
+<message-destination-type>javax.jms.Queue</message-destination-type>
+<message-destination-usage>Produces</message-destination-usage>
+</message-destination-ref>
+<security-identity>
+<use-caller-identity/>
+</security-identity>
+</session>
+</enterprise-beans>
+<assembly-descriptor>
+<message-destination>
+<message-destination-name>DistributorMdb1PhysicalQueue</message-destination-name>
+</message-destination>
+</assembly-descriptor>
+</ejb-jar>
+
+-->
+
+<!--
+
+
+	<resource-ref>
+		<res-ref-name>jms/MyConnectionFactory</res-ref-name>
+		<res-type>javax.jms.ConnectionFactory</res-type>
+		<res-auth>Container</res-auth>
+		<res-sharing-scope>Shareable</res-sharing-scope>
+	</resource-ref>
+
+	<message-destination-ref>
+		<message-destination-ref-name>jms/DistributorMdb1QueueName</message-destination-ref-name>
+		<message-destination-type>javax.jms.Queue</message-destination-type>
+		<message-destination-usage>Produces</message-destination-usage>
+		<message-destination-link>mdb1_ejb-jar-ic.jar#DistributorMdb1PhysicalQueue</message-destination-link>
+	</message-destination-ref>
+
+	<message-destination>
+		<message-destination-name>DistributorMdb1PhysicalQueue</message-destination-name>
+	</message-destination>
+
+
+
+-->
+
+<!--
+this did not work....
+
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns="http://java.sun.com/xml/ns/j2ee" version="2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd">
+
+	<display-name>HelloServiceJAR</display-name>
+	<enterprise-beans>
+		<session>
+			<ejb-name>HelloServiceBean</ejb-name>
+			<service-endpoint>helloservice.HelloIF</service-endpoint>
+			<ejb-class>helloservice.HelloServiceBean</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Bean</transaction-type>
+			<ejb-ref>
+				<ejb-ref-name>ejb/TheSupplierBean</ejb-ref-name>
+				<ejb-ref-type>Session</ejb-ref-type>
+				<home>jvejb2.AbcdHome</home>
+				<remote>jvejb2.Abcd</remote>
+			</ejb-ref>
+			<security-identity>
+				<use-caller-identity/>
+			</security-identity>
+		</session>
+	</enterprise-beans>
+</ejb-jar>
+
+-->
+
+<!--
+
+this is the baseline - this works...
+
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns="http://java.sun.com/xml/ns/j2ee" version="2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd">
+<display-name>HelloServiceJAR</display-name>
+<enterprise-beans>
+<session>
+<ejb-name>HelloServiceBean</ejb-name>
+<service-endpoint>helloservice.HelloIF</service-endpoint>
+<ejb-class>helloservice.HelloServiceBean</ejb-class>
+<session-type>Stateless</session-type>
+<transaction-type>Bean</transaction-type>
+<security-identity>
+<use-caller-identity/>
+</security-identity>
+</session>
+</enterprise-beans>
+</ejb-jar>
+
+
+-->

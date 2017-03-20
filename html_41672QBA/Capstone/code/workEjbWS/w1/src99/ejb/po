@@ -1,0 +1,5 @@
+set -x
+ant all > /tmp/qq.q 2>&1
+ls -lRa build >> /tmp/qq.q
+ls -lRa dist >> /tmp/qq.q
+gvim /tmp/qq.q &

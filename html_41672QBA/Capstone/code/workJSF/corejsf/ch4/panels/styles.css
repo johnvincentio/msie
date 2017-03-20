@@ -1,0 +1,12 @@
+body {
+   background: #eee;
+}
+.errors {
+   font-style: italic;
+}
+.evenRows {
+   background: PowderBlue;
+}
+.oddRows {
+   background: MediumTurquoise;
+}

@@ -1,0 +1,49 @@
+# Define top-level entry
+dn: dc=corejsf,dc=com
+objectClass: dcObject
+objectClass: organization
+dc: corejsf
+o: A Sample Organization
+
+# Define an entry to contain people
+# searches for users are based on this entry
+dn: ou=people,dc=corejsf,dc=com
+objectClass: organizationalUnit
+ou: people
+
+# Define a user entry for Theodore Roosevelt
+dn: uid=troosevelt,ou=people,dc=corejsf,dc=com
+objectClass: inetOrgPerson
+uid: troosevelt
+sn: Roosevelt
+cn: Theodore Roosevelt
+mail: troosevelt@corejsf.com
+userPassword: jabberwock
+
+# Define a user entry for Thomas Jefferson
+dn: uid=tjefferson,ou=people,dc=corejsf,dc=com
+objectClass: inetOrgPerson
+uid: tjefferson
+sn: Jefferson
+cn: Thomas Jefferson
+mail: tjefferson@corejsf.com
+userPassword: mockturtle
+
+# Define an entry to contain LDAP groups
+# searches for roles are based on this entry
+dn: ou=groups,dc=corejsf,dc=com
+objectClass: organizationalUnit
+ou: groups
+
+# Define an entry for the "registereduser" role
+dn: cn=registereduser,ou=groups,dc=corejsf,dc=com
+objectClass: groupOfUniqueNames
+cn: registereduser
+uniqueMember: uid=tjefferson,ou=people,dc=corejsf,dc=com
+
+# Define an entry for the "invitedguest" role
+dn: cn=invitedguest,ou=groups,dc=corejsf,dc=com
+objectClass: groupOfUniqueNames
+cn: invitedguest
+uniqueMember: uid=troosevelt,ou=people,dc=corejsf,dc=com
+uniqueMember: uid=tjefferson,ou=people,dc=corejsf,dc=com

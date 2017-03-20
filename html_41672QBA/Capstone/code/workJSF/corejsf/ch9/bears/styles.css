@@ -1,0 +1,31 @@
+body {
+   background: #ccc;
+}
+.emphasis {
+   font-size: 3.5em;
+   font-style: italic;
+}
+.tabbedPane {
+   vertical-align: top;
+   border: thin solid Blue;
+   width: 96%;
+}
+.tab {
+   vertical-align: top;
+   padding: 3px;
+   border: thin solid Red;
+   color: Yellow;
+   background: LightSlateGray;
+}
+.selectedTab {
+   vertical-align: top;
+   padding: 3px;
+   border: thin solid Black;
+   color: LightSlateGray;
+   background: Yellow;
+}
+.tabbedPaneContent {
+   vertical-align: top;
+   width: *;
+   height: *;
+}

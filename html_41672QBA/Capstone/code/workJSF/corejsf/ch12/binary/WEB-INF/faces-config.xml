@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+
+<faces-config>
+
+   <component>
+      <component-type>com.corejsf.Chart</component-type>
+      <component-class>javax.faces.component.UIOutput</component-class>
+   </component>
+
+   <render-kit>
+      <renderer>
+         <component-family>javax.faces.Output</component-family>
+         <renderer-type>com.corejsf.Chart</renderer-type>
+         <renderer-class>com.corejsf.ImageRenderer</renderer-class>
+      </renderer>
+   </render-kit>
+
+   <managed-bean> 
+      <managed-bean-name>planets</managed-bean-name>
+      <managed-bean-class>com.corejsf.Planets</managed-bean-class> 
+      <managed-bean-scope>session</managed-bean-scope> 
+   </managed-bean>
+
+</faces-config>

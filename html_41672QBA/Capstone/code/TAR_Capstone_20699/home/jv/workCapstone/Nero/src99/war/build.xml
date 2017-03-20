@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+  <!ENTITY appServerAntCommands SYSTEM "../../../../workBuild/app-server-ant.xml">
+  <!ENTITY jvJspValidateCommands SYSTEM "../../../../workBuild/jspvalidate.xml">
+  <!ENTITY jvXMLValidateCommands SYSTEM "../../../../workBuild/xmlvalidate.xml">
+  <!ENTITY jvStrutsCommands SYSTEM "../../../../workBuild/jvstruts.xml">
+  <!ENTITY jvJavaDocCommands SYSTEM "../../../../workBuild/javadoc.xml">
+]>
+
+<project name="war" default="all" basedir="."> 
+
+	<property name="build.dir"    value="${basedir}/build" />
+	<property name="dist.dir"     value="${basedir}/dist" />
+	<property name="jsp.test.dir"	value="${basedir}/JSPtest" />
+	<property name="javadocs.dir" value="${basedir}/docs/api"/>
+
+	<property name="xml.validate.options"    value="-warning" />
+
+	&appServerAntCommands;
+	&jvJspValidateCommands;
+	&jvXMLValidateCommands;
+	&jvStrutsCommands;
+	&jvJavaDocCommands;
+
+	<echo message="Initializing..."/>
+	<property environment="env"/>
+	<echo message="${env.PATH}"/>
+	<echo message="${env.CLASSPATH}"/>
+
+	<property name="app.name"   value="war-ic"/>
+	<property name="app.module" value="${dist.dir}/${app.name}.war"/>
+	<property name="app.deploy.options" value=""/>
+
+<!-- external jars -->
+
+	<property name="app.common2.jar.name"
+		value="../../../Common2/src99/common/dist/jar-common.jar"/>
+	<property name="app.common3.jar.name"
+		value="../../../Common3/src99/common/dist/jar-common.jar"/>
+	<property name="app.common4.jar.name"
+		value="../../../Common4/src99/common/dist/jar-common.jar"/>
+	<property name="ejb2.ejb.jar.name" value="../ejb2/dist/ejb/ejb-jar-ic.jar"/>
+
+<!--		Setup javac classpath -->
+
+	<path id="javac.classpath">
+		<path refid="struts.classpath"/>
+		<pathelement location="${build.dir}/WEB-INF/classes"/>
+		<pathelement location="${app.common2.jar.name}"/>
+		<pathelement location="${app.common3.jar.name}"/>
+		<pathelement location="${app.common4.jar.name}"/>
+		<pathelement location="${ejb2.ejb.jar.name}"/>
+	</path>
+	<path id="javac.jsp.compile.classpath">
+		<pathelement location="${build.dir}/WEB-INF/classes"/>
+		<pathelement location="${app.common2.jar.name}"/>
+		<pathelement location="${app.common3.jar.name}"/>
+		<pathelement location="${app.common4.jar.name}"/>
+		<pathelement location="${ejb2.ejb.jar.name}"/>
+	</path>
+
+<!--		Copy libraries to build lib directory		-->
+
+	<target name="copyLibs" depends="copyStrutsLibs"/>
+
+<!--		Validate XML files -->
+
+	<target name="checkXML" depends="sun-webXML-2-4, webXML-2-4, checkStrutsXML"/> 
+<!--	Begin making something	-->
+
+	<target name="all" depends="clean, dist, checkXML, CompileJSP"/>
+	<target name="docs" depends="javadocs"/>
+
+	<target name="clean">
+		<echo message="Remove build and distributables..."/>
+		<delete includeEmptyDirs="true" quiet="true">
+			<fileset dir="${build.dir}"/>
+			<fileset dir="${dist.dir}"/>
+			<fileset dir="${javadocs.dir}"/>
+			<fileset dir="${jsp.test.dir}"/>
+		</delete>
+	</target>
+
+	<target name="mkdirs" depends="clean">
+		<echo message="Create directories..."/>
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${dist.dir}/contents" />
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.dir}/WEB-INF" />
+		<mkdir dir="${build.dir}/WEB-INF/classes" />
+		<mkdir dir="${build.dir}/WEB-INF/lib" />
+	</target>
+
+	<target name="compile" depends="mkdirs">
+		<echo message="Compiling java..."/>
+		<javac srcdir="${basedir}/java" 
+				destdir="${build.dir}/WEB-INF/classes">
+			<include name="**/*.java" />
+			<classpath refid="javac.classpath"/>
+		</javac>
+	</target>
+
+	<target name="build" depends="compile, copyLibs">
+		<echo message="Copying WEB-INF/*.xml files..."/>
+		<copy todir="${build.dir}/WEB-INF">
+			<fileset dir="${basedir}/etc">
+				<include name="*.xml" />
+			</fileset>
+		</copy>
+
+		<echo message="Copying files from lib..."/>
+		<copy todir="${build.dir}/WEB-INF/lib">
+			<fileset dir="${basedir}/lib"/>
+		</copy>
+		<echo message="Copying common JARs from common..."/>
+		<copy tofile="${build.dir}/WEB-INF/lib/jar-common2.jar"
+					file="${app.common2.jar.name}"/>
+		<copy tofile="${build.dir}/WEB-INF/lib/jar-common3.jar"
+					file="${app.common3.jar.name}"/>
+		<copy tofile="${build.dir}/WEB-INF/lib/jar-common4.jar"
+					file="${app.common4.jar.name}"/>
+
+		<echo message="Copying files from tags..."/>
+		<copy todir="${build.dir}/WEB-INF">
+			<fileset dir="${basedir}">
+				<include name="*.tld" />
+			</fileset>
+		</copy>
+
+		<echo message="Copying html, jsp, css, jpg etc files..."/>
+		<copy todir="${build.dir}">
+			<fileset dir="${basedir}/web"/>
+		</copy>
+
+		<echo message="Copying resources files..."/>
+		<copy todir="${build.dir}/WEB-INF/classes/resources" >
+			<fileset dir="${basedir}/resources"/>
+		</copy>
+	</target>
+
+	<target name="dist" depends="build">
+		<echo message="Creating WAR file...."/>
+		<jar destfile="${app.module}" basedir="${build.dir}"/>
+		<unwar src="${app.module}" dest="${dist.dir}/contents"/>
+	</target>
+
+	<target name="deploy-app" depends="deploy">
+		<echo message="Deploying WAR file...."/>
+	</target>
+
+</project>
+

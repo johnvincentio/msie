@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns="http://java.sun.com/xml/ns/j2ee" version="2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd">
+
+<display-name>AbcdJAR</display-name>
+	<enterprise-beans>
+		<session>
+			<ejb-name>AbcdBean</ejb-name>
+				<home>jvejb2.AbcdHome</home>
+				<remote>jvejb2.Abcd</remote>
+				<ejb-class>jvejb2.AbcdBean</ejb-class>
+				<session-type>Stateful</session-type>
+				<transaction-type>Bean</transaction-type>
+				<env-entry>
+					<description>JVServlet Datasource Name</description>
+					<env-entry-name>dbservlet/DataSource</env-entry-name>
+					<env-entry-type>java.lang.String</env-entry-type>
+					<env-entry-value>jdbc/DBServletDB</env-entry-value>
+				</env-entry>
+				<resource-ref>
+					<description>Data Source for JVServlet</description>
+					<res-ref-name>jdbc/DBServletDB</res-ref-name>
+					<res-type>javax.sql.DataSource</res-type>
+					<res-auth>Container</res-auth>
+				</resource-ref>
+				<security-identity>
+					<use-caller-identity/>
+				</security-identity>
+		</session>
+	</enterprise-beans>
+</ejb-jar>
+

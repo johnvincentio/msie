@@ -1,0 +1,11 @@
+Manifest-Version: 1.1
+Class-Path: 
+
+Name: META-INF/ejb-jar.xml
+
+Name: META-INF/sun-ejb-jar.xml
+
+Name: SimpleMessageBean.class
+
+Name: META-INF/sun-j2ee-ri.project
+

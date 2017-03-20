@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+ <!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+
+  <!-- =======================================================  -->
+  <!-- Master definition  									-->
+  <!-- =======================================================  -->
+
+  <!-- Doc index page description  -->
+
+  <definition name="doc.mainLayout" path="/layouts/JVclassicLayout.jsp">
+	  <put name="title"  value="Thames Distributors and Suppliers" />
+	  <put name="header" value="/pages/header.jsp" />
+	  <put name="menu"   value="doc.menu.main" />
+	  <put name="footer" value="/pages/footer.jsp" />
+	  <put name="body"   value="doc.portal.body" />
+  </definition>
+
+  <!-- =======================================================  -->
+  <!-- Main page body definitions  									-->
+  <!-- =======================================================  -->
+
+  <definition name="doc.portal.body" path="/layouts/JVcolumnsLayout.jsp">
+    <put name="numCols" value="2" />
+    <putList name="list0" >
+      <add value="/pages/picture.jsp" />
+      <add value="/pages/welcome.jsp" />
+      <add value="/pages/features.jsp" />
+    </putList>
+    <putList name="list1" >
+      <add value="/pages/news.jsp" />
+      <add value="/pages/comments.jsp" />
+    </putList>
+  </definition>
+
+  <!-- =======================================================  -->
+  <!-- Menus definitions  									-->
+ <!-- =======================================================  -->
+
+  <!-- Menu bar definition -->
+
+<definition name="doc.menu.main" path="/layouts/JVvboxLayout.jsp" >
+  <putList name="componentsList" >
+    <add value="common.menu.home" />
+    <add value="common.menu.examples" />
+    <add value="common.menu.doc" />
+  </putList>
+</definition>
+
+
+  <!-- The home menu definition -->
+
+<definition name="common.menu.home" path="/layouts/menu.jsp" >
+  <put name="title" value="Thames" />
+  <putList name="items" >
+    <item value="Thames Home"     link="/index.jsp" />
+    <item value="Login"     	link="/yuk/logon.jsp" />
+    <item value="Tabs test"     	link="/yuk/tabs.jsp" />
+    <item value="jsp:include test"     	link="/test1.jsp" />
+    <item value="jsp:include test(param)"     	link="/test1.jsp?jvtest=/jv3.jsp" />
+  </putList>
+</definition>
+
+
+  <!-- Printer friendly menu definition -->
+
+<definition name="common.menu.examples" path="/layouts/menu.jsp" >
+  <put name="title" value="Examples" />
+  <putList name="items" >
+    <item value="Home"     link="/examples/index.jsp" />
+  </putList>
+</definition>
+
+  <!-- Documentation menu definition v1.1-->
+
+<!-- doesn't work
+      <item value="JVHome"           link="/Home"  />
+      <item value="JVHome"           link="doc.home"  />
+-->
+
+<definition name="common.menu.doc" path="/layouts/menu.jsp" >
+  <put name="title" value="Documentation" />
+    <putList name="items" >
+      <item value="Home"           link="/pages/index.jsp"  />
+      <item value="JVLogin"           link="/pages/logon.jsp"  />
+      <item value="Construction"   link="/yuk/construction.jsp"  />
+      <item value="Live Examples"  link="/examples/index.jsp"  />
+      <item value="Quick overview" link="/test/quickOverview.jsp"  />
+      <item value="Tutorial Live Examples" link="/tutorial/index.jsp" />
+      <item value="Tiles Tags"     link="/doc/tilesTags.jsp" />
+      <item value="Download"       link="/doc/download.jsp" />
+      <item value="Installation"   link="/doc/installation.jsp" />
+      <item value="User Guide"	   link="/doc/userGuide.jsp" />
+      <item value="Javadoc"        link="/api/index.html" />
+    </putList>
+</definition>
+
+<!-- Under Construction -->
+
+  <definition name="doc.underConstruction" path="/layouts/JVclassicLayout.jsp">
+	  <put name="title"  value="Thames Distributors and Suppliers" />
+	  <put name="header" value="/pages/header.jsp" />
+	  <put name="menu"   value="doc.underConstruction.menu.main" />
+	  <put name="footer" value="/pages/footer.jsp" />
+	  <put name="body"   value="/pages/constructionTile.jsp" />
+  </definition>
+
+<definition name="doc.underConstruction.menu.main" path="/layouts/JVvboxLayout.jsp" >
+  <putList name="componentsList" >
+    <add value="common.menu.home" />
+  </putList>
+</definition>
+
+<!-- Login -->
+
+<definition name="login.home.page" extends="doc.mainLayout" >
+	<put name="title"  value="Login for Thames Distributors and Suppliers" />
+	<put name="body"   value="/pages/logon.jsp" />
+</definition>
+
+<!-- try tabs -->
+
+<definition name="main.tabs.page" extends="doc.mainLayout" >
+	  <put name="title"  value="JV Tiles 1.1 Tabs layout example" />
+	  <put name="body"   value="main.tabs.body" />
+  </definition>
+
+  <definition name="main.tabs.body" path="/layouts/tabsLayout.jsp" >
+	<put name="selectedIndex"  value="0" />
+	<put name="parameterName"  value="selected" />
+    <putList name="tabList" >
+      <item value="JV1"		link="/pages/tabs/tabs1.jsp" />
+      <item value="JV2"		link="/pages/tabs/tabs2.jsp" />
+    </putList>
+  </definition>
+
+</tiles-definitions>
+
+<!--
+      <item value="News"		link="/pages/news.jsp" />
+      <item value="Features"		link="/pages/features.jsp" />
+      <item value="Tab 3"		link="/pages/tabs/tab3.jsp" />
+-->

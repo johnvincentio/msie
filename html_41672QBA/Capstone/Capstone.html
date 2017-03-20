@@ -1,0 +1,689 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- DW6 -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Internet Programming Languages 2 Home Page</title>
+<link rel="stylesheet" href="../css/topnav.css" type="text/css">
+<style type="text/css">
+<!--
+.style1 {color: #006699}
+.style1 {font-weight: bold}
+-->
+</style>
+</head>
+<body> 
+<div id="masthead"> 
+  <h1 class="style1" id="siteName">Capstone Project </h1>
+  <div id="globalNav"> 
+  <a href="index.html">Home </a> | <a href="Courses.html">Courses</a>| <a href="Assignments.html">Assignments</a>| <a href="CurrentProjects.html">Projects</a>
+  </div> 
+</div> 
+<div id="content"> 
+  <h2 id="pageName">&nbsp;</h2>
+  <div class="story">
+    <h2><strong><a name="TOP" id="TOP"></a>Design and Coding Considerations in a browser based, Web Services, integrated applications environment </strong></h2>
+	<p>The purpose of this project is to gain practical knowledge and experience with regard to the J2EE and Web Services technologies. The framework for the project is B2B, a supply chain scenario with a Supplier, Distributor, Manufacturer, Retailer and 2 on-line Retail outlets. The framework is for showing some ideas and for exercising the technologies. It is a huge framework, an infinite canvas on which I could draw almost any thought, idea or concept in the years to come. </p>
+	<p>The concept is of  interoperability between different business entities. I see a golden future in the development of Web Services to enhance already existing systems, particularly systems that are large, old, expensive and well entrenched. It is simply far too expensive to change these systems but providing Web Services support could provide considerable additional value and life span to an application.</p>
+	<p>The technologies that have been exercised in this project, or during its development, include J2EE, J2SE, Web Services, SAAJ, JAX-RPC, SOAP, Struts, MVC, Tiles, JSF, SunOne Application Server, WebLogic, Oracle, XML, XSLT, Java, JNDI, JSP, JSTL, EL, custom tag libraries, servlets, EJB, MDB, Rational Rose, UML, ant, unix scripting, PL/SQL, Connection Pooling, JSP custom templates, html and Dreamweaver. Also extensive systems work with Linux and Oracle. </p>
+	<p>This document includes the following sections: </p>
+	<ul>
+          <li><a href="#FOREWORD">Foreword</a></li>
+          <li><a href="#GOALS">Goals</a></li>
+          <li><a href="#STRATEGY">Strategy</a></li>
+          <li><a href="#ENVIRONMENT">Environment</a></li>
+          <li><a href="#DIST">Deliverables</a></li>
+          <li><a href="#DATABASE">Database</a></li>
+          <li><a href="#ITERATIONS">Iterations</a></li>
+	      <li><a href="#PROCEDURES">Procedures</a></li>
+	      <li><a href="#BUILDS">Builds</a></li>
+	      <li><a href="#APPLICATIONS">Applications</a></li>
+	      <li><a href="#PAPERS">Papers</a></li>
+	      <li><a href="#TODO">To Do </a></li>
+	      <li><a href="#COMMENTS">Comments</a></li>
+	</ul>
+	</p>
+    <h2><strong><a name="FOREWORD" id="FOREWORD"></a>Foreword</strong></h2>
+	<p>The Capstone Project is a continuation of various projects from  the last year. In particular, the<a href="../cd/vcrProject.html"> final project from Conceptual Design </a> which also had a <a href="../cd/vcrTables.html">database design</a>, and the design work from the Oracle course. These projects allowed me to explore some design issues in a B2B environment</p>
+	<p>The system design itself is far from complete. I have created a scenario of a distribution business. I plan to keep it business neutral. The interest for me is to design and implement technology solutions for the business problems of a supply chain situation. </p>
+	<p>The aim was to build the technology into the application. It quickly became clear that my lack of knowledge of the technologies made a design of the application impractical, or least of limited value. Further, construction of many, many screens (or JSPs) was not of value to me, as it would be of limited educational value. The application then, is a framework,   that allows me to develop the technologies in a meaningful and useful context. It is a prototype, an evolution of the project and my ideas, within which new ideas will inevitably be created. </p>
+	<p>The prototype is just a beginning. The project never ends.</p>
+	<p><a href="#TOP">Top</a></p>
+	<h2><strong><a name="GOALS" id="GOALS"></a>Goals</strong></h2>
+	<h4>&nbsp;</h4>
+	<h4>Some goals for this project were: </h4>
+	<ul>
+	  <li>
+	    <h4>Gain some understanding and insights into B2B applications. </h4>
+      </li>
+	  <li>
+	    <h4>Design and build a Web Service, using SAAJ and JAX-RPC. </h4>
+      </li>
+	  <li>
+	    <h4>Design and build J2EE components. </h4>
+      </li>
+	  <li>
+	    <h4>Design a framework of templates that allow for the speedy construction of reliable, well-crafted components. </h4>
+      </li>
+	  <li>
+	    <h4>Become usefully skilled with all J2EE technologies. </h4>
+      </li>
+	  <li>
+	    <h4>Become usefully skilled with the Web Services technologies. </h4>
+      </li>
+	  <li>
+	    <h4>Gain some understanding into the design and building of dynamic, user driven browser based applications. </h4>
+      </li>
+	  <li>
+	    <h4>Port the project to WebLogic and WebSphere. </h4>
+      </li>
+	  <li>
+	    <h4>Use Rational Rose for some design work. </h4>
+      </li>
+	  <li>
+	    <h4>Build a prototype to showcase my knowledge and skills. </h4>
+	  </li>
+      <li>Build JSP templates to facilitate the speedy creation of a dynamic UI. </li>
+	  <li>The UI will depend upon the roles the user has been granted.</li>
+	  <li>Build a JSP Tabs template. </li>
+	</ul>
+	<p><a href="#TOP">Top</a></p>
+	<h2><strong><a name="STRATEGY"></a>Strategy</strong></h2>
+	<h4>&nbsp;</h4>
+	<h4>Some strategies for this project were: </h4>
+	<ul>
+	  <li>
+	    <h4>always  produce a template. Each component must be easily reproducible. Each part of the overall design must be easily remakeable through the use of the standard ant scripts and the application build structure. </h4>
+      </li>
+	  <li>
+	    <h4>Build screens only to work a technology. JSPs are very time consuming.</h4>
+      </li>
+	  <li>
+	    <h4>Built templates to allow for the speedy construction of screens. Once I have a problem solved,  move on. </h4>
+	  </li>
+      <li>Reuse.</li>
+	  <li>Build components.</li>
+	  <li>proceduralize and document.</li>
+	  <li>solve one problem at a time.</li>
+	  <li>don't venture too far from what works - build incrementally. </li>
+	  <li>do not retrofit as this takes too long.</li>
+	  <li>solve a problem, dash on to the next problem.</li>
+	  <li>Screen designs are not to be taken too literally – it is a prototype….trying out ideas….</li>
+	</ul>
+	<p><a href="#TOP">Top</a></p>
+	<h2><strong><a name="ENVIRONMENT" id="ENVIRONMENT"></a>Environment</strong></h2>
+	<h4>&nbsp;</h4>
+	<h4>Development resources:</h4>
+	<ul>
+	  <li>
+	    <h4>Red Hat Linux AS 2.1 with SunOneApplication Server, J2EE 1.4, JWSDP 1.4, J2SE 1.4.2, Oracle 9.2.1</h4>
+      </li>
+	  <li>
+	    <h4>Windows XP Pro with Dreamweaver 2004MX, Rational Rose Enterprise Edition V8. </h4>
+      </li>
+    </ul>
+	<p><a href="#TOP">Top</a></p>
+	<h2><strong><a name="DIST" id="DIST"></a>Deliverables</strong></h2>
+    <p>The deliverables for this project are:</p>
+    <ul>
+      <li>
+        <h4>This web site</h4>
+      </li>
+      <li>
+        <h4><a href="code/TAR_Capstone_20699.gz">Project Code</a></h4>
+      </li>
+      <li><a href="code/workBuild.zip">Supporting XML scripts </a></li>
+      <li><a href="code/usrlocalbin.zip">Supporting scripts </a></li>
+      <li><a href="code/workProjects.zip">Related Projects </a></li>
+      <li><a href="Rose/common/common.mdl">Rational Rose Partial Java Model </a></li>
+      <li><a href="#DATABASE">Rational Rose Data Model</a></li>
+      <li><a href="#DATABASE">Rational Rose Database Documentation </a></li>
+      <li><a href="#DATABASE">Oracle Database Scripts </a></li>
+      <li>the diagrams on the associated papers </li>
+    </ul>
+    <p><a href="#TOP">Top</a></p>
+     
+<h2><strong><a name="DATABASE" id="DATABASE"></a>Database</strong></h2>
+	<p>I started with the database schema from  last terms Oracle course. Although it is an overly large schema for this project, time would not allow for another schema or extensive rework. </p>
+	<p>I made extensive use of the Rational Rose Data Modeler during the design and building of the database. I found that, for a schema with a moderate number of tables and/or moderate level of complexity, the tool is almost a necessity. It is just too hard to manage such a design any other way.</p>
+	<p>The Rational Rose Data Model may be <a href="Rose/main.mdl">downloaded here</a>. </p>
+	<p>The tool also does a terrific job of producing documentation for the web, which is <a href="Rose/html/main.html">available here. </a></p>
+	<p>The Oracle SQL scripts may be <a href="sql/sql.zip">downloaded here. </a></p>
+	<p>I designed the main database schema to facilitate the operations of a business. It is very generalized. I originally used it as a learning tool. The aim was to learn Oracle, database design, PL/SQL, Rational Rose and their associated issues.</p>
+	<p>It was only natural then to use the same schema for all the business entities in the project framework. Only Nero and Hadrian, the on-line shopping web sites use the cart schema, actually the same instance of the same schema, as I could not see any good reason for them having a separate instance.</p>
+	<p>I expected the schemas to diverge at some point in the future. </p>
+	<p>I needed to create some data for the business entities. With such a complicated schema and changes inevitable, I chose to use PL/SQL to create generic data. It is structurally correct, thus allowing me to test the database structure before coding began, but also allowed me to change the schema without worrying about the time and effort required to change the insert statements. This effort allowed me to learn some more PL/SQL and gave the database some meat.</p>
+	<p>The PL/SQL creates data and deletes data. It was expected the scripts would be invoked from the java. </p>
+    <p><a href="#TOP">Top</a></p>	
+	<h2><strong><a name="ITERATIONS" id="ITERATIONS"></a>Iterations</strong></h2>
+	<h2>&nbsp;</h2>
+	<p>This project, by its very nature, was highly iterative. I started with some ideas, solutions to problems, but no idea how to design, build or implement a technical solution that represents the idea. </p>
+	<p>I had to gain knowledge of the technologies to be able to design a solution to an application problem, but the technology had to be a part of the application. </p>
+	<p>I had to gain enough knowledge of the technologies to be able to understand which technology to apply, and how to apply it. </p>
+	<p>I thus started with a very basic overview of a solution. For example, the Supplier needs to send an updated catalog to his Distributor. The Supplier WAR will need a menu option to allow for navigation to a display allowing the Supplier Product Manager role to select a catalog and instruct it to be sent. The catalog is assumed to be large, which it almost certainly would be in real life. The Product Manager would not expect to sit there and wait for the task to complete. Thus, I need a Message Driven Bean. The WAR sends the message to the MDB, which looks up the catalog information and sends it to the Distributor Web Service. To get the information, the MDB needs to invoke calls in an EJB that handles the database access. The Distributor Web Service needs to be able to receive and understand the XML message. It needs to know what kind of message it is, it needs to validate it against a valid schema and it needs to be able handle the request, probably by handing off the XML to another component, thus allowing for better modularization. </p>
+	<p>This was a typical situation during the project. Each step within this iteration is itself an iteration of sorts. Each step required careful preparation, investigation and learning, often by trial and error. Each step would often be conducted in a side project, thus affording me the opportunity to work an idea and the technology without worrying about breaking or over-extending the application. </p>
+	<p>Once I had succeeded in understanding the technologies required for a step, I could design the application solution for that step. </p>
+	<p>I did not feel the need to provide UML diagrams because:</p>
+	<ul>
+	  <li>This was always a one man project.</li>
+      <li>The main project problem involved learning a technology rather than an application.</li>
+	  <li>There was not much time. I felt the time was best spent on Web Services and J2EE.  </li>
+	</ul>
+	<p>I had planned to document every iteration. It just became too hard. There must have been hundreds of iterations, some of which would have doubtless appeared, in retrospect, as none too judicious. </p>
+	<p>Each iteration that I started quickly evolved into something else. There was always going to be more to an iteration than I had thought because I just did not have enough background knowledge in J2EE and Web Services. </p>
+	<p>Each iteration was carefully designed and sketched before work began. Each change, improvement, extension etc to the iteration was carefully designed and sketched. Each sketch became practically useless by the end of the iteration. </p>
+	<p>Actual technical documentation would need to be done after work has been completed.</p>
+	<p>The following information is for some early iterations: </p>
+	<h3>Iteration 1 </h3>
+    <h4>Use c3 struts project as a baseline. </h4>
+    <h4>Create oracle user for each of the types. </h4>
+    <h4>Create initial Oracle scripts for each type. </h4>
+    <h4>Make /home/jv/workBuild/jvOracle.xml…. </h4>
+    <h4>Setup section for each Oracle application. </h4>
+    <h4>Put Oracle resource setup and removal into development top level directory build.xml.This script utilizes other scripts to build the components. </h4>
+    <h4>Setup development area for: </h4>
+    <h4>Supplier, Distributor, Retailer, Manufacturer. </h4>
+    <h4>Ensure that all 4 sites are working…… </h4>
+    <h4>Document the URLs. </h4>
+    <h4>Backup… </h4>
+    <h3>&nbsp;</h3>
+    <h3>Iteration 2 </h3>
+    <h4>Define the next iteration…. </h4>
+    <h4>Doc Rational Rose use… </h4>
+    <h4>This iteration is aimed at providing a framework to test Web Services. </h4>
+    <h4>Supplier </h4>
+    <ul>
+      <li>Add Shipments Tab – send, details per row, submit, close general </li>
+      <li>Records are retrieved from DB and displayed. </li>
+      <li>On send, data is wrapped into XML and sent to a Web Service. </li>
+      <li>For the moment, use an URI for the image. </li>
+      <li>Put the images onto bob. </li>
+    </ul>
+    <h4>Distributor: </h4>
+    <ul>
+      <li>Add alerts Tab – just display for now. </li>
+      <li>Records retrieved from DB. </li>
+    </ul>
+    <h4>Web Service: </h4>
+    <ul>
+      <li>Gets the XML. </li>
+      <li>Adds to pending shipments. </li>
+      <li>Adds an Alert record to the Shipping role. </li>
+    </ul>
+    <h4>Technical documentation. </h4>
+    <h4>User documentation </h4>
+    <h4>Backup </h4>
+    <br>
+    <h3>Iteration 3 </h3>
+    <h4>&nbsp;</h4>
+    <h4>Retailer: </h4>
+    <ul>
+      <li>Add logon for application use. </li>
+    </ul>
+    <h4>Distributor: </h4>
+    <ul>
+      <li>Implement product manager role. </li>
+    </ul>
+    <h3>Iteration N </h3>
+    <ul>
+      <li>Retailer: use JSTL </li>
+      <li>Retailer: display jpgs with items for sale. </li>
+      <li>Retailer: show inventory. </li>
+      <li>Retailer: order inventory. </li>
+      <li>Retailer: daemon, inventory low, alert </li>
+      <li>All: implement alerts. </li>
+      <li>All: implement roles. </li>
+      <li>All: do CMP </li>
+      <li>All: do BMP </li>
+      <li>All: use CSS to make web sites look different. </li>
+      <li>Implement sent shipment from distributor to retailer via a web service </li>
+      <li>XML; shipment def + image with XSD via Web Services </li>
+      <li>Improve website </li>
+      <li>Define data entry </li>
+      <li>Implement some data entry -&gt; UML </li>
+      <li>Create opportunities </li>
+      <li>Define more use cases </li>
+      <li>Add pictures to retailer web site </li>
+      <li>Retailer; add stock and shipping tabs. </li>
+      <li>Retailer: fluff, application, online shopping </li>
+      <li>Use XSLT somewhere. </li>
+    </ul>
+    <h3>Iteration Last </h3>
+    <ul>
+      <li>Port these notes to the Capstone Web Page. </li>
+    </ul>
+    <h3>Iteration Later </h3>
+    <ul>
+      <li>Port to WebLogic </li>
+      <li>Port to WebSphere </li>
+    </ul>
+    <h4>Learn how to do this, what works, what doesn't? </h4>
+    <h4>Can I use the same scripts? </h4>
+    <h4>Can I use the same development area? </h4>
+    <h4>How do they work? </h4>
+    <h4>Must document everything. </h4>
+    <h2>&nbsp;</h2>
+    <h4>Iteration Template: </h4>
+    <ul>
+      <li>Define next iteration tasks </li>
+      <li>Add more Use Cases </li>
+      <li>Update SQL scripts </li>
+      <li>Load SQL scripts into Rational Rose Data Modeler. </li>
+      <li>Make new diagrams in Rational Rose </li>
+      <li>Update User Documentation </li>
+      <li>Add completed tasks to iteration documentation. </li>
+      <li>Backup - Copy from jv2 to jvlp and copy to CD. </li>
+      <li>Update Web Site </li>
+      <li>Keep URLs up-to-date </li>
+    </ul>
+    <p><a href="#TOP">Top</a></p>	
+    <h2><strong><a name="PROCEDURES" id="PROCEDURES"></a><a href="ipl3/hw1.html">Procedures</a></strong></h2>
+    <h3>&nbsp;</h3>
+    <p>The final step in an iteration was always a backup. My backups involve what I call “backing up the goodies”. Only project related material, project essential software (for example the XML validator), database configuration files and system configuration files are copied. This proved its true value when I had to a disk crash. Recovery was not too painful. </p>
+    <p>Another form of backup is versioning. When I am about to begin work or when I have finished work with a component, I copy the version. It allows me to be comfortable making sometimes significant changes without worrying about the integrity of the system. It also allows me to determine exactly what changes were made just by doing compares. This was a very useful tool. </p>
+    <h2>Oracle/SQL </h2>
+    <h4>&nbsp;</h4>
+    <h4>Supplier: JVSUPPLIER/capstone </h4>
+    <h4>Distributor: JVDISTRIBUTOR/capstone </h4>
+    <h4>Retailer: JVRETAILER/capstone </h4>
+    <h4>Manufacturer: JVMANUFACTURER/capstone </h4>
+    <h4>Shopping: JVNERO/capstone </h4>
+    <p>Oracle scripts are kept in ~/workCapstone/Oracle/src99. The ant script build.xml handles adding/deleting Connection Pools and JDBC resources, and the creation of the database schemas and data for all users.</p>
+    <h4>all.sql creates database objects.</h4>
+    <h4>alldata.sql creates the data.  </h4>
+    <h2>&nbsp;</h2>
+    <h2>JMS</h2>
+    <h4>&nbsp;</h4>
+    <h4>~/workCapstone/Resources/src99/build.xml handles creation and deletion of JMS resources. </h4>
+    <h2>&nbsp;</h2>
+    <h2>JPGs</h2>
+    <h2>&nbsp;</h2>
+    <h4>&nbsp;</h4>
+    <h4>~/workCapstone/copyjpgs is a script that copies the application jpg files to the web server. It must be run as root. These files are referenced by the data. </h4>
+    <h4>There are three sets of jpgs: small, medium and large. </h4>
+    <h4>&nbsp;</h4>
+    <h2>Backup Procedures </h2>
+    <p>From jv2: </p>
+    <ul>
+      <li>
+        <h4>Login as root </h4>
+      </li>
+      <li>
+        <h4>cd /usr/local/bin/Backup </h4>
+      </li>
+      <li>
+        <h4>Verify filesListA is up-to-date </h4>
+      </li>
+      <li>
+        <h4>Verify filesListB is up-to-date </h4>
+      </li>
+      <li>
+        <h4>./backupJV2 &gt; /tmp/x.x </h4>
+      </li>
+      <li>
+        <h4>check /tmp/x.x for errors. </h4>
+      </li>
+      <li>
+        <h4>cd /tmp/JV2 </h4>
+      </li>
+    </ul>
+    <p>There will be two files: </p>
+    <ul>
+      <li>TAR_A_$$.gz </li>
+      <li>TAR_B_$$.gz </li>
+    </ul>
+    <p>From jvlp: </p>
+    <ul>
+      <li>
+        <h4>Open ssh session to jv2. </h4>
+      </li>
+      <li>
+        <h4>cd \docs\fromJV2 </h4>
+      </li>
+      <li>
+        <h4>Delete *.gz (to save space). </h4>
+      </li>
+      <li>
+        <h4>Copy *.gz files to this directory. </h4>
+      </li>
+    </ul>
+    <p>From Docs: </p>
+    <ul>
+      <li>
+        <h4>delete \docs\Favorites </h4>
+      </li>
+      <li>
+        <h4>Open a MSDos session </h4>
+      </li>
+      <li>
+        <h4>make_favsXP to backup email and IE short cuts. </h4>
+      </li>
+      <li>
+        <h4>Right click, Send To, Compressed Folder </h4>
+      </li>
+      <li>
+        <h4>This makes a docs.zip in c:\Docs </h4>
+      </li>
+      <li>
+        <h4>Rename this file to docs_mmddyyyy.zip </h4>
+      </li>
+    </ul>
+    <p>Make a CD </p>
+    <p><a href="#TOP">Top</a></p>
+    <h2><a name="BUILDS"></a>Builds</h2>
+    <p>The builds follow a hierarchical structure. The top level build, ~/workCapstone/build.xml relies on build.xml files in the component directories. Any component that has a component will invoke the components build.xml. Thus, each component has its own build.xml. </p>
+    <p>Any component that can be deployed on its own can be deployed through its own build.xml. This allows for the development of an appclient to test the component. </p>
+    <p>The build creates a build directory, which is populated with the contents of the component to be, laid out the way the component requires. </p>
+    <p>The build creates the distributables in the component dist directory. Thus all components know where to find a components distributable. </p>
+    <p>See the papers for diagrams. </p>
+    <p>The URLs of the components are: </p>
+    <ul>
+      <li>
+        <h4>http://jv2:8080/SupplierWAR </h4>
+      </li>
+      <li>
+        <h4>http://jv2:8080/ManufacturerWAR </h4>
+      </li>
+      <li>
+        <h4>http://jv2:8080/RetailerWAR </h4>
+      </li>
+      <li>
+        <h4>http://jv2:8080/DistributorWAR </h4>
+      </li>
+      <li>
+        <h4>http://jv2:8080/NeroWAR </h4>
+      </li>
+      <li>
+        <h4>http://jv2:8080/HadrianWAR </h4>
+      </li>
+      <li>
+        <h4>http://jv2:8080/hello-ejb/hello (JAX-RPC WS EJB, actually in DistributorWS1WAR) </h4>
+      </li>
+      <li>
+        <h4>http://jv2:8080/DistributorWS2WAR/receiver (SAAJ server) </h4>
+      </li>
+    </ul>
+    <p>The application deployables are in ~/workCapstone: </p>
+    <ul>
+      <li>
+        <h4>/Distributor/src99/ear/dist/DistributorEAR.ear</h4>
+      </li>
+      <li>
+        <h4>/DistributorWS1/src99/ear/dist/DistributorWS1EAR.ear</h4>
+      </li>
+      <li>
+        <h4>/DistributorWS1/src99/ws1/dist/DistributorWS1EAR.ear</h4>
+      </li>
+      <li>
+        <h4>/DistributorWS2/src99/ear/dist/DistributorWS2EAR.ear</h4>
+      </li>
+      <li>
+        <h4>/Retailer/src99/ear/dist/RetailerEAR.ear</h4>
+      </li>
+      <li>
+        <h4>/Supplier/src99/ear/dist/SupplierEAR.ear</h4>
+      </li>
+      <li>
+        <h4>/Nero/src99/ear/dist/NeroEAR.ear</h4>
+      </li>
+      <li>
+        <h4>/Hadrian/src99/ear/dist/HadrianEAR.ear</h4>
+      </li>
+      <li>/Manufacturer/src99/ear/dist/ManufacturerEAR.ear</li>
+    </ul>
+    <h4>Modules that may be deployed separately but are part of another component are:<br>
+    </h4>
+    <ul>
+      <li>
+        <h4>/Distributor/src99/ejb2/dist/ejb2.ear</h4>
+      </li>
+      <li>
+        <h4>        /Distributor/src99/mdb1/dist/workmdb1EAR.ear</h4>
+      </li>
+      <li>
+        <h4>        /DistributorWS1/src99/ejb3/dist/ejb3.ear</h4>
+      </li>
+      <li>
+        <h4>        /DistributorWS1/src99/mdb2/dist/workmdb2EAR.ear</h4>
+      </li>
+      <li>
+        <h4>        /DistributorWS2/src99/ejb3/dist/ejb3.ear</h4>
+      </li>
+      <li>
+        <h4>        /Retailer/src99/ejb2/dist/ejb2.ear</h4>
+      </li>
+      <li>
+        <h4>        /Supplier/src99/mdb1/dist/workmdbEAR.ear</h4>
+      </li>
+      <li>
+        <h4>        /Nero/src99/ejb2/dist/ejb2.ear</h4>
+      </li>
+      <li>
+        <h4>          /Hadrian/src99/ejb2/dist/ejb2.ear<br> 
+        </h4>
+      </li>
+    </ul>
+    <p><a href="#TOP">Top</a></p>
+
+    <h2><a name="APPLICATIONS" id="APPLICATIONS"></a>Applications</h2>
+    <p>The following is a brief discussion regarding some application functionality. Most of the technology is hard to see. Most changes are either seen in the database or in a trace file. At this stage in the project, I thought it was acceptable that a successful trial of a technology only show itself in the trace file. Later versions would need to reflect the changed status through the UI.</p>
+    <p>Note that, in general, the footer.jsp file includes parameters.jsp, which displays attributes and parameters. This trace is extremely useful during development and would easily be removed for a production system. </p>
+    <p>The jpgs used by the applications are very poor. I didn't worry too much as looks are outside of the project scope. However, I should replace them.</p>
+    <p>The applications each create a unique trace file:</p>
+    <ul>
+      <li>
+        <h4>/tmp/supplier_war.txt</h4>
+      </li>
+      <li>
+        <h4>/tmp/distributior_war.txt</h4>
+      </li>
+      <li>
+        <h4>/tmp/distributorWS2_ear.txt</h4>
+      </li>
+      <li>
+        <h4>/tmp/retailer_war.txt</h4>
+      </li>
+      <li>
+        <h4>/tmp/nero_war.txt</h4>
+      </li>
+      <li>
+        <h4>/tmp/hadrian_war.txt</h4>
+      </li>
+    </ul>
+    <p>Note that each component of the application component uses the trace file of the application component. </p>
+    <h2>Supplier </h2>
+    <p>Login as user all, with password pwd will give you 4 tabs. Login as user shipping, password pwd will give you only two. This shows the application providing a different look for different users with different roles. Also shows the use of the tabs template, and the dynamic nature of the application. The JSP templating here is rather primitive. </p>
+    <p>After logon choose the Products tab, Details. Follow this path for some more Tabs. It basically walks the database. Having done this here, I considered the practice as practiced. The application expert would doubtless want some improvements to the layout and application flow. </p>
+    <p>Choose Send. There are 5 options. I put them together as they are related. Putting them in one JSP made it easy for me to remember where I put them, as the key is to exercise the technology. Further, putting them together but separate allowed me to work on many options at the same time.</p>
+    <p>All five options invoke SendCollectionAction.java. They are differentiated by a parameter. </p>
+    <p>Option 1 is not implemented, but it is just a variation of option 2.</p>
+    <p>Option 2 uses class JVSendMessageSAAJ to make SOAP message and send it to the URL of the SAAJ server, //localhost:8080/DistributorWS2/ receiver. This is hard-wired in the java. I will use JNDI someday to get the URL. Check distributorWS2 trace file. It has plenty of traces for this action. It ends by adding the barcodes into table WORKTMP using a PL/SQL function. To see the new records, connect to Oracle as JVSUPPLIER/capstone and run the following query</p>
+    <p>select * from worktmp order by barcodeid;</p>
+    <p>I used table WORKTMP as adding data into the real schema would involve the transfer of data from a very large number of tables. The XML would have been a huge obstacle. I went this route so I could run through all of the technology before I had to perfect it.</p>
+    <p>Option 3 sends XML to a Message Driven Bean. It uses class JVxml to create XML using DOM, and JVSendMessage to send the XML to the MDB. The MDB references the SFSB of the Supplier application to insert an  Alert record into the database, the text being the XML. I didn't invoke the send to WS code because I had already shown I could do that.</p>
+    <p>Option 4 is not implemented.</p>
+    <p>Option 5 uses class JVxml to produce the XML and class JVSendMessageJaxrpcWS to send the XML to the WS Server. The JAXRPC server is DistributorWS1EAR, but it uses the /tmp/distributor_war.txt trace file. The XML is traced. The traces also show the data being sent to a MDB, which then uses methods in a SFSB to insert the records.</p>
+    <p>I did not implement MDB for Options 2 and 5 as the application would undoubtedly require. I felt it was unnecessary as I have implemented the MDB in option 3, and I would be able to implement the core functionality of options 2 and 5 in a MDB without too many problems.</p>
+    <p>The Supplier Home page has many seemingly redundant menu items. I use these during development to test ideas separately and concurrently.</p>
+    <h2>Distributor</h2>
+    <p>This is essentially a newer version of the Supplier. I wanted to keep these applications in alignment as they both would perform similar tasks in a supply chain scenario. As the project progresses, the applications would diverge, but I wanted to delay this event. </p>
+    <h2>DistributorWS1</h2>
+    <p>This Web Service has no UI. Check the trace files for actions performed.</p>
+    <h2>DistributorWS2</h2>
+    <p>This Web Service has no UI. Check the trace files for actions performed.</p>
+    <h2>Manufacturer</h2>
+    <p>This application I setup very early on. I have not revisited it in some time. It is doubtless in poor condition. When I need to add some functionality I will return to this application. In the meantime, this application is mainly useful for historical purposes. </p>
+    <h2>Retailer</h2>
+    <p>The JSP Templates here are entirely configurable from java, in particular, the Struts action classes. The menus are dynamic. All text is from the resource bundle. This is the technology from this point. </p>
+    <p>Menu items provide links to the Hadrian and Nero applications. Thus I can link Struts applications.</p>
+    <h2>Nero</h2>
+    <p>Online shopping. Username jv2351@hotpop.com, password=password3 is a valid logon. </p>
+    <h2>Hadrian</h2>
+    <p>More Online shopping, same user/password. This is a Struts application, but it uses JSTL, EL and a custom tag library. The JSP Template jsps were also changed to only use JSP (except Main.jsp, which I could convert if I needed to, but chose not to for the moment). </p>
+    <p><a href="#TOP">Top</a></p>
+    <h2><a name="PAPERS"></a>Papers</h2>
+    <h4>&nbsp;</h4>
+    <h4>This section briefly describes the contents of the associated papers:</h4>
+    <p>For pages 1 through 9, please see <a href="../cd/vcrProject.html#DESIGN">Design Diagrammatics.</a></p>
+    <p>Page A1 shows directory layout of the Supplier application.</p>
+    <p>Page A2 shows high level view of the workBuild, workCapstone and /usr/local/bin directories, a discussion regarding the Commons jars and directory structures of Oracle and Resources (JMS). </p>
+    <p>Page A3 shows Supplier Application flow. User actions required to exercise the client part of the Web Services.</p>
+    <p>Page A4 shows an overview of the Distributor application, and directory structure of DistributorWS1, the JAX-RPC Web Service.</p>
+    <p>Page A5 shows the directory structure of the DistributorWS2 application, the SAAJ Web Service.</p>
+    <p>Page A6 shows the directory structure of the Retailer application, and the Nero and Hadrian On-Line Shopping applications. </p>
+    <p>Page A7 shows the relationship between the Retailer, Nero and Hadrian, and the JSP template mechanism.</p>
+    <p>Pages B1 through B5 show Use Cases, Responsibilities, basic Sequence Diagrams, Application flow, some business entity dependencies, and various design thoughts.</p>
+    <p>Pages C1 discusses future work. </p>
+    <p><a href="#TOP">Top</a></p>	
+    <h2><strong><a name="TODO" id="TODO"></a>To Do </strong></h2>
+	<ul>
+      <li>Change PL/SQL script that handles Barcode table. Add function to add the current barcode and also add generic records for its dependencies.</li>
+      <li>Change add barcode in the Web Services modules to use the new PL/SQL function.</li>
+      <li>Then, slowly add the remaining tables to the select, to be passed in the XML, to be parsed into records, and inserted into the database. </li>
+      <li>Entity Beans. Build the Product Management subsystem. The entity beans would be used to manage the data. Technologies: Entity Beans, JSP templates, JSP widgets, JSP data entry. </li>
+      <li>Build.xml; possibly use properties files – may help oracle.xml. </li>
+      <li>Remove Oracle work from the Component builds. Put into separate directory structure. Maybe use properties files to isolate differences. </li>
+      <li>Build a JSP template to list records, displaying available page numbers as links. May need to reference an EJB, which would need to support buffering of records. </li>
+      <li>Message Beans; learn about topics. Create a need within the framework for this technology. Maybe the distributor sends all his retailers information regarding the latest additions to the product line. The Product Manager Role, upon logging on, will receive an alert, and check the message, which may be stored as XML in the database, rendered using XSLT stylesheet. Maybe, the data will be transferred as XML as a pre-arranged data type, deciphered as it were by the web service and stored in the database as items. Technologies: MDB, XSLT. </li>
+      <li>Collection -&gt; Collection.xml. Make Collection.xsd. (see ~/workCapstone/all.zip). Test with noddy first, check schema is valid. Supplier: change so that schema info is included. Put schema into ~/doc-root... setValidating(true), try it in appclient, when OK, put into ejb3. </li>
+	</ul>
+	<h4>&#149;&nbsp; Port the application to WebLogic. This is going to be tough as WebLogic is J2EE 1.3. All of my XML files will need to be changed as they are J2EE 1.4 based and so they use the latest containers. The Sun specific XML files will need to be ported to WebLogic. The Web Services technologies will need to be completely reviewed. Technologies: WebLogic. </h4>
+	<h4>&#149;&nbsp; Port to WebSphere. Same as above. </h4>
+	<h4>&#149;&nbsp; Improve the JPGs. I didn't concern myself with the look of the system. To show off the system, I am going to have to improve its look. Best size is 900x90. </h4>
+	<h4>&#149;&nbsp; Make the system a demonstration quality system. This will doubtless help me in the future. </h4>
+	<h4>&#149;&nbsp; Investigate ways of making Web Services sell itself as a concept. The money people need to see something they can relate to, that helps them in some way, shown in such a way that they instantly get it. </h4>
+	<h4>&#149;&nbsp; EJB – use LocalHome – try EJBs on same server interface…. </h4>
+	<h4>&#149;&nbsp; Message Beans; pass Message Object – try this… </h4>
+	<h4>&#149;&nbsp; Web Services – validate the XML file. Place the schema on the web service, pass the address in the XML file. Code is commented out. Try it. </h4>
+	<h4>&#149;&nbsp; Improve the send product catalog so it sends all the information in the product catalog. </h4>
+	<h4>&#149;&nbsp; Wire-up the retailer on-line shopping stores to use the real Retailer database schema. </h4>
+	<h4>&#149;&nbsp; Use JNDI in the EJBs. Isolate the look-up name from the Java. Put a standard lookup string into the Java code. To deploy to another environment, only change the XML, not the Java. I have done this in the Database EJB. </h4>
+	<h4>&#149;&nbsp; Investigate Web Services Transaction and Security. I know this basically does not exist right now, but I need to find out what work is being conducted in this area. To some extent, transactions can be simulated in the web service anyway. It requires a carefully designed and written web service. I suppose security could be improved by the passing of keys etc. It strikes me that web services security must be a rich area of innovation at the moment. Example: sendMessage (start trans, make calls, end trans) – the web service collects the XML in a collection, which gets iteratively processed upon receipt of an end trans message. SupplierWAR basically already does this. </h4>
+	<h4>&#149;&nbsp; Recreate templates using CSS. Will make them much prettier, much easier to change and more flexible. I built my website using CSS and so I don't expect too many problems. Technologies: CSS. </h4>
+	<h4>&#149;&nbsp; Investigate Oracle support for XML. I can store XML in a table column, I can access it, I think I can query it. Find out what, why and how so I can determine whether it is of value in this application. Find some way of building into the application Oracle XML. </h4>
+	<h4>&#149;&nbsp; Oracle database schema to XML schema? Look into this. </h4>
+	<h4>&#149;&nbsp; Could store XML message received by the Web Service as XML in the database. </h4>
+	<h4>&#149;&nbsp; Standalone EJB modules – SunOne Admin console….. </h4>
+	<h4>&#149;&nbsp; More tutorials… </h4>
+	<h4>&#149;&nbsp; Study an advanced book on J2EE. </h4>
+	<h4>&#149;&nbsp; Study an advanced book on Web Services. </h4>
+	<h4>&#149;&nbsp; As the project advances into application issues, build use cases etc. Do some UML design work with Rational Rose. Technologies: Rational Rose. </h4>
+	<h4>&#149;&nbsp; Try Base64 encoding as a means of sending JPGs. I don't think it is necessary, but it is worth exploring. </h4>
+	<h4>&#149;&nbsp; Investigate Adventure Builder, Duke bookstore and Petstore: learn more from them. Will create lots of sub-projects. Technologies: Improved J2EE knowledge and usage. </h4>
+	<h4>&#149;&nbsp; Register a web service on my own system. Try this. Technology: UDDI </h4>
+	<h4>&#149;&nbsp; Meta http-equiv=”refresh” ….. try this. </h4>
+	<h4>&#149;&nbsp; Manifests; try jar –i. Should build my manifest….thus will not need to create and populate the manifest.</h4>
+	<h4>&nbsp;</h4>
+	<ul>
+	  <li>
+	    <h4>Send Object through JAX-RPC….. </h4>
+	  </li>
+      <li>JVSendMessageSAAJ - use JNDI lookups</li>
+	  <li>Look into using https - could help with Web Services security.</li>
+	  <li>When MDB calls EJB, deploy as EAR, the appclient, I seem to recall, fails....look into this... </li>
+	  <li>Wireless app sending info to a web service… </li>
+	  <li>Daemon to check for conditions - look at  
+  javax.ejb.TimerService and related classes. See Ch 25 of J2EE tutorial.</li>
+    </ul>
+	<p><a href="#TOP">Top</a></p>	
+	<h2><strong><a name="COMMENTS" id="COMMENTS"></a>Comments</strong></h2>
+	<p>How do I sell web services? They are not flash or fancy. Nothing happens, or at least, nothing should apparently happen. Rather like a computer in a cars engine. If the promise is interoperability, how do I show this? How do I show value? How do I position my own skills? Could look into existing systems – look for opportunities, applications that would benefit from the addition of web services.</p>
+	<p>I have some application specific ideas, many expressed as drawings, as to how many of the functions might work, but it quickly became clear that implementing the functionality of the application would itself be a huge job. Further, without access to an application expert, I could spend years working on this project, just developing the application. </p>
+	<p>The database schema I created for this project soon became overwhelming. It has over 40 tables, complete with keys and constraints. It was a huge effort to build and proved to be a huge amount of work to implement. The only practical way forward was to use the same schema for all business entities, each business entity having it's own instance of the data, accessed through a unique Oracle user. </p>
+	<p>There was another practical reason for this choice. I see each of the business entities in the supply chain as being far more alike than different. They perform much the same functions, they need similar information, they do similar things with the information and have much the same reason for being. The differences are of course considerable, but I have chosen to largely represent those differences with different data and different application implementations rather than with fundamental application differences. </p>
+	<p>Presentation is outside the scope of the project. The project is concerned with content, not presentation. However, as I have made extensive use of templates, presentation as an issue, could be separately addressed without too much difficulty, probably through the use of CSS. </p>
+	<p>I did not fully implement roles. I did not implement read/write privileges. I implemented access/no access. </p>
+	<p>The daemon to do intelligent checking is very hard to design and write. For example, looking for an inventory low condition requires the condition be checked once and once only, the appropriate persons be notified of the condition, the condition be rechecked when something changes or maybe rechecked periodically. These issues are very hard to define in full. A simplistic solution, for example to check everything once a day, doesn't sound very useful from an application viewpoint. In any case, the daemon would almost certainly need to be customized per customer requirements, the cost of the work would be very considerable, the cost of the daemon so great that most companies would probably shy away from it. Further, most of the tasks the daemon performs are decisions based on database queries, work that could be performed using basic PL/SQL, wrapped in a cron job. </p>
+	<p>I found that JSF was just not ready for this project. Available sources of information are few and most of those are wrong. With great reluctance, I dropped JSF for this project.</p>
+	<p>I worked on Tiles for maybe a week. I found it to be very brittle, particularly if I also used the resource bundle. While the application could use different templates, the templates themselves are static. This is of no value to an application where the UI is entirely dynamic; it is driven by the specific user and what he is doing. I dropped Tiles as I needed a dynamic UI. </p>
+	<p>Templates:</p>
+	<ul>
+	  <li> are extremely hard to write </li>
+	  <li>are very time-consuming. </li>
+	  <li>many errors are run-time. </li>
+	  <li>allow for the building of similar components in a timely manner. </li>
+	  <li>dynamic menu items are a Struts target. This is simple. Also, easy to define from the Action class. </li>
+	  <li> allow the development of a best practice. </li>
+	  <li> promote reproducibility. </li>
+	  <li>allow for rapid application development. </li>
+	  <li>Despite my efforts, I have not been able to proceduralize events, only to turn procedures into templates and events. </li>
+    </ul>
+	<p>Some SQL comments: </p>
+	<ul>
+	  <li>
+	    <h4>I trap the SQL I am using in the application in such a way that it cannot get lost, and cannot be ignored. </h4>
+      </li>
+	  <li>
+	    <h4>At some point I need to come back to the SQL and tune it. I need to create indexes. I need to discover what the database engine is doing with the SQL. I may need to change some of the SQL, either by changing the SQL directly or by changing database table(s). </h4>
+      </li>
+	  <li>
+	    <h4>Views are a convenient way of storing SQL that I thought I needed. It is very likely I will need similar SQL in the future and the Views are a convenient bank of best practices. </h4>
+      </li>
+	  <li>
+	    <h4>I build SQL in a SQL script and test it there before using in java. It is very much quicker this way. </h4>
+      </li>
+    </ul>
+	<p>I would like to use some RUP and UML but I have found it to be of little value for this project. For the most part, I am trying to work a technology not the application, and without having an understanding of the technology, it is very hard to design an application feature. I found that most of the time, I was trying to discover how something worked and RUP/UML was of little use. I did however keep notes of what I was trying to do and, as I figured things out, I drew pictures/diagrams of how it might work. However, the bulk of the work was the technology, and so my pictures sufficed. </p>
+	<h4>I can see how, once you know what you are doing, that an IDE could be tremendously helpful. Being able to create an EAR, create its components, dynamically dragging objects into the component while the IDE wires them up would save enormous amounts of time.</h4>
+	<h4><br>
+      Source code does not have to be included in a component subdirectory structure, allowing for easier source maintenance. </h4>
+	<h4>&nbsp;</h4>
+	<h4>I have spent immense amounts of time building, fixing and maintaining ant scripts, and various XML scripts. They are not easy to understand, build or maintain. The documentation for them is basically non-existent. </h4>
+	<h4>&nbsp;</h4>
+	<h4>I have found that I am beginning to think in terms of EARs and the various components. Wiring them is a rather repetitive task after a while. </h4>
+	<p>It you are just deploying an application then having a single EAR to deploy is an obvious advantage. That it could take some considerable amount of time to deploy is not of great significance. However, in a development situation, this situation quickly becomes untenable. </p>
+	<h4>Some comments about passing images: </h4>
+	<ul>
+	  <li>
+	    <h4>SAAJ and JAX-RPC work just fine…. </h4>
+      </li>
+	  <li>
+	    <h4>Can get the image to the other end…. </h4>
+      </li>
+	  <li>
+	    <h4>Can detach it… </h4>
+      </li>
+	  <li>
+	    <h4>But where do I put it? </h4>
+      </li>
+	  <li>
+	    <h4>Would need to write to the file system…. </h4>
+      </li>
+	  <li>
+	    <h4>Not keen on that….security </h4>
+      </li>
+	  <li>
+	    <h4>Will need rules for a directory and naming convention. </h4>
+      </li>
+	  <li>
+	    <h4>Could insert into Oracle RDBMS </h4>
+      </li>
+	  <li>
+	    <h4>However, to insert an image, the image must already exist as a file…. </h4>
+      </li>
+	  <li>
+	    <h4>Thus, would need to write the file somewhere before I could insert it into the DB! </h4>
+      </li>
+	  <li>
+	    <h4>Or, just use the URL, and insert that…..not sure this works though, will need to try it. </h4>
+	  </li>
+      <li>When select image from Oracle, the image is a filename. </li>
+	  <li>This is not convenient.</li>
+	  <li>I want the image as a Java Object.</li>
+	  <li>Need to do some more work here.   </li>
+	</ul>
+	<p>Put all resources stuff into one place (build.xml). Use comments. It is easier to find all resources required for the application. Do not place this info under component structure as it gets lost. Further, it is hard to know what the application needs, in totality.</p>
+	<p>If you need to share code, put it into a jar. Don't create lots of jars as they become a nuisance in the builds. </p>
+	<p>Aim to turn everything into a  component. Each component consists of other components. </p>
+	<h4>Alerts work. Allows components to do work separate from the client. Client gets notified by events. Events may or may not have been triggered by the receiver of the alert. </h4>
+	<h4>&nbsp;</h4>
+	<p>A flat directory structure of components works best. Keep it simple. </p>
+	<p><a href="#TOP">Top</a></p>
+	<h2>&nbsp;</h2>
+  </div></div>
+
+
+<br> 
+</body>
+</html>

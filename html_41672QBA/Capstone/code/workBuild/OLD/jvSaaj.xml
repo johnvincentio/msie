@@ -1,0 +1,15 @@
+
+<!--
+	jvSAAJ.xml; script to handle SAAJ 
+-->
+
+	<property name="saaj.home"	value="${j2ee.home}"/>
+	<property name="saaj.lib"	value="${saaj.home}/lib"/>
+
+	<path id="saaj.classpath">
+	</path>
+
+	<target name="copySAAJLibs">
+		<echo message="Copying Libs..."/>
+	</target>
+

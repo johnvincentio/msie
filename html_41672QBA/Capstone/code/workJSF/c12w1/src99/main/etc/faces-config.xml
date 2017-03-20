@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+
+<faces-config>
+   <navigation-rule>
+      <navigation-case>
+         <from-outcome>next</from-outcome>
+         <to-view-id>/welcome.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>showStates</from-outcome>
+         <to-view-id>/popup2.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>technique1</from-outcome>
+         <to-view-id>/index.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>technique2</from-outcome>
+         <to-view-id>/index2.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+
+   <managed-bean> 
+      <managed-bean-name>bb</managed-bean-name>
+      <managed-bean-class>com.corejsf.BackingBean</managed-bean-class> 
+      <managed-bean-scope>session</managed-bean-scope> 
+   </managed-bean>
+</faces-config>

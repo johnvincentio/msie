@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+  <!ENTITY appServerAntCommands SYSTEM "../app-server-ant.xml">
+  <!ENTITY jvJspValidateCommands SYSTEM "../jspvalidate.xml">
+  <!ENTITY jvXMLValidateCommands SYSTEM "../xmlvalidate.xml">
+  <!ENTITY jvStrutsCommands SYSTEM "../jvstruts.xml">
+  <!ENTITY jvJavaDocCommands SYSTEM "../javadoc.xml">
+]>
+
+<!--
+	build.xml; script to build a single component
+-->
+
+<project name="general" default="dist" basedir=".">
+
+	<property name="build.dir"    value="${basedir}/build" />
+	<property name="dist.dir"     value="${basedir}/dist" />
+	<property name="jsp.test.dir"	value="${basedir}/JSPtest" />
+	<property name="javadocs.dir" value="${basedir}/docs/api"/>
+
+	&appServerAntCommands;
+	&jvJspValidateCommands;
+	&jvXMLValidateCommands;
+	&jvStrutsCommands;
+	&jvJavaDocCommands;
+
+	<echo message="Initializing..."/>
+	<property environment="env"/>
+	<echo message="${env.PATH}"/>
+	<echo message="${env.CLASSPATH}"/>
+
+	<property name="app.name"   value="${ant.project.name}"/>
+	<property name="app.module" value="${dist.dir}/${ant.project.name}.war"/>
+	<property name="app.contextroot" value="h2"/>
+
+	<target name="all" depends="clean, dist, CompileJSP, checkXML"/>
+	<target name="checkXML" depends="XMLValidate"/>
+	<target name="docs" depends="javadocs"/>
+
+	<target name="clean">
+		<echo message="Remove build and distributables..."/>
+		<delete includeEmptyDirs="true" quiet="true">
+			<fileset dir="${build.dir}"/>
+			<fileset dir="${dist.dir}"/>
+			<fileset dir="${javadocs.dir}"/>
+			<fileset dir="${jsp.test.dir}"/>
+		</delete>
+	</target>
+
+	<target name="mkdirs" depends="clean">
+		<echo message="Create directories..."/>
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${dist.dir}/contents" />
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.dir}/WEB-INF" />
+		<mkdir dir="${build.dir}/WEB-INF/classes" />
+		<mkdir dir="${build.dir}/WEB-INF/classes/resources" />
+		<mkdir dir="${build.dir}/WEB-INF/lib" />
+	</target>
+
+	<target name="compile" depends="mkdirs">
+		<echo message="Compiling java..."/>
+		<javac srcdir="${basedir}/java" 
+				destdir="${build.dir}/WEB-INF/classes">
+			<include name="**/*.java" />
+			<classpath refid="cpath.classpath"/>
+		</javac>
+	</target>
+
+	<target name="build" depends="compile, copyLibs">
+		<echo message="Copying WEB-INF/*.xml files..."/>
+		<copy todir="${build.dir}/WEB-INF">
+			<fileset dir="${basedir}/etc">
+				<include name="*.xml" />
+			</fileset>
+		</copy>
+
+		<echo message="Copying html, jsp, css, jpg etc files..."/>
+		<copy todir="${build.dir}">
+			<fileset dir="${basedir}/web"/>
+		</copy>
+
+		<echo message="Copying resources files..."/>
+		<copy todir="${build.dir}/WEB-INF/classes/resources" >
+			<fileset dir="${basedir}/resources"/>
+		</copy>
+	</target>	 
+
+	<target name="dist" depends="build">
+		<echo message="Creating WAR file...."/>
+		<jar destfile="${app.module}" basedir="${build.dir}"/>
+		<unwar src="${app.module}" dest="${dist.dir}/contents"/>
+	</target>
+
+	<target name="deploy-app" depends="deploy">
+		<echo message="Deploying WAR file...."/>
+	</target>
+
+</project>
+

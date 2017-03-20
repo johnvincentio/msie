@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+#  do XML validation of named file
+#
+XMLFILE=$1
+if [ -z "$XMLFILE" ]; then
+	exit 1
+fi
+if [ ! -f "$XMLFILE" ]; then
+	exit 1
+fi
+xmlvalid --verbose --context --summary --namespaces $XMLFILE
+status=$?
+if [ $status -ne 0 ]; then
+	echo "Trouble with xmlvalid"
+	exit 1
+fi
+echo "XML validation is complete"
+

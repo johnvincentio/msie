@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sun-ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Application Server 8.0 EJB 2.1//EN" "http://www.sun.com/software/appserver/dtds/sun-ejb-jar_2_1-0.dtd">
+
+<sun-ejb-jar>
+	<enterprise-beans>
+		<name>SupplierJAR</name>
+		<ejb>
+			<ejb-name>SupplierBean</ejb-name>
+			<jndi-name>SupplierBean</jndi-name>
+			<resource-ref>
+				<res-ref-name>jdbc/SupplierResource</res-ref-name>
+				<jndi-name>jdbc/dbservlet</jndi-name>
+			</resource-ref>
+		</ejb>
+	</enterprise-beans>
+</sun-ejb-jar>
+

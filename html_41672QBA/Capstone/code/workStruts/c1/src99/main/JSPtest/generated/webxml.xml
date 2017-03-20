@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+<!--
+Automatically created by Tomcat JspC.
+-->
+<web-app>
+
+
+    <servlet>
+        <servlet-name>org.apache.jsp.jv2_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.jv2_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.index_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.index_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test1_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test1_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.jv1_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.jv1_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.jv3_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.jv3_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.columnsLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.columnsLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.JVcolumnsLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.JVcolumnsLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.menu_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.menu_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.centerLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.centerLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.classicLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.classicLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.nestedTabsLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.nestedTabsLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.JVvboxLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.JVvboxLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.JVclassicLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.JVclassicLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.JVvboxLayout2_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.JVvboxLayout2_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.tabsLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.tabsLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.skin1.menuLeftLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.skin1.menuLeftLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.logon_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.logon_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.picture_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.picture_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.Parameters_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.Parameters_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.comments_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.comments_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.welcome_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.welcome_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.news_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.news_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.submenu_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.submenu_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.features_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.features_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.footer_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.footer_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.header_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.header_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.constructionTile_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.constructionTile_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.tabs.tabs2_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.tabs.tabs2_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.tabs.tabs1_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.tabs.tabs1_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.pages.tabs.tabs3_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.pages.tabs.tabs3_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.yuk.logon_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.yuk.logon_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.yuk.tabs_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.yuk.tabs_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.yuk.construction_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.yuk.construction_jsp</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.jv2_jsp</servlet-name>
+        <url-pattern>/jv2.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.index_jsp</servlet-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test1_jsp</servlet-name>
+        <url-pattern>/test1.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.jv1_jsp</servlet-name>
+        <url-pattern>/jv1.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.jv3_jsp</servlet-name>
+        <url-pattern>/jv3.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.columnsLayout_jsp</servlet-name>
+        <url-pattern>/layouts/columnsLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.JVcolumnsLayout_jsp</servlet-name>
+        <url-pattern>/layouts/JVcolumnsLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.menu_jsp</servlet-name>
+        <url-pattern>/layouts/menu.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.centerLayout_jsp</servlet-name>
+        <url-pattern>/layouts/centerLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.classicLayout_jsp</servlet-name>
+        <url-pattern>/layouts/classicLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.nestedTabsLayout_jsp</servlet-name>
+        <url-pattern>/layouts/nestedTabsLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.JVvboxLayout_jsp</servlet-name>
+        <url-pattern>/layouts/JVvboxLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.JVclassicLayout_jsp</servlet-name>
+        <url-pattern>/layouts/JVclassicLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.JVvboxLayout2_jsp</servlet-name>
+        <url-pattern>/layouts/JVvboxLayout2.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.tabsLayout_jsp</servlet-name>
+        <url-pattern>/layouts/tabsLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.skin1.menuLeftLayout_jsp</servlet-name>
+        <url-pattern>/layouts/skin1/menuLeftLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.logon_jsp</servlet-name>
+        <url-pattern>/pages/logon.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.picture_jsp</servlet-name>
+        <url-pattern>/pages/picture.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.Parameters_jsp</servlet-name>
+        <url-pattern>/pages/Parameters.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.comments_jsp</servlet-name>
+        <url-pattern>/pages/comments.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.welcome_jsp</servlet-name>
+        <url-pattern>/pages/welcome.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.news_jsp</servlet-name>
+        <url-pattern>/pages/news.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.submenu_jsp</servlet-name>
+        <url-pattern>/pages/submenu.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.features_jsp</servlet-name>
+        <url-pattern>/pages/features.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.footer_jsp</servlet-name>
+        <url-pattern>/pages/footer.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.header_jsp</servlet-name>
+        <url-pattern>/pages/header.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.constructionTile_jsp</servlet-name>
+        <url-pattern>/pages/constructionTile.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.tabs.tabs2_jsp</servlet-name>
+        <url-pattern>/pages/tabs/tabs2.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.tabs.tabs1_jsp</servlet-name>
+        <url-pattern>/pages/tabs/tabs1.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.pages.tabs.tabs3_jsp</servlet-name>
+        <url-pattern>/pages/tabs/tabs3.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.yuk.logon_jsp</servlet-name>
+        <url-pattern>/yuk/logon.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.yuk.tabs_jsp</servlet-name>
+        <url-pattern>/yuk/tabs.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.yuk.construction_jsp</servlet-name>
+        <url-pattern>/yuk/construction.jsp</url-pattern>
+    </servlet-mapping>
+
+</web-app>
+

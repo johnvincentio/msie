@@ -1,0 +1,1211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Internet Technology Homework</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="../css/topnav.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {
+	color: #0000FF;
+	font-size: 100%;	
+}
+-->
+</style>
+</head>
+
+<body>
+<div id="masthead">
+  <h1 class="style1" id="siteName">Internet Technology</h1>
+  <div id="globalNav"> 
+  	<a href="../index.html">Home </a> | <a href="../ConceptualDesign.html">Conceptual Design </a> | <a href="../InternetTechnologies.html">Internet Technologies </a> | <a href="../InternetProgrammingLanguages.html">Internet Programming Languages</a> | <a href="../Assignments.html">Assignments</a> | <a href="../CurrentProjects.html">Projects</a> | <a href="../PersonalLog.html">Personal Log </a> | <a href="../About.html">About</a> 
+  </div>
+</div>
+<div id="content">
+  <h2 id="pageName">&nbsp;</h2>
+  <h2> <a name="TOP" id="TOP"></a>Subnets and Cryptographic Tasks </h2>
+  <h4>&nbsp;</h4>
+  <div class="feature"><img src="../images/alprose.jpg" width="425" height="287" />    <h3>&nbsp;</h3> 
+  </div>
+      <div class="story">
+        <h2>Problems</h2>
+        <ul>
+          <li>
+            <h4><a href="#H5_1">Assume that you have been assigned the 200.35.1.0/24 network block</a>, and you want to divide it up into subnets that contain at least 20 hosts each. Describe how this would work, including at least one CIDR address of a subnet, the number of possible subnets, and the range of possible local addresses on the subnets. </h4>
+          </li>
+          <li>
+            <h4><a href="#H5_2">Here's a chance to be router. </a><br />
+              neo.zion.com is on network 193.20.16/20, has next hop router 193.20.16.01, and has an IP address 193.20.17.10. It wants to send packets to trinity.zion.com (193.20.44.17), morpheus.neb.edu (193.20.18.01) and smith.allover.org (111.111.111.111). Neo's ARP cache is currently empty. Describe how neo figures out what it should do with each of these packets, including any XOR-ing with masks or ARP queries, and what it does with each of these three packets. </h4>
+          </li>
+          <li><a href="#H5_3">Message Digests </a><br />
+Most serious software packages available for download also have digest checks, to ensure that you have the real version. For example, the .md5 files in ftp://ftp.openssl.org/source/. Download one of these packages and verify that the digest matches the archive. Verify that if you uncompress it, modify the source a tiny bit, and recompress it, that the signature no longer matches. From the comman line on bob, "md5sum" or "openssl" can be used to do so; type "man md5sum" for details. Unpack the source, modify one character, recompress it, find the new digest, and verify that it no longer matches the original. How much did the digest change? </li>
+          <li>
+            <h4><a href="#H5_4">Public/Private Keys: </a><br />
+  Create a public/private RSA key pair for yourself, and use them to create a signed MAC of these lecture notes, that is, a digest (say SHA-1) of the notes, encrypted with your public key. GnuPG is probably the easiest tool to use for this, though I haven't look hard for others.</h4>
+          </li>
+          <li>
+            <h4><a href="#H5_5">Symmetric Encryption:</a> <br />
+              Use any utility you like (openssl, PGP, GnuPG, are all on bob already) to encode and decode these lecture notes (jan11/lecture.html) with a random symmetric 128-bit key of your choice using the RC5 cipher. You could use the command line utility openssl on bob.marlboro.edu or your volcano to do so - "man openssl" and "man enc" will give you notes on that utility - or download and install a tool like GnuPG. (http://www.gnupg.org/). Verify that your cipher text is correct by decoding it. </h4>
+          </li>
+        </ul>
+        <h2><a name="H5_1" id="H5_1"></a>CIDR</h2>
+        <h4>&nbsp;</h4>
+        <h4>The 200.35.1.0/24 network block, a Class C network, provides for 200.35.1.0 through 200.35.1.255. The subnet mask is 255.255.255.0.</h4>
+        <h4>&nbsp;</h4>
+        <h4>A subnet of at least 20 hosts would need to be rounded up to a block of 32 IPs which is 00100000. Thus, the subnet is 200.35.1.0/27, (24+3=27).</h4>
+        <h4>&nbsp;</h4>
+        <h4>00000 through 11111 is 0 to 31. Although this is 32 IPs, actually only 29 are usable, as the first is for the network, the second for the router and the third for the broadcast. </h4>
+        <h4>&nbsp;</h4>
+        <h4>There are 8 possible subnets: </h4>
+        <ul>
+          <li>
+            <h4>200.35.1.0/27</h4>
+          </li>
+          <li>
+            <h4> 200.35.1.32/27</h4>
+          </li>
+          <li>
+            <h4> 200.35.1.64/27</h4>
+          </li>
+          <li>
+            <h4>200.35.1.96/27</h4>
+          </li>
+          <li>
+            <h4>200.35.1.128/27</h4>
+          </li>
+          <li>
+            <h4> 200.35.1.160/27</h4>
+          </li>
+          <li>
+            <h4> 200.35.1.192/27</h4>
+          </li>
+          <li>
+            <h4>200.35.1.224/27</h4>
+          </li>
+        </ul>
+        <h4>This just helps me think (I think):</h4>
+        <ul>
+          <li>
+            <h4>0 is 00000000</h4>
+          </li>
+          <li>
+            <h4>32 is 00100000</h4>
+          </li>
+          <li>
+            <h4>64 is 01000000</h4>
+          </li>
+          <li>
+            <h4>96 is 01100000</h4>
+          </li>
+          <li>
+            <h4>128 is 10000000</h4>
+          </li>
+          <li>
+            <h4>160 is 10100000 </h4>
+          </li>
+          <li>
+            <h4>192 is 11000000 </h4>
+          </li>
+          <li>
+            <h4>224 is 11100000 </h4>
+          </li>
+        </ul>
+        <h4>The subnet mask needs to mask off the network part of an IP address. That is 11100000 which is 224. </h4>
+        <h4>Thus, the subnet mask is  255.255.255.224.</h4>
+        <h2>&nbsp;</h2>
+        <h2><a href="#TOP">Top</a></h2>
+        <h4>&nbsp;</h4>
+        <h2><a name="H5_2" id="H5_2"></a>Router</h2>
+        <h4>&nbsp;</h4>
+        <h4>neo.zion.com is on network 193.20.16/20, has next hop router 193.20.16.01, and has an IP address 193.20.17.10. It wants to send packets to trinity.zion.com (193.20.44.17), morpheus.neb.edu (193.20.18.01) and smith.allover.org (111.111.111.111). Neo's ARP cache is currently empty. Describe how neo figures out what it should do with each of these packets, including any XOR-ing with masks or ARP queries, and what it does with each of these three packets. </h4>
+        <h4>&nbsp;</h4>
+        <h4><strong>Network </strong>193.20.16/20</h4>
+        <h4>193.20.16.0 is 11000001 00010100 00010000 00000000 </h4>
+        <h4>The subnet mask would be 11111111 11111111 11110000 00000000 which is 255.255.240.0.</h4>
+        <h4>The host IPs will range from 00010000 00000000 to 00011111 11111111 which is  193.20.16.0 to 193.20.31.255</h4>
+        <h4>193.20.16.0 is the network address. </h4>
+        <h4>193.20.16.1 is the router address. </h4>
+        <h4>193.20.31.255 is the broadcast address. </h4>
+        <h4>Total number of IPs is 111111111111 or 4095. </h4>
+        <h4>&nbsp;</h4>
+        <h4><strong>neo.zion.com</strong> is  193.20.17.10</h4>
+        <h4>Next hop router is  193.20.16.1</h4>
+        <h4>&nbsp;</h4>
+        <h4>neo.zion.com needs to decide whether it should send the packet to the router.</h4>
+        <h4> Apply the subnet mask, with a binary AND, to the source address to get the source network.</h4>
+        <h4>193.20.17.10 is 11000001 00010100 00010001 00001010 </h4>
+        <h4>255.255.240.0 is 11111111 11111111 11110000 00000000</h4>
+        <h4>Result is 11000001 00010100 00010000 00000000 which is 193.20.16.0, the network address.</h4>
+        <h4>&nbsp;</h4>
+        <h4><strong>send to morpheus.neb.edu at 193.20.18.1</strong></h4>
+        <h4>&nbsp;</h4>
+        <h4>Calculate the destination network. </h4>
+        <h4> Apply the subnet mask, with a binary AND, to the destination address.</h4>
+        <h4>193.20.18.1 is 11000001 00010100 00010010 00000001</h4>
+        <h4>255.255.240.0 is 11111111 11111111 11110000 00000000</h4>
+        <h4>Result is 11000001 00010100 00010000 00000000 which is 193.20.16.0, the network address.</h4>
+        <h4>&nbsp;</h4>
+        <h4>As the source and destination networks are the same, the packet can be sent directly to the destination host.</h4>
+        <h4>&nbsp;</h4>
+        <h4>To do this, the source host needs to get the MAC address of the destination host. This is needed because the destination network adapter, with a unique MAC address, listens for packets for that address. It knows nothing of the IP address. </h4>
+        <ul>
+          <li>
+            <h4>The source host broadcasts an ARP Query packet containing the IP of the destination host.</h4>
+          </li>
+          <li>All machines on the LAN receive the packet, but only the destination host will reply. It replies with its MAC address.</li>
+          <li>The source machine adds an IP/MAC entry into its arp cache.</li>
+          <li>The destination host can now  set the MAC address for the packet, and send the packet. </li>
+        </ul>
+        <h4><strong>send to jv.here.edu at 193.20.31.252</strong></h4>
+        <h4>&nbsp;</h4>
+        <h4>Calculate the destination network.</h4>
+        <h4> Apply the subnet mask, with a binary AND, to the destination address.</h4>
+        <h4>193.20.31.252 is 11000001 00010100 00011111 11111100 </h4>
+        <h4>255.255.240.0 is 11111111 11111111 11110000 00000000</h4>
+        <h4>Result is 11000001 00010100 00010000 00000000 which is 193.20.16.0, the network address.</h4>
+        <h4>As the source and destination networks are the same, the packet can be sent directly to the destination host.</h4>
+        <h4>&nbsp;</h4>
+        <h4><strong>send to trinity.zion.com at 193.20.44.17</strong></h4>
+        <h4>&nbsp; </h4>
+        <h4>Calculate the destination network.</h4>
+        <h4> Apply the subnet mask, with a binary AND, to the destination address.</h4>
+        <h4>193.20.44.17 is 11000001 00010100 00101100 00010001 </h4>
+        <h4>255.255.240.0 is 11111111 11111111 11110000 00000000</h4>
+        <h4>Result is 11000001 00010100 00100000 00000000 which is 193.20.32.0, the network address.</h4>
+        <h4>&nbsp;</h4>
+        <h4>As the destination network is different than the source network, the packet will be sent to the router at 193.20.16.1. </h4>
+        <h4>To do this, the source host needs to get the MAC address of the router.</h4>
+        <ul>
+          <li>
+            <h4>The source host broadcasts an ARP Query packet containing the IP of the router.</h4>
+          </li>
+          <li>All machines on the LAN receive the packet, but only the router will reply. It replies with its MAC address.</li>
+          <li>The source machine adds an IP/MAC entry into its arp cache.</li>
+          <li>The destination host can now set the MAC address for the packet, and sends the packet.</li>
+        </ul>
+        <h4><strong>send to smith.allover.org at 111.111.111.111</strong></h4>
+        <h4>&nbsp;</h4>
+        <h4>Calculate the destination network.</h4>
+        <h4> Apply the subnet mask, with a binary AND, to the destination address.</h4>
+        <h4>111.111.111.111 is 01101111 01101111 01101111 01101111 </h4>
+        <h4>255.255.240.0 is 11111111 11111111 11110000 00000000</h4>
+        <h4>Result is 01101111 01101111 01100000 00000000 which is 111.111.96.0, the network address.</h4>
+        <h4>&nbsp;</h4>
+        <h4>As the destination network is different than the source network, the packet will be sent to the router. As the MAC address of the router IP has been cached, the </h4>
+        <h4>destination host can  set the MAC address for the packet. and send the packet.</h4>
+        <h2>&nbsp;</h2>
+        <h2>Other</h2>
+        <p>&nbsp;</p>
+        <table align="center" width="584" height="228" border="1">
+          <tr align="center" valign="top">
+            <th width="183" scope="col">Operation</th>
+            <th width="191" scope="col">Result</th>
+            <th width="188" scope="col">Examples</th>
+          </tr>
+          <tr align="center" valign="top">
+            <td>AND</td>
+            <td>true if A AND B are true </td>
+            <td><h4>1 AND 1 = 1</h4>
+            <h4>1 AND 0 = 0</h4>
+            <h4>0 AND 1 = 0</h4>
+            <h4>0 AND 0 = 0  </h4></td>
+          </tr>
+          <tr align="center" valign="top">
+            <td>OR</td>
+            <td>true if A OR B are true </td>
+            <td><h4>1 OR 1 = 1</h4>
+              <h4>1 OR 0 = 1 </h4>
+              <h4>0 OR 1 = 1 </h4>
+            <h4>0 OR 0 = 0 </h4></td>
+          </tr>
+          <tr align="center" valign="top">
+            <td>XOR</td>
+            <td>true if either A or B are true </td>
+            <td><h4>1 XOR 1 = 1</h4>
+              <h4>1 XOR  0 = 0</h4>
+              <h4>0 XOR  1 = 0</h4>
+            <h4>0 XOR  0 = 0 </h4></td>
+          </tr>
+          <tr align="center" valign="top">
+            <td>NOT</td>
+            <td>opposite</td>
+            <td><h4>NOT 1 = 0</h4>
+            <h4>NOT 0 = 1 </h4>            </td>
+          </tr>
+        </table>
+        <h4>&nbsp;</h4>
+        <h4>&nbsp;</h4>
+        <h2>&nbsp;</h2>
+        <h2><a href="#TOP">Top</a></h2>
+        <h4>&nbsp;</h4>
+        <h2><a name="H5_3" id="H5_3"></a>Message Digests <br />
+        </h2>
+        <h4>Most serious software packages available for download also have digest checks, to ensure that you have the real version. For example, the .md5 files in ftp://ftp.openssl.org/source/. Download one of these packages and verify that the digest matches the archive. Verify that if you uncompress it, modify the source a tiny bit, and recompress it, that the signature no longer matches. From the comman line on bob, "md5sum" or "openssl" can be used to do so; type "man md5sum" for details. Unpack the source, modify one character, recompress it, find the new digest, and verify that it no longer matches the original. How much did the digest change? </h4>
+        <h4>&nbsp;</h4>
+        <h4>I chose to use the Sun Freeware site <a href="http://sunfreeware.com">http://sunfreeware.com</a> for this exercise as I know they use md5 files.</h4>
+        <h4>&nbsp;</h4>
+        <h4>I chose the gawk-3.1.1 package, the version that included the source code, which I downloaded to  /home/downloads/tmp</h4>
+        <pre class="style1">
+# pwd
+/home/downloads/tmp
+[root@mule tmp]# ls -la
+total 1844
+drwxr-xr-x    2 root     root         4096 Nov 14 19:40 .
+drwxr-xr-x    7 root     root         4096 Nov 14 19:29 ..
+-rw-------    1 root     root      1875134 Nov 14 19:40 gawk-3.1.1.tar.gz</pre>        
+        <h4>I checked the file size, mostly to verify that it did indeed successfully download the file.</h4>
+        <h4>The file is listed as gawk-3.1.1.tar.gz 1875134, which suggests my download was successful.</h4>
+        <h4>&nbsp;</h4>
+        <h4>I then located the md5sum for the package.</h4>
+        <pre class="style1">MD5 (gawk-3.1.1.tar.gz) = 47e3754195bf32c8b78ad632bab903cd</pre>
+        <h4>I edited a file gawk_sum5, pasted in the above and edited it
+</h4>
+<h4><pre class="style1">
+47e3754195bf32c8b78ad632bab903  cd gawk-3.1.1.tar.gz</pre></h4>
+<h4>Now, check the file, unzip, zip and check again. </h4>
+<h4>
+  <pre class="style1">
+++md5sum --check gawk_sum5
+  gawk-3.1.1.tar.gz: OK
+++ gunzip gawk-3.1.1.tar.gz
+++ gzip gawk-3.1.1.tar
+++ md5sum --check gawk_sum5
+  gawk-3.1.1.tar.gz: FAILED
+  md5sum: WARNING: 1 of 1 computed checksum did NOT match
+++ md5sum gawk-3.1.1.tar.gz
+++ cat gawk_sum5
+47e3754195bf32c8b78ad632bab903cd  gawk-3.1.1.tar.gz
+++ cat new_sum5
+4996abd80221b9cd8178231b12050c84  gawk-3.1.1.tar.gz
+</pre>
+  I did not change the contents of the file. Remaking the file causes failure. The md5sum files are very different. </h4>
+<h4><pre class="style1">
+++ rm gawk-3.1.1.tar.gz
+++ cp ../save/gawk-3.1.1.tar.gz .
+++ md5sum --check gawk_sum5
+gawk-3.1.1.tar.gz: OK
+++ gunzip gawk-3.1.1.tar.gz
+++ gzip gawk-3.1.1.tar
+++ md5sum --check gawk_sum5
+gawk-3.1.1.tar.gz: FAILED
+md5sum: WARNING: 1 of 1 computed checksum did NOT match
+++ md5sum gawk-3.1.1.tar.gz
+++ cat gawk_sum5
+47e3754195bf32c8b78ad632bab903cd  gawk-3.1.1.tar.gz
+++ cat new_sum5
+a05600f5f5b68fd021e44bec4cce64f9  gawk-3.1.1.tar.gz
+</pre></h4>
+<h4>Doing the whole thing again yields a different md5sum. </h4>
+<h4>&nbsp;</h4>
+<h4>The remainder of the exercise seems to be redundant, but here goes anyway. </h4>
+<h4>&nbsp;</h4>
+<h4>I hate to type, and so I built a script </h4>
+<h4><pre class="style1">
+set -x
+rm gawk-3.1.1.tar.gz     # clean the slate
+rm gawk_sum5
+rm new_sum5
+rm -rf gawk-3.1.1
+#
+cp ../save/gawk-3.1.1.tar.gz .   # get files from storage
+cp ../save/gawk_sum5 .
+lf
+md5sum --check gawk_sum5     # check md5sum
+#
+gunzip gawk-3.1.1.tar.gz    # unzip and untar
+tar xf gawk-3.1.1.tar
+#
+echo "Change a file now - hit ENTER when done"
+read ANS
+#
+tar cf gawk-3.1.1.tar gawk-3.1.1   # tar and zip
+gzip gawk-3.1.1.tar
+#
+echo "Check md5sum"
+md5sum --check gawk_sum5   # check md5sum
+md5sum gawk-3.1.1.tar.gz > new_sum5   # make a new md5sum
+cat gawk_sum5
+cat new_sum5
+</pre></h4>
+<h4>Which generated the following output</h4>
+<h4><pre class="style1">
+# ./po
+++ rm gawk-3.1.1.tar.gz
+++ rm gawk_sum5
+++ rm new_sum5
+++ rm -rf gawk-3.1.1
+++ cp ../save/gawk-3.1.1.tar.gz .
+++ cp ../save/gawk_sum5 .
+++ lf
+++ ls -FaC
+./  ../  gawk-3.1.1.tar.gz  gawk_sum5  po*
+++ md5sum --check gawk_sum5
+gawk-3.1.1.tar.gz: OK
+++ gunzip gawk-3.1.1.tar.gz
+++ tar xf gawk-3.1.1.tar
+++ echo 'Change a file now - hit ENTER when done'
+Change a file now - hit ENTER when done
+++ read ANS
+
+++ tar cf gawk-3.1.1.tar gawk-3.1.1
+++ gzip gawk-3.1.1.tar
+++ echo 'Check md5sum'
+Check md5sum
+++ md5sum --check gawk_sum5
+gawk-3.1.1.tar.gz: FAILED
+md5sum: WARNING: 1 of 1 computed checksum did NOT match
+++ md5sum gawk-3.1.1.tar.gz
+++ cat gawk_sum5
+47e3754195bf32c8b78ad632bab903cd  gawk-3.1.1.tar.gz
+++ cat new_sum5
+2ac041732fbb3e223c1f7f6161dc9aeb  gawk-3.1.1.tar.gz
+</pre></h4>
+<h4>When prompted, I added one blank character to the end of gawk-3.1.1/dfa.c.</h4>
+<h4>&nbsp; </h4>
+<h4>My meddling was unsuccessful.</h4>
+<h4>&nbsp;</h4>
+<h4>Playing around a little, I downloaded the latest version of snort, snort 2.0.4, from <a href="www.snort.org%20">www.snort.org</a></h4>
+<h4>I also downloaded md5 and sha1 checksum files, and the PGP signature file. </h4>
+<h4><pre class="style1">
+8cff1ab5b6ab0ff507fb7264a05be05b  snort-2.0.4.tar.gz
+
+9ae95612d05c8bd605c689353f38d919a0d753ba  snort-2.0.4.tar.gz
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.0.7 (GNU/Linux)
+
+iD8DBQA/qoCulEkV6hlG5KERAgJ/AKDpHjC+/N7ZdP88sB0/TZs8Fk5YYQCePiXE
+u2TLk4+RBezc3sPMlvlUNnw=
+=9RHl
+-----END PGP SIGNATURE-----
+</pre></h4>
+<h4>Modified my script a little </h4>
+<h4><pre class="style1">
+set -x
+PACKAGE="snort-2.0.4"
+TARFILE=${PACKAGE}.tar
+GZFILE=${TARFILE}.gz
+MD5FILE=${GZFILE}.md5
+SHA1FILE=${GZFILE}.sha1
+ASCFILE=${GZFILE}.asc
+#
+rm $GZFILE     # clean the slate
+rm $MD5FILE $ASCFILE
+rm -rf $TARFILE
+rm new_md5 new_sha1
+rm -rf $PACKAGE
+#
+cp save/$GZFILE .   # get files from storage
+cp save/$MD5FILE .
+cp save/$ASCFILE .
+cp save/$SHA1FILE .
+lf
+md5sum --check $MD5FILE     # check md5sum
+sha1sum --check $SHA1FILE     # check sha1sum
+#
+gunzip $GZFILE    # unzip and untar
+tar xf $TARFILE
+#
+echo "Change a file now - hit ENTER when done"
+read ANS
+#
+tar cf $TARFILE $PACKAGE   # tar and zip
+gzip $TARFILE
+#
+md5sum --check $MD5FILE     # check md5sum
+sha1sum --check $SHA1FILE     # check sha1sum
+md5sum $GZFILE > new_md5   # make a new md5sum
+sha1sum $GZFILE > new_sha1   # make a new sha1sum
+cat $MD5FILE
+cat new_md5
+cat $SHA1FILE
+cat new_sha1
+</pre></h4>
+<h4>which produces the following </h4>
+<h4><pre class="style1">
+# ./po
+++ PACKAGE=snort-2.0.4
+++ TARFILE=snort-2.0.4.tar
+++ GZFILE=snort-2.0.4.tar.gz
+++ MD5FILE=snort-2.0.4.tar.gz.md5
+++ SHA1FILE=snort-2.0.4.tar.gz.sha1
+++ ASCFILE=snort-2.0.4.tar.gz.asc
+++ rm snort-2.0.4.tar.gz
+++ rm snort-2.0.4.tar.gz.md5 snort-2.0.4.tar.gz.asc
+++ rm -rf snort-2.0.4.tar
+++ rm new_md5 new_sha1
+rm: cannot lstat `new_md5': No such file or directory
+rm: cannot lstat `new_sha1': No such file or directory
+++ rm -rf snort-2.0.4
+++ cp save/snort-2.0.4.tar.gz .
+++ cp save/snort-2.0.4.tar.gz.md5 .
+++ cp save/snort-2.0.4.tar.gz.asc .
+++ cp save/snort-2.0.4.tar.gz.sha1 .
+++ lf
+++ ls -FaC
+./   .po.swp             snort-2.0.4.tar.gz.asc
+../  save/               snort-2.0.4.tar.gz.md5
+po*  snort-2.0.4.tar.gz  snort-2.0.4.tar.gz.sha1
+++ md5sum --check snort-2.0.4.tar.gz.md5
+snort-2.0.4.tar.gz: OK
+++ sha1sum --check snort-2.0.4.tar.gz.sha1
+snort-2.0.4.tar.gz: OK
+++ gunzip snort-2.0.4.tar.gz
+++ tar xf snort-2.0.4.tar
+++ echo 'Change a file now - hit ENTER when done'
+Change a file now - hit ENTER when done
+++ read ANS
+
+++ tar cf snort-2.0.4.tar snort-2.0.4
+++ gzip snort-2.0.4.tar
+++ md5sum --check snort-2.0.4.tar.gz.md5
+snort-2.0.4.tar.gz: FAILED
+md5sum: WARNING: 1 of 1 computed checksum did NOT match
+++ sha1sum --check snort-2.0.4.tar.gz.sha1
+snort-2.0.4.tar.gz: FAILED
+sha1sum: WARNING: 1 of 1 computed checksum did NOT match
+++ md5sum snort-2.0.4.tar.gz
+++ sha1sum snort-2.0.4.tar.gz
+++ cat snort-2.0.4.tar.gz.md5
+8cff1ab5b6ab0ff507fb7264a05be05b  snort-2.0.4.tar.gz
+++ cat new_md5
+dc690fe76da3cbdb1d3eb602f1159f75  snort-2.0.4.tar.gz
+++ cat snort-2.0.4.tar.gz.sha1
+9ae95612d05c8bd605c689353f38d919a0d753ba  snort-2.0.4.tar.gz
+++ cat new_sha1
+5a483b215953d4c699dc0de056b9b9b5a29db0e9  snort-2.0.4.tar.gz
+</pre></h4>
+<h4>Both mechanisms fail, as was expected. I just wanted to learn how to use sha1sum. </h4>
+<h2>&nbsp;</h2>
+<h2><a href="#TOP">Top</a></h2>
+<h4>&nbsp;</h4>
+<h2><a name="H5_4" id="H5_4"></a>Public/Private Keys </h2>
+<h4>&nbsp;</h4>
+<h4>Create a public/private RSA key pair for yourself, and use them to create a signed MAC of these lecture notes, that is, a digest (say SHA-1) of the notes, encrypted with your public key. GnuPG is probably the easiest tool to use for this, though I haven't look hard for others.</h4>
+<h4>&nbsp;</h4>
+<h4>I downloaded the lecture notes and built a script to create the digests</h4>
+<h4><pre class="style1">
+set -x
+rm test.tar test.tar.gz test_md5 test_sha1
+tar cvf test.tar lecture
+gzip test.tar
+md5sum test.tar.gz > test_md5
+sha1sum test.tar.gz > test_sha1
+md5sum --check test_md5
+sha1sum --check test_sha1
+</pre></h4>
+<h4>which generated the following:</h4>
+<h4>
+  <pre class="style1">
+# ./po
+++ rm test.tar test.tar.gz test_md5 test_sha1
+rm: cannot lstat `test.tar': No such file or directory
+++ tar cvf test.tar lecture
+lecture/
+lecture/lecture.html
+lecture/lecture_files/
+lecture/lecture_files/img006.gif
+lecture/lecture_files/img008.gif
+lecture/lecture_files/simpleportforwarding.jpg
+lecture/lecture_files/extendedportforwarding.jpg
+lecture/lecture_files/dblextendedportforwarding.jpg
+++ gzip test.tar
+++ md5sum test.tar.gz
+++ sha1sum test.tar.gz
+++ md5sum --check test_md5
+test.tar.gz: OK
+++ sha1sum --check test_sha1
+test.tar.gz: OK
+</pre>
+<h4>Then I created the public/private RSA key.</h4>
+<h4><pre class="style1">
+# gpg --gen-key
+gpg (GnuPG) 1.2.1; Copyright (C) 2002 Free Software Foundation, Inc.
+This program comes with ABSOLUTELY NO WARRANTY.
+This is free software, and you are welcome to redistribute it
+under certain conditions. See the file COPYING for details.
+
+Please select what kind of key you want:
+   (1) DSA and ElGamal (default)
+   (2) DSA (sign only)
+   (5) RSA (sign only)
+Your selection? 5
+What keysize do you want? (1024) 
+Requested keysize is 1024 bits   
+Please specify how long the key should be valid.
+         0 = key does not expire
+      &lt;n>  = key expires in n days
+      &lt;n>w = key expires in n weeks
+      &lt;n>m = key expires in n months
+      &lt;n>y = key expires in n years
+Key is valid for? (0) 0
+Key does not expire at all
+Is this correct (y/n)? y
+                        
+You need a User-ID to identify your key; the software constructs the user id
+from Real Name, Comment and Email Address in this form:
+    "Heinrich Heine (Der Dichter) &lt;heinrichh@duesseldorf.de>"
+
+Real name: John Vincent
+Email address: jv2351@hotpop.com
+Comment: idc.com                
+You selected this USER-ID:
+    "John Vincent (idc.com) &lt;jv2351@hotpop.com>"
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
+You need a Passphrase to protect your secret key.    
+
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+...+++++
++++++
+public and secret key created and signed.
+key marked as ultimately trusted.
+
+pub  1024R/D336CF5D 2003-11-15 John Vincent (idc.com) &lt;jv2351@hotpop.com>
+     Key fingerprint = 0502 8B7D E9B7 158C 8238  1AB5 A4C3 E4B2 D336 CF5D
+
+Note that this key cannot be used for encryption.  You may want to use
+the command "--edit-key" to generate a secondary key for this purpose.
+</pre></h4>
+<h4>This created the keys</h4>
+<h4><pre class="style1">
+[root@mule .gnupg]# pwd
+/root/.gnupg
+# lf
+./   gpg.conf     pubring.gpg~  secring.gpg
+../  pubring.gpg  random_seed   trustdb.gpg
+[root@mule .gnupg]# ls -la
+total 32
+drwx------    2 root     root         4096 Nov 14 23:23 .
+drwxr-x---   17 root     root         4096 Nov 14 23:26 ..
+-rw-------    1 root     root         7695 Sep 16 17:40 gpg.conf
+-rw-------    1 root     root          369 Nov 14 23:23 pubring.gpg
+-rw-------    1 root     root            0 Sep 16 17:40 pubring.gpg~
+-rw-------    1 root     root          600 Nov 14 23:23 random_seed
+-rw-------    1 root     root          739 Nov 14 23:23 secring.gpg
+-rw-------    1 root     root         1240 Nov 14 23:23 trustdb.gpg
+</pre></h4>
+<h4>Playing with the commands a little is useful </h4>
+<h4><pre class="style1">
+# gpg --list-keys
+/root/.gnupg/pubring.gpg
+------------------------
+pub  1024R/D336CF5D 2003-11-15 John Vincent (idc.com) &lt;jv2351@hotpop.com>
+
+[root@mule work]# gpg --list-sigs
+/root/.gnupg/pubring.gpg
+------------------------
+pub  1024R/D336CF5D 2003-11-15 John Vincent (idc.com) &lt;jv2351@hotpop.com>
+sig 3       D336CF5D 2003-11-15   John Vincent (idc.com) &lt;jv2351@hotpop.com>
+
+[root@mule work]# gpg --list-secret-key
+/root/.gnupg/secring.gpg
+------------------------
+sec  1024A/e3wer3wd 2003-11-15 John Vincent (idc.com) &lt;jv2351@hotpop.com>
+</pre></h4>
+<h4>Now to export my public key</h4>
+<h4><pre class="style1">
+# gpg --armor --export "john Vincent"
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.2.1 (GNU/Linux)
+
+mIsEP7WqUAEEANkUh8uB1V8ef1WDMxwfcfozKhWb5Pq9F3cg2PSSbczDnqOPZMQD
+7vseSd5/fgqpJg10d7t2nQdfsgE/VUKfvJCVhR06NXT7/kIMVVumMUFfdzkf0dHT
+qXa6yTQ/dWOv9mqiuhN8xJ5mV/Wi7Ym7Jh1yoOkekwkJaMskYCctZW55AAYptCpK
+b2huIFZpbmNlbnQgKGlkYy5jb20pIDxqdjIzNTFAaG90cG9wLmNvbT6IsgQTAQIA
+HAUCP7WqUAIbAwQLBwMCAxUCAwMWAgECHgECF4AACgkQpMPkstM2z101sQQApcvE
+LKyEpMROee3mofKaTGL4CPXduONARFbyHMaeOtJILTF5Bo+ubjtbY/XJ/+toUfi3
+v0kYAY2L3TeRTvfDH5sdQzJtz/BM9WtUtVk0SMoYDCPVd0xQr7/5RvhYibJFE8uE
+dp2gElyT8WiA7E+CoSKJxBc7MrdnHhYp6tkBBhg=
+=S0mD
+-----END PGP PUBLIC KEY BLOCK-----
+# gpg --armor --export "john Vincent" > jv.asc
+</pre></h4>
+<h4>When I downloaded snort, I also downloaded the public key, public-key.html to /home/downloads/snort/save.</h4>
+<h4>
+  <pre class="style1">
+# cat public-key.html
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.0.7 (GNU/Linux)
+
+mQGiBD0pnBIRBACnYvvZcYdMdbRwAsRf5A3TREUX9gbo9KnUegnZzFDyhEZHeZQx
+CdnWee8OSGCN4o44PZFnbw3h0XeqZepboV1GoLwBE134ehk9oOYhiFfigSSBP3GZ
+slVyE9+a68+1QoelwO129xXc4f2n8GWbh8AIAbm/Gn+SDhD6p9ilUvYLUwCg6o3Q
+SJ3zPsL0c453Xxp+Pi6dSosD/i8TY9mdIWGSTr1ZAW0/GiWLDes3wOf2x0wAf18E
+XHvS2fbHqsXBN6LsEHzOf4hSgkHYPRCROsk9HQ5ajMphBae2AJvE/LzfY5o/uCFR
+LZz896cIqfhnif/Syo2bfbxiq260A6aJVg9g2Kakrco0Um2hLLIm5o1LCenl5hMl
+vL6mA/9YCnFcG3bYYknhFwIo1Rp2UAiS8CFq//tSlkKWdEgm5K/dmRMKz4doC0AT
+8f4ls7zn8loERWYsY+9cqQ4Ph/AprGKxcdGaejbhxvnO3/TsRS11KD2tEHSBQOmu
+EjKs8aLjnd3q/giyd83OHaqmCvBVJVWmh6ba9aeczeC9gk0O6rQnU25vcnQub3Jn
+IHJlbGVhc2VzIDxyZWxlYXNlc0Bzbm9ydC5vcmc+iFcEExECABcFAj0pnBIFCwcK
+AwQDFQMCAxYCAQIXgAAKCRCUSRXqGUbkoQ/OAJ9xNBusiia2KgwatMtLbZ02UVY6
+EwCgrGsCo/FcksjzjbMTBJXdpWCNwTyIRgQQEQIABgUCPSmcxAAKCRBxO5ySCJYn
+irlrAJ4tScf9gie85UcduAdzUsGS/Iy1zgCdHttB+zT1PlUhG2KxFp8uLUyjonS5
+AQ0EPSmcFRAEAPhVxaTqXpx8HxxGAH6RDYYHTzXpqKXtOyboWzvDF/O3lKqUEckj
+Oo7xIk6TzHf+PDq4vz+ZIXxwKPRK0h3P0WAYxiJedRRKFFa3Mg+0Y7AHAxqpgKkz
+uZTdGPFHd77sfRZQ2NxbOyg6UayZhqIX4sSCdMdlNxiuEnCxM7AZKymfAAMHBACw
+K4mJ3UKAU9kZ5My9H5Wt0VFFsnCIbmjKITOQGqHvyDm0aHVI+Rddu1ltauzRnbCX
+dS+9N1DOT12zOg5StJuGmFU5IFKqMH/I5ZjY8URIXW5bhsDQj5rbitWFKoTvlZGx
+cSeUITTWqOpZyNEQp6wpM1p7K0A5pdC0aL76rnfPc4hGBBgRAgAGBQI9KZwVAAoJ
+EJRJFeoZRuShn3MAoMN0IcY4RCYWtua0U0eqhQWvGf8dAKCBN5A7Kcxsv9rc0j62
+LLY+/bOCgg==
+=+A1P
+-----END PGP PUBLIC KEY BLOCK-----
+
+# gpg --import public-key.html
+gpg: key 1946E4A1: public key "Snort.org releases &lt;releases@snort.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+[root@mule save]# gpg --list-keys
+/root/.gnupg/pubring.gpg
+------------------------
+pub  1024R/D336CF5D 2003-11-15 John Vincent (idc.com) &lt;jv2351@hotpop.com>
+
+pub  1024D/1946E4A1 2002-07-08 Snort.org releases &lt;releases@snort.org>
+sub  1024g/8EE60AFF 2002-07-08
+</pre>
+</h4>
+<h4>which adds the snort public key to my key ring. </h4>
+<h4><pre class="style1">
+# gpg --verify snort-2.0.4.tar.gz.asc
+gpg: Signature made Thu 06 Nov 2003 12:11:10 PM EST using DSA key ID 1946E4A1
+gpg: Good signature from "Snort.org releases &lt;releases@snort.org>"
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: F504 0CEF 9B3E C272 36D2  1EC7 9449 15EA 1946 E4A1
+</pre>
+  This was not supposed to happen. </h4>
+<h4>&nbsp;</h4>
+<h4>Plan B. Download GnuPG from <a href="ftp://ftp.gnupg.org/gcrypt/">ftp.gnupg.org</a>. The current version is 1.2.3</h4>
+<h4><pre class="style1">
+# pwd
+/home/downloads/gnupg
+[root@mule gnupg]# lf
+./   gnupg-1.2.3.tar.bz2      gnupg-1.2.3.tar.gz
+../  gnupg-1.2.3.tar.bz2.sig  gnupg-1.2.3.tar.gz.sig
+</pre>
+Downloaded the public key as jv.asc </h4>
+<h4><pre class="style1">
+pub  1024D/57548DCD 1998-07-07 Werner Koch (gnupg sig)
+     Key fingerprint = 6BD9 050F D8FC 941B 4341  2DCC 68B7 AB89 5754 8DCD
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.2.1 (GNU/Linux)
+
+mQGiBDWiHh4RBAD+l0rg5p9rW4M3sKvmeyzhs2mDxhRKDTVVUnTwpMIR2kIA9pT4
+3No/coPajDvhZTaDM/vSz25IZDZWJ7gEu86RpoEdtr/eK8GuDcgsWvFs5+YpCDwW
+G2dx39ME7DN+SRvEE1xUm4E9G2Nnd2UNtLgg82wgi/ZK4Ih9CYDyo0a9awCgisn3
+RvZ/MREJmQq1+SjJgDx+c2sEAOEnxGYisqIKcOTdPOTTie7o7x+nem2uac7uOW68
+N+wRWxhGPIxsOdueMIa7U94Wg/Ydn4f2WngJpBvKNaHYmW8j1Q5zvZXXpIWRXSvy
+TR641BceGHNdYiR/PiDBJsGQ3ac7n7pwhV4qex3IViRDJWz5Dzr88x+Oju63KtxY
+urUIBACi7d1rUlHr4ok7iBRlWHYXU2hpUIQ8C+UOE1XXT+HB7mZLSRONQnWMyXnq
+bAAW+EUUX2xpb54CevAg4eOilt0es8GZMmU6c0wdUsnMWWqOKHBFFlDIvyI27aZ9
+quf0yvby63kFCanQKc0QnqGXQKzuXbFqBYW2UQrYgjXji8rd8bQnV2VybmVyIEtv
+Y2ggKGdudXBnIHNpZykgPGRkOWpuQGdudS5vcmc+iGIEExECACIFAj4HI6kCGwMF
+CQpPc4sECwcDAgMVAgMDFgIBAh4BAheAAAoJEGi3q4lXVI3NjGwAnitvWvzrdrjf
++Y8MNw+JH7zKDiVIAKCIJyojVHeliciZ8DMU2Dxd0LaZYIhGBBARAgAGBQI1oic8
+AAoJEGx+4bhiHMATftYAn1fOaKDUOt+dS38rB+CJ2Q+iElWJAKDRPpp8q5GylbM8
+DPlMpClWN3TYqYhGBBARAgAGBQI27U5sAAoJEF3iSZZbA1iiarYAn35qU3ZOlVEC
+ELE/3V6q98Q30eAaAKCtO+lacH0Qq1E6v4BP/9y6MoLIhohGBBARAgAGBQI26Prd
+AAoJEAcDKpaJBMjiEpgAoM3IisrN7XXdhnP9lmx0UJKE7SsFAJwMWIBnGK93ojuW
+Xh9YgDRySZKZqIhGBBARAgAGBQI5zA88AAoJEDLDW4BHupNX9vwAn1ZRUYyIWV5X
+oRUIq7Epz1id+hDVAKDMZSo15h9vfGAjrytpxOs5clW+Gw==
+=yGoD
+-----END PGP PUBLIC KEY BLOCK-----
+</pre>
+  Imported the key </h4>
+<h4><pre class="style1">
+# gpg --import key.asc
+gpg: key 57548DCD: public key "Werner Koch (gnupg sig) &lt;dd9jn@gnu.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+[root@mule work]# gpg --list-keys
+/root/.gnupg/pubring.gpg
+------------------------
+pub  1024R/D336CF5D 2003-11-15 John Vincent (idc.com) &lt;jv2351@hotpop.com>
+
+pub  1024D/1946E4A1 2002-07-08 Snort.org releases &lt;releases@snort.org>
+sub  1024g/8EE60AFF 2002-07-08
+
+pub  1024D/57548DCD 1998-07-07 Werner Koch (gnupg sig) &lt;dd9jn@gnu.org>
+</pre></h4>
+<h4>Attempt to verify the file </h4>
+<h4><pre class="style1">
+gpg --verify gnupg-1.2.3.tar.gz.sig gnupg-1.2.3.tar.gz
+gpg: Signature made Thu 21 Aug 2003 04:24:33 PM EDT using DSA key ID 57548DCD
+gpg: Good signature from "Werner Koch (gnupg sig) < dd9jn@gnu.org>"
+gpg: checking the trustdb
+gpg: checking at depth 0 signed=0 ot(-/q/n/m/f/u)=0/0/0/0/0/1
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 6BD9 050F D8FC 941B 4341  2DCC 68B7 AB89 5754 8DCD
+</pre></h4>
+<h4>Must have done something wrong...... </h4>
+<h4>&nbsp;</h4>
+<h2>I decided to start again. </h2>
+<h4>&nbsp;</h4>
+<h4>I deleted all the keys. I then created two new keys for myself.</h4>
+<ul>
+  <li>
+    <h4>Key 1, RSA, 1024 bit, 1 year, keyone.</h4>
+  </li>
+  <li>Key 2, DSA, 2048. 1 year, keytwo.</li>
+</ul>
+<h4>Keyone needs a secondary key if I am ot use it for encryption. I created one with gpg --edit-key addkey </h4>
+<p>Then I created the public key files with the script</p>
+<h4><pre class="style1">
+set -x
+rm key1/*
+rm key2/*
+gpg --output key1/key1_pb.gpg --export keyone
+gpg --armor --output key1/key1_pb.asc --export keyone
+gpg --output key2/key2_pb.gpg --export keytwo
+gpg --armor --output key2/key2_pb.asc --export keytwo
+</pre></h4>
+<h4>which produced the following</h4>
+<h4><pre class="style1">
+# ./po2
+++ rm key1/key1_pb.asc key1/key1_pb.gpg
+++ rm key2/key2_pb.asc key2/key2_pb.gpg
+++ gpg --output key1/key1_pb.gpg --export keyone
+++ gpg --armor --output key1/key1_pb.asc --export keyone
+++ gpg --output key2/key2_pb.gpg --export keytwo
+++ gpg --armor --output key2/key2_pb.asc --export keytwo
+</pre></h4>
+<h4>Now to encrypt the digest with keyone 's public key and decrypt it</h4>
+<h4><pre class="style1">
+set -x
+gpg --output enc1 --encrypt --recipient keytwo test_sha1
+gpg --output dec1 --decrypt enc1
+diff test_sha1 dec1
+</pre></h4>
+<h4>which produced the following</h4>
+<h4><pre class="style1">
+++ gpg --output enc1 --encrypt --recipient keytwo test_sha1
+gpg: checking the trustdb
+gpg: checking at depth 0 signed=0 ot(-/q/n/m/f/u)=0/0/0/0/0/2
+gpg: next trustdb check due at 2004-11-15
+++ gpg --output dec1 --decrypt enc1
+
+You need a passphrase to unlock the secret key for
+user: "keytwo &lt;ab@fred.edu>"
+2048-bit ELG-E key, ID 4058EFD7, created 2003-11-16 (main key ID 20A85D99)
+
+gpg: encrypted with 2048-bit ELG-E key, ID 4058EFD7, created 2003-11-16
+      "keytwo < ab@fred.edu>"
+++ diff test_sha1 dec1
+[root@mule gnu]# cat dec1
+b838a78a8b60e6dbe54aa830b0b6d0a308bec0ce  test.tar.gz
+[root@mule gnu]# cat test_sha1
+b838a78a8b60e6dbe54aa830b0b6d0a308bec0ce  test.tar.gz
+</pre></h4>
+<h4>The decrypted file is identical to the original. </h4>
+<h4>&nbsp;</h4>
+<h4>Now back to snort. Import the snort public key. </h4>
+<h4><pre class="style1">
+gpg --list-keys
+gpg --check-sigs
+gpg --import snort/save/snort.asc
+gpg --list-keys
+gpg --check-sigs
+</pre></h4>
+<h4>which gives the following</h4>
+<h4><pre class="style1">
+/root/.gnupg/pubring.gpg
+------------------------
+pub  1024D/20A85D99 2003-11-16 keytwo &lt;ab@fred.edu>
+sub  2048g/4058EFD7 2003-11-16 [expires: 2004-11-15]
+
+pub  1024R/1013E1C9 2003-11-16 keyone &lt;one@fred.edu>
+sub  1024R/C8A6F3BE 2003-11-16 [expires: 2004-11-15]
+
+/root/.gnupg/pubring.gpg
+------------------------
+pub  1024D/20A85D99 2003-11-16 keytwo &lt;ab@fred.edu>
+sig!3       20A85D99 2003-11-16   keytwo &lt;ab@fred.edu>
+sub  2048g/4058EFD7 2003-11-16 [expires: 2004-11-15]
+sig!        20A85D99 2003-11-16   keytwo &lt;ab@fred.edu>
+
+pub  1024R/1013E1C9 2003-11-16 keyone &lt;one@fred.edu>
+sig!3       1013E1C9 2003-11-16   keyone &lt;one@fred.edu>
+sub  1024R/C8A6F3BE 2003-11-16 [expires: 2004-11-15]
+sig!        1013E1C9 2003-11-16   keyone &lt;one@fred.edu>
+
+gpg: key 1946E4A1: public key "Snort.org releases &lt;releases@snort.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+/root/.gnupg/pubring.gpg
+------------------------
+pub  1024D/20A85D99 2003-11-16 keytwo &lt;ab@fred.edu>
+sub  2048g/4058EFD7 2003-11-16 [expires: 2004-11-15]
+
+pub  1024R/1013E1C9 2003-11-16 keyone &lt;one@fred.edu>
+sub  1024R/C8A6F3BE 2003-11-16 [expires: 2004-11-15]
+
+pub  1024D/1946E4A1 2002-07-08 Snort.org releases &lt;releases@snort.org>
+sub  1024g/8EE60AFF 2002-07-08
+
+/root/.gnupg/pubring.gpg
+------------------------
+pub  1024D/20A85D99 2003-11-16 keytwo &lt;ab@fred.edu>
+sig!3       20A85D99 2003-11-16   keytwo &lt;ab@fred.edu>
+sub  2048g/4058EFD7 2003-11-16 [expires: 2004-11-15]
+sig!        20A85D99 2003-11-16   keytwo &lt;ab@fred.edu>
+
+pub  1024R/1013E1C9 2003-11-16 keyone &lt;one@fred.edu>
+sig!3       1013E1C9 2003-11-16   keyone &lt;one@fred.edu>
+sub  1024R/C8A6F3BE 2003-11-16 [expires: 2004-11-15]
+sig!        1013E1C9 2003-11-16   keyone &lt;one@fred.edu>
+
+pub  1024D/1946E4A1 2002-07-08 Snort.org releases &lt;releases@snort.org>
+sig!3       1946E4A1 2002-07-08   Snort.org releases &lt;releases@snort.org>
+sub  1024g/8EE60AFF 2002-07-08
+sig!        1946E4A1 2002-07-08   Snort.org releases &lt;releases@snort.org>
+
+1 signature not checked due to a missing key
+</pre></h4>
+<h4>Now to verify the snort distribution </h4>
+<h4><pre class="style1">
+++ gpg --verify snort-2.0.4.tar.gz.asc
+gpg: Signature made Thu 06 Nov 2003 12:11:10 PM EST using DSA key ID 1946E4A1
+gpg: Good signature from "Snort.org releases < releases@snort.org>"
+gpg: checking the trustdb
+gpg: checking at depth 0 signed=0 ot(-/q/n/m/f/u)=0/0/0/0/0/2
+gpg: next trustdb check due at 2004-11-15
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: F504 0CEF 9B3E C272 36D2  1EC7 9449 15EA 1946 E4A1
+</pre></h4>
+<h4>I think I need to sign snorts key. </h4>
+<h4><pre class="style1">
+# gpg --edit-key Snort.org
+gpg (GnuPG) 1.2.1; Copyright (C) 2002 Free Software Foundation, Inc.
+This program comes with ABSOLUTELY NO WARRANTY.
+This is free software, and you are welcome to redistribute it
+under certain conditions. See the file COPYING for details.
+
+
+pub  1024D/1946E4A1  created: 2002-07-08 expires: never      trust: -/-
+sub  1024g/8EE60AFF  created: 2002-07-08 expires: never     
+(1). Snort.org releases &lt;releases@snort.org>
+
+Command> fpr
+pub  1024D/1946E4A1 2002-07-08 Snort.org releases < releases@snort.org>
+ Primary key fingerprint: F504 0CEF 9B3E C272 36D2  1EC7 9449 15EA 1946 E4A1
+
+Command> sign
+             
+pub  1024D/1946E4A1  created: 2002-07-08 expires: never      trust: -/-
+ Primary key fingerprint: F504 0CEF 9B3E C272 36D2  1EC7 9449 15EA 1946 E4A1
+
+     Snort.org releases &lt;releases@snort.org>
+
+How carefully have you verified the key you are about to sign actually belongs
+to the person named above?  If you don't know what to answer, enter "0".
+
+   (0) I will not answer. (default)
+   (1) I have not checked at all.
+   (2) I have done casual checking.
+   (3) I have done very careful checking.
+
+Your selection? 3
+Are you really sure that you want to sign this key
+with your key: "keytwo &lt;ab@fred.edu>"
+
+I have checked this key very carefully.
+
+Really sign? y
+              
+You need a passphrase to unlock the secret key for
+user: "keytwo &lt;ab@fred.edu>"
+1024-bit DSA key, ID 20A85D99, created 2003-11-16
+Command> check
+uid  Snort.org releases < releases@snort.org>
+sig!3       1946E4A1 2002-07-08   [self-signature]
+sig!3       20A85D99 2003-11-16   keytwo &lt;ab@fred.edu>
+1 signature not checked due to a missing key
+</pre></h4>
+<h4>Still not working. I may need to change the trust level</h4>
+<h4><pre class="style1">
+Command> trust
+pub  1024D/1946E4A1  created: 2002-07-08 expires: never      trust: -/-
+sub  1024g/8EE60AFF  created: 2002-07-08 expires: never     
+(1). Snort.org releases &lt;releases@snort.org>
+
+Please decide how far you trust this user to correctly
+verify other users' keys (by looking at passports,
+checking fingerprints from different sources...)?
+
+ 1 = Don't know
+ 2 = I do NOT trust
+ 3 = I trust marginally
+ 4 = I trust fully
+ 5 = I trust ultimately
+ m = back to the main menu
+
+Your decision? 4
+                
+pub  1024D/1946E4A1  created: 2002-07-08 expires: never      trust: f/-
+sub  1024g/8EE60AFF  created: 2002-07-08 expires: never     
+(1). Snort.org releases &lt;releases@snort.org>
+Please note that the shown key validity is not necessarily correct
+unless you restart the program.
+
+Command> save
+++ gpg --verify snort-2.0.4.tar.gz.asc snort-2.0.4.tar.gz
+gpg: Signature made Thu 06 Nov 2003 12:11:10 PM EST using DSA key ID 1946E4A1
+gpg: Good signature from "Snort.org releases &lt;releases@snort.org>"
+gpg: checking the trustdb
+gpg: checking at depth 0 signed=1 ot(-/q/n/m/f/u)=0/0/0/0/0/2
+gpg: checking at depth 1 signed=0 ot(-/q/n/m/f/u)=0/0/0/0/1/0
+gpg: next trustdb check due at 2004-11-15
+</pre></h4>
+<h4>Looks better, but what does that mean?</h4>
+<h4>&nbsp;</h4>
+<h4>Retry the gnupg download. Imported the key, which interestingly included the fingerprint.</h4>
+<h4><pre class="style1">
+# gpg --edit-key 
+gpg (GnuPG) 1.2.1; Copyright (C) 2002 Free Software Foundation, Inc.
+This program comes with ABSOLUTELY NO WARRANTY.
+This is free software, and you are welcome to redistribute it
+under certain conditions. See the file COPYING for details.
+
+usage: gpg [options] --edit-key user-id [commands]
+[root@mule gnupg]# gpg --edit-key werner
+gpg (GnuPG) 1.2.1; Copyright (C) 2002 Free Software Foundation, Inc.
+This program comes with ABSOLUTELY NO WARRANTY.
+This is free software, and you are welcome to redistribute it
+under certain conditions. See the file COPYING for details.
+
+
+pub  1024D/57548DCD  created: 1998-07-07 expires: 2003-12-30 trust: -/-
+(1). Werner Koch (gnupg sig) &lt;dd9jn@gnu.org>
+
+Command> fpr
+pub  1024D/57548DCD 1998-07-07 Werner Koch (gnupg sig) &lt;dd9jn@gnu.org>
+ Primary key fingerprint: 6BD9 050F D8FC 941B 4341  2DCC 68B7 AB89 5754 8DCD
+
+Command> sign
+             
+pub  1024D/57548DCD  created: 1998-07-07 expires: 2003-12-30 trust: -/-
+ Primary key fingerprint: 6BD9 050F D8FC 941B 4341  2DCC 68B7 AB89 5754 8DCD
+
+     Werner Koch (gnupg sig) &lt;dd9jn@gnu.org>
+
+This key is due to expire on 2003-12-30.
+Do you want your signature to expire at the same time? (Y/n) y
+How carefully have you verified the key you are about to sign actually belongs
+to the person named above?  If you don't know what to answer, enter "0".
+
+   (0) I will not answer. (default)
+   (1) I have not checked at all.
+   (2) I have done casual checking.
+   (3) I have done very careful checking.
+
+Your selection? 3
+Are you really sure that you want to sign this key
+with your key: "keytwo &lt;ab@fred.edu>"
+
+I have checked this key very carefully.
+
+Really sign? y
+              
+You need a passphrase to unlock the secret key for
+user: "keytwo < ab@fred.edu>"
+1024-bit DSA key, ID 20A85D99, created 2003-11-16
+
+                  
+Command> save
+</pre></h4>
+<h4>I think the lack of a save may have caused the earlier failure. Let's try the verify:</h4>
+<h4><pre class="style1">
+gpg --verify gnupg-1.2.3.tar.gz.sig gnupg-1.2.3.tar.
+gpg: Signature made Thu 21 Aug 2003 04:24:33 PM EDT using DSA key ID 57548DCD
+gpg: Good signature from "Werner Koch (gnupg sig) &lt;dd9jn@gnu.org>"
+gpg: checking the trustdb
+gpg: checking at depth 0 signed=2 ot(-/q/n/m/f/u)=0/0/0/0/0/2
+gpg: checking at depth 1 signed=0 ot(-/q/n/m/f/u)=1/0/0/0/1/0
+gpg: next trustdb check due at 2003-12-30
+</pre></h4>
+<h4>Moving on, let's break it. Apply the wrong combination </h4>
+<h4><pre class="style1">
+gpg --verify snort/snort-2.0.4.tar.gz.asc snort/snort-2.0.4.tar.gz
+gpg --verify gnupg/gnupg-1.2.3.tar.gz.sig gnupg/gnupg-1.2.3.tar.gz
+gpg --verify snort/snort-2.0.4.tar.gz.asc gnupg/gnupg-1.2.3.tar.gz
+
+++ gpg --verify snort/snort-2.0.4.tar.gz.asc snort/snort-2.0.4.tar.gz
+gpg: Signature made Thu 06 Nov 2003 12:11:10 PM EST using DSA key ID 1946E4A1
+gpg: Good signature from "Snort.org releases &lt;releases@snort.org>"
+++ gpg --verify gnupg/gnupg-1.2.3.tar.gz.sig gnupg/gnupg-1.2.3.tar.gz
+gpg: Signature made Thu 21 Aug 2003 04:24:33 PM EDT using DSA key ID 57548DCD
+gpg: Good signature from "Werner Koch (gnupg sig) &lt;dd9jn@gnu.org>"
+++ gpg --verify snort/snort-2.0.4.tar.gz.asc gnupg/gnupg-1.2.3.tar.gz
+gpg: Signature made Thu 06 Nov 2003 12:11:10 PM EST using DSA key ID 1946E4A1
+gpg: BAD signature from "Snort.org releases &lt;releases@snort.org>"
+</pre></h4>
+<h4>Unzip and zip the distribution</h4>
+<h4><pre class="style1">
+++ gpg --verify gnupg/gnupg-1.2.3.tar.gz.sig gnupg/gnupg-1.2.3.tar.gz
+gpg: Signature made Thu 21 Aug 2003 04:24:33 PM EDT using DSA key ID 57548DCD
+gpg: BAD signature from "Werner Koch (gnupg sig) &lt;dd9jn@gnu.org>"
+</pre></h4>
+<h4></h4>
+<h4>I think that is enough for now.</h4>
+<h4>&nbsp;</h4>
+<h2>Other:</h2>
+<h4>&nbsp; </h4>
+<h4>gpg --default-key keyone --sign-key snort<br />
+    gpg --output revoke.asc --gen-revoke keyone</h4>
+<h4>&nbsp;</h4>
+<h2>Key Servers <br />
+</h2>
+<h4>Could send my public key to a key server. There seem to be many, for example</h4>
+<ul>
+  <li>
+    <h4><a href="http://keyserver.cryptnet.net/"> http://keyserver.cryptnet.net/</a></h4>
+  </li>
+  <li><a href="www.mandrakesecure.net">www.mandrakesecure.net</a></li>
+  <li><a href="http://pgp.mit.edu/">http://pgp.mit.edu/</a></li>
+</ul>
+<h4>They claim to be synchronized and so I doubt it will matter.</h4>
+<h4>&nbsp;</h4>
+<h4>To send a public key to a key server:</h4>
+<h4><pre class="style1">
+gpg --send-keys --keyserver www.mandrakesecure.net snort
+gpg: success sending to `www.mandrakesecure.net' (status=200)
+</pre></h4>
+<h4>which sent the updated version of snorts key, the update being my signature.</h4>
+<h4>&nbsp;</h4>
+<h4>Found the following key on the keyserver, searched on snort: </h4>
+<h4><pre class="style1">
+Type bits /keyID    Date       User ID
+pub  1024D/0434A76F 2003/03/04 Brian Caswell &lt;bmc@sourcefire.com>
+                               Brian Caswell &lt;bmc@shmoo.com>
+                               Brian Caswell &lt;bmc@snort.org>
+</pre>
+</h4>
+<h4>Get the key and list it</h4>
+<h4><pre class="style1">
+++ gpg --keyserver pgp.mit.edu --recv-key 0434A76F
+gpg: key 0434A76F: public key "Brian Caswell &lt;bmc@shmoo.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+
+[root@mule gnu]# gpg --list-keys
+/root/.gnupg/pubring.gpg
+------------------------
+pub  1024D/20A85D99 2003-11-16 keytwo &lt;ab@fred.edu>
+sub  2048g/4058EFD7 2003-11-16 [expires: 2004-11-15]
+
+pub  1024R/1013E1C9 2003-11-16 keyone &lt;one@fred.edu>
+sub  1024R/C8A6F3BE 2003-11-16 [expires: 2004-11-15]
+
+pub  1024D/1946E4A1 2002-07-08 Snort.org releases &lt;releases@snort.org>
+sub  1024g/8EE60AFF 2002-07-08
+
+pub  1024D/57548DCD 1998-07-07 Werner Koch (gnupg sig) &lt;dd9jn@gnu.org>
+
+pub  1024D/0434A76F 2003-03-04 Brian Caswell &lt;bmc@shmoo.com>
+uid                            Brian Caswell &lt;bmc@sourcefire.com>
+uid                            Brian Caswell &lt;bmc@snort.org>
+sub  1024g/5686C612 2003-03-04 [expires: 2004-03-03]
+</pre></h4>
+<h4>I used the MIT server because it worked. The others did not!</h4>
+<h4>&nbsp;</h4>
+<h4>Apparently, add to your ~/.gnupg/options file the string " <strong>keyserver www.mandrakesecure.net </strong>" to have GnuPG use this public key server as the default keyserver.</h4>
+</h4>
+<h2>&nbsp;</h2>
+<h2><a href="#TOP">Top</a></h2>
+<h4>
+    <h4>&nbsp;</h4>
+    <h2><a name="H5_5" id="H5_5"></a>Symmetric Encryption</h2>
+    <p> Use any utility you like (openssl, PGP, GnuPG, are all on bob already) to encode and decode these lecture notes (jan11/lecture.html) with a random symmetric 128-bit key of your choice using the RC5 cipher. You could use the command line utility openssl on bob.marlboro.edu or your volcano to do so - "man openssl" and "man enc" will give you notes on that utility - or download and install a tool like GnuPG. (http://www.gnupg.org/). Verify that your cipher text is correct by decoding it. </p>
+    <h4>First, I need to find out what gpg supports.</h4>
+    <h4><pre class="style1">
+# gpg --version
+gpg (GnuPG) 1.2.1
+Copyright (C) 2002 Free Software Foundation, Inc.
+This program comes with ABSOLUTELY NO WARRANTY.
+This is free software, and you are welcome to redistribute it
+under certain conditions. See the file COPYING for details.
+
+Home: ~/.gnupg
+Supported algorithms:
+Pubkey: RSA, RSA-E, RSA-S, ELG-E, DSA, ELG
+Cipher: 3DES, CAST5, BLOWFISH, AES, AES192, AES256, TWOFISH
+Hash: MD5, SHA1, RIPEMD160
+Compress: Uncompressed, ZIP, ZLIB
+</pre>
+    </h4>
+    <h4> I will  encrypt the lecture notes with key keyone which  was created using  RSA.</h4>
+    <h4>As the RC5 cipher does not appear to be supported, I will encrypt using 128 bit AES.</h4>
+    <h4><pre class="style1">
+rm secret.dat
+gpg --local-user keyone --cipher-algo=AES --digest-algo=SHA1 --compress-algo=2 \
+--recipient keytwo --output secret.dat --encrypt test.tar.gz
+</pre>
+    </h4>
+    <h4>which gives the following</h4>
+    <h4><pre class="style1">
+# ls -la secret.dat
+-rw-r--r--    1 root     root        70826 Nov 16 23:15 secret.dat
+</pre>
+    </h4>
+    To decrypt the file
+    <h4><pre class="style1">
+gpg --output notsecret.dat --decrypt secret.dat
+ls -la secret.dat notsecret.dat test.tar.gz
+</pre>
+    </h4>
+    <h4>which produced the following</h4>
+    <h4><pre class="style1">
+++ gpg --output notsecret.dat --decrypt secret.dat
+
+You need a passphrase to unlock the secret key for
+user: "keytwo &lt;ab@fred.edu>"
+2048-bit ELG-E key, ID 4058EFD7, created 2003-11-16 (main key ID 20A85D99)
+
+gpg: encrypted with 2048-bit ELG-E key, ID 4058EFD7, created 2003-11-16
+      "keytwo &lt;ab@fred.edu>"
+++ ls -la secret.dat notsecret.dat test.tar.gz
+-rw-r--r--    1 root     root        70228 Nov 16 23:19 notsecret.dat
+-rw-r--r--    1 root     root        70826 Nov 16 23:15 secret.dat
+-rw-r--r--    1 root     root        70228 Nov 16 17:46 test.tar.gz
+</pre>
+    </h4>
+    <h4>A quick check of the contents of the unencrypted file</h4>
+    <h4><pre class="style1">
+# mv notsecret.dat notsecret.tar.gz
+# gunzip notsecret.tar.gz
+# tar tvf notsecret.tar
+drwxr-xr-x root/root         0 2003-11-16 16:13:42 lecture/
+-rw-r--r-- root/root     82780 2003-11-14 22:52:04 lecture/lecture.html
+drwxr-xr-x root/root         0 2003-11-14 22:52:04 lecture/lecture_files/
+-rw-r--r-- root/root     10244 2003-11-14 22:52:04 lecture/lecture_files/img006.gif
+-rw-r--r-- root/root      8887 2003-11-14 22:52:04 lecture/lecture_files/img008.gif
+-rw-r--r-- root/root      7077 2003-11-14 22:52:04 lecture/lecture_files/simpleportforwarding.jpg
+-rw-r--r-- root/root      8528 2003-11-14 22:52:04 lecture/lecture_files/extendedportforwarding.jpg
+-rw-r--r-- root/root     13539 2003-11-14 22:52:04 lecture/lecture_files/dblextendedportforwarding.jpg
+</pre>
+    </h4>
+    <h4>All's well that ends well. </h4>
+</h4>
+<h2>&nbsp;</h2>
+<h2><a href="#TOP">Top</a></h2>
+<h4>&nbsp;</h4>
+        <blockquote>
+          <p></p>
+          <p></p>
+          <p></p>
+        </blockquote>
+  </div>
+      <div class="story">
+        <blockquote>&nbsp;</blockquote>
+      </div>
+</div>
+<!-- end masthead -->
+</body>
+</html>

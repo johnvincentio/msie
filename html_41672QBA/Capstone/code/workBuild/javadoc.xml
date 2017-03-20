@@ -1,0 +1,36 @@
+
+<!--
+	javadoc.xml; script to build the java doc api
+-->
+
+	<target name="javadocs_clean">
+		<echo message="Cleaning Javadocs...."/>
+		<delete includeEmptyDirs="true" quiet="true">
+			<fileset dir="${javadocs.dir}"/>
+		</delete>
+	</target>
+
+	<target name="javadocs" depends="javadocs_clean">
+		<echo message="Generating JV API Javadocs...."/>
+		<path id="javadocs.classpath">
+			<path refid="cpath.classpath"/>
+			<path refid="j2ee.classpath"/>
+		</path>
+		<mkdir dir="${javadocs.dir}"/>
+		<javadoc 
+			packagenames="*"
+			destdir="${javadocs.dir}"
+			verbose="true"
+			author="false" version="true" use="true"
+			windowtitle="${app.name} API Documentation"
+			doctitle="${app.name} Documentation"
+			bottom="Copyright. All Rights Reserved.">
+			<sourcepath>
+				<pathelement path="java"/>
+			</sourcepath>
+			<classpath>
+				<path refid="javadocs.classpath"/>
+			</classpath>
+		</javadoc>
+	</target>
+

@@ -1,0 +1,24 @@
+
+<!--
+	xmlvalidate.xml; script to validate an XML file
+		First parameter cound be a schema (.xsd) file.
+		Second parameter is the xml file to be validated
+-->
+
+	<target name="XMLinit">
+		<available file="${xml.file}" property="xml.file.exists"/>
+	</target>
+
+	<target name="XMLExist" if="xml.file.exists">
+		<echo message="Checking ${xml.file}"/>
+		<java jar="/opt/sun_xmlvalid/msv.jar" fork="yes" failonerror="true">
+			<arg line="${dtd.file} ${xml.file}"/>
+		</java>
+	</target>
+
+	<target name="XMLNoExist" unless="xml.file.exists">
+		<echo message="WARNING: ${xml.file} does not exist."/>
+	</target>
+
+	<target name="XMLValidate" depends="XMLinit, XMLExist, XMLNoExist"/>
+

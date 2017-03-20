@@ -1,0 +1,4 @@
+# MyHelloService Project File
+#Mon Mar 29 15:31:24 GMT-08:00 2004
+project.path=(helloservice helloservice\\build WEB-INF\\classes classes WEB-INF\\lib lib contentRoot .)
+project.root=C\:\\working\\j2eetutorial\\examples\\jaxrpc

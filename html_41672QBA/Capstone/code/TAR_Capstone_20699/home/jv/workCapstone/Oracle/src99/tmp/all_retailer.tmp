@@ -1,0 +1,2143 @@
+
+SQL*Plus: Release 9.2.0.1.0 - Production on Mon Aug 2 16:06:58 2004
+
+Copyright (c) 1982, 2002, Oracle Corporation.  All rights reserved.
+
+
+Connected to:
+Oracle9i Release 9.2.0.1.0 - Production
+JServer Release 9.2.0.1.0 - Production
+
+SQL> 
+SQL> --
+SQL> -- I like a clean slate. Make it so.
+SQL> --
+SQL> --
+SQL> -- Must first remove the referential constraints
+SQL> --
+SQL> 
+SQL> alter table Alert drop Constraint FK_Alert1;
+
+Table altered.
+
+SQL> alter table Alert drop Constraint FK_Alert2;
+
+Table altered.
+
+SQL> 
+SQL> alter table Bank drop Constraint FK_Bank;
+
+Table altered.
+
+SQL> 
+SQL> alter table Barcode drop Constraint FK_Barcode1;
+
+Table altered.
+
+SQL> alter table Barcode drop Constraint FK_Barcode2;
+
+Table altered.
+
+SQL> 
+SQL> alter table BidRequest drop Constraint FK_BidRequest1;
+
+Table altered.
+
+SQL> alter table BidRequest drop Constraint FK_BidRequest2;
+
+Table altered.
+
+SQL> alter table BidRequest drop Constraint FK_BidRequest3;
+
+Table altered.
+
+SQL> alter table BidRequest drop Constraint FK_BidRequest4;
+
+Table altered.
+
+SQL> 
+SQL> alter table BidOffered drop Constraint FK_BidOffered1;
+
+Table altered.
+
+SQL> alter table BidOffered drop Constraint FK_BidOffered2;
+
+Table altered.
+
+SQL> alter table BidOffered drop Constraint FK_BidOffered3;
+
+Table altered.
+
+SQL> 
+SQL> alter table Characteristic drop Constraint FK_Characteristic1;
+
+Table altered.
+
+SQL> alter table Characteristic drop Constraint FK_Characteristic2;
+
+Table altered.
+
+SQL> 
+SQL> alter table CollectionList drop Constraint FK_CollectionList1;
+
+Table altered.
+
+SQL> alter table CollectionList drop Constraint FK_CollectionList2;
+
+Table altered.
+
+SQL> 
+SQL> alter table Container drop Constraint FK_Container1;
+
+Table altered.
+
+SQL> alter table Container drop Constraint FK_Container2;
+
+Table altered.
+
+SQL> 
+SQL> alter table Cost drop Constraint FK_Cost;
+
+Table altered.
+
+SQL> 
+SQL> alter table Customer drop Constraint FK_Customer1;
+
+Table altered.
+
+SQL> alter table Customer drop Constraint FK_Customer2;
+
+Table altered.
+
+SQL> alter table Customer drop Constraint FK_Customer3;
+
+Table altered.
+
+SQL> 
+SQL> alter table CustomerOrderList drop Constraint FK_CustomerOrderList1;
+
+Table altered.
+
+SQL> alter table CustomerOrderList drop Constraint FK_CustomerOrderList2;
+
+Table altered.
+
+SQL> 
+SQL> alter table CustomerOrder drop Constraint FK_CustomerOrder1;
+
+Table altered.
+
+SQL> alter table CustomerOrder drop Constraint FK_CustomerOrder2;
+
+Table altered.
+
+SQL> alter table CustomerOrder drop Constraint FK_CustomerOrder3;
+
+Table altered.
+
+SQL> 
+SQL> alter table Employee drop Constraint FK_Employee1;
+
+Table altered.
+
+SQL> alter table Employee drop Constraint FK_Employee2;
+
+Table altered.
+
+SQL> alter table Employee drop Constraint FK_Employee3;
+
+Table altered.
+
+SQL> 
+SQL> alter table InstalledSystem drop Constraint FK_InstalledSystem1;
+
+Table altered.
+
+SQL> alter table InstalledSystem drop Constraint FK_InstalledSystem2;
+
+Table altered.
+
+SQL> 
+SQL> alter table Inventory drop Constraint FK_Inventory1;
+
+Table altered.
+
+SQL> alter table Inventory drop Constraint FK_Inventory2;
+
+Table altered.
+
+SQL> 
+SQL> alter table Invoice drop Constraint FK_Invoice;
+
+Table altered.
+
+SQL> 
+SQL> alter table InvoiceList drop Constraint FK_InvoiceList1;
+
+Table altered.
+
+SQL> alter table InvoiceList drop Constraint FK_InvoiceList2;
+
+Table altered.
+
+SQL> alter table InvoiceList drop Constraint FK_InvoiceList3;
+
+Table altered.
+
+SQL> alter table InvoiceList drop Constraint FK_InvoiceList4;
+
+Table altered.
+
+SQL> alter table InvoiceList drop Constraint FK_InvoiceList5;
+
+Table altered.
+
+SQL> 
+SQL> alter table Options drop Constraint FK_Options;
+
+Table altered.
+
+SQL> 
+SQL> alter table Orders drop Constraint FK_Orders1;
+
+Table altered.
+
+SQL> alter table Orders drop Constraint FK_Orders2;
+
+Table altered.
+
+SQL> alter table Orders drop Constraint FK_Orders3;
+
+Table altered.
+
+SQL> alter table Orders drop Constraint FK_Orders4;
+
+Table altered.
+
+SQL> alter table Orders drop Constraint FK_Orders5;
+
+Table altered.
+
+SQL> 
+SQL> alter table PersonList drop Constraint FK_PersonList;
+
+Table altered.
+
+SQL> 
+SQL> alter table Role drop Constraint FK_Role;
+
+Table altered.
+
+SQL> 
+SQL> alter table Shipment drop Constraint FK_Shipment1;
+
+Table altered.
+
+SQL> alter table Shipment drop Constraint FK_Shipment2;
+
+Table altered.
+
+SQL> alter table Shipment drop Constraint FK_Shipment3;
+
+Table altered.
+
+SQL> alter table Shipment drop Constraint FK_Shipment4;
+
+Table altered.
+
+SQL> 
+SQL> alter table Shipper drop Constraint FK_Shipper1;
+
+Table altered.
+
+SQL> alter table Shipper drop Constraint FK_Shipper2;
+
+Table altered.
+
+SQL> 
+SQL> alter table Supplier drop Constraint FK_Supplier1;
+
+Table altered.
+
+SQL> alter table Supplier drop Constraint FK_Supplier2;
+
+Table altered.
+
+SQL> alter table Supplier drop Constraint FK_Supplier3;
+
+Table altered.
+
+SQL> alter table Supplier drop Constraint FK_Supplier4;
+
+Table altered.
+
+SQL> alter table Supplier drop Constraint FK_Supplier5;
+
+Table altered.
+
+SQL> 
+SQL> alter table SupplierOrder drop Constraint FK_SupplierOrder1;
+
+Table altered.
+
+SQL> alter table SupplierOrder drop Constraint FK_SupplierOrder2;
+
+Table altered.
+
+SQL> alter table SupplierOrder drop Constraint FK_SupplierOrder3;
+
+Table altered.
+
+SQL> alter table SupplierOrder drop Constraint FK_SupplierOrder4;
+
+Table altered.
+
+SQL> alter table SupplierOrder drop Constraint FK_SupplierOrder5;
+
+Table altered.
+
+SQL> alter table SupplierOrder drop Constraint FK_SupplierOrder6;
+
+Table altered.
+
+SQL> 
+SQL> alter table UserRole drop Constraint FK_UserRole1;
+
+Table altered.
+
+SQL> alter table UserRole drop Constraint FK_UserRole2;
+
+Table altered.
+
+SQL> 
+SQL> alter table Users drop Constraint FK_Users1;
+
+Table altered.
+
+SQL> alter table Users drop Constraint FK_Users2;
+
+Table altered.
+
+SQL> 
+SQL> --
+SQL> -- Drop all indexes
+SQL> --
+SQL> 
+SQL> drop index BidRequest1;
+
+Index dropped.
+
+SQL> drop index BidOffered1;
+
+Index dropped.
+
+SQL> drop index Employee1;
+
+Index dropped.
+
+SQL> drop index Orders1;
+
+Index dropped.
+
+SQL> drop index SupplierOrder1;
+
+Index dropped.
+
+SQL> 
+SQL> --
+SQL> -- Drop Sequences / Triggers
+SQL> --
+SQL> 
+SQL> drop sequence Alert_seq;
+
+Sequence dropped.
+
+SQL> drop sequence Bank_seq;
+
+Sequence dropped.
+
+SQL> drop sequence Barcode_seq;
+
+Sequence dropped.
+
+SQL> drop sequence Category_seq;
+
+Sequence dropped.
+
+SQL> drop sequence Collection_seq;
+
+Sequence dropped.
+
+SQL> drop sequence Container_seq;
+
+Sequence dropped.
+
+SQL> 
+SQL> drop trigger Customer_trigger;
+
+Trigger dropped.
+
+SQL> drop sequence Customer_seq;
+
+Sequence dropped.
+
+SQL> 
+SQL> drop trigger CustomerOrder_trigger;
+
+Trigger dropped.
+
+SQL> drop sequence CustomerOrder_seq;
+
+Sequence dropped.
+
+SQL> 
+SQL> drop sequence Employee_seq;
+
+Sequence dropped.
+
+SQL> drop sequence Event_seq;
+
+Sequence dropped.
+
+SQL> drop sequence Item_seq;
+
+Sequence dropped.
+
+SQL> 
+SQL> drop trigger Invoice_trigger;
+
+Trigger dropped.
+
+SQL> drop sequence Invoice_seq;
+
+Sequence dropped.
+
+SQL> 
+SQL> drop trigger InvoiceList_trigger;
+
+Trigger dropped.
+
+SQL> drop sequence InvoiceList_seq;
+
+Sequence dropped.
+
+SQL> 
+SQL> drop sequence Location_seq;
+
+Sequence dropped.
+
+SQL> 
+SQL> drop trigger Manufacturing_trigger;
+
+Trigger dropped.
+
+SQL> drop sequence Manufacturing_seq;
+
+Sequence dropped.
+
+SQL> 
+SQL> drop trigger ManufacturingProcess_trigger;
+
+Trigger dropped.
+
+SQL> drop sequence ManufacturingProcess_seq;
+
+Sequence dropped.
+
+SQL> 
+SQL> drop sequence Options_seq;
+
+Sequence dropped.
+
+SQL> drop sequence Orders_seq;
+
+Sequence dropped.
+
+SQL> 
+SQL> drop trigger Payment_trigger;
+
+Trigger dropped.
+
+SQL> drop sequence Payment_seq;
+
+Sequence dropped.
+
+SQL> 
+SQL> drop sequence Payroll_seq;
+
+Sequence dropped.
+
+SQL> drop sequence Person_seq;
+
+Sequence dropped.
+
+SQL> drop sequence Role_seq;
+
+Sequence dropped.
+
+SQL> drop sequence Security_seq;
+
+Sequence dropped.
+
+SQL> drop sequence Shipment_seq;
+
+Sequence dropped.
+
+SQL> drop sequence Shipper_seq;
+
+Sequence dropped.
+
+SQL> drop sequence Status_seq;
+
+Sequence dropped.
+
+SQL> drop sequence Subsystem_seq;
+
+Sequence dropped.
+
+SQL> drop sequence Supplier_seq;
+
+Sequence dropped.
+
+SQL> 
+SQL> drop trigger SupplierOrder_trigger;
+
+Trigger dropped.
+
+SQL> drop sequence SupplierOrder_seq;
+
+Sequence dropped.
+
+SQL> 
+SQL> drop sequence Users_seq;
+
+Sequence dropped.
+
+SQL> 
+SQL> drop sequence Tracking_seq;
+
+Sequence dropped.
+
+SQL> drop sequence WebServices_seq;
+
+Sequence dropped.
+
+SQL> 
+SQL> drop sequence Worktmp_seq;
+
+Sequence dropped.
+
+SQL> 
+SQL> --
+SQL> -- Now drop all tables
+SQL> --
+SQL> 
+SQL> drop table Alert;
+
+Table dropped.
+
+SQL> drop table Bank;
+
+Table dropped.
+
+SQL> drop table Barcode;
+
+Table dropped.
+
+SQL> drop table BidOffered;
+
+Table dropped.
+
+SQL> drop table BidRequest;
+
+Table dropped.
+
+SQL> drop table Category;
+
+Table dropped.
+
+SQL> drop table Characteristic;
+
+Table dropped.
+
+SQL> drop table Collection;
+
+Table dropped.
+
+SQL> drop table CollectionList;
+
+Table dropped.
+
+SQL> drop table CommentsList;
+
+Table dropped.
+
+SQL> drop table Container;
+
+Table dropped.
+
+SQL> drop table Cost;
+
+Table dropped.
+
+SQL> drop table CustomerOrderList;
+
+Table dropped.
+
+SQL> drop table CustomerOrder;
+
+Table dropped.
+
+SQL> drop table Customer;
+
+Table dropped.
+
+SQL> drop table Employee;
+
+Table dropped.
+
+SQL> drop table Event;
+
+Table dropped.
+
+SQL> drop table InstalledSystem;
+
+Table dropped.
+
+SQL> drop table Inventory;
+
+Table dropped.
+
+SQL> drop table Invoice;
+
+Table dropped.
+
+SQL> drop table InvoiceList;
+
+Table dropped.
+
+SQL> drop table Item;
+
+Table dropped.
+
+SQL> drop table Location;
+
+Table dropped.
+
+SQL> drop table Manufacturing;
+
+Table dropped.
+
+SQL> drop table ManufacturingProcess;
+
+Table dropped.
+
+SQL> drop table Options;
+
+Table dropped.
+
+SQL> drop table Orders;
+
+Table dropped.
+
+SQL> drop table Payment;
+
+Table dropped.
+
+SQL> drop table Payroll;
+
+Table dropped.
+
+SQL> drop table Person;
+
+Table dropped.
+
+SQL> drop table PersonList;
+
+Table dropped.
+
+SQL> drop table Role;
+
+Table dropped.
+
+SQL> drop table Security;
+
+Table dropped.
+
+SQL> drop table Shipment;
+
+Table dropped.
+
+SQL> drop table Shipper;
+
+Table dropped.
+
+SQL> drop table Status;
+
+Table dropped.
+
+SQL> drop table Subsystem;
+
+Table dropped.
+
+SQL> drop table Supplier;
+
+Table dropped.
+
+SQL> drop table SupplierOrder;
+
+Table dropped.
+
+SQL> drop table Tracking;
+
+Table dropped.
+
+SQL> drop table UserRole;
+
+Table dropped.
+
+SQL> drop table Users;
+
+Table dropped.
+
+SQL> drop table WebServices;
+
+Table dropped.
+
+SQL> drop table Worktmp;
+
+Table dropped.
+
+SQL> 
+SQL> select table_name from user_tables order by table_name;
+
+no rows selected
+
+SQL> select table_name,index_name from user_indexes order by table_name,index_name;
+
+no rows selected
+
+SQL> select sequence_name from user_sequences order by sequence_name;
+
+no rows selected
+
+SQL> select trigger_name from user_triggers order by trigger_name;
+
+no rows selected
+
+SQL> 
+SQL> --quit;
+SQL> 
+SQL> --
+SQL> -- Define some hard to define tables - will become clearer in due course
+SQL> --
+SQL> 
+SQL> create table WebServices (
+  2  	     WebservicesId		     number,
+  3  		     Constraint PK_WebServices Primary Key(WebservicesId)
+  4  );
+
+Table created.
+
+SQL> 
+SQL> create table Manufacturing (
+  2  	     Id 		     number,
+  3  		     Constraint PK_Manufacturing Primary Key(Id)
+  4  );
+
+Table created.
+
+SQL> 
+SQL> create table ManufacturingProcess (
+  2  	     Id 		     number,
+  3  		     Constraint PK_ManufacturingProcess Primary Key(Id)
+  4  );
+
+Table created.
+
+SQL> 
+SQL> create table Payroll (
+  2  	     PayrollId			     number,
+  3  		     Constraint PK_Payroll Primary Key(PayrollId)
+  4  );
+
+Table created.
+
+SQL> 
+SQL> create table Payment (
+  2  	     Id 			     number,
+  3  	     PaymentType	     number,
+  4  	     PaymentNumber   number,
+  5  	     AccountingID    number,
+  6  		     Constraint PK_Payment Primary Key(Id)
+  7  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- The following may be useful, may even become necessary
+SQL> --
+SQL> 
+SQL> create table CommentsList (
+  2  	     Id 		     number,
+  3  	     Lvl		     number,
+  4  	     Comments	     varchar2(255),
+  5  		     Constraint PK_CommentsList Primary Key (Id, Lvl)
+  6  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define System Status
+SQL> --
+SQL> 
+SQL> create table Status (
+  2  	     StatusId	     number,
+  3  	     Status	     varchar2(20),
+  4  		     Constraint PK_Status Primary Key (StatusId)
+  5  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define a person entity, which has multiple profiles
+SQL> --
+SQL> 
+SQL> create table Person (
+  2  	     PersonId			     number,
+  3  		     Constraint PK_Person Primary Key(PersonId)
+  4  );
+
+Table created.
+
+SQL> 
+SQL> create table PersonList (
+  2  	     PersonId	     number,
+  3  	     Lvl		     number,
+  4  	     FirstName	     varchar2(255),
+  5  	     MiddleName      varchar2(255),
+  6  	     LastName	     varchar2(255),
+  7  	     Line1	     varchar2(255)   not null,
+  8  	     Line2	     varchar2(255),
+  9  	     Line3	     varchar2(255),
+ 10  	     Line4	     varchar2(255),
+ 11  	     Line5	     varchar2(255),
+ 12  	     Phone1	     varchar2(30),
+ 13  	     Phone2	     varchar2(30),
+ 14  	     Phone3	     varchar2(30),
+ 15  	     Email	     varchar2(30),
+ 16  	     Fax		     varchar2(30),
+ 17  	     Comments	     varchar2(255),
+ 18  		     Constraint PK_PersonList Primary Key (PersonId, Lvl)
+ 19  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Items have costs and prices, which can vary over time and may depend
+SQL> -- on who is asking. This is implemented through the use of cost profiles.
+SQL> --
+SQL> 
+SQL> create table Cost (
+  2  	     BarcodeId		     number		     not null,
+  3  	     Cost		     number(20,2)    not null,
+  4  	     StockValue 	     number(20,2)    not null,
+  5  	     WholesalePrice  number(20,2)    not null,
+  6  	     DiscountPrice1  number(20,2),
+  7  	     DiscountPrice2  number(20,2),
+  8  	     DiscountPrice3  number(20,2),
+  9  	     DiscountPrice4  number(20,2),
+ 10  	     DiscountPrice5  number(20,2),
+ 11  		     Constraint PK_Cost Primary Key (BarcodeId)
+ 12  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define a Bank, from the perspective of a business
+SQL> --
+SQL> 
+SQL> create table Bank (
+  2  	     BankId	     number,
+  3  	     PersonId	     number,
+  4  	     Routing	     varchar2(100),
+  5  	     AccountNo	     varchar2(100),
+  6  		     Constraint PK_Bank Primary Key(BankId)
+  7  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define Business Location
+SQL> --
+SQL> 
+SQL> create table Location (
+  2  	     LocationId 		     number		     not null,
+  3  	     Description		     varchar2(255),
+  4  		     Constraint PK_Location Primary Key(LocationId)
+  5  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define Shipper Companies and Shipment Tracking Objects
+SQL> --
+SQL> 
+SQL> create table Shipper (
+  2  	     ShipperId	     number,
+  3  	     PersonId	     number,
+  4  	     WebServicesId   number,
+  5  		     Constraint PK_Shipper Primary Key(ShipperId)
+  6  );
+
+Table created.
+
+SQL> 
+SQL> create table Tracking (
+  2  	     TrackingId 			     number,
+  3  	     TrackingObject		     varchar2(255),
+  4  		     Constraint PK_Tracking Primary Key(TrackingId)
+  5  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define a Supplier
+SQL> --
+SQL> 
+SQL> create table Supplier (
+  2  	     SupplierId 			     number,
+  3  	     PersonId				     number			     not null,
+  4  	     WebServicesId		     number			     not null,
+  5  	     BankId				     number			     not null,
+  6  	     ShipperId				     number			     not null,
+  7  	     ShipperReturnsId		     number,
+  8  	     BillingAccountId		     number			     not null,
+  9  	     CompanyName			     varchar2(30),
+ 10  	     MaxOwed				     number			     not null,
+ 11  	     CurrentOwed			     number(20,2)	     not null,
+ 12  	     MaxAccountsReceivable   number			     not null,
+ 13  	     CreditRating		     varchar2(10)	     not null,
+ 14  	     CreditTerms			     varchar2(255),
+ 15  	     Comments				     varchar2(255),
+ 16  		     Constraint PK_Supplier Primary Key(SupplierId)
+ 17  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- This section refers to Items.
+SQL> -- An item is something that needs to be tracked, it has value, characteristics, costs
+SQL> -- and hopefully, in the fullness of time, a buyer.
+SQL> --
+SQL> -- A barcode is an Id that identifies an item, a supplier and a cost profile
+SQL> -- The item has characteristics, whose values are options that match possible values
+SQL> -- in Category, matched by level (CategoryId).
+SQL> --
+SQL> -- A collection is a CollectionList, which consists of barcodes.
+SQL> --
+SQL> -- Every Product is basically a barcode
+SQL> --
+SQL> 
+SQL> create table Options (
+  2  	     OptionsId	     number,
+  3  	     CategoryId      number		     not null,
+  4  	     Name	     varchar2(100)   not null,
+  5  	     Value	     varchar2(255)   not null,
+  6  		     Constraint PK_options Primary Key(OptionsId)
+  7  );
+
+Table created.
+
+SQL> 
+SQL> create table Category (
+  2  	     CategoryId 		     number,
+  3  	     Name			     varchar2(255)   not null,
+  4  		     Constraint PK_category Primary Key(CategoryId)
+  5  );
+
+Table created.
+
+SQL> 
+SQL> create table Characteristic (
+  2  	     ItemId	     number not null,
+  3  	     OptionsId	     number not null,
+  4  		     Constraint PK_Characteristic Primary Key (ItemId, OptionsId)
+  5  );
+
+Table created.
+
+SQL> 
+SQL> create table Item (
+  2  	     ItemId	     number,
+  3  	     Name	     varchar2(100)   not null,
+  4  	     Description     varchar2(255),
+  5  		     Constraint PK_Item Primary Key(ItemId)
+  6  );
+
+Table created.
+
+SQL> 
+SQL> create table Barcode (
+  2  	     BarcodeId	     number,
+  3  	     ItemId	     number	     not null,
+  4  	     SupplierId      number	     not null,
+  5  	     ImageURL	     varchar2(255),
+  6  	     Barcode	     varchar2(255),
+  7  		     Constraint PK_Barcode Primary Key(BarcodeId)
+  8  );
+
+Table created.
+
+SQL> 
+SQL> create table Collection (
+  2  	     CollectionId    number,
+  3  	     Description	     varchar2(255)   not null,
+  4  		     Constraint PK_Collection Primary Key(CollectionId)
+  5  );
+
+Table created.
+
+SQL> 
+SQL> create table CollectionList (
+  2  	     CollectionId    number,
+  3  	     BarcodeId		     number		     not null,
+  4  	     Constraint PK_CollectionList Primary Key (CollectionId, BarcodeId)
+  5  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Inventory consists of barcodes. There may be many physical locations.
+SQL> -- A barcode may physically be in storage (available) or not.
+SQL> -- If unavailable, a barcode may be in manufacturing, or maybe at a client site,
+SQL> -- subject to buyer approval. Such a barcode is not technically in the inventory,
+SQL> -- but it needs to stay in the inventory until someone actually pays for it AND
+SQL> -- it is shipped.
+SQL> --
+SQL> -- Each inventory has a target quantity for each barcode
+SQL> --
+SQL> 
+SQL> create table Inventory (
+  2  	     LocationId 				     number			     not null,
+  3  	     BarcodeId					     number			     not null,
+  4  	     Quantity					     number			     not null,
+  5  	     MinQty					     number			     not null,
+  6  	     MaxQty					     number			     not null,
+  7  	     MaintainMinQty			     number			     not null,
+  8  	     MaintainMaxQty			     number			     not null,
+  9  	     Comments					     varchar2(255),
+ 10  		     Constraint PK_Inventory Primary Key(LocationId, BarcodeId)
+ 11  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define an Employee
+SQL> --
+SQL> 
+SQL> create table Employee (
+  2  	     EmployeeId 				     number			     not null,
+  3  	     PersonId					     number			     not null,
+  4  	     LocationId 				     number			     not null,
+  5  	     PayrollId					     number			     not null,
+  6  	     Comments					     varchar2(255),
+  7  		     Constraint PK_Employee Primary Key(EmployeeId)
+  8  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define the Installed InstalledSystem
+SQL> --
+SQL> 
+SQL> create table InstalledSystem (
+  2  	     PersonId			     number,
+  3  	     LocationId 		     number,
+  4  	     SecurityObject	     varchar2(255),
+  5  	     Description		     varchar2(255),
+  6  	     Comments			     varchar2(255),
+  7  		     Constraint PK_InstalledSystem Primary Key(PersonId,LocationId)
+  8  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define the Subsystems and Role Types
+SQL> --
+SQL> 
+SQL> create table Subsystem (
+  2  	     SubsystemId		     number,
+  3  	     Name			     varchar2(255),
+  4  	     Description		     varchar2(255),
+  5  		     Constraint PK_Subsystem Primary Key(SubsystemId)
+  6  );
+
+Table created.
+
+SQL> 
+SQL> create table Role (
+  2  	     RoleId			     number,
+  3  	     Name			     varchar2(20),
+  4  	     Description		     varchar2(255),
+  5  	     SubsystemId		     number,
+  6  	     Value			     number,
+  7  	     Comments			     varchar2(255),
+  8  		     Constraint PK_Role Primary Key(RoleId)
+  9  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define a User, System Security and the User's Roles
+SQL> --
+SQL> 
+SQL> create table Security (
+  2  	     SecurityId 	     number,
+  3  	     UserName		     varchar2(30)    unique,
+  4  	     Password		     varchar2(30)    not null,
+  5  	     Phrase		     varchar2(255)   not null,
+  6  	     Response		     varchar2(255),
+  7  	     DatabaseObject  varchar2(255),
+  8  	     Comments		     varchar2(255),
+  9  		     Constraint PK_Security Primary Key(SecurityId)
+ 10  );
+
+Table created.
+
+SQL> 
+SQL> create table UserRole (
+  2  	     UsersId			     number,
+  3  	     RoleId			     number,
+  4  		     Constraint PK_UserRole Primary Key(UsersId,RoleId)
+  5  );
+
+Table created.
+
+SQL> 
+SQL> create table Users (
+  2  	     UsersId					     number,
+  3  	     EmployeeId 				     number			     not null,
+  4  	     SecurityId 				     number			     not null,
+  5  	     Comments					     varchar2(255),
+  6  		     Constraint PK_Users Primary Key(UsersId)
+  7  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define the Objects in the Alerts Subsystem
+SQL> --
+SQL> 
+SQL> create table Event (
+  2  	     EventId				     number,
+  3  	     SQLObject				     varchar2(255),
+  4  	     URLObject				     varchar2(255),
+  5  	     JavaRefObject		     varchar2(255),
+  6  		     Constraint PK_Event Primary Key(EventId)
+  7  );
+
+Table created.
+
+SQL> 
+SQL> create table Alert (
+  2  	     AlertId				     number,
+  3  	     EventId				     number,
+  4  	     RoleId				     number,
+  5  	     AlertLevel 			     number,
+  6  	     AlertNumber			     number,
+  7  	     Description			     varchar2(2500),
+  8  		     Constraint PK_Alert Primary Key(AlertId)
+  9  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define tables for the Contracts Bidding Subsystem
+SQL> --
+SQL> 
+SQL> create table BidRequest (
+  2  	     Id 					     number,
+  3  	     SupplierId 			     number,
+  4  	     AlertId				     number,
+  5  	     LocationId 			     number,
+  6  	     ShipmentId 			     number,
+  7  	     UsersId				     number,
+  8  	     DateExpires			     date,
+  9  	     ArrivalDate			     date,
+ 10  	     RequestDate			     date,
+ 11  		     Constraint PK_BidRequest Primary Key(Id,SupplierId)
+ 12  );
+
+Table created.
+
+SQL> 
+SQL> create table BidOffered (
+  2  	     Id 					     number,
+  3  	     BidRequestId		     number,
+  4  	     UsersId				     number,
+  5  	     StatusId				     number,
+  6  	     AlertId				     number,
+  7  	     SupplierOfferId		     number,
+  8  	     DateExpires			     date,
+  9  	     Price				     number(20,2),
+ 10  	     ArrivalDate			     date,
+ 11  	     OfferDate				     date,
+ 12  		     Constraint PK_BidOffered Primary Key(Id)
+ 13  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define Order from Supplier
+SQL> --
+SQL> 
+SQL> create table Orders (
+  2  	     OrdersId				     number,
+  3  	     SupplierId 			     number,
+  4  	     ShipmentId 			     number,
+  5  	     UsersId				     number,
+  6  	     StatusId				     number,
+  7  	     AlertId				     number,
+  8  	     SupplierOrdersId		     number,
+  9  	     ShipDate				     date,
+ 10  	     OrderDate				     date,
+ 11  		     Constraint PK_Orders Primary Key(OrdersId)
+ 12  );
+
+Table created.
+
+SQL> 
+SQL> create table SupplierOrder (
+  2  	     Id 					     number,
+  3  	     SupplierId 			     number,
+  4  	     ShipmentId 			     number,
+  5  	     LocationId 			     number,
+  6  	     UsersId				     number,
+  7  	     StatusId				     number,
+  8  	     AlertId				     number,
+  9  	     SupplierOrdersId		     number,
+ 10  	     ShipDate				     date,
+ 11  	     ArrivalDate			     date,
+ 12  	     ExpiresDate			     date,
+ 13  	     OrderDate				     date,
+ 14  		     Constraint PK_SupplierOrder Primary Key(Id)
+ 15  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define a Shipment
+SQL> --
+SQL> 
+SQL> create table Container (
+  2  	     ContainerId	     number,
+  3  	     BarcodeId		     number,
+  4  	     Quantity		     number,
+  5  	     OrdersId		     number,
+  6  		     Constraint PK_Container Primary Key(ContainerId,BarcodeId)
+  7  );
+
+Table created.
+
+SQL> 
+SQL> create table Shipment (
+  2  	     ShipmentId 	     number,
+  3  	     ShipperId		     number,
+  4  	     PersonId		     number,
+  5  	     TrackingId 	     number,
+  6  	     StatusId		     number,
+  7  		     Constraint PK_Shipment Primary Key(ShipmentId)
+  8  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define an Invoice
+SQL> --
+SQL> 
+SQL> create table InvoiceList (
+  2  	     Id 			     number,
+  3  	     ShipperId		     number,
+  4  	     PersonId		     number,
+  5  	     LocationId 	     number,
+  6  	     TrackingId 	     number,
+  7  	     ContainerId	     number,
+  8  	     StatusId		     number,
+  9  		     Constraint PK_InvoiceList Primary Key(Id)
+ 10  );
+
+Table created.
+
+SQL> 
+SQL> create table Invoice (
+  2  	     Id 			     number,
+  3  	     ListId		     number,
+  4  		     Constraint PK_Invoice Primary Key(Id)
+  5  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define a Customer Order
+SQL> --
+SQL> 
+SQL> create table CustomerOrderList (
+  2  	     Id 			     number,
+  3  	     BarcodeId		     number,
+  4  	     Quantity		     number,
+  5  		     Constraint PK_CustomerOrderList Primary Key(Id,BarcodeId)
+  6  );
+
+Table created.
+
+SQL> 
+SQL> create table CustomerOrder (
+  2  	     Id 			     number,
+  3  	     CustomerId 	     number,
+  4  	     StatusId		     number,
+  5  	     InvoiceId		     number,
+  6  	     OrderDate		     date,
+  7  	     ExpiresDate	     date,
+  8  		     Constraint PK_CustomerOrder Primary Key(Id)
+  9  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define a Customer (a Buyer)
+SQL> --
+SQL> 
+SQL> create table Customer (
+  2  	     Id 			     number,
+  3  	     PersonId		     number,
+  4  	     SecurityId 	     number,
+  5  	     PaymentId		     number,
+  6  		     Constraint PK_Customer Primary Key(Id)
+  7  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Define a work table
+SQL> --
+SQL> 
+SQL> create table Worktmp (
+  2  	     Id 			     number,
+  3  	     Barcodeid		     number,
+  4  	     Itemid		     number,
+  5  	     Company		     varchar2(255),
+  6  	     Imageurl		     varchar2(255),
+  7  	     Itemname		     varchar2(255),
+  8  	     Itemds		     varchar2(255),
+  9  		     Constraint PK_Worktmp Primary Key(Id)
+ 10  );
+
+Table created.
+
+SQL> 
+SQL> --
+SQL> -- Create the Foreign Keys
+SQL> --
+SQL> 
+SQL> alter table Alert add Constraint FK_Alert1 Foreign Key(RoleId) References Role(RoleId);
+
+Table altered.
+
+SQL> alter table Alert add Constraint FK_Alert2 Foreign Key(EventId) References Event(EventId);
+
+Table altered.
+
+SQL> 
+SQL> alter table Bank add Constraint FK_Bank Foreign Key(PersonId) References Person(PersonId);
+
+Table altered.
+
+SQL> 
+SQL> alter table Barcode add Constraint FK_Barcode1 Foreign Key(ItemId) References Item(ItemId);
+
+Table altered.
+
+SQL> alter table Barcode add Constraint FK_Barcode2 Foreign Key(SupplierId) References Supplier(SupplierId);
+
+Table altered.
+
+SQL> 
+SQL> alter table BidOffered add Constraint FK_BidOffered1 Foreign Key(UsersId) References Users(UsersId);
+
+Table altered.
+
+SQL> alter table BidOffered add Constraint FK_BidOffered2 Foreign Key(StatusId) References Status(StatusId);
+
+Table altered.
+
+SQL> alter table BidOffered add Constraint FK_BidOffered3 Foreign Key(AlertId) References Alert(AlertId);
+
+Table altered.
+
+SQL> 
+SQL> alter table BidRequest add Constraint FK_BidRequest1 Foreign Key(SupplierId) References Supplier(SupplierId);
+
+Table altered.
+
+SQL> alter table BidRequest add Constraint FK_BidRequest2 Foreign Key(AlertId) References Alert(AlertId);
+
+Table altered.
+
+SQL> alter table BidRequest add Constraint FK_BidRequest3 Foreign Key(LocationId) References Location(LocationId);
+
+Table altered.
+
+SQL> alter table BidRequest add Constraint FK_BidRequest4 Foreign Key(UsersId) References Users(UsersId);
+
+Table altered.
+
+SQL> 
+SQL> alter table Characteristic add Constraint FK_Characteristic1 Foreign Key(OptionsId) References Options(OptionsId);
+
+Table altered.
+
+SQL> alter table Characteristic add Constraint FK_Characteristic2 Foreign Key(ItemId) References Item(ItemId);
+
+Table altered.
+
+SQL> 
+SQL> alter table CollectionList add Constraint FK_CollectionList1 Foreign Key(CollectionId) References Collection(CollectionId);
+
+Table altered.
+
+SQL> alter table CollectionList add Constraint FK_CollectionList2 Foreign Key(BarcodeId) References Barcode(BarcodeId);
+
+Table altered.
+
+SQL> 
+SQL> alter table Container add Constraint FK_Container1 Foreign Key(BarcodeId) References Barcode(BarcodeId);
+
+Table altered.
+
+SQL> alter table Container add Constraint FK_Container2 Foreign Key(OrdersId) References Orders(OrdersId);
+
+Table altered.
+
+SQL> 
+SQL> alter table Cost add Constraint FK_Cost Foreign Key(BarcodeId) References Barcode(BarcodeId);
+
+Table altered.
+
+SQL> 
+SQL> alter table CustomerOrderList add Constraint FK_CustomerOrderList1 Foreign Key(Id) References CustomerOrder(Id);
+
+Table altered.
+
+SQL> alter table CustomerOrderList add Constraint FK_CustomerOrderList2 Foreign Key(BarcodeId) References Barcode(BarcodeId);
+
+Table altered.
+
+SQL> 
+SQL> alter table CustomerOrder add Constraint FK_CustomerOrder1 Foreign Key(CustomerId) References Customer(Id);
+
+Table altered.
+
+SQL> alter table CustomerOrder add Constraint FK_CustomerOrder2 Foreign Key(StatusId) References Status(StatusId);
+
+Table altered.
+
+SQL> alter table CustomerOrder add Constraint FK_CustomerOrder3 Foreign Key(InvoiceId) References Invoice(Id);
+
+Table altered.
+
+SQL> 
+SQL> alter table Customer add Constraint FK_Customer1 Foreign Key(PersonId) References Person(PersonId);
+
+Table altered.
+
+SQL> alter table Customer add Constraint FK_Customer2 Foreign Key(SecurityId) References Security(SecurityId);
+
+Table altered.
+
+SQL> alter table Customer add Constraint FK_Customer3 Foreign Key(PaymentId) References Payment(Id);
+
+Table altered.
+
+SQL> 
+SQL> alter table Employee add Constraint FK_Employee1 Foreign Key(PersonId) References Person(PersonId);
+
+Table altered.
+
+SQL> alter table Employee add Constraint FK_Employee2 Foreign Key(LocationId) References Location(LocationId);
+
+Table altered.
+
+SQL> alter table Employee add Constraint FK_Employee3 Foreign Key(PayrollId) References Payroll(PayrollId);
+
+Table altered.
+
+SQL> 
+SQL> alter table InstalledSystem add Constraint FK_InstalledSystem1 Foreign Key(PersonId) References Person(PersonId);
+
+Table altered.
+
+SQL> alter table InstalledSystem add Constraint FK_InstalledSystem2 Foreign Key(LocationId) References Location(LocationId);
+
+Table altered.
+
+SQL> 
+SQL> alter table Inventory add Constraint FK_Inventory1 Foreign Key(LocationId) References Location(LocationId);
+
+Table altered.
+
+SQL> alter table Inventory add Constraint FK_Inventory2 Foreign Key(Barcodeid) References Barcode(Barcodeid);
+
+Table altered.
+
+SQL> 
+SQL> alter table Invoice add Constraint FK_Invoice Foreign Key(ListId) References InvoiceList(Id);
+
+Table altered.
+
+SQL> 
+SQL> alter table InvoiceList add Constraint FK_InvoiceList1 Foreign Key(ShipperId) References Shipper(ShipperId);
+
+Table altered.
+
+SQL> alter table InvoiceList add Constraint FK_InvoiceList2 Foreign Key(PersonId) References Person(PersonId);
+
+Table altered.
+
+SQL> alter table InvoiceList add Constraint FK_InvoiceList3 Foreign Key(LocationId) References Location(LocationId);
+
+Table altered.
+
+SQL> alter table InvoiceList add Constraint FK_InvoiceList4 Foreign Key(TrackingId) References Tracking(TrackingId);
+
+Table altered.
+
+SQL> alter table InvoiceList add Constraint FK_InvoiceList5 Foreign Key(StatusId) References Status(StatusId);
+
+Table altered.
+
+SQL> 
+SQL> alter table Options add Constraint FK_Options Foreign Key(CategoryId) References Category(CategoryId);
+
+Table altered.
+
+SQL> 
+SQL> alter table Orders add Constraint FK_Orders1 Foreign Key(SupplierId) References Supplier(SupplierId);
+
+Table altered.
+
+SQL> alter table Orders add Constraint FK_Orders2 Foreign Key(ShipmentId) References Shipment(ShipmentId);
+
+Table altered.
+
+SQL> alter table Orders add Constraint FK_Orders3 Foreign Key(UsersId) References Users(UsersId);
+
+Table altered.
+
+SQL> alter table Orders add Constraint FK_Orders4 Foreign Key(StatusId) References Status(StatusId);
+
+Table altered.
+
+SQL> alter table Orders add Constraint FK_Orders5 Foreign Key(AlertId) References Alert(AlertId);
+
+Table altered.
+
+SQL> 
+SQL> alter table PersonList add Constraint FK_PersonList Foreign Key(PersonId) References Person(PersonId);
+
+Table altered.
+
+SQL> 
+SQL> alter table Role add Constraint FK_Role Foreign Key(SubsystemId) References Subsystem(SubsystemId);
+
+Table altered.
+
+SQL> 
+SQL> alter table Shipment add Constraint FK_Shipment1 Foreign Key(ShipperId) References Shipper(ShipperId);
+
+Table altered.
+
+SQL> alter table Shipment add Constraint FK_Shipment2 Foreign Key(PersonId) References Person(PersonId);
+
+Table altered.
+
+SQL> alter table Shipment add Constraint FK_Shipment3 Foreign Key(TrackingId) References Tracking(TrackingId);
+
+Table altered.
+
+SQL> alter table Shipment add Constraint FK_Shipment4 Foreign Key(StatusId) References Status(StatusId);
+
+Table altered.
+
+SQL> 
+SQL> alter table Shipper add Constraint FK_Shipper1 Foreign Key(PersonId) References Person(PersonId);
+
+Table altered.
+
+SQL> alter table Shipper add Constraint FK_Shipper2 Foreign Key(WebServicesId) References WebServices(WebservicesId);
+
+Table altered.
+
+SQL> 
+SQL> alter table Supplier add Constraint FK_Supplier1 Foreign Key(PersonId) References Person(PersonId);
+
+Table altered.
+
+SQL> alter table Supplier add Constraint FK_Supplier2 Foreign Key(WebServicesId) References WebServices(WebservicesId);
+
+Table altered.
+
+SQL> alter table Supplier add Constraint FK_Supplier3 Foreign Key(BankId) References Bank(BankId);
+
+Table altered.
+
+SQL> alter table Supplier add Constraint FK_Supplier4 Foreign Key(ShipperId) References Shipper(ShipperId);
+
+Table altered.
+
+SQL> alter table Supplier add Constraint FK_Supplier5 Foreign Key(ShipperReturnsId) References Shipper(ShipperId);
+
+Table altered.
+
+SQL> 
+SQL> alter table SupplierOrder add Constraint FK_SupplierOrder1 Foreign Key(SupplierId) References Supplier(SupplierId);
+
+Table altered.
+
+SQL> alter table SupplierOrder add Constraint FK_SupplierOrder2 Foreign Key(ShipmentId) References Shipment(ShipmentId);
+
+Table altered.
+
+SQL> alter table SupplierOrder add Constraint FK_SupplierOrder3 Foreign Key(LocationId) References Location(LocationId);
+
+Table altered.
+
+SQL> alter table SupplierOrder add Constraint FK_SupplierOrder4 Foreign Key(UsersId) References Users(UsersId);
+
+Table altered.
+
+SQL> alter table SupplierOrder add Constraint FK_SupplierOrder5 Foreign Key(StatusId) References Status(StatusId);
+
+Table altered.
+
+SQL> alter table SupplierOrder add Constraint FK_SupplierOrder6 Foreign Key(AlertId) References Alert(AlertId);
+
+Table altered.
+
+SQL> 
+SQL> alter table UserRole add Constraint FK_UserRole1 Foreign Key(UsersId) References Users(UsersId);
+
+Table altered.
+
+SQL> alter table UserRole add Constraint FK_UserRole2 Foreign Key(RoleId) References Role(RoleId);
+
+Table altered.
+
+SQL> 
+SQL> alter table Users add Constraint FK_Users1 Foreign Key(EmployeeId) References Employee(EmployeeId);
+
+Table altered.
+
+SQL> alter table Users add Constraint FK_Users2 Foreign Key(SecurityId) References Security(SecurityId);
+
+Table altered.
+
+SQL> 
+SQL> --
+SQL> --  Create Indexes - create a few obvious ones for now
+SQL> --
+SQL> 
+SQL> create unique index BidRequest1 on BidRequest(SupplierId,Id);
+
+Index created.
+
+SQL> 
+SQL> create unique index BidOffered1 on BidOffered(BidRequestId,Id);
+
+Index created.
+
+SQL> 
+SQL> create unique index Employee1 on Employee(LocationId,EmployeeId);
+
+Index created.
+
+SQL> 
+SQL> create unique index Orders1 on Orders(SupplierId,OrdersId);
+
+Index created.
+
+SQL> 
+SQL> create unique index SupplierOrder1 on SupplierOrder(SupplierId,Id);
+
+Index created.
+
+SQL> 
+SQL> --
+SQL> -- Create Sequences/Triggers - create a few for now
+SQL> --
+SQL> 
+SQL> create sequence Alert_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create sequence Bank_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create sequence Barcode_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create sequence Category_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create sequence Collection_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create sequence Container_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> 
+SQL> create sequence Customer_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create trigger Customer_trigger before insert on Customer
+  2  for each row
+  3  begin
+  4  	     select Customer_seq.nextval into :new.Id from dual;
+  5  end;
+  6  /
+
+Trigger created.
+
+SQL> 
+SQL> create sequence CustomerOrder_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create trigger CustomerOrder_trigger before insert on CustomerOrder
+  2  for each row
+  3  begin
+  4  	     select CustomerOrder_seq.nextval into :new.Id from dual;
+  5  end;
+  6  /
+
+Trigger created.
+
+SQL> 
+SQL> create sequence Employee_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create sequence Event_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create sequence Item_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> 
+SQL> create sequence Invoice_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create trigger Invoice_trigger before insert on Invoice
+  2  for each row
+  3  begin
+  4  	     select Invoice_seq.nextval into :new.Id from dual;
+  5  end;
+  6  /
+
+Trigger created.
+
+SQL> 
+SQL> create sequence InvoiceList_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create trigger InvoiceList_trigger before insert on InvoiceList
+  2  for each row
+  3  begin
+  4  	     select InvoiceList_seq.nextval into :new.Id from dual;
+  5  end;
+  6  /
+
+Trigger created.
+
+SQL> 
+SQL> create sequence Location_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> 
+SQL> create sequence Manufacturing_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create trigger Manufacturing_trigger before insert on Manufacturing
+  2  for each row
+  3  begin
+  4  	     select Manufacturing_seq.nextval into :new.Id from dual;
+  5  end;
+  6  /
+
+Trigger created.
+
+SQL> 
+SQL> create sequence ManufacturingProcess_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create trigger ManufacturingProcess_trigger before insert on ManufacturingProcess
+  2  for each row
+  3  begin
+  4  	     select ManufacturingProcess_seq.nextval into :new.Id from dual;
+  5  end;
+  6  /
+
+Trigger created.
+
+SQL> 
+SQL> create sequence Options_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create sequence Orders_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> 
+SQL> create sequence Payment_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create trigger Payment_trigger before insert on Payment
+  2  for each row
+  3  begin
+  4  	     select Payment_seq.nextval into :new.Id from dual;
+  5  end;
+  6  /
+
+Trigger created.
+
+SQL> 
+SQL> create sequence Payroll_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create sequence Person_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create sequence Role_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create sequence Security_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create sequence Shipment_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create sequence Shipper_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create sequence Status_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create sequence Subsystem_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create sequence Supplier_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> 
+SQL> create sequence SupplierOrder_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create trigger SupplierOrder_trigger before insert on SupplierOrder
+  2  for each row
+  3  begin
+  4  	     select SupplierOrder_seq.nextval into :new.Id from dual;
+  5  end;
+  6  /
+
+Trigger created.
+
+SQL> 
+SQL> create sequence Users_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> 
+SQL> create sequence Tracking_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> create sequence WebServices_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> 
+SQL> create sequence Worktmp_seq start with 1 increment by 1;
+
+Sequence created.
+
+SQL> 
+SQL> Show Errors;
+No errors.
+SQL> 
+SQL> --
+SQL> -- Cascading Deletes - triggers
+SQL> --
+SQL> 
+SQL> --
+SQL> -- Create Views
+SQL> --
+SQL> 
+SQL> --
+SQL> -- Insert Test Data
+SQL> --
+SQL> 
+SQL> 
+SQL> 
+SQL> --
+SQL> -- Select the created objects
+SQL> --
+SQL> 
+SQL> select table_name from user_tables order by table_name;
+
+TABLE_NAME
+------------------------------
+ALERT
+BANK
+BARCODE
+BIDOFFERED
+BIDREQUEST
+CATEGORY
+CHARACTERISTIC
+COLLECTION
+COLLECTIONLIST
+COMMENTSLIST
+CONTAINER
+
+TABLE_NAME
+------------------------------
+COST
+CUSTOMER
+CUSTOMERORDER
+CUSTOMERORDERLIST
+EMPLOYEE
+EVENT
+INSTALLEDSYSTEM
+INVENTORY
+INVOICE
+INVOICELIST
+ITEM
+
+TABLE_NAME
+------------------------------
+LOCATION
+MANUFACTURING
+MANUFACTURINGPROCESS
+OPTIONS
+ORDERS
+PAYMENT
+PAYROLL
+PERSON
+PERSONLIST
+ROLE
+SECURITY
+
+TABLE_NAME
+------------------------------
+SHIPMENT
+SHIPPER
+STATUS
+SUBSYSTEM
+SUPPLIER
+SUPPLIERORDER
+TRACKING
+USERROLE
+USERS
+WEBSERVICES
+WORKTMP
+
+44 rows selected.
+
+SQL> select table_name,index_name from user_indexes order by table_name,index_name;
+
+TABLE_NAME		       INDEX_NAME
+------------------------------ ------------------------------
+ALERT			       PK_ALERT
+BANK			       PK_BANK
+BARCODE 		       PK_BARCODE
+BIDOFFERED		       BIDOFFERED1
+BIDOFFERED		       PK_BIDOFFERED
+BIDREQUEST		       BIDREQUEST1
+BIDREQUEST		       PK_BIDREQUEST
+CATEGORY		       PK_CATEGORY
+CHARACTERISTIC		       PK_CHARACTERISTIC
+COLLECTION		       PK_COLLECTION
+COLLECTIONLIST		       PK_COLLECTIONLIST
+
+TABLE_NAME		       INDEX_NAME
+------------------------------ ------------------------------
+COMMENTSLIST		       PK_COMMENTSLIST
+CONTAINER		       PK_CONTAINER
+COST			       PK_COST
+CUSTOMER		       PK_CUSTOMER
+CUSTOMERORDER		       PK_CUSTOMERORDER
+CUSTOMERORDERLIST	       PK_CUSTOMERORDERLIST
+EMPLOYEE		       EMPLOYEE1
+EMPLOYEE		       PK_EMPLOYEE
+EVENT			       PK_EVENT
+INSTALLEDSYSTEM 	       PK_INSTALLEDSYSTEM
+INVENTORY		       PK_INVENTORY
+
+TABLE_NAME		       INDEX_NAME
+------------------------------ ------------------------------
+INVOICE 		       PK_INVOICE
+INVOICELIST		       PK_INVOICELIST
+ITEM			       PK_ITEM
+LOCATION		       PK_LOCATION
+MANUFACTURING		       PK_MANUFACTURING
+MANUFACTURINGPROCESS	       PK_MANUFACTURINGPROCESS
+OPTIONS 		       PK_OPTIONS
+ORDERS			       ORDERS1
+ORDERS			       PK_ORDERS
+PAYMENT 		       PK_PAYMENT
+PAYROLL 		       PK_PAYROLL
+
+TABLE_NAME		       INDEX_NAME
+------------------------------ ------------------------------
+PERSON			       PK_PERSON
+PERSONLIST		       PK_PERSONLIST
+ROLE			       PK_ROLE
+SECURITY		       PK_SECURITY
+SECURITY		       SYS_C005236
+SHIPMENT		       PK_SHIPMENT
+SHIPPER 		       PK_SHIPPER
+STATUS			       PK_STATUS
+SUBSYSTEM		       PK_SUBSYSTEM
+SUPPLIER		       PK_SUPPLIER
+SUPPLIERORDER		       PK_SUPPLIERORDER
+
+TABLE_NAME		       INDEX_NAME
+------------------------------ ------------------------------
+SUPPLIERORDER		       SUPPLIERORDER1
+TRACKING		       PK_TRACKING
+USERROLE		       PK_USERROLE
+USERS			       PK_USERS
+WEBSERVICES		       PK_WEBSERVICES
+WORKTMP 		       PK_WORKTMP
+
+50 rows selected.
+
+SQL> select sequence_name from user_sequences order by sequence_name;
+
+SEQUENCE_NAME
+------------------------------
+ALERT_SEQ
+BANK_SEQ
+BARCODE_SEQ
+CATEGORY_SEQ
+COLLECTION_SEQ
+CONTAINER_SEQ
+CUSTOMERORDER_SEQ
+CUSTOMER_SEQ
+EMPLOYEE_SEQ
+EVENT_SEQ
+INVOICELIST_SEQ
+
+SEQUENCE_NAME
+------------------------------
+INVOICE_SEQ
+ITEM_SEQ
+LOCATION_SEQ
+MANUFACTURINGPROCESS_SEQ
+MANUFACTURING_SEQ
+OPTIONS_SEQ
+ORDERS_SEQ
+PAYMENT_SEQ
+PAYROLL_SEQ
+PERSON_SEQ
+ROLE_SEQ
+
+SEQUENCE_NAME
+------------------------------
+SECURITY_SEQ
+SHIPMENT_SEQ
+SHIPPER_SEQ
+STATUS_SEQ
+SUBSYSTEM_SEQ
+SUPPLIERORDER_SEQ
+SUPPLIER_SEQ
+TRACKING_SEQ
+USERS_SEQ
+WEBSERVICES_SEQ
+WORKTMP_SEQ
+
+33 rows selected.
+
+SQL> select trigger_name from user_triggers order by trigger_name;
+
+TRIGGER_NAME
+------------------------------
+CUSTOMERORDER_TRIGGER
+CUSTOMER_TRIGGER
+INVOICELIST_TRIGGER
+INVOICE_TRIGGER
+MANUFACTURINGPROCESS_TRIGGER
+MANUFACTURING_TRIGGER
+PAYMENT_TRIGGER
+SUPPLIERORDER_TRIGGER
+
+8 rows selected.
+
+SQL> 
+SQL> commit;
+
+Commit complete.
+
+SQL> 
+SQL> spool off;
+SQL> 
+SQL> quit;
+Disconnected from Oracle9i Release 9.2.0.1.0 - Production
+JServer Release 9.2.0.1.0 - Production
+Sqlplus is complete

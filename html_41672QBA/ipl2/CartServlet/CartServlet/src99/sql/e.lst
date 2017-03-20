@@ -1,0 +1,16 @@
+
+        ID       ITEM     USERID   QUANTITY                                     
+---------- ---------- ---------- ----------                                     
+         6          5          1          7                                     
+
+
+1 row updated.
+
+
+Commit complete.
+
+
+        ID       ITEM     USERID   QUANTITY                                     
+---------- ---------- ---------- ----------                                     
+         6          5          1          3                                     
+

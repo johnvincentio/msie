@@ -1,0 +1,1643 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+<!--
+Automatically created by Tomcat JspC.
+-->
+<web-app>
+
+
+    <servlet>
+        <servlet-name>org.apache.jsp.index_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.index_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.common.viewSrcBody_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.common.viewSrcBody_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.common.footer_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.common.footer_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.common.submenu_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.common.submenu_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.common.header_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.common.header_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layout.classicLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layout.classicLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layout.columnsLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layout.columnsLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layout.vboxLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layout.vboxLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.userGuide_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.userGuide_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.extensionsTags_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.extensionsTags_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.overview_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.overview_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.index_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.index_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.tutorial_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.tutorial_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.tilesTags_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.tilesTags_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.tutorialStaticIndex_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.tutorialStaticIndex_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.installation_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.installation_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.download_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.download_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.portal.documentation_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.portal.documentation_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.portal.todo_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.portal.todo_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.portal.news_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.portal.news_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.portal.comments_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.portal.comments_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.portal.welcome_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.portal.welcome_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.portal.strutsIntegration_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.portal.strutsIntegration_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.portal.download_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.portal.download_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.portal.revisions_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.portal.revisions_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.portal.nextFeatures_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.portal.nextFeatures_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.portal.features_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.portal.features_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.doc.portal.tilesCompsTemplates_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.doc.portal.tilesCompsTemplates_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.testInclude_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.testInclude_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.body_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.body_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.header_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.header_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.testList_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.testList_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.menu_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.menu_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.index_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.index_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.testRole_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.testRole_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.showRequestUri_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.showRequestUri_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.testBackward_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.testBackward_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.quickOverview_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.quickOverview_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.testAll_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.testAll_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.testIgnore_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.testIgnore_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.testBasic_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.testBasic_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.layout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.layout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.testStrutsAction_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.testStrutsAction_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.layoutTestIgnore_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.layoutTestIgnore_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.testController_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.testController_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.failpage_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.failpage_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.test.testDefinitions_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.test.testDefinitions_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.columnsLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.columnsLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.tabsLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.tabsLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.centerLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.centerLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.classicLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.classicLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.nestedTabsLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.nestedTabsLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.vboxLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.vboxLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.menu_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.menu_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.layouts.skin1.menuLeftLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.layouts.skin1.menuLeftLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.myPortal_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.myPortal_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.index_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.index_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.myMenuSettings_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.myMenuSettings_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.skinSettings_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.skinSettings_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tabs_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tabs_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.summariesTabs_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.summariesTabs_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.portal_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.portal_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.rssChannels_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.rssChannels_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.myPortalSettings_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.myPortalSettings_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.myMenuSettings_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.myMenuSettings_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.rssChannels_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.rssChannels_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.adminSummary_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.adminSummary_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.body_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.body_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.myPortalSettings_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.myPortalSettings_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.myLayoutSummary_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.myLayoutSummary_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.mySkinSettings_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.mySkinSettings_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.rssChannelErrors_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.rssChannelErrors_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.menuSummary_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.menuSummary_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.multiChannelsSummary_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.multiChannelsSummary_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.componentsSummary_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.componentsSummary_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.i18nSummary_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.i18nSummary_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.portalSummary_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.portalSummary_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.myPortalPrefs_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.myPortalPrefs_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.tabsSummary_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.tabsSummary_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.rssChannelsSummary_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.rssChannelsSummary_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.myMenuSummary_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.myMenuSummary_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.footer_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.footer_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.myPortalSummary_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.myPortalSummary_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.header_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.header_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.advert2_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.portal.advert2_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.stocks_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.portal.stocks_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.advert1_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.portal.advert1_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.whatsNew_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.portal.whatsNew_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.login_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.portal.login_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.portalBody_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.portal.portalBody_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.messages_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.portal.messages_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.advert3_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.portal.advert3_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.newsFeed_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.examples.tiles.portal.newsFeed_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.overloadDefinitionParameters_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.overloadDefinitionParameters_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.basicFramesetPage_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.basicFramesetPage_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.test2_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.test2_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.extendedDefinition_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.extendedDefinition_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.definitionTag_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.definitionTag_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.frameset_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.frameset_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.strutsForward_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.strutsForward_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.portalPage_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.portalPage_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.dynFramesetPage_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.dynFramesetPage_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.contentForm_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.contentForm_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.firstDefinition_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.firstDefinition_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.test3_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.test3_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.basicPage_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.basicPage_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.index_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.index_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.test_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.test_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.extendedDefinitionTag_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.extendedDefinitionTag_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.basic.helloBody_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.basic.helloBody_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.basic.menu_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.basic.menu_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.basic.myFramesetLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.basic.myFramesetLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.basic.myLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.basic.myLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.layout.vboxLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.layout.vboxLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.layout.classicLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.layout.classicLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.layout.columnsLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.layout.columnsLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.de.common.footer_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.de.common.footer_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.de.common.header_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.de.common.header_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.fr.common.footer_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.fr.common.footer_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.fr.common.header_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.fr.common.header_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.common.viewSrcBody_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.common.viewSrcBody_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.common.menu_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.common.menu_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.common.viewSrc_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.common.viewSrc_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.common.footer_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.common.footer_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.common.viewSrcBodyError_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.common.viewSrcBodyError_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.common.header_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.common.header_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.common.submenu_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.common.submenu_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.common.menuViewSrc_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.common.menuViewSrc_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.common.menu.menuLogo_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.common.menu.menuLogo_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.common.menu.menuSrc_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.common.menu.menuSrc_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.common.menu.menuLinks_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.common.menu.menuLinks_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.definitions.simpleBody_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.definitions.simpleBody_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.definitions.firstDefinitionPage_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.definitions.firstDefinitionPage_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.definitions.definitionsConfig_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.definitions.definitionsConfig_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.definitions.useDefinitionConfig_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.definitions.useDefinitionConfig_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.test.myLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.test.myLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.test.header_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.test.header_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.test.templateLayout_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.test.templateLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.portal.stocks_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.portal.stocks_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.portal.portalBody_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.portal.portalBody_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.portal.personalLinks_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.portal.personalLinks_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.portal.advert2_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.portal.advert2_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.portal.whatsNew_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.portal.whatsNew_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.portal.advert1_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.portal.advert1_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.portal.login_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.portal.login_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.portal.search_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.portal.search_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.portal.newsFeed_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.portal.newsFeed_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.portal.messages_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.portal.messages_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.portal.advert3_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.portal.advert3_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.invoice.editAddress_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.invoice.editAddress_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.invoice.editInvoice2_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.invoice.editInvoice2_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.invoice.editInvoice_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.invoice.editInvoice_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.invoice.index_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.invoice.index_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.forward.forwardBody_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.forward.forwardBody_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.forward.failureBody_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.forward.failureBody_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.forward.successBody_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.forward.successBody_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.dynPortal.index_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.dynPortal.index_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.dynPortal.Errors_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.dynPortal.Errors_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.dynPortal.Channels_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.dynPortal.Channels_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.dynPortal.testChannels_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.dynPortal.testChannels_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.dynPortal.myPortalPrefTile_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.dynPortal.myPortalPrefTile_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.dynPortal.myPortalPrefs_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.dynPortal.myPortalPrefs_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.tutorial.lang.lang_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.tutorial.lang.lang_jsp</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.index_jsp</servlet-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.common.viewSrcBody_jsp</servlet-name>
+        <url-pattern>/common/viewSrcBody.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.common.footer_jsp</servlet-name>
+        <url-pattern>/common/footer.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.common.submenu_jsp</servlet-name>
+        <url-pattern>/common/submenu.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.common.header_jsp</servlet-name>
+        <url-pattern>/common/header.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layout.classicLayout_jsp</servlet-name>
+        <url-pattern>/layout/classicLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layout.columnsLayout_jsp</servlet-name>
+        <url-pattern>/layout/columnsLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layout.vboxLayout_jsp</servlet-name>
+        <url-pattern>/layout/vboxLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.userGuide_jsp</servlet-name>
+        <url-pattern>/doc/userGuide.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.extensionsTags_jsp</servlet-name>
+        <url-pattern>/doc/extensionsTags.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.overview_jsp</servlet-name>
+        <url-pattern>/doc/overview.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.index_jsp</servlet-name>
+        <url-pattern>/doc/index.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.tutorial_jsp</servlet-name>
+        <url-pattern>/doc/tutorial.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.tilesTags_jsp</servlet-name>
+        <url-pattern>/doc/tilesTags.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.tutorialStaticIndex_jsp</servlet-name>
+        <url-pattern>/doc/tutorialStaticIndex.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.installation_jsp</servlet-name>
+        <url-pattern>/doc/installation.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.download_jsp</servlet-name>
+        <url-pattern>/doc/download.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.portal.documentation_jsp</servlet-name>
+        <url-pattern>/doc/portal/documentation.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.portal.todo_jsp</servlet-name>
+        <url-pattern>/doc/portal/todo.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.portal.news_jsp</servlet-name>
+        <url-pattern>/doc/portal/news.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.portal.comments_jsp</servlet-name>
+        <url-pattern>/doc/portal/comments.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.portal.welcome_jsp</servlet-name>
+        <url-pattern>/doc/portal/welcome.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.portal.strutsIntegration_jsp</servlet-name>
+        <url-pattern>/doc/portal/strutsIntegration.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.portal.download_jsp</servlet-name>
+        <url-pattern>/doc/portal/download.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.portal.revisions_jsp</servlet-name>
+        <url-pattern>/doc/portal/revisions.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.portal.nextFeatures_jsp</servlet-name>
+        <url-pattern>/doc/portal/nextFeatures.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.portal.features_jsp</servlet-name>
+        <url-pattern>/doc/portal/features.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.doc.portal.tilesCompsTemplates_jsp</servlet-name>
+        <url-pattern>/doc/portal/tilesCompsTemplates.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.testInclude_jsp</servlet-name>
+        <url-pattern>/test/testInclude.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.body_jsp</servlet-name>
+        <url-pattern>/test/body.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.header_jsp</servlet-name>
+        <url-pattern>/test/header.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.testList_jsp</servlet-name>
+        <url-pattern>/test/testList.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.menu_jsp</servlet-name>
+        <url-pattern>/test/menu.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.index_jsp</servlet-name>
+        <url-pattern>/test/index.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.testRole_jsp</servlet-name>
+        <url-pattern>/test/testRole.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.showRequestUri_jsp</servlet-name>
+        <url-pattern>/test/showRequestUri.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.testBackward_jsp</servlet-name>
+        <url-pattern>/test/testBackward.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.quickOverview_jsp</servlet-name>
+        <url-pattern>/test/quickOverview.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.testAll_jsp</servlet-name>
+        <url-pattern>/test/testAll.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.testIgnore_jsp</servlet-name>
+        <url-pattern>/test/testIgnore.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.testBasic_jsp</servlet-name>
+        <url-pattern>/test/testBasic.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.layout_jsp</servlet-name>
+        <url-pattern>/test/layout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.testStrutsAction_jsp</servlet-name>
+        <url-pattern>/test/testStrutsAction.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.layoutTestIgnore_jsp</servlet-name>
+        <url-pattern>/test/layoutTestIgnore.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.testController_jsp</servlet-name>
+        <url-pattern>/test/testController.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.failpage_jsp</servlet-name>
+        <url-pattern>/test/failpage.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.test.testDefinitions_jsp</servlet-name>
+        <url-pattern>/test/testDefinitions.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.columnsLayout_jsp</servlet-name>
+        <url-pattern>/layouts/columnsLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.tabsLayout_jsp</servlet-name>
+        <url-pattern>/layouts/tabsLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.centerLayout_jsp</servlet-name>
+        <url-pattern>/layouts/centerLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.classicLayout_jsp</servlet-name>
+        <url-pattern>/layouts/classicLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.nestedTabsLayout_jsp</servlet-name>
+        <url-pattern>/layouts/nestedTabsLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.vboxLayout_jsp</servlet-name>
+        <url-pattern>/layouts/vboxLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.menu_jsp</servlet-name>
+        <url-pattern>/layouts/menu.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.layouts.skin1.menuLeftLayout_jsp</servlet-name>
+        <url-pattern>/layouts/skin1/menuLeftLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.myPortal_jsp</servlet-name>
+        <url-pattern>/examples/myPortal.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.index_jsp</servlet-name>
+        <url-pattern>/examples/index.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.myMenuSettings_jsp</servlet-name>
+        <url-pattern>/examples/myMenuSettings.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.skinSettings_jsp</servlet-name>
+        <url-pattern>/examples/skinSettings.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tabs_jsp</servlet-name>
+        <url-pattern>/examples/tabs.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.summariesTabs_jsp</servlet-name>
+        <url-pattern>/examples/summariesTabs.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.portal_jsp</servlet-name>
+        <url-pattern>/examples/portal.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.rssChannels_jsp</servlet-name>
+        <url-pattern>/examples/rssChannels.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.myPortalSettings_jsp</servlet-name>
+        <url-pattern>/examples/myPortalSettings.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.myMenuSettings_jsp</servlet-name>
+        <url-pattern>/examples/tiles/myMenuSettings.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.rssChannels_jsp</servlet-name>
+        <url-pattern>/examples/tiles/rssChannels.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.adminSummary_jsp</servlet-name>
+        <url-pattern>/examples/tiles/adminSummary.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.body_jsp</servlet-name>
+        <url-pattern>/examples/tiles/body.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.myPortalSettings_jsp</servlet-name>
+        <url-pattern>/examples/tiles/myPortalSettings.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.myLayoutSummary_jsp</servlet-name>
+        <url-pattern>/examples/tiles/myLayoutSummary.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.mySkinSettings_jsp</servlet-name>
+        <url-pattern>/examples/tiles/mySkinSettings.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.rssChannelErrors_jsp</servlet-name>
+        <url-pattern>/examples/tiles/rssChannelErrors.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.menuSummary_jsp</servlet-name>
+        <url-pattern>/examples/tiles/menuSummary.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.multiChannelsSummary_jsp</servlet-name>
+        <url-pattern>/examples/tiles/multiChannelsSummary.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.componentsSummary_jsp</servlet-name>
+        <url-pattern>/examples/tiles/componentsSummary.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.i18nSummary_jsp</servlet-name>
+        <url-pattern>/examples/tiles/i18nSummary.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.portalSummary_jsp</servlet-name>
+        <url-pattern>/examples/tiles/portalSummary.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.myPortalPrefs_jsp</servlet-name>
+        <url-pattern>/examples/tiles/myPortalPrefs.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.tabsSummary_jsp</servlet-name>
+        <url-pattern>/examples/tiles/tabsSummary.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.rssChannelsSummary_jsp</servlet-name>
+        <url-pattern>/examples/tiles/rssChannelsSummary.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.myMenuSummary_jsp</servlet-name>
+        <url-pattern>/examples/tiles/myMenuSummary.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.footer_jsp</servlet-name>
+        <url-pattern>/examples/tiles/footer.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.myPortalSummary_jsp</servlet-name>
+        <url-pattern>/examples/tiles/myPortalSummary.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.header_jsp</servlet-name>
+        <url-pattern>/examples/tiles/header.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.advert2_jsp</servlet-name>
+        <url-pattern>/examples/tiles/portal/advert2.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.stocks_jsp</servlet-name>
+        <url-pattern>/examples/tiles/portal/stocks.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.advert1_jsp</servlet-name>
+        <url-pattern>/examples/tiles/portal/advert1.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.whatsNew_jsp</servlet-name>
+        <url-pattern>/examples/tiles/portal/whatsNew.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.login_jsp</servlet-name>
+        <url-pattern>/examples/tiles/portal/login.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.portalBody_jsp</servlet-name>
+        <url-pattern>/examples/tiles/portal/portalBody.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.messages_jsp</servlet-name>
+        <url-pattern>/examples/tiles/portal/messages.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.advert3_jsp</servlet-name>
+        <url-pattern>/examples/tiles/portal/advert3.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.examples.tiles.portal.newsFeed_jsp</servlet-name>
+        <url-pattern>/examples/tiles/portal/newsFeed.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.overloadDefinitionParameters_jsp</servlet-name>
+        <url-pattern>/tutorial/overloadDefinitionParameters.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.basicFramesetPage_jsp</servlet-name>
+        <url-pattern>/tutorial/basicFramesetPage.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.test2_jsp</servlet-name>
+        <url-pattern>/tutorial/test2.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.extendedDefinition_jsp</servlet-name>
+        <url-pattern>/tutorial/extendedDefinition.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.definitionTag_jsp</servlet-name>
+        <url-pattern>/tutorial/definitionTag.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.frameset_jsp</servlet-name>
+        <url-pattern>/tutorial/frameset.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.strutsForward_jsp</servlet-name>
+        <url-pattern>/tutorial/strutsForward.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.portalPage_jsp</servlet-name>
+        <url-pattern>/tutorial/portalPage.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.dynFramesetPage_jsp</servlet-name>
+        <url-pattern>/tutorial/dynFramesetPage.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.contentForm_jsp</servlet-name>
+        <url-pattern>/tutorial/contentForm.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.firstDefinition_jsp</servlet-name>
+        <url-pattern>/tutorial/firstDefinition.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.test3_jsp</servlet-name>
+        <url-pattern>/tutorial/test3.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.basicPage_jsp</servlet-name>
+        <url-pattern>/tutorial/basicPage.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.index_jsp</servlet-name>
+        <url-pattern>/tutorial/index.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.test_jsp</servlet-name>
+        <url-pattern>/tutorial/test.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.extendedDefinitionTag_jsp</servlet-name>
+        <url-pattern>/tutorial/extendedDefinitionTag.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.basic.helloBody_jsp</servlet-name>
+        <url-pattern>/tutorial/basic/helloBody.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.basic.menu_jsp</servlet-name>
+        <url-pattern>/tutorial/basic/menu.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.basic.myFramesetLayout_jsp</servlet-name>
+        <url-pattern>/tutorial/basic/myFramesetLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.basic.myLayout_jsp</servlet-name>
+        <url-pattern>/tutorial/basic/myLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.layout.vboxLayout_jsp</servlet-name>
+        <url-pattern>/tutorial/layout/vboxLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.layout.classicLayout_jsp</servlet-name>
+        <url-pattern>/tutorial/layout/classicLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.layout.columnsLayout_jsp</servlet-name>
+        <url-pattern>/tutorial/layout/columnsLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.de.common.footer_jsp</servlet-name>
+        <url-pattern>/tutorial/de/common/footer.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.de.common.header_jsp</servlet-name>
+        <url-pattern>/tutorial/de/common/header.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.fr.common.footer_jsp</servlet-name>
+        <url-pattern>/tutorial/fr/common/footer.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.fr.common.header_jsp</servlet-name>
+        <url-pattern>/tutorial/fr/common/header.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.common.viewSrcBody_jsp</servlet-name>
+        <url-pattern>/tutorial/common/viewSrcBody.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.common.menu_jsp</servlet-name>
+        <url-pattern>/tutorial/common/menu.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.common.viewSrc_jsp</servlet-name>
+        <url-pattern>/tutorial/common/viewSrc.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.common.footer_jsp</servlet-name>
+        <url-pattern>/tutorial/common/footer.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.common.viewSrcBodyError_jsp</servlet-name>
+        <url-pattern>/tutorial/common/viewSrcBodyError.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.common.header_jsp</servlet-name>
+        <url-pattern>/tutorial/common/header.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.common.submenu_jsp</servlet-name>
+        <url-pattern>/tutorial/common/submenu.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.common.menuViewSrc_jsp</servlet-name>
+        <url-pattern>/tutorial/common/menuViewSrc.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.common.menu.menuLogo_jsp</servlet-name>
+        <url-pattern>/tutorial/common/menu/menuLogo.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.common.menu.menuSrc_jsp</servlet-name>
+        <url-pattern>/tutorial/common/menu/menuSrc.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.common.menu.menuLinks_jsp</servlet-name>
+        <url-pattern>/tutorial/common/menu/menuLinks.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.definitions.simpleBody_jsp</servlet-name>
+        <url-pattern>/tutorial/definitions/simpleBody.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.definitions.firstDefinitionPage_jsp</servlet-name>
+        <url-pattern>/tutorial/definitions/firstDefinitionPage.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.definitions.definitionsConfig_jsp</servlet-name>
+        <url-pattern>/tutorial/definitions/definitionsConfig.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.definitions.useDefinitionConfig_jsp</servlet-name>
+        <url-pattern>/tutorial/definitions/useDefinitionConfig.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.test.myLayout_jsp</servlet-name>
+        <url-pattern>/tutorial/test/myLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.test.header_jsp</servlet-name>
+        <url-pattern>/tutorial/test/header.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.test.templateLayout_jsp</servlet-name>
+        <url-pattern>/tutorial/test/templateLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.portal.stocks_jsp</servlet-name>
+        <url-pattern>/tutorial/portal/stocks.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.portal.portalBody_jsp</servlet-name>
+        <url-pattern>/tutorial/portal/portalBody.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.portal.personalLinks_jsp</servlet-name>
+        <url-pattern>/tutorial/portal/personalLinks.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.portal.advert2_jsp</servlet-name>
+        <url-pattern>/tutorial/portal/advert2.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.portal.whatsNew_jsp</servlet-name>
+        <url-pattern>/tutorial/portal/whatsNew.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.portal.advert1_jsp</servlet-name>
+        <url-pattern>/tutorial/portal/advert1.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.portal.login_jsp</servlet-name>
+        <url-pattern>/tutorial/portal/login.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.portal.search_jsp</servlet-name>
+        <url-pattern>/tutorial/portal/search.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.portal.newsFeed_jsp</servlet-name>
+        <url-pattern>/tutorial/portal/newsFeed.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.portal.messages_jsp</servlet-name>
+        <url-pattern>/tutorial/portal/messages.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.portal.advert3_jsp</servlet-name>
+        <url-pattern>/tutorial/portal/advert3.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.invoice.editAddress_jsp</servlet-name>
+        <url-pattern>/tutorial/invoice/editAddress.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.invoice.editInvoice2_jsp</servlet-name>
+        <url-pattern>/tutorial/invoice/editInvoice2.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.invoice.editInvoice_jsp</servlet-name>
+        <url-pattern>/tutorial/invoice/editInvoice.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.invoice.index_jsp</servlet-name>
+        <url-pattern>/tutorial/invoice/index.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.forward.forwardBody_jsp</servlet-name>
+        <url-pattern>/tutorial/forward/forwardBody.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.forward.failureBody_jsp</servlet-name>
+        <url-pattern>/tutorial/forward/failureBody.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.forward.successBody_jsp</servlet-name>
+        <url-pattern>/tutorial/forward/successBody.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.dynPortal.index_jsp</servlet-name>
+        <url-pattern>/tutorial/dynPortal/index.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.dynPortal.Errors_jsp</servlet-name>
+        <url-pattern>/tutorial/dynPortal/Errors.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.dynPortal.Channels_jsp</servlet-name>
+        <url-pattern>/tutorial/dynPortal/Channels.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.dynPortal.testChannels_jsp</servlet-name>
+        <url-pattern>/tutorial/dynPortal/testChannels.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.dynPortal.myPortalPrefTile_jsp</servlet-name>
+        <url-pattern>/tutorial/dynPortal/myPortalPrefTile.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.dynPortal.myPortalPrefs_jsp</servlet-name>
+        <url-pattern>/tutorial/dynPortal/myPortalPrefs.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.tutorial.lang.lang_jsp</servlet-name>
+        <url-pattern>/tutorial/lang/lang.jsp</url-pattern>
+    </servlet-mapping>
+
+</web-app>
+

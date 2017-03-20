@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sun-application-client PUBLIC "-//Sun Microsystems, Inc.//DTD Application Server 8.0 Application Client 1.4//EN" "http://www.sun.com/software/appserver/dtds/sun-application-client_1_4-0.dtd">
+
+<sun-application-client>
+
+	<resource-ref>
+		<res-ref-name>jms/MyConnectionFactory</res-ref-name>
+		<jndi-name>jms/SupplierMdb1QueueConnectionFactory</jndi-name>
+		<default-resource-principal>
+			<name>j2ee</name>
+			<password>j2ee</password>
+		</default-resource-principal>
+	</resource-ref>
+
+	<message-destination>
+		<message-destination-name>SupplierMdb1PhysicalQueue</message-destination-name>
+		<jndi-name>jms/SupplierMdb1Queue</jndi-name>
+	</message-destination>
+
+</sun-application-client>
+

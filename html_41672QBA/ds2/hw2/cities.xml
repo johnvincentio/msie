@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<cities>
+	<city>
+		<name>london</name>
+		<population>12000000</population>
+	</city>
+	<city>
+		<name>paris</name>
+		<population>11000000</population>
+	</city>
+</cities>
+

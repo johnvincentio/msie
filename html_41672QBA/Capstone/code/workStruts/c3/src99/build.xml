@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<project name="general" default="dist" basedir=".">
+
+	<target name="jvtest">
+		<ant dir="common" target="all" inheritAll="false" inheritRefs="false"/>
+		<ant dir="ejb1" target="all" inheritAll="false" inheritRefs="false"/>
+		<ant dir="ejb2" target="all" inheritAll="false" inheritRefs="false"/>
+		<ant dir="war" target="all" inheritAll="false" inheritRefs="false"/>
+	</target>
+
+	<target name="dist">
+		<ant dir="common" target="all" inheritAll="false" inheritRefs="false"/>
+		<ant dir="ejb1" target="all" inheritAll="false" inheritRefs="false"/>
+		<ant dir="ejb2" target="all" inheritAll="false" inheritRefs="false"/>
+		<ant dir="war" target="all" inheritAll="false" inheritRefs="false"/>
+		<ant dir="ear" target="all" inheritAll="false" inheritRefs="false"/>
+		<ant dir="ear" target="deploy" inheritAll="false" inheritRefs="false"/>
+	</target>
+
+	<target name="deploy">
+		<ant dir="ear" target="deploy" inheritAll="false" 
+						inheritRefs="false"/>     
+	</target>
+	<target name="verify">
+		<ant dir="war" target="verify" inheritAll="false" 
+						inheritRefs="false"/>     
+	</target>
+	<target name="undeploy">
+		<ant dir="ear" target="undeploy" inheritAll="false" 
+						inheritRefs="false"/>
+	</target>
+
+	<target name="docs">
+		<ant dir="war" target="docs" inheritAll="false" inheritRefs="false"/>
+	</target>
+
+	<target name="cleanall">
+		<ant dir="ejb1" target="clean" inheritAll="false" inheritRefs="false"/>
+		<ant dir="war" target="clean" inheritAll="false" inheritRefs="false"/>
+		<ant dir="ear" target="clean" inheritAll="false" inheritRefs="false"/>
+	</target>
+
+</project> 
+

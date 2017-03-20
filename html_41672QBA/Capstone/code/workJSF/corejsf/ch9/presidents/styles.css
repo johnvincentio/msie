@@ -1,0 +1,18 @@
+body {
+   background: #eee;
+}
+.tabbedPane {
+   vertical-align: top;
+   border: thin solid Blue;
+}
+.tab {
+   padding: 3px;
+   border: thin solid CornflowerBlue;
+   color: Blue;
+}
+.selectedTab {
+   padding: 3px;
+   border: thin solid CornflowerBlue;
+   color: Blue;
+   background: PowderBlue;
+}

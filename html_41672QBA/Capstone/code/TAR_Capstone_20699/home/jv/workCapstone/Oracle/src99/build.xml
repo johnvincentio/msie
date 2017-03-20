@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+  <!ENTITY appServerAntCommands SYSTEM "../../../workBuild/app-server-ant.xml">
+]>
+
+<project name="general" default="all" basedir=".">
+
+	&appServerAntCommands;
+
+	<property name="app.databasetype"   value="oracle"/>
+	<property name="app.jdbc.ds.class" value="oracle.jdbc.pool.OracleDataSource"/>
+	<property name="app.jdbc.size.maxpool"   value="4"/>
+	<property name="app.jdbc.size.steadypool"   value="4"/>
+	<property name="app.jdbc.level.isolation"   value="read-committed"/>
+	<property name="app.jdbc.url" value="jdbc\:oracle\:thin\:@jv2\:1521\:sid1"/>
+
+	<property name="my.supplier.pool.name"   	value="SupplierPool"/>
+	<property name="my.supplier.resource.name"	value="jdbc/SupplierResource"/>
+	<property name="my.supplier.user"   		value="JVSUPPLIER"/>
+	<property name="my.supplier.password"   	value="capstone"/>
+
+	<property name="my.distributor.pool.name"   	value="DistributorPool"/>
+	<property name="my.distributor.resource.name"	value="jdbc/DistributorResource"/>
+	<property name="my.distributor.user"   			value="JVDISTRIBUTOR"/>
+	<property name="my.distributor.password"   		value="capstone"/>
+
+	<property name="my.retailer.pool.name"   	value="RetailerPool"/>
+	<property name="my.retailer.resource.name"	value="jdbc/RetailerResource"/>
+	<property name="my.retailer.user"   		value="JVRETAILER"/>
+	<property name="my.retailer.password"   	value="capstone"/>
+
+	<property name="my.manufacturer.pool.name"   	value="ManufacturerPool"/>
+	<property name="my.manufacturer.resource.name"	value="jdbc/ManufacturerResource"/>
+	<property name="my.manufacturer.user"   		value="JVMANUFACTURER"/>
+	<property name="my.manufacturer.password"   	value="capstone"/>
+
+	<property name="my.nero.pool.name"   	value="NeroPool"/>
+	<property name="my.nero.resource.name"	value="jdbc/NeroResource"/>
+	<property name="my.nero.user"   		value="JVNERO"/>
+	<property name="my.nero.password"   	value="capstone"/>
+
+<!-- targets -->
+
+	<target name="all">
+		<antcall target="dbsetup-supplier"/>
+		<antcall target="dbsetup-distributor"/>
+		<antcall target="dbsetup-retailer"/>
+		<antcall target="dbsetup-manufacturer"/>
+		<antcall target="dbsetup-nero"/>
+
+		<antcall target="alldata"/>
+	</target>
+
+	<target name="alldata">
+		<antcall target="alldata-supplier"/>
+		<antcall target="alldata-distributor"/>
+		<antcall target="alldata-retailer"/>
+		<antcall target="alldata-manufacturer"/>
+		<antcall target="alldata-nero"/>
+	</target>
+
+	<target name="cleanall">
+		<antcall target="dbremove-supplier"/>
+		<antcall target="dbremove-distributor"/>
+		<antcall target="dbremove-retailer"/>
+		<antcall target="dbremove-manufacturer"/>
+		<antcall target="dbremove-nero"/>
+	</target>
+
+<!-- supplier resources -->
+
+	<target name="dbsetup-supplier">
+		<echo message="creating supplier oracle resources"/>
+		<antcall target="oracle-dbsetup">
+			<param name="app.jdbc.pool.name"   		value="${my.supplier.pool.name}"/>
+			<param name="app.jdbc.resource.name"	value="${my.supplier.resource.name}"/>
+			<param name="app.jdbc.user"   			value="${my.supplier.user}"/>
+			<param name="app.jdbc.password"   		value="${my.supplier.password}"/>
+		</antcall>
+	</target>
+	<target name="dbremove-supplier">
+		<echo message="removing supplier oracle resources"/>
+		<antcall target="oracle-dbremove">
+			<param name="app.jdbc.pool.name"   		value="${my.supplier.pool.name}"/>
+			<param name="app.jdbc.resource.name"	value="${my.supplier.resource.name}"/>
+		</antcall>
+	</target>
+	<target name="alldata-supplier">
+		<echo message="creating supplier oracle tables"/>
+		<antcall target="doOracleSQL">
+			<param name="app.jdbc.user"   			value="${my.supplier.user}"/>
+			<param name="app.jdbc.password"   		value="${my.supplier.password}"/>
+			<param name="mysqlfile" value="all"/>
+			<param name="mysqldir" value="sql/main"/>
+			<param name="myoutfile" value="all_supplier"/>
+		</antcall>
+		<echo message="creating supplier oracle data"/>
+		<antcall target="doOracleSQL">
+			<param name="app.jdbc.user"   			value="${my.supplier.user}"/>
+			<param name="app.jdbc.password"   		value="${my.supplier.password}"/>
+			<param name="mysqlfile" value="alldata"/>
+			<param name="mysqldir" value="sql/main"/>
+			<param name="myoutfile" value="alldata_supplier"/>
+		</antcall>
+	</target>
+
+<!-- distributor resources -->
+
+	<target name="dbsetup-distributor">
+		<echo message="creating distributor oracle resources"/>
+		<antcall target="oracle-dbsetup">
+			<param name="app.jdbc.pool.name"   		value="${my.distributor.pool.name}"/>
+			<param name="app.jdbc.resource.name"	value="${my.distributor.resource.name}"/>
+			<param name="app.jdbc.user"   			value="${my.distributor.user}"/>
+			<param name="app.jdbc.password"   		value="${my.distributor.password}"/>
+		</antcall>
+	</target>
+	<target name="dbremove-distributor">
+		<echo message="removing distributor oracle resources"/>
+		<antcall target="oracle-dbremove">
+			<param name="app.jdbc.pool.name"   		value="${my.distributor.pool.name}"/>
+			<param name="app.jdbc.resource.name"	value="${my.distributor.resource.name}"/>
+		</antcall>
+	</target>
+	<target name="alldata-distributor">
+		<echo message="creating distributor oracle tables"/>
+		<antcall target="doOracleSQL">
+			<param name="app.jdbc.user"   			value="${my.distributor.user}"/>
+			<param name="app.jdbc.password"   		value="${my.distributor.password}"/>
+			<param name="mysqlfile" value="all"/>
+			<param name="mysqldir" value="sql/main"/>
+			<param name="myoutfile" value="all_distributor"/>
+		</antcall>
+		<echo message="creating distributor oracle data"/>
+		<antcall target="doOracleSQL">
+			<param name="app.jdbc.user"   			value="${my.distributor.user}"/>
+			<param name="app.jdbc.password"   		value="${my.distributor.password}"/>
+			<param name="mysqlfile" value="alldata"/>
+			<param name="mysqldir" value="sql/main"/>
+			<param name="myoutfile" value="alldata_distributor"/>
+		</antcall>
+	</target>
+
+<!-- retailer resources -->
+
+	<target name="dbsetup-retailer">
+		<echo message="creating retailer oracle resources"/>
+		<antcall target="oracle-dbsetup">
+			<param name="app.jdbc.pool.name"   		value="${my.retailer.pool.name}"/>
+			<param name="app.jdbc.resource.name"	value="${my.retailer.resource.name}"/>
+			<param name="app.jdbc.user"   			value="${my.retailer.user}"/>
+			<param name="app.jdbc.password"   		value="${my.retailer.password}"/>
+		</antcall>
+	</target>
+	<target name="dbremove-retailer">
+		<echo message="removing retailer oracle resources"/>
+		<antcall target="oracle-dbremove">
+			<param name="app.jdbc.pool.name"   		value="${my.retailer.pool.name}"/>
+			<param name="app.jdbc.resource.name"	value="${my.retailer.resource.name}"/>
+		</antcall>
+	</target>
+	<target name="alldata-retailer">
+		<echo message="creating retailer oracle tables"/>
+		<antcall target="doOracleSQL">
+			<param name="app.jdbc.user"   			value="${my.retailer.user}"/>
+			<param name="app.jdbc.password"   		value="${my.retailer.password}"/>
+			<param name="mysqlfile" value="all"/>
+			<param name="mysqldir" value="sql/main"/>
+			<param name="myoutfile" value="all_retailer"/>
+		</antcall>
+		<echo message="creating retailer oracle data"/>
+		<antcall target="doOracleSQL">
+			<param name="app.jdbc.user"   			value="${my.retailer.user}"/>
+			<param name="app.jdbc.password"   		value="${my.retailer.password}"/>
+			<param name="mysqlfile" value="alldata"/>
+			<param name="mysqldir" value="sql/main"/>
+			<param name="myoutfile" value="alldata_retailer"/>
+		</antcall>
+	</target>
+
+<!-- manufacturer resources -->
+
+	<target name="dbsetup-manufacturer">
+		<echo message="creating manufacturer oracle resources"/>
+		<antcall target="oracle-dbsetup">
+			<param name="app.jdbc.pool.name"   		value="${my.manufacturer.pool.name}"/>
+			<param name="app.jdbc.resource.name"	value="${my.manufacturer.resource.name}"/>
+			<param name="app.jdbc.user"   			value="${my.manufacturer.user}"/>
+			<param name="app.jdbc.password"   		value="${my.manufacturer.password}"/>
+		</antcall>
+	</target>
+	<target name="dbremove-manufacturer">
+		<echo message="removing manufacturer oracle resources"/>
+		<antcall target="oracle-dbremove">
+			<param name="app.jdbc.pool.name"   		value="${my.manufacturer.pool.name}"/>
+			<param name="app.jdbc.resource.name"	value="${my.manufacturer.resource.name}"/>
+		</antcall>
+	</target>
+	<target name="alldata-manufacturer">
+		<echo message="creating manufacturer oracle tables"/>
+		<antcall target="doOracleSQL">
+			<param name="app.jdbc.user"   			value="${my.manufacturer.user}"/>
+			<param name="app.jdbc.password"   		value="${my.manufacturer.password}"/>
+			<param name="mysqlfile" value="all"/>
+			<param name="mysqldir" value="sql/main"/>
+			<param name="myoutfile" value="all_manufacturer"/>
+		</antcall>
+		<echo message="creating manufacturer oracle data"/>
+		<antcall target="doOracleSQL">
+			<param name="app.jdbc.user"   			value="${my.manufacturer.user}"/>
+			<param name="app.jdbc.password"   		value="${my.manufacturer.password}"/>
+			<param name="mysqlfile" value="alldata"/>
+			<param name="mysqldir" value="sql/main"/>
+			<param name="myoutfile" value="alldata_manufacturer"/>
+		</antcall>
+	</target>
+
+<!-- nero resources -->
+
+	<target name="dbsetup-nero">
+		<echo message="creating nero oracle resources"/>
+		<antcall target="oracle-dbsetup">
+			<param name="app.jdbc.pool.name"   		value="${my.nero.pool.name}"/>
+			<param name="app.jdbc.resource.name"	value="${my.nero.resource.name}"/>
+			<param name="app.jdbc.user"   			value="${my.nero.user}"/>
+			<param name="app.jdbc.password"   		value="${my.nero.password}"/>
+		</antcall>
+	</target>
+	<target name="dbremove-nero">
+		<echo message="removing nero oracle resources"/>
+		<antcall target="oracle-dbremove">
+			<param name="app.jdbc.pool.name"   		value="${my.nero.pool.name}"/>
+			<param name="app.jdbc.resource.name"	value="${my.nero.resource.name}"/>
+		</antcall>
+	</target>
+	<target name="alldata-nero">
+		<echo message="creating nero oracle tables and data"/>
+		<antcall target="doOracleSQL">
+			<param name="app.jdbc.user"   			value="${my.nero.user}"/>
+			<param name="app.jdbc.password"   		value="${my.nero.password}"/>
+			<param name="mysqlfile" value="all"/>
+			<param name="mysqldir" value="sql/cart"/>
+			<param name="myoutfile" value="all_nero"/>
+		</antcall>
+	</target>
+
+<!-- Oracle tools -->
+
+	<target name="doOracleSQL">
+		<echo message="doOracleSQL; user is ${app.jdbc.user}"/>
+		<echo message="file is ${mysqlfile}"/>
+		<exec executable="/usr/local/bin/sqp" dir="${mysqldir}" 
+						output="tmp/${myoutfile}.tmp">
+			<arg value="${app.jdbc.user}/${app.jdbc.password}"/>
+			<arg value="${mysqlfile}.sql"/>
+		</exec>
+		<exec executable="gvim" dir="tmp" spawn="true">
+			<arg value="${myoutfile}.tmp"/>
+		</exec>
+	</target>
+
+</project> 
+

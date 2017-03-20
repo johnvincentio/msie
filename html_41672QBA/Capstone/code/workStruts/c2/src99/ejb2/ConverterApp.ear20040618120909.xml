@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE static-verification PUBLIC "-//Sun Microsystems, Inc.//DTD J2EE Static Verification 1.4//EN" "file:/opt/SUNWappserver/lib/dtds/static-verification_1_4.dtd">
+<static-verification>
+<appclient>
+<failed>
+<test>
+<test-name>tests.appclient.elements.AppClientEjbReferencesElement</test-name>
+<test-assertion>Application client references to other beans homes test</test-assertion>
+<test-description>For [ app-client-ic.jar ]
+Error: [ ejb/SimpleConverter ] class cannot be found within this jar [ ConverterHome ].
+For [ app-client-ic.jar ]
+Error: [ ejb/SimpleConverter ] class cannot be found within this jar [ Converter ].
+</test-description>
+</test>
+</failed>
+</appclient>
+<failure-count>
+<failure-number>1</failure-number>
+<warning-number>0</warning-number>
+<error-number>0</error-number>
+</failure-count>
+</static-verification>

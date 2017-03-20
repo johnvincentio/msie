@@ -1,0 +1,39 @@
+<!-- Comment -->
+
+<project name="Servlet" default="compile" basedir=".">
+	<path id="cpath.classpath">
+		<pathelement location="${deployDir}"/>
+	</path>
+
+	<target name="init">
+		<echo message="init"/>
+		<property name="appDir" value="app"/>
+		<property name="jspDir" value="jsp"/>
+		<property name="deployDir" value="deploy"/>
+	</target>
+
+	<target name="clean" depends="init">
+		<echo message="clean"/>
+		<delete>
+			<fileset dir="${deployDir}" includes="**/*.class"/>
+			<fileset dir="${deployDir}" includes="**/*.jsp"/>
+			<fileset dir="${deployDir}" includes="**/*.properties"/>
+		</delete>
+	</target>
+
+	<target name="compile" depends="clean">
+		<echo message="compile"/>
+		<javac destdir="${deployDir}">
+			<src path="${appDir}"/>
+			<classpath refid="cpath.classpath"/>
+		</javac>
+		<copy todir="${deployDir}">
+			<fileset dir="${jspDir}" includes="**/*.jsp"/>
+			<fileset dir="." includes="app.properties"/>
+		</copy>
+	</target>
+
+</project>
+
+
+

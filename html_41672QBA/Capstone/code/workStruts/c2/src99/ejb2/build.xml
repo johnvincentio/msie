@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+  <!ENTITY appServerAntCommands SYSTEM "../../../../workBuild/app-server-ant.xml">
+  <!ENTITY jvWebXMLCommands SYSTEM "../../../../workBuild/webxml.xml">
+  <!ENTITY jvXMLValidateCommands SYSTEM "../../../../workBuild/xmlvalidate.xml">
+  <!ENTITY jvJavaDocCommands SYSTEM "../../../../workBuild/javadoc.xml">
+]>
+<!--
+  <!ENTITY jvJSFCommands SYSTEM "../../../../workBuild/jvjsf.xml">
+  <!ENTITY jvStrutsCommands SYSTEM "../../../../workBuild/jvstruts.xml">
+  <!ENTITY jvJSTLCommands SYSTEM "../../../../workBuild/jvJstl.xml">
+-->
+
+<project name="c2struts" default="all" basedir="."> <!-- set project name -->
+
+	<property name="build.dir"    value="${basedir}/build" />
+	<property name="dist.dir"     value="${basedir}/dist" />
+	<property name="javadocs.dir" value="${basedir}/docs/api"/>
+
+	<property name="xml.validate.options"    value="-warning" />
+
+	&appServerAntCommands;
+	&jvWebXMLCommands;
+	&jvXMLValidateCommands;
+	&jvJavaDocCommands;
+
+	<echo message="Initializing..."/>
+	<property environment="env"/>
+	<echo message="${env.PATH}"/>
+	<echo message="${env.CLASSPATH}"/>
+
+	<property name="app.name"   value="${ant.project.name}"/>
+	<property name="app.module" value="${dist.dir}/${ant.project.name}.war"/>
+
+	<property name="app.databasetype"   value="oracle"/>
+
+<!--			Oracle setup		-->
+
+	<property name="app.jdbc.pool.name"   value="DBServlet"/>
+	<property name="app.jdbc.ds.class" value="oracle.jdbc.pool.OracleDataSource"/>
+	<property name="app.jdbc.size.maxpool"   value="4"/>
+	<property name="app.jdbc.size.steadypool"   value="4"/>
+	<property name="app.jdbc.level.isolation"   value="read-committed"/>
+	<property name="app.jdbc.user"   value="jvapp1"/>
+	<property name="app.jdbc.password"   value="redsky"/>
+	<property name="app.jdbc.url" value="jdbc\:oracle\:thin\:@jv2\:1521\:sid1"/>
+	<property name="app.jdbc.resource.name"   value="jdbc/DBServletDB"/>
+
+<!--		Setup javac classpath		-->
+
+	<path id="javac.classpath">
+		<pathelement location="${build.dir}/WEB-INF/classes"/>
+	</path>
+
+<!--		Copy libraries to build lib directory		-->
+
+<!--		Validate XML files
+
+		web.xml targets
+	<target name="webXML-2-2">
+	<target name="webXML-2-3">
+	<target name="webXML-2-4">
+
+		sun-web.xml targets
+	<target name="sun-webXML-2-4"> 
+
+-->
+
+	<target name="checkXML" depends="sun-webXML-2-4, webXML-2-4"/> 
+
+<!--	Begin making something	-->
+
+	<target name="all" depends="clean, dist, checkXML"/>
+	<target name="docs" depends="javadocs"/>
+
+	<target name="clean">
+		<echo message="Remove build and distributables..."/>
+		<delete includeEmptyDirs="true" quiet="true">
+			<fileset dir="${build.dir}"/>
+			<fileset dir="${dist.dir}"/>
+			<fileset dir="${javadocs.dir}"/>
+		</delete>
+	</target>
+
+	<target name="mkdirs" depends="clean">
+		<echo message="Create directories..."/>
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${dist.dir}/contents" />
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.dir}/WEB-INF" />
+		<mkdir dir="${build.dir}/WEB-INF/classes" />
+		<mkdir dir="${build.dir}/WEB-INF/lib" />
+	</target>
+
+	<target name="compile" depends="mkdirs">
+		<echo message="Compiling java..."/>
+		<javac srcdir="${basedir}/java" 
+				destdir="${build.dir}/WEB-INF/classes">
+			<include name="**/*.java" />
+			<classpath refid="javac.classpath"/>
+		</javac>
+	</target>
+
+	<target name="build" depends="compile">
+		<echo message="Copying WEB-INF/*.xml files..."/>
+		<copy todir="${build.dir}/WEB-INF">
+			<fileset dir="${basedir}/etc">
+				<include name="*.xml" />
+			</fileset>
+		</copy>
+
+		<echo message="Copying files from lib..."/>
+		<copy todir="${build.dir}/WEB-INF/lib">
+			<fileset dir="${basedir}/lib"/>
+		</copy>
+
+		<echo message="Copying resources files..."/>
+		<copy todir="${build.dir}/WEB-INF/classes/resources" >
+			<fileset dir="${basedir}/resources"/>
+		</copy>
+	</target>
+
+	<target name="dist" depends="build">
+		<echo message="Creating WAR file...."/>
+		<jar destfile="${app.module}" basedir="${build.dir}"/>
+		<unwar src="${app.module}" dest="${dist.dir}/contents"/>
+	</target>
+
+	<target name="deploy-app" depends="deploy">
+		<echo message="Deploying WAR file...."/>
+	</target>
+
+</project>
+

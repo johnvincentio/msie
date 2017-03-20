@@ -1,0 +1,52 @@
+#!/bin/sh
+#
+#  Show XML file in the treeviewer
+#
+# get the file
+#
+XMLFILE=$1
+#
+# check the file
+#
+if [ -z "$XMLFILE" ]; then
+	echo "Usage: treeviewer xml_file"
+	exit 1
+fi
+if [ ! -f "$XMLFILE" ]; then
+	echo "Usage: treeviewer xml_file"
+	exit 1
+fi
+#
+#  setup a XSLT directory
+#
+XSLTDIR=/tmp/XSLT
+if [ ! -d "$XSLTDIR" ]; then
+	mkdir $XSLTDIR
+	chmod 777 $XSLTDIR
+fi
+#
+#  copy files to XSLT directory and transform
+#
+OPTDIR=/opt/XMLTreeViewer
+X1FILE=xml$$.xml
+X2FILE=out$$.html
+cp $XMLFILE $XSLTDIR/$X1FILE
+cp $OPTDIR/tree-view.xsl $XSLTDIR
+cp $OPTDIR/tree-view.css $XSLTDIR
+#
+#  perform the transform
+#
+cd $XSLTDIR
+jvXalan $X1FILE tree-view.xsl $X2FILE
+status=$?
+if [ $status -ne 0 ]; then
+	echo "Trouble with xslt transform"
+	exit 1
+fi
+echo "XSLT transformation is complete"
+#
+#  show html file in browser
+#
+jvweb $X2FILE
+echo "TreeViewer is complete"
+

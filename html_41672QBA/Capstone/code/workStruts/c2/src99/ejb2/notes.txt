@@ -1,0 +1,27 @@
+
+
+take env stuff from the main app.....
+
+
+remove from the main app.....
+
+JVDatabase.java needs lots of changes to interface with the session bean.
+
+added jvapp and jvejb2 packages...from WEB-INF/classes
+
+jvejb2.AbcdBean
+AbcdBean
+Stateless
+
+RemoteHome Interfaces: jvejb2.AbcdHome
+Remote Interface: jvejb2.Abcd
+Next>
+No
+Next>
+Finish>
+
+
+
+
+
+

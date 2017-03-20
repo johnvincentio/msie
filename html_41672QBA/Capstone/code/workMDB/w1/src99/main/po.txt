@@ -1,0 +1,116 @@
+
+<!-- JMS -->
+
+	<target name="create-resources"
+		depends="create-qcf, create-queue, list-jmsdest, list-jms-resources"/>
+	<target name="delete-resources" depends="delete-qcf,delete-queue"/>
+<!--
+put names into properties
+-->
+
+	<property name="app.jms.factory.restype" 
+				value="javax.jms.QueueConnectionFactory"/>
+	<property name="app.jms.factory.name" 
+				value="jms/QueueConnectionFactory"/>
+
+	<target name="create-qcf" description="Create queue connection factory.">
+		<echo message="Creating queue connection factory"/>
+		<antcall target="create-jms-connection">
+			<param name="jms.restype" value="javax.jms.QueueConnectionFactory"/>
+			<param name="jms.resource.name" value="jms/QueueConnectionFactory"/>
+		</antcall>
+	</target>
+
+	<target name="create-queue"
+			description="Create physical queue and queue resource.">
+		<echo message="Creating physical queue"/>
+		<antcall target="create-jms-dest">
+			<param name="jms.dest.type" value="queue"/>
+			<param name="app.jmsdest.property" value=""/>
+			<param name="jms.queue.name" value="PhysicalQueue"/>
+		</antcall>
+
+		<echo message="Creating queue resource"/>
+		<antcall target="create-jms-resource">
+			<param name="jms.restype" value="javax.jms.Queue"/>
+			<param name="app.jms.property" value="--property Name=PhysicalQueue"/>
+			<param name="jms.resource.name" value="jms/Queue"/>
+		</antcall>
+	</target>
+
+	<target name="delete-queue" 
+			description="Delete physical queue and queue resource.">
+		<echo message="Delete physical queue"/>
+		<antcall target="delete-jms-dest">
+			<param name="jms.dest.type" value="queue"/>
+			<param name="jms.queue.name" value="PhysicalQueue"/>
+		</antcall>
+		<echo message="Delete queue resource"/>
+		<antcall target="delete-jms-resource">
+			<param name="jms.resource.name" value="jms/Queue"/>
+		</antcall>
+
+	</target>
+
+	<target name="delete-qcf" 
+			description="Delete queue connection factory.">
+		<echo message="Delete queue connection factory"/>
+		<antcall target="delete-jms-resource">
+			<param name="jms.resource.name" value="jms/QueueConnectionFactory"/>
+		</antcall>
+	</target>
+
+</project>
+
+*************************************
+
+
+
+  <target name="create-qcf" 
+    description="Create queue connection factory.">
+    <antcall target="admin_command_common">
+      <param name="admin.command"
+        value="create-jms-resource --restype javax.jms.QueueConnectionFactory jms/QueueConnectionFactory" />
+    </antcall>
+  </target>
+
+  <target name="create-queue" 
+    description="Create physical queue and queue resource.">
+    <antcall target="admin_command_common">
+      <param name="admin.command"
+        value="create-jmsdest --desttype queue PhysicalQueue" />
+    </antcall>
+    <antcall target="admin_command_common">
+      <param name="admin.command"
+        value="create-jms-resource --restype javax.jms.Queue --property Name=PhysicalQueue jms/Queue" />
+    </antcall>
+  </target>
+
+  <target name="create-resources" 
+    depends="create-qcf,create-queue">
+  </target>
+
+  <target name="delete-qcf" 
+    description="Delete queue connection factory.">
+    <antcall target="admin_command_common">
+      <param name="admin.command"
+        value="delete-jms-resource jms/QueueConnectionFactory" />
+    </antcall>
+  </target>
+
+  <target name="delete-queue" 
+    description="Delete physical queue and queue resource.">
+    <antcall target="admin_command_common">
+      <param name="admin.command"
+        value="delete-jmsdest --desttype queue PhysicalQueue" />
+    </antcall>
+    <antcall target="admin_command_common">
+      <param name="admin.command"
+        value="delete-jms-resource jms/Queue" />
+    </antcall>
+  </target>
+
+  <target name="delete-resources" 
+    depends="delete-qcf,delete-queue">
+  </target>
+

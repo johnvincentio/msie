@@ -1,0 +1,63 @@
+
+
+
+Outstanding Items:
+
+1. Register user needs work. Verify:
+	email id is of correct format.
+	will email a password.
+	check state is (1-50).
+	ensure zip is numeric
+
+2. SendMail is not working.
+	System.getProperties() throws a security exception.
+	JVServlet.init() has commented out code that shows the problem.
+	Need to set own SecurityManager().
+	Beyond the scope of this project.
+
+3. Code is light on comments.
+
+4. JVDatabase.java connects for each database method.
+	Wasteful.
+	Needs to handle connection pooling.
+	I designed the class this way for a quiet life.
+	It will work.
+	If it fails, I will not get 100s of loose Oracle connections.
+	I needed a database class that would not get in the way.
+
+5. Check all code for synchronize. Where is it needed?
+
+6. Check all code for scope.
+	setAttribute is scope=request.
+	Check all other code.
+
+7. Do some multi-user testing.
+	Same user logged in more than once.
+	Many different users.
+	Code is not likely to ve able to handle same user deleting from cart, 
+	and from another session, same user updating same item in cart.
+
+8. Need to fix the double formatting and calculations.
+	Use NumberFormat for displaying money amounts.
+	Check code, there are rounding errors.
+	NumberFormat fff = NumberFormat.getCurrencyInstance().
+	fff.format(cart.getTotalCost());
+
+9. The JSPs should be in a package.
+
+10. The JSPs need to use CSS.
+	They are not pretty.
+	They are not consistent.
+
+11. There should be an inventory.
+	You can only order what is in the inventory.
+	Add item to cart should display number available.
+	Code should not allow ordering what does not exist.
+
+12. Database data in all.sql needs more data.
+	Need to create indexes.
+	Check performance all application SQL.
+
+
+
+

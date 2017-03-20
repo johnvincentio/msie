@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE static-verification PUBLIC "-//Sun Microsystems, Inc.//DTD J2EE Static Verification 1.4//EN" "file:/opt/SUNWappserver/lib/dtds/static-verification_1_4.dtd">
+<static-verification>
+<ejb>
+<failed>
+<test>
+<test-name>tests.ejb.businessmethod.BusinessMethodRmiIIOPReturn</test-name>
+<test-assertion>Enterprise bean business method valid RMI-IIOP return type test </test-assertion>
+<test-description>For [ AbcdApp#ejb-jar-ic.jar#AbcdBean ]
+For EJB Class [ jvejb2.AbcdBean ] business method [ getUserCart ]
+Error: business method [ getUserCart ] was found, but business method has illegal return value.   Business method return type must be legal types for RMI-IIOP.
+For [ AbcdApp#ejb-jar-ic.jar#AbcdBean ]
+For EJB Class [ jvejb2.AbcdBean ] business method [ getCartItem ]
+Error: business method [ getCartItem ] was found, but business method has illegal return value.   Business method return type must be legal types for RMI-IIOP.
+For [ AbcdApp#ejb-jar-ic.jar#AbcdBean ]
+For EJB Class [ jvejb2.AbcdBean ] business method [ getCatalogNames ]
+Error: business method [ getCatalogNames ] was found, but business method has illegal return value.   Business method return type must be legal types for RMI-IIOP.
+For [ AbcdApp#ejb-jar-ic.jar#AbcdBean ]
+For EJB Class [ jvejb2.AbcdBean ] business method [ getCatalogItems ]
+Error: business method [ getCatalogItems ] was found, but business method has illegal return value.   Business method return type must be legal types for RMI-IIOP.
+</test-description>
+</test>
+<test>
+<test-name>tests.ejb.intf.remoteintf.RemoteInterfaceRmiIIOPReturn</test-name>
+<test-assertion>Remote interface business methods have valid RMI-IIOP return type test</test-assertion>
+<test-description>For [ AbcdApp#ejb-jar-ic.jar#AbcdBean ]
+For Remote Interface [ jvejb2.Abcd ] method [ getUserCart ]
+Error: [ getUserCart ] method was found, but does not have valid RMI-IIOP return type.
+For [ AbcdApp#ejb-jar-ic.jar#AbcdBean ]
+For Remote Interface [ jvejb2.Abcd ] method [ getCartItem ]
+Error: [ getCartItem ] method was found, but does not have valid RMI-IIOP return type.
+For [ AbcdApp#ejb-jar-ic.jar#AbcdBean ]
+For Remote Interface [ jvejb2.Abcd ] method [ getCatalogNames ]
+Error: [ getCatalogNames ] method was found, but does not have valid RMI-IIOP return type.
+For [ AbcdApp#ejb-jar-ic.jar#AbcdBean ]
+For Remote Interface [ jvejb2.Abcd ] method [ getCatalogItems ]
+Error: [ getCatalogItems ] method was found, but does not have valid RMI-IIOP return type.
+</test-description>
+</test>
+<test>
+<test-name>tests.ejb.homeintf.remotehomeintf.RemoteHomeInterfaceRmiIIOPReturn</test-name>
+<test-assertion>Home interface methods have valid RMI-IIOP return type test</test-assertion>
+<test-description>For [ AbcdApp#ejb-jar-ic.jar#AbcdBean ]
+For Home Interface [ jvejb2.Abcd ] method [ getUserCart ]
+Error: [ getUserCart ] method was found, but does not have valid RMI-IIOP method return type.
+</test-description>
+</test>
+</failed>
+</ejb>
+<failure-count>
+<failure-number>3</failure-number>
+<warning-number>0</warning-number>
+<error-number>0</error-number>
+</failure-count>
+</static-verification>

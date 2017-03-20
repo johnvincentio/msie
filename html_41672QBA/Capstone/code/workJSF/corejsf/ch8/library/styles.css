@@ -1,0 +1,50 @@
+.library {
+   vertical-align: top;
+   width: 100%;
+   height: 100%;
+}
+.libraryHeader {
+   width: 100%;
+   text-align: left;
+   vertical-align: top;
+   background-color: #ddd;
+   font-weight: lighter;
+   border: thin solid #777;
+}
+.bookHeader {
+   width: 100%;
+   text-align: center;
+   background-color: #eee;
+   border: thin solid CornflowerBlue;
+}
+.bookTitle {
+   text-align: center;
+   font-style: italic;
+   font-size: 1.3em;
+   font-family: Helvetica;
+}
+.menuColumn {
+   vertical-align: top;
+   background-color: #eee;
+   border: thin solid #777;
+}
+.chapterColumn {
+   vertical-align: top;
+   text-align: left;
+   width: *;
+   padding: 3px;
+}
+.contentColumn {
+   vertical-align: top;
+   text-align: left;
+   width: *;
+}
+.links {
+   width: 85px;
+   vertical-align: top;
+   text-align: center;
+}
+.linksColumn {
+   vertical-align: top;
+   text-align: center;
+}

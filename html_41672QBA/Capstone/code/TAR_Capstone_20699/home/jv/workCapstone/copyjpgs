@@ -1,0 +1,3 @@
+set -x
+WEB_PAGES=/opt/SUNWappserver/domains/domain1/docroot
+cp -r Capstone $WEB_PAGES

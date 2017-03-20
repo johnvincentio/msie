@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+
+<faces-config>
+   <!-- The book -->
+   <managed-bean>
+      <managed-bean-name>book</managed-bean-name>
+      <managed-bean-class>com.corejsf.Book</managed-bean-class>
+      <managed-bean-scope>none</managed-bean-scope>
+      
+      <managed-property>
+         <property-name>titleKey</property-name>
+         <value>aliceInWonderland</value>
+      </managed-property>
+      
+      <managed-property>
+         <property-name>image</property-name>
+         <value>cheshire.jpg</value>
+      </managed-property>
+      
+      <managed-property>
+         <property-name>numChapters</property-name>
+         <property-class>java.lang.Integer</property-class>
+         <value>12</value>
+      </managed-property>
+   </managed-bean>
+</faces-config>

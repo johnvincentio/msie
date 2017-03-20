@@ -1,0 +1,23 @@
+
+ensure <html:html> only...
+
+look into <html:img>
+
+<html:html locale="true">
+doesn't seem to matter
+
+in struts-config.xml;
+resources.application null="false"
+the null portion causes the en_US.logon.title message.....
+
+changed message to logon.jv - no change
+
+ensured message had only letters, no blanks - no change.
+
+try <jsp-config> section.....
+no change...
+
+build us properties file...
+no change...
+
+

@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+
+<faces-config>
+
+   <navigation-rule>
+      <from-view-id>/index.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>login_success</from-outcome>
+         <to-view-id>/welcome.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>login_error</from-outcome>
+         <to-view-id>/loginError.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>login_failure</from-outcome>
+         <to-view-id>/loginError.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>signup</from-outcome>
+         <to-view-id>/signup.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/signup.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>signup_success</from-outcome>
+         <to-view-id>/welcome.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>signup_failure</from-outcome>
+         <to-view-id>/signupError.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>signup_error</from-outcome>
+         <to-view-id>/signupError.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>signup_cancel</from-outcome>
+         <to-view-id>/index.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/welcome.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>update</from-outcome>
+         <to-view-id>/update.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>logout_success</from-outcome>
+         <to-view-id>/index.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/update.jsp</from-view-id>
+      <navigation-case>
+         <from-outcome>update_success</from-outcome>
+         <to-view-id>/welcome.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>update_cancel</from-outcome>
+         <to-view-id>/welcome.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <navigation-case>
+         <from-outcome>login</from-outcome>
+         <to-view-id>/index.jsp</to-view-id>
+      </navigation-case>
+      <navigation-case>
+         <from-outcome>internal_error</from-outcome>
+         <to-view-id>/internalError.jsp</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+
+   <managed-bean> 
+      <managed-bean-name>user</managed-bean-name>
+      <managed-bean-class>com.corejsf.UserBean</managed-bean-class> 
+      <managed-bean-scope>session</managed-bean-scope> 
+   </managed-bean>
+
+   <managed-bean>
+      <managed-bean-name>userdir</managed-bean-name>
+      <managed-bean-class>com.corejsf.UserDirectoryBean</managed-bean-class>
+      <managed-bean-scope>application</managed-bean-scope>
+      <managed-property>
+         <property-name>URL</property-name>
+         <value>ldap://localhost:389</value>
+      </managed-property>
+      <managed-property>
+         <property-name>managerDN</property-name>
+         <value>cn=Manager,dc=corejsf,dc=com</value>
+      </managed-property>
+      <managed-property>
+         <property-name>managerPassword</property-name>
+         <value>secret</value>
+      </managed-property>
+   </managed-bean>
+
+</faces-config>

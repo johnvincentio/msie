@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+<!--
+Automatically created by Tomcat JspC.
+-->
+<web-app>
+
+
+    <servlet>
+        <servlet-name>org.apache.jsp.bookMenu_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.bookMenu_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.bookHeader_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.bookHeader_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.book_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.book_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.bookContent_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.bookContent_jsp</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.bookMenu_jsp</servlet-name>
+        <url-pattern>/bookMenu.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.bookHeader_jsp</servlet-name>
+        <url-pattern>/bookHeader.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.book_jsp</servlet-name>
+        <url-pattern>/book.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.bookContent_jsp</servlet-name>
+        <url-pattern>/bookContent.jsp</url-pattern>
+    </servlet-mapping>
+
+</web-app>
+

@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Class-Path: 
+Main-Class: SimpleMessageClient
+
+Name: SimpleMessageClient.class
+
+Name: META-INF/sun-application-client.xml
+
+Name: META-INF/application-client.xml
+
+Name: META-INF/sun-j2ee-ri.project
+

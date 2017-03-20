@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-app_2_4.xsd"
+    version="2.4">
+
+    <display-name>JVServlet JSTL</display-name>
+    <description>JSTL version of JVServlet</description>
+
+  <context-param>
+    <param-name>Driver</param-name>
+    <param-value>oracle.jdbc.OracleDriver</param-value>
+  </context-param>
+  <context-param>
+    <param-name>Url</param-name>
+    <param-value>jdbc:oracle:thin:@jv2:1521:sid1</param-value>
+  </context-param>
+  <context-param>
+    <param-name>User</param-name>
+    <param-value>jvapp1</param-value>
+  </context-param>
+  <context-param>
+    <param-name>Password</param-name>
+    <param-value>redsky</param-value>
+  </context-param>
+  <context-param>
+    <param-name>Smtphost</param-name>
+    <param-value>smtp.hotpop.com</param-value>
+  </context-param>
+  <context-param>
+    <param-name>Messagefrom</param-name>
+    <param-value>jv999@hotpop.com</param-value>
+  </context-param>
+  <context-param>
+    <param-name>Fromuser</param-name>
+    <param-value>jv999</param-value>
+  </context-param>
+  <context-param>
+    <param-name>Frompwd</param-name>
+    <param-value>msie9game</param-value>
+  </context-param>
+
+  <servlet>
+    <display-name>JVServlet</display-name>
+    <servlet-name>JVServlet</servlet-name>
+    <servlet-class>jvapp.JVServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JVServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+ 
+<!-- The Usual Welcome File List -->
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<jsp-config>
+		<taglib>
+			<taglib-uri>/tags/c.tld</taglib-uri>
+			<taglib-location>/WEB-INF/tags/c.tld</taglib-location>
+		</taglib>
+    	<taglib>
+	        <taglib-uri>/tags/fmt.tld</taglib-uri>
+   		     <taglib-location>/WEB-INF/tags/fmt.tld</taglib-location>
+   		 </taglib>
+    	<taglib>
+	        <taglib-uri>/tags/fn.tld</taglib-uri>
+   		     <taglib-location>/WEB-INF/tags/fn.tld</taglib-location>
+   		 </taglib>
+   		 <taglib>
+   		     <taglib-uri>/tags/sql.tld</taglib-uri>
+   		     <taglib-location>/WEB-INF/tags/sql.tld</taglib-location>
+   		 </taglib>
+   		 <taglib>
+   		     <taglib-uri>/tags/x.tld</taglib-uri>
+   		     <taglib-location>/WEB-INF/tags/x.tld</taglib-location>
+   		 </taglib>
+	</jsp-config>
+
+</web-app>
+

@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- DW6 -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Database Systems Home Page</title>
+<link rel="stylesheet" href="css/2col_leftNav.css" type="text/css">
+<style type="text/css">
+<!--
+.style1 {color: #006699}
+-->
+</style>
+</head>
+<!-- The structure of this file is exactly the same as 2col_rightNav.html;
+     the only difference between the two is the stylesheet they use -->
+<body> 
+<div id="masthead"> 
+  <h1 class="style1" id="siteName">Database Systems Home </h1>
+  <div id="globalNav"> 
+  <a href="index.html">Home </a> | <a href="Courses.html">Courses</a>| <a href="Assignments.html">Assignments</a>| <a href="CurrentProjects.html">Projects</a></div> 
+</div> 
+<div id="content"> 
+  <div id="breadCrumb"> 
+  </div> 
+  <h2 id="pageName">Home</h2> 
+  <div class="feature"> 
+<img src="images/saturn.jpg" width="550" height="428">
+<h3>&nbsp;</h3> 
+    <p>&nbsp; 
+    </p> 
+  </div>
+	<div class="story"> 
+	<h2>&nbsp;</h2> 
+	<h2><strong><a name="FP" id="FP"></a>Final project </strong></h2>
+	<h4>&nbsp;</h4>
+	<h2>Design, Model and Build a Database for the Capstone Project. </h2>
+	<p>My goals for the project were to build a Capstone Project Database that would enable the development phase to begin. I also intended to learn how to use Rational Rose Data Modeler. </p>
+	<p>The Project refers to an application that will run various functions for a manufacturing or distribution business. I chose such a large scope because the important issues for me are to work the technologies, not the application per se. </p>
+	<p>The MSIE program for me is about learning the skills and gaining some experience working with the latest technologies, in particular J2EE and Web Services. I need to understand what works, what doesn't work, what works well and what works poorly. I need to learn how to design solutions based on these technologies. I hope to create a set of best practices that will be the foundations of my work for many years into the future.</p>
+	<p>The database model I have created consists of some 46 tables, which is certain to increase as development gets underway. While the traditional method of designing by drawing on very large pieces of paper were useful, it was  also found to be wanting. Frequent changes to the data objects and their relationships caused far too much rework. The thinking process was very much impeded by the time-consuming process of redrawing what I had just envisioned. Even when drawn, the relationships of the objects were not clear.</p>
+	<p>I created objects with a SQL script using vi. This works well as it is possible to create objects very quickly. The scripts can be executed very quickly, errors determined and fixes made. However, the script in no way suggests anything about the objects, and says not a thing about their relationships. While this limitation may be acceptable for a relatively small number of objects, I found, with this project, these problems to be extremely problematic.</p>
+	<p>I tried to create data objects in Rational Rose Data Modeler. These objects are created graphically which is modern, but actually quiet slow. I could draw the data object relationships graphically, but it was not entirely obvious as to the object attributes being referenced. </p>
+	<p>I found the best practice was to create the objects in a SQL script, run the scripts to ensure that Oracle at least creates the objects without errors, and then to reverse engineer the script into Rational Rose Data Modeler. I then created Class Diagrams, dragging tables onto the diagram so  the resulting diagram became of immense value in understanding the data. I made changes to the model, and then made changes to the scripts, running around the loop until the result was satisfactory. Although I could forward engineer the SQL script from the Rational Rose Data Modeler, I chose not to as the resulting SQL script was very poor in terms of readability. </p>
+	<p>Used in this manner, the tool is extremely powerful, easy to use and highly suggestive as to errors in the model. </p>
+	<p>Care must be taken with the choice of data types. I found that Oracle's facility to create your own data types is simply not supported in Rational Rose. Also, although Rational Rose allows you to select an Oracle 9x database, it actually is not supported (ref: rational Rose Technical Support). Oracle 8x is supported, but I found it was best to avoid any non-generic data structures.</p>
+	<p>The database model I have created will doubtless change but it is a good start.</p>
+	<h2>Download</h2>
+	<p><a href="ds/FinalProject/99.zip">This zip file contains the Rational Rose Data Model, Oracle SQL script and the Sqlplus Log. </a></p>
+	<h2>Other</h2>
+	<p>I did not create rows because I felt it not worth the effort at this point. Once development gets underway, the requirements will be much clearer, and then I will create some data.</p>
+	<p>I did not create any views because it is not obvious which views I will need.</p>
+	<p>I did not create delete triggers as the data model is not settled enough for it to be worth the effort. </p>
+	<p>Could create a Unix script to read a SQL script forward engineered from Rational Rose and write a much more readable SQL script.</p>
+	<p>Rational Rose uses comments from a reverse engineered script and applies them to the data objects. I need to learn how to make much more use of this feature.</p>
+	<p>&nbsp; </p>
+	<h4>&nbsp;</h4>
+	<h2>&nbsp;</h2>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	</div>   
+</div>
+<!--end content -->
+
+  
+<div id="navBar"> 
+  <div id="search"> 
+    <form action="#"> 
+      <label>search</label> 
+      <input name="searchFor" type="text" size="10"> 
+      <input name="goButton" type="submit" value="go"> 
+    </form> 
+  </div> 
+  <div id="sectionLinks"> 
+    <ul> 
+      <li><a href="http://bob.marlboro.edu/wiki04/Wiki.jsp?page=DatabaseSystemsI">Course Home Page </a></li> 
+      <li><a href="ds/DSNotes.html">Course Notes </a></li>
+    </ul> 
+  </div> 
+  <h3 class="relatedLinks">Homework </h3>
+  <div class="relatedLinks"><ul>
+    <li><a href="#FP">Final Project </a></li>
+      <li></li>
+      </ul> 
+  </div> 
+  </div> 
+<!--end navbar --> 
+<div id="siteInfo"> 
+</div> 
+<br> 
+</body>
+</html>
